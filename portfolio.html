@@ -574,7 +574,7 @@
       <div class="nav__sep"></div>
       <span class="nav__name">Guillaume <span>Remi</span> Couture</span>
     </div>
-    <span class="nav__counter" id="navCounter">Intro  ·  1 / 131</span>
+    <span class="nav__counter" id="navCounter">Intro  ·  1 / 132</span>
   </nav>
 
   <div class="progress" id="progress"></div>
@@ -702,7 +702,24 @@
       </div>
     </div>
 
-    <!-- ── SLIDE 7: Career Recap Video ── -->
+    <!-- ── SLIDE 7: Fantasy RPG Loading Screen (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">UX</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">Fantasy RPG Loading Screen</h2>
+        <p class="slide__desc">Loading screens don’t have to be dead time. This concept pulls players into the experience before the game starts — gameplay tips, tactical info, and world lore in one psychologically tuned moment. Striking imagery sets the tone; tactical cues reduce hesitation when play begins; lore snippets build connection and anticipation.</p>
+        <p class="slide__desc" style="margin-top:-6px;">By the time the map loads, the player isn’t just waiting — they’ve stepped into the story. Every second in your UI is a chance to engage, teach, and excite.</p>
+        <div class="slide__skills"><span class="slide__skill">Loading Screen</span><span class="slide__skill">RPG</span><span class="slide__skill">Immersion</span><span class="slide__skill">UX Psychology</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video src="videos/loading.mp4" controls playsinline preload="metadata" title="Fantasy RPG loading screen concept"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 8: Career Recap Video ── -->
     <div class="slide">
       <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
       <div class="slide__overlay"></div>
@@ -1138,8 +1155,15 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
       </div>
     </div>
+    <!-- Slide 7: Loading Screen -->
+    <div class="thumb thumb--video" title="Fantasy RPG loading screen" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video src="videos/loading.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
     <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Career Video</span><div class="thumb-divider__line"></div></div>
-    <!-- Slide 7: Video -->
+    <!-- Slide 8: Video -->
     <div class="thumb thumb--video" title="Career Recap Video 2006–2017" style="position:relative;">
       <img src="https://img.youtube.com/vi/HluAtURCDN4/mqdefault.jpg" alt="Career Recap" style="width:100%;height:100%;object-fit:cover;display:block;">
       <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);">
@@ -1285,7 +1309,7 @@
 
   <script>
   (function () {
-    var total   = 131;
+    var total   = 132;
     var current = 0;
     var slides  = Array.from(document.querySelectorAll('.slide'));
     var thumbs  = Array.from(document.querySelectorAll('.thumb'));
@@ -1383,13 +1407,13 @@
     // ── STEP 5: Section labels ────────────────────────────────────────────────
     var sections = [
       [0,   0,   'Intro'],
-      [1,   6,   'Latest'],
-      [7,   7,   'Career Video'],
-      [8,   23,  'Featured Work'],
-      [24,  127, 'Career Archive · 2006–2017'],
-      [128, 128, 'Consulting Today'],
-      [129, 129, 'Full Showcase'],
-      [130, 130, 'Contact']
+      [1,   7,   'Latest'],
+      [8,   8,   'Career Video'],
+      [9,   24,  'Featured Work'],
+      [25,  128, 'Career Archive · 2006–2017'],
+      [129, 129, 'Consulting Today'],
+      [130, 130, 'Full Showcase'],
+      [131, 131, 'Contact']
     ];
 
     function getSection(idx) {
