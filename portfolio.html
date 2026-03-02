@@ -376,6 +376,21 @@
       text-shadow: 0 1px 6px rgba(0,0,0,0.7);
     }
 
+    /* Loading shimmer for unloaded slide backgrounds */
+    @keyframes bgShimmer {
+      0%, 100% { background-color: #0a0c14; }
+      50%       { background-color: #111422; }
+    }
+
+    .slide__bg {
+      animation: bgShimmer 2s ease-in-out infinite;
+    }
+
+    /* Stop shimmer once image is loaded (background-image set via JS) */
+    .slide__bg[style*="url("] {
+      animation: none;
+    }
+
     /* Thumb strip dividers */
     .thumb-divider {
       flex-shrink: 0;
@@ -1119,90 +1134,170 @@
   </div>
 
   <script>
-    // Auto-inject sharp foreground images from each slide's blurred background
-    (function () {
-      document.querySelectorAll('.slide').forEach(function (slide) {
-        // Skip slides with their own media or centered layout
-        if (slide.querySelector('.slide__video-wrap') || slide.querySelector('.slide__slides-wrap')) return;
-        if (slide.classList.contains('slide--cta') || slide.classList.contains('slide--intro')) return;
-        var bg = slide.querySelector('.slide__bg');
-        if (!bg) return;
-        var style = bg.getAttribute('style') || '';
-        var match = style.match(/url\(['"]?([^'")\s]+)['"]?\)/);
-        if (!match) return;
-        var img = document.createElement('img');
-        img.className = 'slide__img';
-        img.src = match[1];
-        img.alt = '';
-        img.loading = 'lazy';
-        slide.appendChild(img);
+  (function () {
+    var total   = 125;
+    var current = 0;
+    var slides  = Array.from(document.querySelectorAll('.slide'));
+    var thumbs  = Array.from(document.querySelectorAll('.thumb'));
+    var counter = document.getElementById('navCounter');
+    var prog    = document.getElementById('progress');
+    var strip   = document.getElementById('thumbstrip');
+
+    // ── STEP 1: Move all slide bg URLs to data-src (defer loading) ──────────
+    slides.forEach(function (slide) {
+      var bg = slide.querySelector('.slide__bg');
+      if (!bg) return;
+      var styleAttr = bg.getAttribute('style') || '';
+      var match = styleAttr.match(/url\(['"]?([^'")\s]+)['"]?\)/);
+      if (match) {
+        bg.dataset.src = match[1];
+        bg.style.backgroundImage = 'none';
+      }
+    });
+
+    // ── STEP 2: Inject foreground <img> with data-src (not src) ─────────────
+    slides.forEach(function (slide) {
+      if (slide.querySelector('.slide__video-wrap') || slide.querySelector('.slide__slides-wrap')) return;
+      if (slide.classList.contains('slide--cta') || slide.classList.contains('slide--intro')) return;
+      var bg = slide.querySelector('.slide__bg');
+      if (!bg || !bg.dataset.src) return;
+      var img = document.createElement('img');
+      img.className = 'slide__img';
+      img.dataset.src = bg.dataset.src;
+      img.alt = '';
+      slide.appendChild(img);
+    });
+
+    // ── STEP 3: Thumbnail lazy loading via IntersectionObserver ─────────────
+    var thumbImgs = Array.from(strip.querySelectorAll('img[src]'));
+    thumbImgs.forEach(function (img) {
+      // Only defer thumbs that are not the YouTube preview (those use external URLs)
+      if (img.src && img.src.indexOf('youtube.com') === -1) {
+        img.dataset.src = img.getAttribute('src');
+        img.removeAttribute('src');
+      }
+    });
+
+    if ('IntersectionObserver' in window) {
+      var thumbObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var img = entry.target;
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+              delete img.dataset.src;
+            }
+            thumbObserver.unobserve(img);
+          }
+        });
+      }, { root: strip, rootMargin: '0px 400px' });
+
+      strip.querySelectorAll('img[data-src]').forEach(function (img) {
+        thumbObserver.observe(img);
       });
-    })();
-  </script>
+    } else {
+      // Fallback: load all thumbs immediately if no IntersectionObserver
+      strip.querySelectorAll('img[data-src]').forEach(function (img) {
+        img.src = img.dataset.src;
+      });
+    }
 
-  <script>
-    (function () {
-      var total   = 125;
-      var current = 0;
-      var slides  = Array.from(document.querySelectorAll('.slide'));
-      var thumbs  = Array.from(document.querySelectorAll('.thumb'));
-      var counter = document.getElementById('navCounter');
-      var prog    = document.getElementById('progress');
-      var strip   = document.getElementById('thumbstrip');
+    // ── STEP 4: Load a single slide's images on demand ───────────────────────
+    var loaded = {};
 
-      // Section labels for counter — [startIndex, endIndex, label]
-      var sections = [
-        [0,  0,   'Intro'],
-        [1,  1,   'Career Video'],
-        [2,  17,  'Featured Work'],
-        [18, 121, 'Career Archive · 2006–2017'],
-        [122, 122, 'Consulting Today'],
-        [123, 123, 'Full Showcase'],
-        [124, 124, 'Contact']
-      ];
+    function loadSlide(idx) {
+      if (idx < 0 || idx >= total || loaded[idx]) return;
+      loaded[idx] = true;
 
-      function getSection(idx) {
-        for (var i = 0; i < sections.length; i++) {
-          if (idx >= sections[i][0] && idx <= sections[i][1]) return sections[i][2];
-        }
-        return '';
+      var slide = slides[idx];
+      if (!slide) return;
+
+      // Load blurred background
+      var bg = slide.querySelector('.slide__bg');
+      if (bg && bg.dataset.src) {
+        var url = bg.dataset.src;
+        var tmp = new Image();
+        tmp.onload = function () {
+          bg.style.backgroundImage = "url('" + url + "')";
+        };
+        tmp.src = url;
       }
 
-      function goTo(idx) {
-        slides[current].classList.remove('slide--active');
-        thumbs[current].classList.remove('thumb--active');
-        current = (idx + total) % total;
-        slides[current].classList.add('slide--active');
-        thumbs[current].classList.add('thumb--active');
-        var label = getSection(current);
-        counter.textContent = label ? label + '  ·  ' + (current + 1) + ' / ' + total : (current + 1) + ' / ' + total;
-        prog.style.width = ((current + 1) / total * 100) + '%';
-        var t = thumbs[current];
-        strip.scrollTo({ left: t.offsetLeft - strip.offsetWidth / 2 + t.offsetWidth / 2, behavior: 'smooth' });
+      // Load sharp foreground image
+      var fgImg = slide.querySelector('.slide__img');
+      if (fgImg && fgImg.dataset.src) {
+        fgImg.src = fgImg.dataset.src;
       }
+    }
 
-      goTo(0);
+    // ── STEP 5: Section labels ────────────────────────────────────────────────
+    var sections = [
+      [0,   0,   'Intro'],
+      [1,   1,   'Career Video'],
+      [2,   17,  'Featured Work'],
+      [18,  121, 'Career Archive · 2006–2017'],
+      [122, 122, 'Consulting Today'],
+      [123, 123, 'Full Showcase'],
+      [124, 124, 'Contact']
+    ];
 
-      document.getElementById('navPrev').addEventListener('click', function () { goTo(current - 1); });
-      document.getElementById('navNext').addEventListener('click', function () { goTo(current + 1); });
+    function getSection(idx) {
+      for (var i = 0; i < sections.length; i++) {
+        if (idx >= sections[i][0] && idx <= sections[i][1]) return sections[i][2];
+      }
+      return '';
+    }
 
-      // Use DOM position (i) — no dependency on data-index attribute
-      thumbs.forEach(function (t, i) {
-        t.addEventListener('click', function () { goTo(i); });
-      });
+    // ── STEP 6: Navigation ────────────────────────────────────────────────────
+    function goTo(idx) {
+      slides[current].classList.remove('slide--active');
+      thumbs[current].classList.remove('thumb--active');
+      current = (idx + total) % total;
 
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
-        if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
-      });
+      // Load current slide + 2 ahead + 1 behind
+      loadSlide(current);
+      loadSlide((current + 1) % total);
+      loadSlide((current + 2) % total);
+      loadSlide((current - 1 + total) % total);
 
-      var touchX = 0;
-      document.addEventListener('touchstart', function (e) { touchX = e.changedTouches[0].clientX; }, { passive: true });
-      document.addEventListener('touchend', function (e) {
-        var dx = e.changedTouches[0].clientX - touchX;
-        if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1);
-      }, { passive: true });
-    })();
+      slides[current].classList.add('slide--active');
+      thumbs[current].classList.add('thumb--active');
+
+      var label = getSection(current);
+      counter.textContent = label
+        ? label + '  ·  ' + (current + 1) + ' / ' + total
+        : (current + 1) + ' / ' + total;
+      prog.style.width = ((current + 1) / total * 100) + '%';
+
+      var t = thumbs[current];
+      strip.scrollTo({ left: t.offsetLeft - strip.offsetWidth / 2 + t.offsetWidth / 2, behavior: 'smooth' });
+    }
+
+    // Initial load: first 3 slides immediately
+    loadSlide(0);
+    loadSlide(1);
+    loadSlide(2);
+    goTo(0);
+
+    document.getElementById('navPrev').addEventListener('click', function () { goTo(current - 1); });
+    document.getElementById('navNext').addEventListener('click', function () { goTo(current + 1); });
+
+    thumbs.forEach(function (t, i) {
+      t.addEventListener('click', function () { goTo(i); });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
+    });
+
+    var touchX = 0;
+    document.addEventListener('touchstart', function (e) { touchX = e.changedTouches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+    }, { passive: true });
+  })();
   </script>
 
 </body>
