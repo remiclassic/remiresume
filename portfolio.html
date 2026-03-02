@@ -574,7 +574,7 @@
       <div class="nav__sep"></div>
       <span class="nav__name">Guillaume <span>Remi</span> Couture</span>
     </div>
-    <span class="nav__counter" id="navCounter">Intro  ·  1 / 132</span>
+    <span class="nav__counter" id="navCounter">Intro  ·  1 / 133</span>
   </nav>
 
   <div class="progress" id="progress"></div>
@@ -719,7 +719,24 @@
       </div>
     </div>
 
-    <!-- ── SLIDE 8: Career Recap Video ── -->
+    <!-- ── SLIDE 8: HALO-Inspired Faction Selection (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">Game UI</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">HALO-Inspired Faction Selection</h2>
+        <p class="slide__desc">A faction selection interface for a sci-fi strategy or military sim. Players choose from 20 military factions (UNSC Marines, Covenant Elites, Forerunner Sentinels, etc.) via an infinite horizontal carousel with wraparound. Each faction shows roles, combat abilities, and tactical advantages; cinematic typing animations give a military-database feel.</p>
+        <p class="slide__desc" style="margin-top:-6px;">Blue/cyan holographic styling, animated space background, semi-transparent panels, 25 specialization types with custom icons. No scrolling — compact, interactive, with hover glow and modal lore. Functional selection and immersive world-building in one.</p>
+        <div class="slide__skills"><span class="slide__skill">Faction UI</span><span class="slide__skill">Sci-Fi</span><span class="slide__skill">Strategy</span><span class="slide__skill">HUD</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video src="videos/factionselection.mp4" controls playsinline preload="metadata" title="HALO-inspired faction selection concept"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 9: Career Recap Video ── -->
     <div class="slide">
       <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
       <div class="slide__overlay"></div>
@@ -1162,8 +1179,15 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
       </div>
     </div>
+    <!-- Slide 8: Faction Selection -->
+    <div class="thumb thumb--video" title="HALO-inspired faction selection" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video src="videos/factionselection.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
     <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Career Video</span><div class="thumb-divider__line"></div></div>
-    <!-- Slide 8: Video -->
+    <!-- Slide 9: Video -->
     <div class="thumb thumb--video" title="Career Recap Video 2006–2017" style="position:relative;">
       <img src="https://img.youtube.com/vi/HluAtURCDN4/mqdefault.jpg" alt="Career Recap" style="width:100%;height:100%;object-fit:cover;display:block;">
       <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);">
@@ -1309,7 +1333,7 @@
 
   <script>
   (function () {
-    var total   = 132;
+    var total   = 133;
     var current = 0;
     var slides  = Array.from(document.querySelectorAll('.slide'));
     var thumbs  = Array.from(document.querySelectorAll('.thumb'));
@@ -1407,13 +1431,13 @@
     // ── STEP 5: Section labels ────────────────────────────────────────────────
     var sections = [
       [0,   0,   'Intro'],
-      [1,   7,   'Latest'],
-      [8,   8,   'Career Video'],
-      [9,   24,  'Featured Work'],
-      [25,  128, 'Career Archive · 2006–2017'],
-      [129, 129, 'Consulting Today'],
-      [130, 130, 'Full Showcase'],
-      [131, 131, 'Contact']
+      [1,   8,   'Latest'],
+      [9,   9,   'Career Video'],
+      [10,  25,  'Featured Work'],
+      [26,  129, 'Career Archive · 2006–2017'],
+      [130, 130, 'Consulting Today'],
+      [131, 131, 'Full Showcase'],
+      [132, 132, 'Contact']
     ];
 
     function getSection(idx) {
