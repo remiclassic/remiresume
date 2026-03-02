@@ -574,7 +574,7 @@
       <div class="nav__sep"></div>
       <span class="nav__name">Guillaume <span>Remi</span> Couture</span>
     </div>
-    <span class="nav__counter" id="navCounter">Intro  ·  1 / 128</span>
+    <span class="nav__counter" id="navCounter">Intro  ·  1 / 129</span>
   </nav>
 
   <div class="progress" id="progress"></div>
@@ -651,7 +651,24 @@
       </div>
     </div>
 
-    <!-- ── SLIDE 4: Career Recap Video ── -->
+    <!-- ── SLIDE 4: Starship Diagnostic (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">Game UI</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">Starship Diagnostic &amp; Repair Console</h2>
+        <p class="slide__desc">A game interface concept that blends futuristic HUD design with functional systems. Subsystem grid (shields, engines, weapons, life support) with real-time status and one-click drill-down; immersive repair popups for resource planning and execution; damage analysis logs scrolling like a real ship’s console.</p>
+        <p class="slide__desc" style="margin-top:-6px;">Sharp edges, bold colors, holographic effects, and 3D layering make it feel like working inside a starship’s command center. The goal: UI that feels part of the world, not a menu overlay — functional, interactive, and narratively consistent.</p>
+        <div class="slide__skills"><span class="slide__skill">Diagnostic UI</span><span class="slide__skill">Sci-Fi HUD</span><span class="slide__skill">Repair Systems</span><span class="slide__skill">Immersion</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video src="videos/diagnostic.mp4" controls playsinline preload="metadata" title="Starship diagnostic console concept"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 5: Career Recap Video ── -->
     <div class="slide">
       <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
       <div class="slide__overlay"></div>
@@ -1066,8 +1083,15 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
       </div>
     </div>
+    <!-- Slide 4: Starship Diagnostic -->
+    <div class="thumb thumb--video" title="Starship diagnostic console" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video src="videos/diagnostic.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
     <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Career Video</span><div class="thumb-divider__line"></div></div>
-    <!-- Slide 4: Video -->
+    <!-- Slide 5: Video -->
     <div class="thumb thumb--video" title="Career Recap Video 2006–2017" style="position:relative;">
       <img src="https://img.youtube.com/vi/HluAtURCDN4/mqdefault.jpg" alt="Career Recap" style="width:100%;height:100%;object-fit:cover;display:block;">
       <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);">
@@ -1213,7 +1237,7 @@
 
   <script>
   (function () {
-    var total   = 128;
+    var total   = 129;
     var current = 0;
     var slides  = Array.from(document.querySelectorAll('.slide'));
     var thumbs  = Array.from(document.querySelectorAll('.thumb'));
@@ -1311,13 +1335,13 @@
     // ── STEP 5: Section labels ────────────────────────────────────────────────
     var sections = [
       [0,   0,   'Intro'],
-      [1,   3,   'Latest'],
-      [4,   4,   'Career Video'],
-      [5,   20,  'Featured Work'],
-      [21,  124, 'Career Archive · 2006–2017'],
-      [125, 125, 'Consulting Today'],
-      [126, 126, 'Full Showcase'],
-      [127, 127, 'Contact']
+      [1,   4,   'Latest'],
+      [5,   5,   'Career Video'],
+      [6,   21,  'Featured Work'],
+      [22,  125, 'Career Archive · 2006–2017'],
+      [126, 126, 'Consulting Today'],
+      [127, 127, 'Full Showcase'],
+      [128, 128, 'Contact']
     ];
 
     function getSection(idx) {
