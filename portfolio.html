@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — Guillaume Remi Couture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --color-bg: #eef0f4;
+      --color-surface: #ffffff;
+      --color-text: #1a1a2e;
+      --color-text-secondary: #444457;
+      --color-accent: #1a56db;
+      --color-accent-light: #eef3fd;
+      --color-border: #dde1e9;
+      --color-muted: #6e7491;
+      --color-header-bg: #1a1a2e;
+      --font: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    html { font-size: 15px; -webkit-font-smoothing: antialiased; }
+
+    body {
+      font-family: var(--font);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--color-header-bg);
+      padding: 28px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .header__left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #c5cee0;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.18s;
+      letter-spacing: 0.01em;
+    }
+
+    .header__back:hover { color: #fff; }
+
+    .header__back svg { width: 15px; height: 15px; }
+
+    .header__divider-v {
+      width: 1px;
+      height: 20px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    .header__name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    .header__name span { color: var(--color-accent); }
+
+    .header__label {
+      font-size: 0.78rem;
+      color: #a8b4cc;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      padding: 64px 52px 56px;
+      text-align: center;
+    }
+
+    .hero__eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 12px;
+    }
+
+    .hero__title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .hero__sub {
+      font-size: 1rem;
+      color: #9aaabb;
+      max-width: 56ch;
+      margin: 0 auto;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ── Filter bar ── */
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 32px 52px 0;
+    }
+
+    .filter-btn {
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text-secondary);
+      font-family: var(--font);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+      letter-spacing: 0.01em;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: #fff;
+    }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 36px 52px 64px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--color-surface);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.11);
+    }
+
+    .card--featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .card__media {
+      position: relative;
+      background: #0f1629;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+    }
+
+    .card--featured .card__media {
+      aspect-ratio: unset;
+      min-height: 320px;
+    }
+
+    .card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .card:hover .card__media img { transform: scale(1.03); }
+
+    .card__media-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.25);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .card__media-placeholder svg { width: 36px; height: 36px; opacity: 0.3; }
+
+    .card__tag-overlay {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    .tag--game { background: #7c3aed; color: #fff; }
+    .tag--ux { background: var(--color-accent); color: #fff; }
+    .tag--mobile { background: #059669; color: #fff; }
+    .tag--defense { background: #b45309; color: #fff; }
+    .tag--product { background: #0891b2; color: #fff; }
+
+    .card__body {
+      padding: 22px 24px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card--featured .card__body { padding: 36px 36px 36px; justify-content: center; }
+
+    .card__company {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 6px;
+    }
+
+    .card__title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .card--featured .card__title { font-size: 1.55rem; }
+
+    .card__desc {
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 16px;
+    }
+
+    .card__skill {
+      font-size: 0.72rem;
+      color: var(--color-muted);
+      background: #f3f4f6;
+      border: 1px solid var(--color-border);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+
+    .card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: gap 0.18s;
+    }
+
+    .card__link:hover { gap: 9px; }
+    .card__link svg { width: 13px; height: 13px; }
+
+    /* ── Placeholder card (add more) ── */
+    .card--placeholder {
+      border: 2px dashed var(--color-border);
+      background: transparent;
+      box-shadow: none;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      cursor: default;
+    }
+
+    .card--placeholder:hover { transform: none; box-shadow: none; }
+
+    .card--placeholder .card__placeholder-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--color-border);
+      padding: 32px;
+      text-align: center;
+    }
+
+    .card--placeholder svg { width: 32px; height: 32px; }
+
+    .card--placeholder p {
+      font-size: 0.8rem;
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+
+    /* ── Back to top ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(26,86,219,0.4);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.22s, transform 0.22s, background 0.18s;
+      z-index: 100;
+    }
+
+    .back-to-top--visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .back-to-top:hover { background: #1447c0; }
+    .back-to-top svg { width: 18px; height: 18px; }
+
+    /* ── Responsive ── */
+    @media screen and (max-width: 768px) {
+      .header { padding: 20px; }
+      .hero { padding: 44px 20px 40px; }
+      .hero__title { font-size: 2rem; }
+      .filters { padding: 24px 20px 0; }
+      .grid { grid-template-columns: 1fr; padding: 24px 20px 48px; gap: 20px; }
+      .card--featured { grid-column: auto; grid-template-columns: 1fr; }
+      .card--featured .card__media { min-height: 200px; }
+      .card--featured .card__body { padding: 22px 24px 24px; }
+      .card--featured .card__title { font-size: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header__left">
+      <a href="index.html" class="header__back">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+        Back to Resume
+      </a>
+      <div class="header__divider-v"></div>
+      <div>
+        <div class="header__name">Guillaume <span>Remi</span> Couture</div>
+      </div>
+    </div>
+    <div class="header__label">Selected Work</div>
+  </header>
+
+  <section class="hero">
+    <p class="hero__eyebrow">Portfolio</p>
+    <h1 class="hero__title">Games, Mobile &amp; Product</h1>
+    <p class="hero__sub">20 years of UX/UI across AAA games, mobile hits, and digital products — from concept to shipped.</p>
+  </section>
+
+  <div class="filters">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Game UI/UX</button>
+    <button class="filter-btn">Mobile</button>
+    <button class="filter-btn">Product</button>
+    <button class="filter-btn">Defense</button>
+  </div>
+
+  <div class="grid">
+
+    <!-- MechWarrior 5 — Featured -->
+    <article class="card card--featured">
+      <div class="card__media">
+        <div class="card__media-placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
+          Add screenshot
+        </div>
+        <div class="card__tag-overlay">
+          <span class="tag tag--game">Game UI</span>
+          <span class="tag tag--ux">UX</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Piranha Games</div>
+        <h2 class="card__title">MechWarrior 5 — Early UI Mockups</h2>
+        <p class="card__desc">Early concept UI mockups for MechWarrior 5, built without spec docs. Designs were implemented directly in Unreal Engine, establishing a visual direction for the HUD and menus before the final team took the project forward.</p>
+        <div class="card__tags">
+          <span class="card__skill">Unreal Engine</span>
+          <span class="card__skill">Game UI</span>
+          <span class="card__skill">HUD Design</span>
+          <span class="card__skill">Concept Mockups</span>
+        </div>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6947348975440068609/" target="_blank" class="card__link">
+          View on LinkedIn
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Placeholder cards -->
+    <article class="card card--placeholder">
+      <div class="card__placeholder-inner">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+        <p>More projects coming soon.<br>Share your LinkedIn Featured links to add them.</p>
+      </div>
+    </article>
+
+    <article class="card card--placeholder">
+      <div class="card__placeholder-inner">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+        <p>More projects coming soon.<br>Share your LinkedIn Featured links to add them.</p>
+      </div>
+    </article>
+
+  </div>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"/></svg>
+  </button>
+
+  <script>
+    // Back to top
+    (function () {
+      var btn = document.getElementById('backToTop');
+      window.addEventListener('scroll', function () {
+        btn.classList.toggle('back-to-top--visible', window.scrollY > 300);
+      }, { passive: true });
+    })();
+
+    // Filter buttons (visual only for now — wire up when cards have data-category)
+    document.querySelectorAll('.filter-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
