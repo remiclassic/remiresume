@@ -574,7 +574,7 @@
       <div class="nav__sep"></div>
       <span class="nav__name">Guillaume <span>Remi</span> Couture</span>
     </div>
-    <span class="nav__counter" id="navCounter">Intro  ·  1 / 129</span>
+    <span class="nav__counter" id="navCounter">Intro  ·  1 / 130</span>
   </nav>
 
   <div class="progress" id="progress"></div>
@@ -668,7 +668,24 @@
       </div>
     </div>
 
-    <!-- ── SLIDE 5: Career Recap Video ── -->
+    <!-- ── SLIDE 5: Magical Arsenal / Potion Shop (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">UX</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">Magical Arsenal — Unified Inventory &amp; Shop</h2>
+        <p class="slide__desc">A proof-of-concept UI where players manage, explore, and purchase items in one place. No separate shop: browse, filter by school, and buy directly from the inventory. Reduces friction, encourages exploration, and supports conversions.</p>
+        <p class="slide__desc" style="margin-top:-6px;">Unified arsenal and shop; ownership and lock states for a clear progression loop; item showcase and lore for emotional value; immersive background so it feels part of the world. Good UI isn’t just looks — it’s systems that feel natural, rewarding, and worth investing in.</p>
+        <div class="slide__skills"><span class="slide__skill">Inventory UI</span><span class="slide__skill">Shop UX</span><span class="slide__skill">Progression</span><span class="slide__skill">Conversion</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video src="videos/potion.mp4" controls playsinline preload="metadata" title="Magical arsenal and shop concept"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 6: Career Recap Video ── -->
     <div class="slide">
       <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
       <div class="slide__overlay"></div>
@@ -1090,8 +1107,15 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
       </div>
     </div>
+    <!-- Slide 5: Magical Arsenal / Potion -->
+    <div class="thumb thumb--video" title="Magical arsenal and shop" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video src="videos/potion.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
     <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Career Video</span><div class="thumb-divider__line"></div></div>
-    <!-- Slide 5: Video -->
+    <!-- Slide 6: Video -->
     <div class="thumb thumb--video" title="Career Recap Video 2006–2017" style="position:relative;">
       <img src="https://img.youtube.com/vi/HluAtURCDN4/mqdefault.jpg" alt="Career Recap" style="width:100%;height:100%;object-fit:cover;display:block;">
       <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);">
@@ -1237,7 +1261,7 @@
 
   <script>
   (function () {
-    var total   = 129;
+    var total   = 130;
     var current = 0;
     var slides  = Array.from(document.querySelectorAll('.slide'));
     var thumbs  = Array.from(document.querySelectorAll('.thumb'));
@@ -1335,13 +1359,13 @@
     // ── STEP 5: Section labels ────────────────────────────────────────────────
     var sections = [
       [0,   0,   'Intro'],
-      [1,   4,   'Latest'],
-      [5,   5,   'Career Video'],
-      [6,   21,  'Featured Work'],
-      [22,  125, 'Career Archive · 2006–2017'],
-      [126, 126, 'Consulting Today'],
-      [127, 127, 'Full Showcase'],
-      [128, 128, 'Contact']
+      [1,   5,   'Latest'],
+      [6,   6,   'Career Video'],
+      [7,   22,  'Featured Work'],
+      [23,  126, 'Career Archive · 2006–2017'],
+      [127, 127, 'Consulting Today'],
+      [128, 128, 'Full Showcase'],
+      [129, 129, 'Contact']
     ];
 
     function getSection(idx) {
