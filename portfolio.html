@@ -404,6 +404,69 @@
       transform: rotate(180deg);
     }
 
+    /* Intro slide — full-screen centered hero */
+    .slide--intro .slide__overlay {
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.82) 100%);
+    }
+
+    .slide--intro .slide__panel {
+      width: 100%;
+      max-width: 780px;
+      left: 50%;
+      top: 0; bottom: 0;
+      transform: translateX(-50%) translateX(-20px);
+      text-align: center;
+      align-items: center;
+      padding: 0 40px;
+    }
+
+    .slide--intro.slide--active .slide__panel {
+      transform: translateX(-50%);
+    }
+
+    .slide--intro .slide__title {
+      font-size: 3rem;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 18px;
+    }
+
+    .slide--intro .slide__desc {
+      max-width: 52ch;
+      text-align: center;
+    }
+
+    .slide__stats {
+      display: flex;
+      gap: 32px;
+      margin: 20px 0;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .slide__stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .slide__stat-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .slide__stat-label {
+      font-size: 0.62rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
     /* CTA slide special styles */
     .slide--cta .slide__panel {
       width: 100%;
@@ -456,8 +519,17 @@
       .slide__panel { width: 360px; padding: 32px 36px; }
     }
 
+    @media (max-width: 860px) {
+      .slide--intro .slide__title { font-size: 2.2rem; }
+      .slide__stats { gap: 20px; }
+      .slide__stat-value { font-size: 1.3rem; }
+    }
+
     /* Mobile */
     @media (max-width: 680px) {
+      .slide--intro .slide__panel { padding: 0 20px; }
+      .slide--intro .slide__title { font-size: 1.7rem; }
+      .slide__stats { gap: 14px; }
       .slide__panel { width: 100%; padding: 24px 20px; justify-content: flex-end; padding-bottom: 20px; }
       .slide__overlay { background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 60%, transparent 100%); }
       .slide__title { font-size: 1.3rem; }
@@ -492,14 +564,19 @@
     <!-- ── SLIDE 0: Who I Am Today (Intro) ── -->
     <div class="slide slide--intro">
       <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
-      <div class="slide__overlay" style="background:linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.25) 100%)"></div>
+      <div class="slide__overlay"></div>
       <div class="slide__panel">
-        <div class="slide__tags"><span class="slide__tag slide__tag--accent">AI-Native</span><span class="slide__tag">20+ Years</span><span class="slide__tag">Shipped Work</span></div>
-        <div class="slide__company">Remi Couture · UX / UI / Game Design</div>
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">AI-Native</span><span class="slide__tag">20+ Years</span><span class="slide__tag">Games · Mobile · Defense</span></div>
+        <div class="slide__company">Guillaume Remi Couture · UX / UI / Game Design</div>
         <h2 class="slide__title">The Same Craft.<br>Amplified by AI.</h2>
-        <p class="slide__desc">I've spent 20+ years designing game UI, product experiences, and interactive systems — from concept to production. Flows, layouts, art direction, motion, and shipped work across AAA games, mobile, and defense contracts.</p>
-        <p class="slide__desc" style="margin-top:-8px;">Today I work the same way, just faster. I use AI-native tools — Cursor, Midjourney, v0, Runway ML — to compress weeks of iteration into days. The thinking is still mine. The velocity is just amplified.</p>
-        <div class="slide__skills"><span class="slide__skill">Cursor</span><span class="slide__skill">Midjourney</span><span class="slide__skill">v0 by Vercel</span><span class="slide__skill">Runway ML</span><span class="slide__skill">Figma</span><span class="slide__skill">Unreal Engine</span></div>
+        <p class="slide__desc">20+ years designing game UI, product experiences, and interactive systems — end to end. Today I work the same way, just faster. I use AI-native tools to compress weeks of iteration into days. The thinking is still mine. The velocity is amplified.</p>
+        <div class="slide__stats">
+          <div class="slide__stat"><span class="slide__stat-value">20+</span><span class="slide__stat-label">Years Experience</span></div>
+          <div class="slide__stat"><span class="slide__stat-value">50+</span><span class="slide__stat-label">Shipped Titles</span></div>
+          <div class="slide__stat"><span class="slide__stat-value">100M+</span><span class="slide__stat-label">Users Reached</span></div>
+          <div class="slide__stat"><span class="slide__stat-value">3</span><span class="slide__stat-label">Defense Clients</span></div>
+        </div>
+        <div class="slide__skills"><span class="slide__skill">Cursor</span><span class="slide__skill">Midjourney</span><span class="slide__skill">v0 by Vercel</span><span class="slide__skill">Runway ML</span><span class="slide__skill">Figma</span><span class="slide__skill">Unreal Engine 5</span><span class="slide__skill">Rive</span><span class="slide__skill">Framer</span></div>
       </div>
     </div>
 
