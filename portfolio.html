@@ -332,8 +332,13 @@
     .slide--active .slide__slides-wrap { opacity: 1; }
 
     .slide__video-wrap iframe,
+    .slide__video-wrap video,
     .slide__slides-wrap iframe {
       width: 100%; height: 100%; border: none; display: block;
+      object-fit: contain;
+    }
+    .slide__video-wrap video {
+      background: #000;
     }
 
     /* YouTube thumbnail preview (when embedding is disabled) */
@@ -569,7 +574,7 @@
       <div class="nav__sep"></div>
       <span class="nav__name">Guillaume <span>Remi</span> Couture</span>
     </div>
-    <span class="nav__counter" id="navCounter">Intro  ·  1 / 125</span>
+    <span class="nav__counter" id="navCounter">Intro  ·  1 / 126</span>
   </nav>
 
   <div class="progress" id="progress"></div>
@@ -595,8 +600,25 @@
       </div>
     </div>
 
-    <!-- ── SLIDE 1: Career Recap Video ── -->
-    <div class="slide" data-index="0">
+    <!-- ── SLIDE 1: Hip Hop Rap Battle — Latest (LinkedIn) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">Motion</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">Hip Hop Rap Battle — Main Menu Concept</h2>
+        <p class="slide__desc">A rapid concept (2–3 hours) for a Hip Hop Rap Battle game main menu. Pushed beyond a static screen: crowd moving, spotlights pulsing, fog drifting, rappers hyping each other, DJ scratching in the back. MULTIPLAYER locked as the highlighted option with flickering neon and subtle animation — AAA fighting-game feel.</p>
+        <p class="slide__desc" style="margin-top:-6px;">Where UI/UX and motion design collide: it’s not just functionality, it’s setting the tone the moment players load in.</p>
+        <div class="slide__skills"><span class="slide__skill">Motion Design</span><span class="slide__skill">Game UI</span><span class="slide__skill">Menu Design</span><span class="slide__skill">Rapid Concept</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video src="hiphopvid.mp4" controls playsinline preload="metadata" poster="" title="Hip Hop Rap Battle main menu concept"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 2: Career Recap Video ── -->
+    <div class="slide">
       <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
       <div class="slide__overlay"></div>
       <div class="slide__panel">
@@ -988,9 +1010,17 @@
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="rgba(255,255,255,0.5)" width="22"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
       <span style="font-size:0.45rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Intro</span>
     </div>
+    <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Latest</span><div class="thumb-divider__line"></div></div>
+    <!-- Slide 1: Hip Hop Rap Battle -->
+    <div class="thumb thumb--video" title="Hip Hop Rap Battle main menu" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video src="hiphopvid.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
     <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Career Video</span><div class="thumb-divider__line"></div></div>
-    <!-- Slide 1: Video -->
-    <div class="thumb thumb--video" data-index="1" title="Career Recap Video 2006–2017" style="position:relative;">
+    <!-- Slide 2: Video -->
+    <div class="thumb thumb--video" title="Career Recap Video 2006–2017" style="position:relative;">
       <img src="https://img.youtube.com/vi/HluAtURCDN4/mqdefault.jpg" alt="Career Recap" style="width:100%;height:100%;object-fit:cover;display:block;">
       <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);">
         <svg viewBox="0 0 68 48" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#FF0000"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
@@ -1135,7 +1165,7 @@
 
   <script>
   (function () {
-    var total   = 125;
+    var total   = 126;
     var current = 0;
     var slides  = Array.from(document.querySelectorAll('.slide'));
     var thumbs  = Array.from(document.querySelectorAll('.thumb'));
@@ -1233,12 +1263,13 @@
     // ── STEP 5: Section labels ────────────────────────────────────────────────
     var sections = [
       [0,   0,   'Intro'],
-      [1,   1,   'Career Video'],
-      [2,   17,  'Featured Work'],
-      [18,  121, 'Career Archive · 2006–2017'],
-      [122, 122, 'Consulting Today'],
-      [123, 123, 'Full Showcase'],
-      [124, 124, 'Contact']
+      [1,   1,   'Latest'],
+      [2,   2,   'Career Video'],
+      [3,   18,  'Featured Work'],
+      [19,  122, 'Career Archive · 2006–2017'],
+      [123, 123, 'Consulting Today'],
+      [124, 124, 'Full Showcase'],
+      [125, 125, 'Contact']
     ];
 
     function getSection(idx) {
