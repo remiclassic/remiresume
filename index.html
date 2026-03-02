@@ -415,7 +415,7 @@
     }
 
     @media screen and (max-width: 640px) {
-      .skills__grid { grid-template-columns: repeat(2, 1fr); }
+      .skills__grid { grid-template-columns: 1fr; gap: 14px; }
     }
 
     .skills__group {}
@@ -540,18 +540,49 @@
     @media screen and (max-width: 640px) {
       body { padding: 0; }
       .page { border-radius: 0; box-shadow: none; }
-      .header { padding: 28px 20px 24px; gap: 16px; }
-      .header__name { font-size: 1.9rem; }
-      .header__right { gap: 10px; }
-      .header__photo { width: 76px; height: 76px; }
-      .cover-banner { height: 140px; }
-      .cover-banner__overlay { padding: 0 20px; }
-      .cover-banner__label { font-size: 0.9rem; }
-      .content { padding: 0 24px 36px; }
+
+      /* Header: stack vertically, photo + name row at top */
+      .header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 28px 20px 24px;
+        gap: 0;
+      }
+      .header__right {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+      .header__photo { width: 72px; height: 72px; }
+      .header__name { font-size: 1.75rem; }
+      .header__title { font-size: 0.88rem; }
+      .header__contact { gap: 12px; }
+      .header__contact a { font-size: 0.82rem; }
+      .header__summary { font-size: 0.84rem; line-height: 1.65; }
+      .header__highlights { gap: 6px; margin-top: 12px; }
+      .header__highlights span { font-size: 0.72rem; padding: 3px 8px; }
+
+      /* Cover banner */
+      .cover-banner { height: 130px; }
+      .cover-banner__overlay { padding: 0 20px; gap: 12px; }
+      .cover-banner__label { font-size: 0.85rem; }
+      .cover-banner__btn { padding: 8px 14px; font-size: 0.76rem; }
+
+      /* Content */
+      .content { padding: 0 20px 36px; }
+      .section { padding-top: 28px; }
+
+      /* Jobs: single column, date inline */
       .job { grid-template-columns: 1fr; gap: 2px; }
-      .job__left { display: flex; gap: 10px; align-items: baseline; }
+      .job__left { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; margin-bottom: 6px; }
       .job__location { margin-top: 0; }
-      .edu__item { grid-template-columns: 1fr; }
+      .job__date { font-size: 0.78rem; }
+
+      /* Education */
+      .edu__item { grid-template-columns: 1fr; gap: 4px; }
+      .edu__left { display: flex; gap: 8px; align-items: baseline; }
     }
 
     /* ── Print ─────────────────────────────────────────── */
