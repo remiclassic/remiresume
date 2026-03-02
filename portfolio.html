@@ -476,6 +476,243 @@
       display: block;
     }
 
+    /* ── Image Carousel Strip ── */
+    .carousel-wrap {
+      position: relative;
+      margin: 40px 0 0;
+    }
+
+    .carousel-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      padding: 0 52px 16px;
+    }
+
+    .carousel {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 0 52px 20px;
+      cursor: grab;
+    }
+
+    .carousel:active { cursor: grabbing; }
+    .carousel::-webkit-scrollbar { display: none; }
+
+    .carousel__item {
+      flex-shrink: 0;
+      width: 280px;
+      height: 175px;
+      border-radius: 8px;
+      overflow: hidden;
+      scroll-snap-align: start;
+      position: relative;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .carousel__item:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .carousel__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .carousel__item:hover img { transform: scale(1.05); }
+
+    .carousel__caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 12px 10px;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #fff;
+      opacity: 0;
+      transition: opacity 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .carousel__item:hover .carousel__caption { opacity: 1; }
+
+    .carousel__zoom {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 28px;
+      height: 28px;
+      background: rgba(0,0,0,0.55);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .carousel__item:hover .carousel__zoom { opacity: 1; }
+    .carousel__zoom svg { width: 13px; height: 13px; color: #fff; }
+
+    .carousel-arrows {
+      display: flex;
+      gap: 8px;
+      padding: 0 52px;
+      margin-top: 4px;
+    }
+
+    .carousel-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s;
+    }
+
+    .carousel-arrow:hover {
+      border-color: rgba(255,255,255,0.25);
+      color: var(--color-text);
+      background: var(--color-surface-raised);
+    }
+
+    .carousel-arrow svg { width: 16px; height: 16px; }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.93);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s;
+    }
+
+    .lightbox--open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox__img-wrap {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox__img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+      display: block;
+      transition: opacity 0.18s;
+    }
+
+    .lightbox__close {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.18s;
+      z-index: 1001;
+    }
+
+    .lightbox__close:hover { background: rgba(255,255,255,0.2); }
+    .lightbox__close svg { width: 18px; height: 18px; }
+
+    .lightbox__nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.18s;
+      z-index: 1001;
+    }
+
+    .lightbox__nav:hover { background: rgba(255,255,255,0.2); }
+    .lightbox__nav--prev { left: 16px; }
+    .lightbox__nav--next { right: 16px; }
+    .lightbox__nav svg { width: 20px; height: 20px; }
+
+    .lightbox__counter {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.08em;
+    }
+
+    .lightbox__caption {
+      position: fixed;
+      bottom: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+
+    @media screen and (max-width: 680px) {
+      .carousel { padding: 0 20px 16px; }
+      .carousel-label { padding: 0 20px 14px; }
+      .carousel-arrows { padding: 0 20px; }
+      .carousel__item { width: 220px; height: 138px; }
+      .lightbox__nav--prev { left: 6px; }
+      .lightbox__nav--next { right: 6px; }
+    }
+
     /* ── Back to top ── */
     .back-to-top {
       position: fixed;
@@ -556,6 +793,119 @@
       </div>
     </div>
   </section>
+
+  <!-- Image Carousel Strip -->
+  <div class="carousel-wrap">
+    <p class="carousel-label">All Work — Click to Expand</p>
+    <div class="carousel" id="carousel">
+      <div class="carousel__item" data-src="portfolio-imgs/mw5-starmap.png" data-caption="MW5 Mercs — Star Map">
+        <img src="portfolio-imgs/mw5-starmap.png" alt="MW5 Star Map" loading="lazy" />
+        <div class="carousel__caption">MW5 Mercs — Star Map</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/mw5-mission.png" data-caption="MW5 Mercs — Mission Briefing">
+        <img src="portfolio-imgs/mw5-mission.png" alt="MW5 Mission Briefing" loading="lazy" />
+        <div class="carousel__caption">MW5 Mercs — Mission Briefing</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/mw5-pause.png" data-caption="MW5 Mercs — Pause Menu">
+        <img src="portfolio-imgs/mw5-pause.png" alt="MW5 Pause Menu" loading="lazy" />
+        <div class="carousel__caption">MW5 Mercs — Pause Menu</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/mw5-mechbay.png" data-caption="MW5 Mercs — Mech Bay Repair">
+        <img src="portfolio-imgs/mw5-mechbay.png" alt="MW5 Mech Bay" loading="lazy" />
+        <div class="carousel__caption">MW5 Mercs — Mech Bay Repair</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/dark-fantasy-inventory.png" data-caption="Dark Fantasy — Hero Inventory">
+        <img src="portfolio-imgs/dark-fantasy-inventory.png" alt="Dark Fantasy Inventory" loading="lazy" />
+        <div class="carousel__caption">Dark Fantasy — Hero Inventory</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/spellcrafting.png" data-caption="Spellcrafting — Time Magic System">
+        <img src="portfolio-imgs/spellcrafting.png" alt="Spellcrafting" loading="lazy" />
+        <div class="carousel__caption">Spellcrafting — Time Magic System</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/fantasy-cards.png" data-caption="Fantasy Card Collection UI">
+        <img src="portfolio-imgs/fantasy-cards.png" alt="Fantasy Cards" loading="lazy" />
+        <div class="carousel__caption">Fantasy Card Collection UI</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/fantasy-deckbuilder.png" data-caption="Fantasy CCG — Deck Builder">
+        <img src="portfolio-imgs/fantasy-deckbuilder.png" alt="Fantasy Deck Builder" loading="lazy" />
+        <div class="carousel__caption">Fantasy CCG — Deck Builder</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/nba-lakers-card.png" data-caption="NBA Player Card — Frima Studio">
+        <img src="portfolio-imgs/nba-lakers-card.png" alt="NBA Lakers Card" loading="lazy" />
+        <div class="carousel__caption">NBA Player Card — Frima Studio</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/weapon-skins.png" data-caption="Military Shooter — Weapon Skins">
+        <img src="portfolio-imgs/weapon-skins.png" alt="Weapon Skins" loading="lazy" />
+        <div class="carousel__caption">Military Shooter — Weapon Skins</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/agency-decks.png" data-caption="Agency — Deck Builder">
+        <img src="portfolio-imgs/agency-decks.png" alt="Agency Decks" loading="lazy" />
+        <div class="carousel__caption">Agency — Deck Builder</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/agency-board.png" data-caption="Agency — Game Board">
+        <img src="portfolio-imgs/agency-board.png" alt="Agency Board" loading="lazy" />
+        <div class="carousel__caption">Agency — Game Board</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/mobile-game-main.png" data-caption="Mobile Game — AppLovin">
+        <img src="portfolio-imgs/mobile-game-main.png" alt="Mobile Game" loading="lazy" />
+        <div class="carousel__caption">Mobile Game — AppLovin</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/king-misfit.png" data-caption="King Misfit — Title Card">
+        <img src="portfolio-imgs/king-misfit.png" alt="King Misfit" loading="lazy" />
+        <div class="carousel__caption">King Misfit — Title Card</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/agency-title.png" data-caption="Agency — Title Screen">
+        <img src="portfolio-imgs/agency-title.png" alt="Agency Title" loading="lazy" />
+        <div class="carousel__caption">Agency — Title Screen</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+      <div class="carousel__item" data-src="portfolio-imgs/stardust-flowchart.png" data-caption="Stardust Canvas — UX Flow">
+        <img src="portfolio-imgs/stardust-flowchart.png" alt="Stardust Canvas UX Flow" loading="lazy" />
+        <div class="carousel__caption">Stardust Canvas — UX Flow</div>
+        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
+      </div>
+    </div>
+    <div class="carousel-arrows">
+      <button class="carousel-arrow" id="carouselPrev" aria-label="Scroll left">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+      </button>
+      <button class="carousel-arrow" id="carouselNext" aria-label="Scroll right">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+    </button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+    </button>
+    <div class="lightbox__img-wrap">
+      <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+    </div>
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+    </button>
+    <div class="lightbox__caption" id="lightboxCaption"></div>
+    <div class="lightbox__counter" id="lightboxCounter"></div>
+  </div>
 
   <!-- Filters -->
   <div class="filters">
@@ -1026,16 +1376,14 @@
     })();
 
     // Filter
-    var btns = document.querySelectorAll('.filter-btn');
+    var filterBtns = document.querySelectorAll('.filter-btn');
     var cards = document.querySelectorAll('.card[data-category], .slides-embed');
 
-    btns.forEach(function (btn) {
+    filterBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        btns.forEach(function (b) { b.classList.remove('active'); });
+        filterBtns.forEach(function (b) { b.classList.remove('active'); });
         btn.classList.add('active');
-
         var filter = btn.dataset.filter;
-
         cards.forEach(function (card) {
           if (filter === 'all') {
             card.style.display = '';
@@ -1046,6 +1394,97 @@
         });
       });
     });
+
+    // Carousel
+    (function () {
+      var carousel = document.getElementById('carousel');
+      var prevBtn  = document.getElementById('carouselPrev');
+      var nextBtn  = document.getElementById('carouselNext');
+      var itemW    = 292; // item width + gap
+
+      prevBtn.addEventListener('click', function () {
+        carousel.scrollBy({ left: -(itemW * 3), behavior: 'smooth' });
+      });
+      nextBtn.addEventListener('click', function () {
+        carousel.scrollBy({ left: itemW * 3, behavior: 'smooth' });
+      });
+
+      // Drag to scroll
+      var isDown = false, startX, scrollLeft;
+      carousel.addEventListener('mousedown', function (e) {
+        isDown = true;
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+      });
+      carousel.addEventListener('mouseleave', function () { isDown = false; });
+      carousel.addEventListener('mouseup', function () { isDown = false; });
+      carousel.addEventListener('mousemove', function (e) {
+        if (!isDown) return;
+        e.preventDefault();
+        var x = e.pageX - carousel.offsetLeft;
+        carousel.scrollLeft = scrollLeft - (x - startX);
+      });
+    })();
+
+    // Lightbox
+    (function () {
+      var items    = Array.from(document.querySelectorAll('.carousel__item'));
+      var lightbox = document.getElementById('lightbox');
+      var lb_img   = document.getElementById('lightboxImg');
+      var lb_cap   = document.getElementById('lightboxCaption');
+      var lb_count = document.getElementById('lightboxCounter');
+      var current  = 0;
+
+      function open(idx) {
+        current = idx;
+        var item = items[current];
+        lb_img.style.opacity = '0';
+        lb_img.src = item.dataset.src;
+        lb_img.alt = item.dataset.caption;
+        lb_cap.textContent = item.dataset.caption;
+        lb_count.textContent = (current + 1) + ' / ' + items.length;
+        lightbox.classList.add('lightbox--open');
+        document.body.style.overflow = 'hidden';
+        lb_img.onload = function () { lb_img.style.opacity = '1'; };
+      }
+
+      function close() {
+        lightbox.classList.remove('lightbox--open');
+        document.body.style.overflow = '';
+      }
+
+      function prev() { open((current - 1 + items.length) % items.length); }
+      function next() { open((current + 1) % items.length); }
+
+      items.forEach(function (item, i) {
+        item.addEventListener('click', function () { open(i); });
+      });
+
+      document.getElementById('lightboxClose').addEventListener('click', close);
+      document.getElementById('lightboxPrev').addEventListener('click', prev);
+      document.getElementById('lightboxNext').addEventListener('click', next);
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) close();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('lightbox--open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') prev();
+        if (e.key === 'ArrowRight') next();
+      });
+
+      // Touch swipe on lightbox
+      var touchStartX = 0;
+      lightbox.addEventListener('touchstart', function (e) {
+        touchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+      lightbox.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) dx < 0 ? next() : prev();
+      }, { passive: true });
+    })();
   </script>
 
 </body>
