@@ -270,6 +270,17 @@
       border: none;
     }
 
+    .card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .card:hover .card__media img { transform: scale(1.03); }
+
     /* Thematic gradient placeholders */
     .card__media-bg {
       width: 100%;
@@ -585,9 +596,7 @@
     <!-- MechWarrior 5 -->
     <article class="card card--featured" data-category="game">
       <div class="card__media">
-        <div class="card__media-bg card__media-bg--mechwarrior">
-          <div class="card__media-label">MechWarrior 5<small>Early UI Mockups · Unreal Engine</small></div>
-        </div>
+        <img src="portfolio-imgs/mw5-starmap.png" alt="MechWarrior 5 Mercs — Star Map UI" />
         <div class="card__tag-overlay">
           <span class="tag tag--game">Game UI</span>
           <span class="tag tag--ux">UX</span>
@@ -595,10 +604,10 @@
       </div>
       <div class="card__body">
         <div class="card__company">Piranha Games</div>
-        <h2 class="card__title">MechWarrior 5 — Early UI Mockups</h2>
-        <p class="card__desc">Early concept UI mockups built without spec docs, implemented directly in Unreal Engine. Established visual direction for HUD and menus before the final team took the project forward. Victor Del Castillo &amp; Jason Doherty did an amazing job with the final UI.</p>
+        <h2 class="card__title">MechWarrior 5: Mercenaries — UI Design</h2>
+        <p class="card__desc">Full UI design for MechWarrior 5 Mercenaries — including the Star Map, Mission Briefing, and in-game menus — implemented directly in Unreal Engine. Designed the strategic navigation, contract negotiation, and loadout systems from concept to shipped product.</p>
         <div class="card__skills">
-          <span class="card__skill">Unreal Engine</span><span class="card__skill">HUD Design</span><span class="card__skill">Concept Mockups</span>
+          <span class="card__skill">Unreal Engine</span><span class="card__skill">Star Map</span><span class="card__skill">Mission UI</span><span class="card__skill">HUD</span>
         </div>
         <a href="https://www.linkedin.com/feed/update/urn:li:activity:6947348975440068609/" target="_blank" class="card__link">
           View on LinkedIn
@@ -609,8 +618,140 @@
 
   </div>
 
+  <!-- Shipped Work Grid -->
+  <p class="section-label">Shipped Work</p>
+  <div class="grid">
+
+    <!-- MW5 Mission Briefing -->
+    <article class="card" data-category="game">
+      <div class="card__media">
+        <img src="portfolio-imgs/mw5-mission.png" alt="MechWarrior 5 Mission Briefing" />
+        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span></div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Piranha Games</div>
+        <h2 class="card__title">MW5 Mercs — Mission Briefing</h2>
+        <p class="card__desc">Mission contract and tactical briefing screen. Players assign mechs, review objectives, negotiate contracts, and survey terrain before launching — all in one cohesive interface.</p>
+        <div class="card__skills"><span class="card__skill">Unreal Engine</span><span class="card__skill">Strategy UI</span><span class="card__skill">HUD</span></div>
+      </div>
+    </article>
+
+    <!-- MW5 Pause Menu -->
+    <article class="card" data-category="game">
+      <div class="card__media">
+        <img src="portfolio-imgs/mw5-pause.png" alt="MechWarrior 5 Mercenaries Pause Menu" />
+        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span></div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Piranha Games</div>
+        <h2 class="card__title">MW5 Mercenaries — Pause Menu</h2>
+        <p class="card__desc">In-world pause menu for MechWarrior 5 Mercenaries. Minimal interruption to immersion — the menu overlays on the mech bay environment, keeping the player inside the world.</p>
+        <div class="card__skills"><span class="card__skill">Unreal Engine</span><span class="card__skill">Menu Design</span><span class="card__skill">Shipped</span></div>
+      </div>
+    </article>
+
+    <!-- Dark Fantasy Inventory -->
+    <article class="card" data-category="game">
+      <div class="card__media">
+        <img src="portfolio-imgs/dark-fantasy-inventory.png" alt="Dark Fantasy Hero Inventory Screen" />
+        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span><span class="tag tag--ux">UX</span></div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Concept</div>
+        <h2 class="card__title">Dark Fantasy — Hero Inventory</h2>
+        <p class="card__desc">Full-body character equipment screen for a dark fantasy RPG. Weapons, tools, and consumables laid out around the hero character, with quick navigation tabs and a rich atmospheric background.</p>
+        <div class="card__skills"><span class="card__skill">Inventory UI</span><span class="card__skill">RPG</span><span class="card__skill">Character Screen</span></div>
+      </div>
+    </article>
+
+    <!-- Spellcrafting -->
+    <article class="card" data-category="game">
+      <div class="card__media">
+        <img src="portfolio-imgs/spellcrafting.png" alt="Spellcrafting UI — Time Magic" />
+        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span></div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Concept</div>
+        <h2 class="card__title">Spellcrafting — Time Magic System</h2>
+        <p class="card__desc">A multi-tab RPG spellcrafting interface allowing players to build spell combinations by level. Displays cooldown, mana and stamina costs with a tactile arcane design language.</p>
+        <div class="card__skills"><span class="card__skill">RPG UI</span><span class="card__skill">Spellcrafting</span><span class="card__skill">System Design</span></div>
+      </div>
+    </article>
+
+    <!-- Fantasy Card Game -->
+    <article class="card" data-category="game">
+      <div class="card__media">
+        <img src="portfolio-imgs/fantasy-cards.png" alt="Fantasy Card Game UI" />
+        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span><span class="tag tag--mobile">Mobile</span></div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Gogii Games</div>
+        <h2 class="card__title">Fantasy Card Collection UI</h2>
+        <p class="card__desc">Hero card selection and collection screen for a fantasy card game. Features large hero artwork, an elegant top navigation HUD, and a persistent left-side navigation rail for quick access.</p>
+        <div class="card__skills"><span class="card__skill">Card Game UI</span><span class="card__skill">Hero Selection</span><span class="card__skill">Mobile</span></div>
+      </div>
+    </article>
+
+    <!-- NBA Basketball Game -->
+    <article class="card" data-category="game mobile">
+      <div class="card__media">
+        <img src="portfolio-imgs/nba-lakers-card.png" alt="NBA Basketball Player Card UI" />
+        <div class="card__tag-overlay"><span class="tag tag--mobile">Mobile</span><span class="tag tag--game">Game UI</span></div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Frima Studio</div>
+        <h2 class="card__title">NBA Player Card — Mobile Game</h2>
+        <p class="card__desc">Player card detail screen for a licensed NBA mobile game. Stats, abilities, and upgrade CTAs displayed around a full-body 3D player render. Designed for quick comprehension and mobile thumb reach.</p>
+        <div class="card__skills"><span class="card__skill">Mobile UI</span><span class="card__skill">Licensed IP</span><span class="card__skill">Card Game</span><span class="card__skill">NBA</span></div>
+      </div>
+    </article>
+
+    <!-- Weapon Skins / Military -->
+    <article class="card" data-category="game">
+      <div class="card__media">
+        <img src="portfolio-imgs/weapon-skins.png" alt="Military Game Weapon Skins UI" />
+        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span><span class="tag tag--defense">Defense</span></div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Consulting</div>
+        <h2 class="card__title">Military Shooter — Weapon Skins &amp; Faction System</h2>
+        <p class="card__desc">Cosmetic and customization UI for a military tactical shooter — featuring weapon skin browsing, real-world faction flags (CAF, USA, Turkish Armed Forces, ADF, and more), and an equip/purchase flow.</p>
+        <div class="card__skills"><span class="card__skill">Cosmetics UI</span><span class="card__skill">Faction System</span><span class="card__skill">Military</span><span class="card__skill">Shooter</span></div>
+      </div>
+    </article>
+
+    <!-- Agency Game -->
+    <article class="card" data-category="game">
+      <div class="card__media">
+        <img src="portfolio-imgs/agency-decks.png" alt="Agency Card Game Deck Selection" />
+        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span></div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Hothead Games</div>
+        <h2 class="card__title">Agency — Deck Builder UI</h2>
+        <p class="card__desc">Deck management and selection screen for Agency, a global-espionage themed card game. Players create and manage up to 45 decks with an Earth globe motif reinforcing the spy-world narrative.</p>
+        <div class="card__skills"><span class="card__skill">Card Game UI</span><span class="card__skill">Deck Builder</span><span class="card__skill">Strategy</span></div>
+      </div>
+    </article>
+
+    <!-- Mobile Cat Game -->
+    <article class="card" data-category="mobile game">
+      <div class="card__media">
+        <img src="portfolio-imgs/mobile-game-main.png" alt="Mobile Game Main Screen" />
+        <div class="card__tag-overlay"><span class="tag tag--mobile">Mobile</span><span class="tag tag--game">Game UI</span></div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">AppLovin</div>
+        <h2 class="card__title">Mobile Game — Main Menu &amp; HUD</h2>
+        <p class="card__desc">Main screen UI for a mobile casual-action game. Bold play CTA, currency and progression bars, reward chests, and bottom navigation — all optimized for one-handed portrait play.</p>
+        <div class="card__skills"><span class="card__skill">Mobile UI</span><span class="card__skill">HUD</span><span class="card__skill">Casual Game</span><span class="card__skill">AppLovin</span></div>
+      </div>
+    </article>
+
+  </div>
+
   <!-- Project Grid -->
-  <p class="section-label">Concepts &amp; Projects</p>
+  <p class="section-label">Concepts &amp; Experiments</p>
   <div class="grid">
 
     <!-- Hip Hop Rap Battle -->
