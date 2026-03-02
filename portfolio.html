@@ -1669,7 +1669,14 @@
     }
 
     // ── STEP 6: Navigation ────────────────────────────────────────────────────
+    function pauseAllVideos() {
+      document.querySelectorAll('.slide__video-wrap video').forEach(function (v) {
+        v.pause();
+      });
+    }
+
     function goTo(idx) {
+      pauseAllVideos();
       slides[current].classList.remove('slide--active');
       thumbs[current].classList.remove('thumb--active');
       current = (idx + total) % total;
