@@ -11,19 +11,20 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --color-bg: #eef0f4;
-      --color-surface: #ffffff;
-      --color-text: #1a1a2e;
-      --color-text-secondary: #444457;
+      --color-bg: #0d0f1a;
+      --color-surface: #13162a;
+      --color-surface-raised: #1a1e35;
+      --color-text: #e8eaf6;
+      --color-text-secondary: #9aaabb;
       --color-accent: #1a56db;
-      --color-accent-light: #eef3fd;
-      --color-border: #dde1e9;
+      --color-accent-hover: #1447c0;
+      --color-border: rgba(255,255,255,0.08);
       --color-muted: #6e7491;
-      --color-header-bg: #1a1a2e;
+      --color-header-bg: #0a0c17;
       --font: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    html { font-size: 15px; -webkit-font-smoothing: antialiased; }
+    html { font-size: 15px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
 
     body {
       font-family: var(--font);
@@ -33,92 +34,133 @@
       min-height: 100vh;
     }
 
-    /* ── Header ── */
-    .header {
+    /* ── Nav ── */
+    .nav {
       background: var(--color-header-bg);
-      padding: 28px 52px;
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 52px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
     }
 
-    .header__left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
+    .nav__left { display: flex; align-items: center; gap: 20px; }
 
-    .header__back {
+    .nav__back {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      color: #c5cee0;
+      color: var(--color-text-secondary);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.83rem;
       font-weight: 500;
       transition: color 0.18s;
       letter-spacing: 0.01em;
     }
 
-    .header__back:hover { color: #fff; }
+    .nav__back:hover { color: var(--color-text); }
+    .nav__back svg { width: 14px; height: 14px; }
 
-    .header__back svg { width: 15px; height: 15px; }
+    .nav__sep { width: 1px; height: 18px; background: var(--color-border); }
 
-    .header__divider-v {
-      width: 1px;
-      height: 20px;
-      background: rgba(255,255,255,0.15);
-    }
-
-    .header__name {
-      font-size: 1.05rem;
+    .nav__name {
+      font-size: 0.95rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--color-text);
       letter-spacing: -0.01em;
     }
 
-    .header__name span { color: var(--color-accent); }
+    .nav__name span { color: var(--color-accent); }
 
-    .header__label {
-      font-size: 0.78rem;
-      color: #a8b4cc;
-      letter-spacing: 0.06em;
+    .nav__label {
+      font-size: 0.72rem;
+      color: var(--color-muted);
+      letter-spacing: 0.1em;
       text-transform: uppercase;
     }
 
     /* ── Hero ── */
     .hero {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
-      padding: 64px 52px 56px;
+      position: relative;
+      height: 380px;
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+      filter: brightness(0.45);
+    }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(13,15,26,0.3) 0%, rgba(13,15,26,0.85) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      padding: 0 40px;
     }
 
     .hero__eyebrow {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--color-accent);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .hero__title {
-      font-size: 2.8rem;
+      font-size: 3.2rem;
       font-weight: 700;
       color: #fff;
       letter-spacing: -0.02em;
-      line-height: 1.1;
+      line-height: 1.05;
       margin-bottom: 16px;
     }
 
     .hero__sub {
-      font-size: 1rem;
-      color: #9aaabb;
-      max-width: 56ch;
-      margin: 0 auto;
+      font-size: 1.02rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 52ch;
       font-weight: 300;
       line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .hero__stats {
+      display: flex;
+      gap: 32px;
+    }
+
+    .hero__stat {
+      text-align: center;
+    }
+
+    .hero__stat-num {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .hero__stat-label {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 4px;
     }
 
     /* ── Filter bar ── */
@@ -127,85 +169,100 @@
       gap: 8px;
       flex-wrap: wrap;
       justify-content: center;
-      padding: 32px 52px 0;
+      padding: 36px 52px 0;
     }
 
     .filter-btn {
-      padding: 6px 16px;
+      padding: 7px 18px;
       border-radius: 20px;
       border: 1px solid var(--color-border);
-      background: var(--color-surface);
+      background: transparent;
       color: var(--color-text-secondary);
       font-family: var(--font);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.18s;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
     }
 
-    .filter-btn:hover, .filter-btn.active {
+    .filter-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--color-text); }
+
+    .filter-btn.active {
       background: var(--color-accent);
       border-color: var(--color-accent);
       color: #fff;
     }
 
+    /* ── Section label ── */
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      padding: 40px 52px 20px;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    /* ── Featured row (video + highlighted project) ── */
+    .featured-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 52px;
+    }
+
     /* ── Grid ── */
     .grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
-      max-width: 1080px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 36px 52px 64px;
+      padding: 0 52px 80px;
     }
 
-    /* ── Card ── */
+    /* ── Card shared ── */
     .card {
       background: var(--color-surface);
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--color-border);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
       display: flex;
       flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+      cursor: default;
     }
 
     .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.11);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.45);
+      border-color: rgba(255,255,255,0.14);
     }
 
+    /* ── Featured card (full-width in featured-row) ── */
     .card--featured {
-      grid-column: 1 / -1;
       display: grid;
       grid-template-columns: 1fr 1fr;
     }
 
+    /* ── Media ── */
     .card__media {
       position: relative;
-      background: #0f1629;
       overflow: hidden;
       aspect-ratio: 16 / 9;
+      flex-shrink: 0;
     }
 
     .card--featured .card__media {
       aspect-ratio: unset;
-      min-height: 320px;
     }
 
-    .card__media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.3s;
-    }
-
-    .card:hover .card__media img { transform: scale(1.03); }
-
-    .card__media--video iframe {
+    .card__media iframe {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -213,60 +270,119 @@
       border: none;
     }
 
-    .card__media--video {
-      position: relative;
-    }
-
-    .card__media-placeholder {
+    /* Thematic gradient placeholders */
+    .card__media-bg {
       width: 100%;
       height: 100%;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      color: rgba(255,255,255,0.25);
-      font-size: 0.78rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
     }
 
-    .card__media-placeholder svg { width: 36px; height: 36px; opacity: 0.3; }
+    .card__media-bg--hiphop {
+      background: linear-gradient(135deg, #1a0533 0%, #3d0070 40%, #ff6b00 100%);
+    }
+    .card__media-bg--scifi {
+      background: linear-gradient(135deg, #001a2e 0%, #003d5b 50%, #00bcd4 100%);
+    }
+    .card__media-bg--victory {
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a4e 60%, #4040ff 100%);
+    }
+    .card__media-bg--starship {
+      background: linear-gradient(135deg, #001010 0%, #003333 50%, #00ffcc 100%);
+    }
+    .card__media-bg--magic {
+      background: linear-gradient(135deg, #120020 0%, #3d0066 50%, #9b59b6 100%);
+    }
+    .card__media-bg--rpgresume {
+      background: linear-gradient(135deg, #001a00 0%, #003300 60%, #00cc44 100%);
+    }
+    .card__media-bg--fantasy {
+      background: linear-gradient(135deg, #1a0a00 0%, #3d1500 50%, #c87941 100%);
+    }
+    .card__media-bg--faction {
+      background: linear-gradient(135deg, #000a1a 0%, #001a3d 50%, #0066cc 100%);
+    }
+    .card__media-bg--mechwarrior {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #cc4400 100%);
+    }
+    .card__media-bg--slides {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #1a56db 100%);
+    }
 
+    .card__media-label {
+      text-align: center;
+      color: rgba(255,255,255,0.9);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      padding: 16px;
+      line-height: 1.3;
+      z-index: 1;
+    }
+
+    .card__media-label small {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.65;
+      margin-top: 4px;
+    }
+
+    /* Noise overlay on gradients */
+    .card__media-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* Tag overlay on media */
     .card__tag-overlay {
       position: absolute;
-      top: 12px;
-      left: 12px;
+      top: 10px;
+      left: 10px;
       display: flex;
-      gap: 6px;
+      gap: 5px;
+      flex-wrap: wrap;
+      z-index: 2;
     }
 
     .tag {
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 0.07em;
       text-transform: uppercase;
-      padding: 3px 8px;
+      padding: 3px 7px;
       border-radius: 3px;
     }
 
-    .tag--game { background: #7c3aed; color: #fff; }
-    .tag--ux { background: var(--color-accent); color: #fff; }
-    .tag--mobile { background: #059669; color: #fff; }
-    .tag--defense { background: #b45309; color: #fff; }
-    .tag--product { background: #0891b2; color: #fff; }
+    .tag--game     { background: rgba(124,58,237,0.9); color: #fff; }
+    .tag--ux       { background: rgba(26,86,219,0.9);  color: #fff; }
+    .tag--mobile   { background: rgba(5,150,105,0.9);  color: #fff; }
+    .tag--concept  { background: rgba(220,38,38,0.9);  color: #fff; }
+    .tag--personal { background: rgba(0,0,0,0.6); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+    .tag--defense  { background: rgba(180,83,9,0.9);   color: #fff; }
+    .tag--video    { background: rgba(220,38,38,0.9);  color: #fff; }
 
+    /* ── Card body ── */
     .card__body {
-      padding: 22px 24px 24px;
+      padding: 20px 22px 22px;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
 
-    .card--featured .card__body { padding: 36px 36px 36px; justify-content: center; }
+    .card--featured .card__body { padding: 28px 32px; justify-content: center; }
 
     .card__company {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -275,33 +391,33 @@
     }
 
     .card__title {
-      font-size: 1.15rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--color-text);
       line-height: 1.25;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
-    .card--featured .card__title { font-size: 1.55rem; }
+    .card--featured .card__title { font-size: 1.4rem; margin-bottom: 12px; }
 
     .card__desc {
-      font-size: 0.875rem;
+      font-size: 0.82rem;
       color: var(--color-text-secondary);
       line-height: 1.7;
       flex: 1;
     }
 
-    .card__tags {
+    .card__skills {
       display: flex;
       flex-wrap: wrap;
       gap: 5px;
-      margin-top: 16px;
+      margin-top: 14px;
     }
 
     .card__skill {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       color: var(--color-muted);
-      background: #f3f4f6;
+      background: rgba(255,255,255,0.05);
       border: 1px solid var(--color-border);
       border-radius: 3px;
       padding: 2px 8px;
@@ -311,47 +427,42 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      margin-top: 18px;
-      font-size: 0.82rem;
+      margin-top: 16px;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--color-accent);
       text-decoration: none;
       letter-spacing: 0.01em;
-      transition: gap 0.18s;
+      transition: gap 0.18s, color 0.18s;
+      width: fit-content;
     }
 
-    .card__link:hover { gap: 9px; }
-    .card__link svg { width: 13px; height: 13px; }
+    .card__link:hover { gap: 9px; color: #6b9fff; }
+    .card__link svg { width: 12px; height: 12px; }
 
-    /* ── Placeholder card (add more) ── */
-    .card--placeholder {
-      border: 2px dashed var(--color-border);
-      background: transparent;
-      box-shadow: none;
-      align-items: center;
-      justify-content: center;
-      min-height: 280px;
-      cursor: default;
+    /* ── Slides embed ── */
+    .slides-embed {
+      background: var(--color-surface);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      grid-column: 1 / -1;
     }
 
-    .card--placeholder:hover { transform: none; box-shadow: none; }
-
-    .card--placeholder .card__placeholder-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      color: var(--color-border);
-      padding: 32px;
-      text-align: center;
+    .slides-embed__header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--color-border);
     }
 
-    .card--placeholder svg { width: 32px; height: 32px; }
+    .slides-embed__company { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 5px; }
+    .slides-embed__title { font-size: 1.1rem; font-weight: 700; color: var(--color-text); }
+    .slides-embed__desc { font-size: 0.82rem; color: var(--color-text-secondary); margin-top: 6px; line-height: 1.6; }
 
-    .card--placeholder p {
-      font-size: 0.8rem;
-      color: var(--color-muted);
-      line-height: 1.5;
+    .slides-embed iframe {
+      width: 100%;
+      height: 520px;
+      border: none;
+      display: block;
     }
 
     /* ── Back to top ── */
@@ -369,7 +480,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 16px rgba(26,86,219,0.4);
+      box-shadow: 0 4px 16px rgba(26,86,219,0.5);
       opacity: 0;
       transform: translateY(12px);
       pointer-events: none;
@@ -378,61 +489,104 @@
     }
 
     .back-to-top--visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    .back-to-top:hover { background: #1447c0; }
+    .back-to-top:hover { background: var(--color-accent-hover); }
     .back-to-top svg { width: 18px; height: 18px; }
 
     /* ── Responsive ── */
-    @media screen and (max-width: 768px) {
-      .header { padding: 20px; }
-      .hero { padding: 44px 20px 40px; }
+    @media screen and (max-width: 960px) {
+      .grid { grid-template-columns: repeat(2, 1fr); padding: 0 32px 60px; }
+      .featured-row { padding: 0 32px; }
+      .section-label { padding: 32px 32px 16px; }
+      .filters { padding: 28px 32px 0; }
+    }
+
+    @media screen and (max-width: 680px) {
+      .nav { padding: 0 20px; }
+      .hero { height: 280px; }
       .hero__title { font-size: 2rem; }
+      .hero__stats { gap: 20px; }
       .filters { padding: 24px 20px 0; }
-      .grid { grid-template-columns: 1fr; padding: 24px 20px 48px; gap: 20px; }
-      .card--featured { grid-column: auto; grid-template-columns: 1fr; }
-      .card--featured .card__media { min-height: 200px; }
-      .card--featured .card__body { padding: 22px 24px 24px; }
-      .card--featured .card__title { font-size: 1.25rem; }
+      .section-label { padding: 28px 20px 14px; }
+      .featured-row { grid-template-columns: 1fr; padding: 0 20px; }
+      .card--featured { grid-template-columns: 1fr; }
+      .card--featured .card__body { padding: 20px 22px 22px; }
+      .card--featured .card__title { font-size: 1.1rem; }
+      .grid { grid-template-columns: 1fr; padding: 0 20px 48px; }
+      .slides-embed iframe { height: 320px; }
     }
   </style>
 </head>
 <body>
 
-  <header class="header">
-    <div class="header__left">
-      <a href="index.html" class="header__back">
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav__left">
+      <a href="index.html" class="nav__back">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
-        Back to Resume
+        Resume
       </a>
-      <div class="header__divider-v"></div>
-      <div>
-        <div class="header__name">Guillaume <span>Remi</span> Couture</div>
+      <div class="nav__sep"></div>
+      <span class="nav__name">Guillaume <span>Remi</span> Couture</span>
+    </div>
+    <span class="nav__label">Selected Work</span>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img src="coverphoto.jpg" alt="Portfolio cover" class="hero__bg" />
+    <div class="hero__overlay">
+      <p class="hero__eyebrow">Portfolio</p>
+      <h1 class="hero__title">Games, Mobile &amp; Product</h1>
+      <p class="hero__sub">20 years of UX/UI across AAA titles, mobile hits, and concept-to-shipped products.</p>
+      <div class="hero__stats">
+        <div class="hero__stat"><div class="hero__stat-num">20+</div><div class="hero__stat-label">Years</div></div>
+        <div class="hero__stat"><div class="hero__stat-num">50+</div><div class="hero__stat-label">Titles</div></div>
+        <div class="hero__stat"><div class="hero__stat-num">100M+</div><div class="hero__stat-label">Users</div></div>
       </div>
     </div>
-    <div class="header__label">Selected Work</div>
-  </header>
-
-  <section class="hero">
-    <p class="hero__eyebrow">Portfolio</p>
-    <h1 class="hero__title">Games, Mobile &amp; Product</h1>
-    <p class="hero__sub">20 years of UX/UI across AAA games, mobile hits, and digital products — from concept to shipped.</p>
   </section>
 
+  <!-- Filters -->
   <div class="filters">
-    <button class="filter-btn active">All</button>
-    <button class="filter-btn">Game UI/UX</button>
-    <button class="filter-btn">Mobile</button>
-    <button class="filter-btn">Product</button>
-    <button class="filter-btn">Defense</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="game">Game UI/UX</button>
+    <button class="filter-btn" data-filter="concept">Concepts</button>
+    <button class="filter-btn" data-filter="personal">Personal</button>
+    <button class="filter-btn" data-filter="video">Video</button>
   </div>
 
-  <div class="grid">
+  <!-- Featured: Video Recap + MechWarrior -->
+  <p class="section-label">Featured</p>
+  <div class="featured-row">
 
-    <!-- MechWarrior 5 — Featured -->
-    <article class="card card--featured">
+    <!-- Career Recap Video -->
+    <article class="card card--featured" data-category="video">
       <div class="card__media">
-        <div class="card__media-placeholder">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
-          Add screenshot
+        <iframe src="https://www.youtube.com/embed/HluAtURCDN4" title="Career Recap 2006–2017" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="card__tag-overlay">
+          <span class="tag tag--video">Video</span>
+          <span class="tag tag--ux">UX/UI</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Various Studios</div>
+        <h2 class="card__title">Career Recap 2006 – 2017</h2>
+        <p class="card__desc">A retrospective spanning 11 years of professional work across multiple studios — UX, UI design, and illustration across a wide range of styles and game genres. From early career foundations to senior AAA work.</p>
+        <div class="card__skills">
+          <span class="card__skill">UX Design</span><span class="card__skill">UI Design</span><span class="card__skill">Illustration</span><span class="card__skill">Game UI</span>
+        </div>
+        <a href="https://youtu.be/HluAtURCDN4" target="_blank" class="card__link">
+          Watch on YouTube
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- MechWarrior 5 -->
+    <article class="card card--featured" data-category="game">
+      <div class="card__media">
+        <div class="card__media-bg card__media-bg--mechwarrior">
+          <div class="card__media-label">MechWarrior 5<small>Early UI Mockups · Unreal Engine</small></div>
         </div>
         <div class="card__tag-overlay">
           <span class="tag tag--game">Game UI</span>
@@ -442,12 +596,9 @@
       <div class="card__body">
         <div class="card__company">Piranha Games</div>
         <h2 class="card__title">MechWarrior 5 — Early UI Mockups</h2>
-        <p class="card__desc">Early concept UI mockups for MechWarrior 5, built without spec docs. Designs were implemented directly in Unreal Engine, establishing a visual direction for the HUD and menus before the final team took the project forward.</p>
-        <div class="card__tags">
-          <span class="card__skill">Unreal Engine</span>
-          <span class="card__skill">Game UI</span>
-          <span class="card__skill">HUD Design</span>
-          <span class="card__skill">Concept Mockups</span>
+        <p class="card__desc">Early concept UI mockups built without spec docs, implemented directly in Unreal Engine. Established visual direction for HUD and menus before the final team took the project forward. Victor Del Castillo &amp; Jason Doherty did an amazing job with the final UI.</p>
+        <div class="card__skills">
+          <span class="card__skill">Unreal Engine</span><span class="card__skill">HUD Design</span><span class="card__skill">Concept Mockups</span>
         </div>
         <a href="https://www.linkedin.com/feed/update/urn:li:activity:6947348975440068609/" target="_blank" class="card__link">
           View on LinkedIn
@@ -456,49 +607,200 @@
       </div>
     </article>
 
-    <!-- Career Recap Video 2006–2017 -->
-    <article class="card card--featured">
-      <div class="card__media card__media--video">
-        <iframe
-          src="https://www.youtube.com/embed/HluAtURCDN4"
-          title="Remi Couture — Career Recap 2006–2017"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
+  </div>
+
+  <!-- Project Grid -->
+  <p class="section-label">Concepts &amp; Projects</p>
+  <div class="grid">
+
+    <!-- Hip Hop Rap Battle -->
+    <article class="card" data-category="concept game">
+      <div class="card__media">
+        <div class="card__media-bg card__media-bg--hiphop">
+          <div class="card__media-label">START BATTLE<small>Hip Hop Rap Battle · Main Menu</small></div>
+        </div>
         <div class="card__tag-overlay">
-          <span class="tag tag--ux">UX/UI</span>
+          <span class="tag tag--concept">Concept</span>
           <span class="tag tag--game">Game UI</span>
         </div>
       </div>
       <div class="card__body">
-        <div class="card__company">Various Studios</div>
-        <h2 class="card__title">Career Recap 2006 – 2017</h2>
-        <p class="card__desc">A retrospective spanning 11 years of professional work across multiple studios — covering user experience, user interface design, and illustration in a range of styles. From early career foundations to senior-level AAA game work.</p>
-        <div class="card__tags">
-          <span class="card__skill">UX Design</span>
-          <span class="card__skill">UI Design</span>
-          <span class="card__skill">Illustration</span>
-          <span class="card__skill">Game UI</span>
-          <span class="card__skill">2006 – 2017</span>
+        <div class="card__company">Concept · 2–3 Hours</div>
+        <h2 class="card__title">Hip Hop Rap Battle — Main Menu</h2>
+        <p class="card__desc">Quick 2–3 hour concept for a Hip Hop Rap Battle game main menu. Pushed beyond a static screen to make the whole thing feel alive with a moving crowd and dynamic energy.</p>
+        <div class="card__skills">
+          <span class="card__skill">Main Menu</span><span class="card__skill">Motion UI</span><span class="card__skill">Game UI</span>
         </div>
-        <a href="https://youtu.be/HluAtURCDN4" target="_blank" class="card__link">
-          Watch on YouTube
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </a>
       </div>
     </article>
 
-    <!-- Placeholder card -->
-    <article class="card card--placeholder">
-      <div class="card__placeholder-inner">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
-        <p>More projects coming soon.<br>Share your LinkedIn Featured links to add them.</p>
+    <!-- Sci-Fi Inventory Screen -->
+    <article class="card" data-category="concept game">
+      <div class="card__media">
+        <div class="card__media-bg card__media-bg--scifi">
+          <div class="card__media-label">Inventory Screen<small>Sci-Fi · Animated Background</small></div>
+        </div>
+        <div class="card__tag-overlay">
+          <span class="tag tag--concept">Concept</span>
+          <span class="tag tag--game">Game UI</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Concept</div>
+        <h2 class="card__title">Sci-Fi Inventory — Animated Background</h2>
+        <p class="card__desc">Replaced static imagery with a cinematic moving background to show how an inventory screen can set tone and communicate quality. Demonstrates how motion elevates perceived game value.</p>
+        <div class="card__skills">
+          <span class="card__skill">Inventory UI</span><span class="card__skill">Motion Design</span><span class="card__skill">HUD</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Victory Screen -->
+    <article class="card" data-category="concept game">
+      <div class="card__media">
+        <div class="card__media-bg card__media-bg--victory">
+          <div class="card__media-label">Victory Screen<small>Rapid Prototype · No Figma</small></div>
+        </div>
+        <div class="card__tag-overlay">
+          <span class="tag tag--concept">Concept</span>
+          <span class="tag tag--ux">UX</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Concept · Rapid Prototype</div>
+        <h2 class="card__title">Victory Screen — Beyond Stats</h2>
+        <p class="card__desc">Built through pure rapid prototyping — no Figma, no design systems, just fast iteration to think through how a victory experience should feel for players beyond simply listing numbers.</p>
+        <div class="card__skills">
+          <span class="card__skill">Victory Screen</span><span class="card__skill">Rapid Prototyping</span><span class="card__skill">UX</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Starship Diagnostic UI -->
+    <article class="card" data-category="concept game">
+      <div class="card__media">
+        <div class="card__media-bg card__media-bg--starship">
+          <div class="card__media-label">Starship Diagnostic UI<small>Futuristic HUD · Repair Console</small></div>
+        </div>
+        <div class="card__tag-overlay">
+          <span class="tag tag--concept">Concept</span>
+          <span class="tag tag--game">HUD</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Concept · Experimental</div>
+        <h2 class="card__title">Starship Diagnostic &amp; Repair Console</h2>
+        <p class="card__desc">Prototyping a game interface that blends futuristic HUD design with functional gameplay systems. A starship diagnostic and repair console where every element serves both form and function.</p>
+        <div class="card__skills">
+          <span class="card__skill">HUD Design</span><span class="card__skill">Sci-Fi UI</span><span class="card__skill">Gameplay Systems</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Codex of the Void -->
+    <article class="card" data-category="concept game">
+      <div class="card__media">
+        <div class="card__media-bg card__media-bg--magic">
+          <div class="card__media-label">Codex of the Void<small>Magical Arsenal · Shop UI</small></div>
+        </div>
+        <div class="card__tag-overlay">
+          <span class="tag tag--concept">Concept</span>
+          <span class="tag tag--game">Game UI</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Concept · Good UX = More Sales</div>
+        <h2 class="card__title">Codex of the Void — Magical Arsenal UI</h2>
+        <p class="card__desc">A proof of concept magical arsenal UI where players manage, explore, and purchase items all in one seamless place. Designed around the principle that good UX directly drives engagement and revenue.</p>
+        <div class="card__skills">
+          <span class="card__skill">Shop UI</span><span class="card__skill">Inventory</span><span class="card__skill">RPG</span><span class="card__skill">UX Strategy</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Realm of Eldoria -->
+    <article class="card" data-category="concept game">
+      <div class="card__media">
+        <div class="card__media-bg card__media-bg--fantasy">
+          <div class="card__media-label">Realm of Eldoria<small>Fantasy RPG · Loading Screen</small></div>
+        </div>
+        <div class="card__tag-overlay">
+          <span class="tag tag--concept">Concept</span>
+          <span class="tag tag--game">Game UI</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Concept · Fantasy RPG</div>
+        <h2 class="card__title">Realm of Eldoria — Loading Screen</h2>
+        <p class="card__desc">Loading screens don't have to be wasted time. This fantasy RPG concept pulls players deeper into the world during load — tactical briefings, world lore, and mission context replace a static bar.</p>
+        <div class="card__skills">
+          <span class="card__skill">Loading Screen</span><span class="card__skill">Fantasy UI</span><span class="card__skill">World Building</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Void Hunters — Faction Selection -->
+    <article class="card" data-category="concept game">
+      <div class="card__media">
+        <div class="card__media-bg card__media-bg--faction">
+          <div class="card__media-label">Void Hunters<small>HALO-Inspired · Faction Selection</small></div>
+        </div>
+        <div class="card__tag-overlay">
+          <span class="tag tag--concept">Concept</span>
+          <span class="tag tag--game">Game UI</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Concept · Sci-Fi Strategy</div>
+        <h2 class="card__title">Void Hunters — Faction Selection</h2>
+        <p class="card__desc">A HALO-inspired faction selection interface designed for a sci-fi strategy game or military simulation. Each faction features distinct specializations, abilities, and playstyle differentiation built into the UX.</p>
+        <div class="card__skills">
+          <span class="card__skill">Character Select</span><span class="card__skill">Strategy UI</span><span class="card__skill">Sci-Fi</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Game Resume -->
+    <article class="card" data-category="personal">
+      <div class="card__media">
+        <div class="card__media-bg card__media-bg--rpgresume">
+          <div class="card__media-label">RC · PRESS START<small>The Resume as an RPG</small></div>
+        </div>
+        <div class="card__tag-overlay">
+          <span class="tag tag--personal">Personal</span>
+          <span class="tag tag--ux">UX</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Personal Project</div>
+        <h2 class="card__title">My Resume as an RPG Game</h2>
+        <p class="card__desc">Turned my resume into a game. Click through Profile, Inventory, Map, and Quests — unlocking my career like an RPG. Every click gives you XP and health. More memorable than a PDF.</p>
+        <div class="card__skills">
+          <span class="card__skill">Gamification</span><span class="card__skill">Interactive</span><span class="card__skill">Personal Branding</span>
+        </div>
       </div>
     </article>
 
   </div>
 
+  <!-- Google Slides Showcase -->
+  <p class="section-label">Early Career Showcase</p>
+  <div class="grid">
+    <div class="slides-embed">
+      <div class="slides-embed__header">
+        <div class="slides-embed__company">Google Slides · Archive</div>
+        <div class="slides-embed__title">Career Showcase — Early Work</div>
+        <div class="slides-embed__desc">A curated showcase of early-career work spanning illustration, UI design, and game art across multiple studios and styles.</div>
+      </div>
+      <iframe
+        src="https://docs.google.com/presentation/d/1_t3P15-rxT5p2SCMQ2P3wO-lsPRj_7tgpqBNAwkJDRE/embed?start=false&loop=false&delayms=4000"
+        title="Career Showcase — Guillaume Remi Couture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- Back to top -->
   <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"/></svg>
   </button>
@@ -512,11 +814,25 @@
       }, { passive: true });
     })();
 
-    // Filter buttons (visual only for now — wire up when cards have data-category)
-    document.querySelectorAll('.filter-btn').forEach(function (btn) {
+    // Filter
+    var btns = document.querySelectorAll('.filter-btn');
+    var cards = document.querySelectorAll('.card[data-category], .slides-embed');
+
+    btns.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+        btns.forEach(function (b) { b.classList.remove('active'); });
         btn.classList.add('active');
+
+        var filter = btn.dataset.filter;
+
+        cards.forEach(function (card) {
+          if (filter === 'all') {
+            card.style.display = '';
+          } else {
+            var cat = (card.dataset.category || '');
+            card.style.display = cat.includes(filter) ? '' : 'none';
+          }
+        });
       });
     });
   </script>
