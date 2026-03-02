@@ -574,7 +574,7 @@
       <div class="nav__sep"></div>
       <span class="nav__name">Guillaume <span>Remi</span> Couture</span>
     </div>
-    <span class="nav__counter" id="navCounter">Intro  ·  1 / 130</span>
+    <span class="nav__counter" id="navCounter">Intro  ·  1 / 131</span>
   </nav>
 
   <div class="progress" id="progress"></div>
@@ -685,7 +685,24 @@
       </div>
     </div>
 
-    <!-- ── SLIDE 6: Career Recap Video ── -->
+    <!-- ── SLIDE 6: My Resume as an RPG (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Personal</span><span class="slide__tag">Concept</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">My Resume as an RPG</h2>
+        <p class="slide__desc">I turned my resume into a game. Click through Profile, Inventory, Map, and Quests and unlock my career like an RPG. Every interaction gives you XP and health — by the time you’ve explored it all, you’re at full HP.</p>
+        <p class="slide__desc" style="margin-top:-6px;">Fun, quick, and way more memorable than a PDF.</p>
+        <div class="slide__skills"><span class="slide__skill">Game UI</span><span class="slide__skill">RPG</span><span class="slide__skill">Resume</span><span class="slide__skill">Interactive</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video src="videos/gameresume.mp4" controls playsinline preload="metadata" title="Resume as an RPG game"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 7: Career Recap Video ── -->
     <div class="slide">
       <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
       <div class="slide__overlay"></div>
@@ -1114,8 +1131,15 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
       </div>
     </div>
+    <!-- Slide 6: Resume as RPG -->
+    <div class="thumb thumb--video" title="My resume as an RPG" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video src="videos/gameresume.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
     <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Career Video</span><div class="thumb-divider__line"></div></div>
-    <!-- Slide 6: Video -->
+    <!-- Slide 7: Video -->
     <div class="thumb thumb--video" title="Career Recap Video 2006–2017" style="position:relative;">
       <img src="https://img.youtube.com/vi/HluAtURCDN4/mqdefault.jpg" alt="Career Recap" style="width:100%;height:100%;object-fit:cover;display:block;">
       <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);">
@@ -1261,7 +1285,7 @@
 
   <script>
   (function () {
-    var total   = 130;
+    var total   = 131;
     var current = 0;
     var slides  = Array.from(document.querySelectorAll('.slide'));
     var thumbs  = Array.from(document.querySelectorAll('.thumb'));
@@ -1359,13 +1383,13 @@
     // ── STEP 5: Section labels ────────────────────────────────────────────────
     var sections = [
       [0,   0,   'Intro'],
-      [1,   5,   'Latest'],
-      [6,   6,   'Career Video'],
-      [7,   22,  'Featured Work'],
-      [23,  126, 'Career Archive · 2006–2017'],
-      [127, 127, 'Consulting Today'],
-      [128, 128, 'Full Showcase'],
-      [129, 129, 'Contact']
+      [1,   6,   'Latest'],
+      [7,   7,   'Career Video'],
+      [8,   23,  'Featured Work'],
+      [24,  127, 'Career Archive · 2006–2017'],
+      [128, 128, 'Consulting Today'],
+      [129, 129, 'Full Showcase'],
+      [130, 130, 'Contact']
     ];
 
     function getSection(idx) {
