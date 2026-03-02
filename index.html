@@ -611,6 +611,45 @@
       .edu__left { display: flex; gap: 8px; align-items: baseline; }
     }
 
+    /* ── Back to top ────────────────────────────────────── */
+    .back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(26, 86, 219, 0.4);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.22s, transform 0.22s, background 0.18s;
+      z-index: 100;
+    }
+
+    .back-to-top--visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .back-to-top:hover {
+      background: #1447c0;
+      box-shadow: 0 6px 20px rgba(26, 86, 219, 0.55);
+    }
+
+    .back-to-top svg {
+      width: 18px;
+      height: 18px;
+    }
+
     /* ── Print ─────────────────────────────────────────── */
 
     /* A4 = 210 × 297 mm. Zero @page margin — all spacing via CSS padding below */
@@ -758,6 +797,8 @@
 
       /* Never orphan Education or Early Career onto a solo page */
       .section:nth-last-child(-n+2) { break-before: avoid !important; page-break-before: avoid !important; }
+
+      .back-to-top { display: none !important; }
 
       /* Hide cover banner, photos, and download buttons in print */
       .cover-banner { display: none !important; }
@@ -1135,5 +1176,25 @@
 
     </main>
   </div>
+
+  <!-- Back to top button -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"/></svg>
+  </button>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('backToTop');
+      var threshold = 320;
+      var visible = false;
+      window.addEventListener('scroll', function () {
+        var shouldShow = window.scrollY > threshold;
+        if (shouldShow !== visible) {
+          visible = shouldShow;
+          btn.classList.toggle('back-to-top--visible', visible);
+        }
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
