@@ -574,7 +574,7 @@
       <div class="nav__sep"></div>
       <span class="nav__name">Guillaume <span>Remi</span> Couture</span>
     </div>
-    <span class="nav__counter" id="navCounter">Intro  ·  1 / 126</span>
+    <span class="nav__counter" id="navCounter">Intro  ·  1 / 127</span>
   </nav>
 
   <div class="progress" id="progress"></div>
@@ -617,7 +617,24 @@
       </div>
     </div>
 
-    <!-- ── SLIDE 2: Career Recap Video ── -->
+    <!-- ── SLIDE 2: FPS Sci‑Fi Inventory (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">Game UI</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">Sci‑Fi FPS — Inventory Screen</h2>
+        <p class="slide__desc">A science-fiction first-person shooter UI concept. I swapped the static mock for a short video so the inventory screen is shown with a moving background — atmosphere, motion, and readability in one frame.</p>
+        <p class="slide__desc" style="margin-top:-6px;">It sets the tone and communicates the vision for a high-quality game the moment someone sees it.</p>
+        <div class="slide__skills"><span class="slide__skill">Inventory UI</span><span class="slide__skill">FPS</span><span class="slide__skill">Sci-Fi</span><span class="slide__skill">Motion</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video src="videos/fpsscifi.mp4" controls playsinline preload="metadata" title="Sci-Fi FPS inventory screen"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 3: Career Recap Video ── -->
     <div class="slide">
       <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
       <div class="slide__overlay"></div>
@@ -1018,8 +1035,15 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
       </div>
     </div>
+    <!-- Slide 2: FPS Sci-Fi -->
+    <div class="thumb thumb--video" title="Sci-Fi FPS inventory" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video src="videos/fpsscifi.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
     <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Career Video</span><div class="thumb-divider__line"></div></div>
-    <!-- Slide 2: Video -->
+    <!-- Slide 3: Video -->
     <div class="thumb thumb--video" title="Career Recap Video 2006–2017" style="position:relative;">
       <img src="https://img.youtube.com/vi/HluAtURCDN4/mqdefault.jpg" alt="Career Recap" style="width:100%;height:100%;object-fit:cover;display:block;">
       <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);">
@@ -1165,7 +1189,7 @@
 
   <script>
   (function () {
-    var total   = 126;
+    var total   = 127;
     var current = 0;
     var slides  = Array.from(document.querySelectorAll('.slide'));
     var thumbs  = Array.from(document.querySelectorAll('.thumb'));
@@ -1263,13 +1287,13 @@
     // ── STEP 5: Section labels ────────────────────────────────────────────────
     var sections = [
       [0,   0,   'Intro'],
-      [1,   1,   'Latest'],
-      [2,   2,   'Career Video'],
-      [3,   18,  'Featured Work'],
-      [19,  122, 'Career Archive · 2006–2017'],
-      [123, 123, 'Consulting Today'],
-      [124, 124, 'Full Showcase'],
-      [125, 125, 'Contact']
+      [1,   2,   'Latest'],
+      [3,   3,   'Career Video'],
+      [4,   19,  'Featured Work'],
+      [20,  123, 'Career Archive · 2006–2017'],
+      [124, 124, 'Consulting Today'],
+      [125, 125, 'Full Showcase'],
+      [126, 126, 'Contact']
     ];
 
     function getSection(idx) {
