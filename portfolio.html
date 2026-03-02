@@ -11,756 +11,361 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --color-bg: #0d0f1a;
-      --color-surface: #13162a;
-      --color-surface-raised: #1a1e35;
-      --color-text: #e8eaf6;
-      --color-text-secondary: #9aaabb;
-      --color-accent: #1a56db;
-      --color-accent-hover: #1447c0;
-      --color-border: rgba(255,255,255,0.08);
-      --color-muted: #6e7491;
-      --color-header-bg: #0a0c17;
+      --accent: #1a56db;
       --font: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    html { font-size: 15px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-
-    body {
+    html, body {
       font-family: var(--font);
-      background: var(--color-bg);
-      color: var(--color-text);
-      line-height: 1.6;
-      min-height: 100vh;
+      background: #000;
+      color: #fff;
+      height: 100%;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* ── Nav ── */
     .nav {
-      background: var(--color-header-bg);
-      border-bottom: 1px solid var(--color-border);
-      padding: 0 52px;
-      height: 60px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 52px;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(12px);
+      padding: 0 28px;
+      z-index: 100;
     }
 
-    .nav__left { display: flex; align-items: center; gap: 20px; }
+    .nav__left { display: flex; align-items: center; gap: 16px; }
 
     .nav__back {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      color: var(--color-text-secondary);
+      gap: 6px;
+      color: rgba(255,255,255,0.55);
       text-decoration: none;
-      font-size: 0.83rem;
+      font-size: 0.8rem;
       font-weight: 500;
       transition: color 0.18s;
       letter-spacing: 0.01em;
     }
+    .nav__back:hover { color: #fff; }
+    .nav__back svg { width: 13px; height: 13px; }
 
-    .nav__back:hover { color: var(--color-text); }
-    .nav__back svg { width: 14px; height: 14px; }
-
-    .nav__sep { width: 1px; height: 18px; background: var(--color-border); }
+    .nav__sep { width: 1px; height: 16px; background: rgba(255,255,255,0.12); }
 
     .nav__name {
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      color: var(--color-text);
+      color: #fff;
       letter-spacing: -0.01em;
     }
+    .nav__name span { color: var(--accent); }
 
-    .nav__name span { color: var(--color-accent); }
-
-    .nav__label {
+    .nav__counter {
       font-size: 0.72rem;
-      color: var(--color-muted);
+      color: rgba(255,255,255,0.35);
       letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    /* ── Hero ── */
-    .hero {
-      position: relative;
-      height: 380px;
-      overflow: hidden;
-    }
-
-    .hero__bg {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%;
-      display: block;
-      filter: brightness(0.45);
-    }
-
-    .hero__overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(13,15,26,0.3) 0%, rgba(13,15,26,0.85) 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 40px;
-    }
-
-    .hero__eyebrow {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--color-accent);
-      margin-bottom: 14px;
-    }
-
-    .hero__title {
-      font-size: 3.2rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      margin-bottom: 16px;
-    }
-
-    .hero__sub {
-      font-size: 1.02rem;
-      color: rgba(255,255,255,0.65);
-      max-width: 52ch;
-      font-weight: 300;
-      line-height: 1.7;
-      margin-bottom: 28px;
-    }
-
-    .hero__stats {
-      display: flex;
-      gap: 32px;
-    }
-
-    .hero__stat {
-      text-align: center;
-    }
-
-    .hero__stat-num {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1;
-    }
-
-    .hero__stat-label {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
-
-    /* ── Filter bar ── */
-    .filters {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 36px 52px 0;
-    }
-
-    .filter-btn {
-      padding: 7px 18px;
-      border-radius: 20px;
-      border: 1px solid var(--color-border);
-      background: transparent;
-      color: var(--color-text-secondary);
-      font-family: var(--font);
-      font-size: 0.78rem;
       font-weight: 500;
-      cursor: pointer;
-      transition: all 0.18s;
-      letter-spacing: 0.02em;
     }
 
-    .filter-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--color-text); }
-
-    .filter-btn.active {
-      background: var(--color-accent);
-      border-color: var(--color-accent);
-      color: #fff;
-    }
-
-    /* ── Section label ── */
-    .section-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--color-muted);
-      padding: 40px 52px 20px;
-      max-width: 1160px;
-      margin: 0 auto;
-    }
-
-    /* ── Featured row (video + highlighted project) ── */
-    .featured-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 0 52px;
-    }
-
-    /* ── Grid ── */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 0 52px 80px;
-    }
-
-    /* ── Card shared ── */
-    .card {
-      background: var(--color-surface);
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--color-border);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
-      cursor: default;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.45);
-      border-color: rgba(255,255,255,0.14);
-    }
-
-    /* ── Featured card (full-width in featured-row) ── */
-    .card--featured {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    /* ── Media ── */
-    .card__media {
-      position: relative;
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-      flex-shrink: 0;
-    }
-
-    .card--featured .card__media {
-      aspect-ratio: unset;
-    }
-
-    .card__media iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .card__media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      transition: transform 0.3s;
-    }
-
-    .card:hover .card__media img { transform: scale(1.03); }
-
-    /* Thematic gradient placeholders */
-    .card__media-bg {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card__media-bg--hiphop {
-      background: linear-gradient(135deg, #1a0533 0%, #3d0070 40%, #ff6b00 100%);
-    }
-    .card__media-bg--scifi {
-      background: linear-gradient(135deg, #001a2e 0%, #003d5b 50%, #00bcd4 100%);
-    }
-    .card__media-bg--victory {
-      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a4e 60%, #4040ff 100%);
-    }
-    .card__media-bg--starship {
-      background: linear-gradient(135deg, #001010 0%, #003333 50%, #00ffcc 100%);
-    }
-    .card__media-bg--magic {
-      background: linear-gradient(135deg, #120020 0%, #3d0066 50%, #9b59b6 100%);
-    }
-    .card__media-bg--rpgresume {
-      background: linear-gradient(135deg, #001a00 0%, #003300 60%, #00cc44 100%);
-    }
-    .card__media-bg--fantasy {
-      background: linear-gradient(135deg, #1a0a00 0%, #3d1500 50%, #c87941 100%);
-    }
-    .card__media-bg--faction {
-      background: linear-gradient(135deg, #000a1a 0%, #001a3d 50%, #0066cc 100%);
-    }
-    .card__media-bg--mechwarrior {
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #cc4400 100%);
-    }
-    .card__media-bg--slides {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #1a56db 100%);
-    }
-
-    .card__media-label {
-      text-align: center;
-      color: rgba(255,255,255,0.9);
-      font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 0.05em;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-      padding: 16px;
-      line-height: 1.3;
-      z-index: 1;
-    }
-
-    .card__media-label small {
-      display: block;
-      font-size: 0.65rem;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0.65;
-      margin-top: 4px;
-    }
-
-    /* Noise overlay on gradients */
-    .card__media-bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-      pointer-events: none;
-    }
-
-    /* Tag overlay on media */
-    .card__tag-overlay {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-      z-index: 2;
-    }
-
-    .tag {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      padding: 3px 7px;
-      border-radius: 3px;
-    }
-
-    .tag--game     { background: rgba(124,58,237,0.9); color: #fff; }
-    .tag--ux       { background: rgba(26,86,219,0.9);  color: #fff; }
-    .tag--mobile   { background: rgba(5,150,105,0.9);  color: #fff; }
-    .tag--concept  { background: rgba(220,38,38,0.9);  color: #fff; }
-    .tag--personal { background: rgba(0,0,0,0.6); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
-    .tag--defense  { background: rgba(180,83,9,0.9);   color: #fff; }
-    .tag--video    { background: rgba(220,38,38,0.9);  color: #fff; }
-
-    /* ── Card body ── */
-    .card__body {
-      padding: 20px 22px 22px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card--featured .card__body { padding: 28px 32px; justify-content: center; }
-
-    .card__company {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--color-accent);
-      margin-bottom: 6px;
-    }
-
-    .card__title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--color-text);
-      line-height: 1.25;
-      margin-bottom: 8px;
-    }
-
-    .card--featured .card__title { font-size: 1.4rem; margin-bottom: 12px; }
-
-    .card__desc {
-      font-size: 0.82rem;
-      color: var(--color-text-secondary);
-      line-height: 1.7;
-      flex: 1;
-    }
-
-    .card__skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-top: 14px;
-    }
-
-    .card__skill {
-      font-size: 0.68rem;
-      color: var(--color-muted);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--color-border);
-      border-radius: 3px;
-      padding: 2px 8px;
-    }
-
-    .card__link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 16px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--color-accent);
-      text-decoration: none;
-      letter-spacing: 0.01em;
-      transition: gap 0.18s, color 0.18s;
-      width: fit-content;
-    }
-
-    .card__link:hover { gap: 9px; color: #6b9fff; }
-    .card__link svg { width: 12px; height: 12px; }
-
-    /* ── Slides embed ── */
-    .slides-embed {
-      background: var(--color-surface);
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--color-border);
-      grid-column: 1 / -1;
-    }
-
-    .slides-embed__header {
-      padding: 20px 24px 16px;
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .slides-embed__company { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 5px; }
-    .slides-embed__title { font-size: 1.1rem; font-weight: 700; color: var(--color-text); }
-    .slides-embed__desc { font-size: 0.82rem; color: var(--color-text-secondary); margin-top: 6px; line-height: 1.6; }
-
-    .slides-embed iframe {
-      width: 100%;
-      height: 520px;
-      border: none;
-      display: block;
-    }
-
-    /* ── Image Carousel Strip ── */
-    .carousel-wrap {
-      position: relative;
-      margin: 40px 0 0;
-    }
-
-    .carousel-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--color-muted);
-      padding: 0 52px 16px;
-    }
-
-    .carousel {
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      padding: 0 52px 20px;
-      cursor: grab;
-    }
-
-    .carousel:active { cursor: grabbing; }
-    .carousel::-webkit-scrollbar { display: none; }
-
-    .carousel__item {
-      flex-shrink: 0;
-      width: 280px;
-      height: 175px;
-      border-radius: 8px;
-      overflow: hidden;
-      scroll-snap-align: start;
-      position: relative;
-      border: 1px solid var(--color-border);
-      background: var(--color-surface);
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .carousel__item:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
-      border-color: rgba(255,255,255,0.2);
-    }
-
-    .carousel__item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      transition: transform 0.3s;
-    }
-
-    .carousel__item:hover img { transform: scale(1.05); }
-
-    .carousel__caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 20px 12px 10px;
-      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #fff;
-      opacity: 0;
-      transition: opacity 0.2s;
-      letter-spacing: 0.01em;
-    }
-
-    .carousel__item:hover .carousel__caption { opacity: 1; }
-
-    .carousel__zoom {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 28px;
-      height: 28px;
-      background: rgba(0,0,0,0.55);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .carousel__item:hover .carousel__zoom { opacity: 1; }
-    .carousel__zoom svg { width: 13px; height: 13px; color: #fff; }
-
-    .carousel-arrows {
-      display: flex;
-      gap: 8px;
-      padding: 0 52px;
-      margin-top: 4px;
-    }
-
-    .carousel-arrow {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1px solid var(--color-border);
-      background: var(--color-surface);
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.18s;
-    }
-
-    .carousel-arrow:hover {
-      border-color: rgba(255,255,255,0.25);
-      color: var(--color-text);
-      background: var(--color-surface-raised);
-    }
-
-    .carousel-arrow svg { width: 16px; height: 16px; }
-
-    /* ── Lightbox ── */
-    .lightbox {
+    /* ── Slideshow ── */
+    .slideshow {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.93);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.22s;
+      top: 52px;
+      bottom: 120px;
     }
 
-    .lightbox--open {
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .slide--active {
       opacity: 1;
       pointer-events: all;
     }
 
-    .lightbox__img-wrap {
-      position: relative;
-      max-width: 90vw;
-      max-height: 85vh;
+    /* Background image */
+    .slide__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center top;
+      transition: transform 8s ease;
+    }
+
+    .slide--active .slide__bg { transform: scale(1.04); }
+
+    /* Dark gradient overlay */
+    .slide__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.88) 0%,
+        rgba(0,0,0,0.55) 42%,
+        rgba(0,0,0,0.15) 70%,
+        rgba(0,0,0,0.05) 100%
+      );
+    }
+
+    /* Text panel */
+    .slide__panel {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 420px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
+      padding: 40px 52px;
+      transform: translateX(-20px);
+      opacity: 0;
+      transition: transform 0.55s ease 0.15s, opacity 0.55s ease 0.15s;
     }
 
-    .lightbox__img {
-      max-width: 90vw;
-      max-height: 85vh;
-      object-fit: contain;
-      border-radius: 6px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
-      display: block;
-      transition: opacity 0.18s;
+    .slide--active .slide__panel {
+      transform: translateX(0);
+      opacity: 1;
     }
 
-    .lightbox__close {
-      position: fixed;
-      top: 20px;
-      right: 24px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.15);
+    .slide__tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .slide__tag {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.75);
+    }
+
+    .slide__tag--accent {
+      background: var(--accent);
+      border-color: var(--accent);
       color: #fff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.18s;
-      z-index: 1001;
     }
 
-    .lightbox__close:hover { background: rgba(255,255,255,0.2); }
-    .lightbox__close svg { width: 18px; height: 18px; }
+    .slide__company {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
 
-    .lightbox__nav {
+    .slide__title {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.12;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .slide__desc {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.75;
+      font-weight: 300;
+      margin-bottom: 20px;
+      max-width: 34ch;
+    }
+
+    .slide__skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .slide__skill {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 3px;
+      padding: 2px 8px;
+    }
+
+    .slide__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      transition: gap 0.18s, color 0.18s;
+      width: fit-content;
+    }
+    .slide__link:hover { gap: 9px; color: #6b9fff; }
+    .slide__link svg { width: 12px; height: 12px; }
+
+    /* Prev / Next arrows */
+    .slide-nav {
       position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
+      margin-top: 26px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
       color: #fff;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 90;
       transition: background 0.18s;
-      z-index: 1001;
     }
+    .slide-nav:hover { background: rgba(255,255,255,0.18); }
+    .slide-nav--prev { left: 16px; }
+    .slide-nav--next { right: 16px; }
+    .slide-nav svg { width: 22px; height: 22px; }
 
-    .lightbox__nav:hover { background: rgba(255,255,255,0.2); }
-    .lightbox__nav--prev { left: 16px; }
-    .lightbox__nav--next { right: 16px; }
-    .lightbox__nav svg { width: 20px; height: 20px; }
-
-    .lightbox__counter {
+    /* ── Thumbnail strip ── */
+    .thumbstrip {
       position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.08em;
-    }
-
-    .lightbox__caption {
-      position: fixed;
-      bottom: 44px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.85);
-      letter-spacing: 0.01em;
-      white-space: nowrap;
-    }
-
-    @media screen and (max-width: 680px) {
-      .carousel { padding: 0 20px 16px; }
-      .carousel-label { padding: 0 20px 14px; }
-      .carousel-arrows { padding: 0 20px; }
-      .carousel__item { width: 220px; height: 138px; }
-      .lightbox__nav--prev { left: 6px; }
-      .lightbox__nav--next { right: 6px; }
-    }
-
-    /* ── Back to top ── */
-    .back-to-top {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--color-accent);
-      color: #fff;
-      border: none;
-      cursor: pointer;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255,255,255,0.07);
       display: flex;
       align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 16px rgba(26,86,219,0.5);
-      opacity: 0;
-      transform: translateY(12px);
-      pointer-events: none;
-      transition: opacity 0.22s, transform 0.22s, background 0.18s;
+      gap: 8px;
+      padding: 0 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
       z-index: 100;
     }
+    .thumbstrip::-webkit-scrollbar { display: none; }
 
-    .back-to-top--visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    .back-to-top:hover { background: var(--color-accent-hover); }
-    .back-to-top svg { width: 18px; height: 18px; }
-
-    /* ── Responsive ── */
-    @media screen and (max-width: 960px) {
-      .grid { grid-template-columns: repeat(2, 1fr); padding: 0 32px 60px; }
-      .featured-row { padding: 0 32px; }
-      .section-label { padding: 32px 32px 16px; }
-      .filters { padding: 28px 32px 0; }
+    .thumb {
+      flex-shrink: 0;
+      width: 142px;
+      height: 88px;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, transform 0.2s, opacity 0.2s;
+      opacity: 0.45;
+      position: relative;
     }
 
-    @media screen and (max-width: 680px) {
-      .nav { padding: 0 20px; }
-      .hero { height: 280px; }
-      .hero__title { font-size: 2rem; }
-      .hero__stats { gap: 20px; }
-      .filters { padding: 24px 20px 0; }
-      .section-label { padding: 28px 20px 14px; }
-      .featured-row { grid-template-columns: 1fr; padding: 0 20px; }
-      .card--featured { grid-template-columns: 1fr; }
-      .card--featured .card__body { padding: 20px 22px 22px; }
-      .card--featured .card__title { font-size: 1.1rem; }
-      .grid { grid-template-columns: 1fr; padding: 0 20px 48px; }
-      .slides-embed iframe { height: 320px; }
+    .thumb:hover { opacity: 0.75; transform: translateY(-2px); }
+
+    .thumb--active {
+      border-color: var(--accent);
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* Video thumb */
+    .thumb--video {
+      background: #0a0c17;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .thumb--video svg { width: 28px; height: 28px; color: rgba(255,255,255,0.5); }
+
+    /* Slide video */
+    .slide__video-wrap {
+      position: absolute;
+      right: 4%; top: 50%;
+      transform: translateY(-50%);
+      width: 52%;
+      aspect-ratio: 16/9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+      opacity: 0;
+      transition: opacity 0.55s ease 0.3s;
+    }
+
+    .slide--active .slide__video-wrap { opacity: 1; }
+
+    .slide__video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Google Slides wrap */
+    .slide__slides-wrap {
+      position: absolute;
+      right: 3%; top: 50%;
+      transform: translateY(-50%);
+      width: 54%;
+      aspect-ratio: 16/9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+      opacity: 0;
+      transition: opacity 0.55s ease 0.3s;
+    }
+
+    .slide--active .slide__slides-wrap { opacity: 1; }
+
+    .slide__slides-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Progress bar */
+    .progress {
+      position: fixed;
+      top: 52px;
+      left: 0;
+      height: 2px;
+      background: var(--accent);
+      z-index: 101;
+      transition: width 0.5s ease;
+    }
+
+    /* Mobile */
+    @media (max-width: 680px) {
+      .slide__panel { width: 100%; padding: 28px 24px; justify-content: flex-end; padding-bottom: 24px; }
+      .slide__overlay { background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.1) 100%); }
+      .slide__title { font-size: 1.4rem; }
+      .slide__desc { max-width: 100%; font-size: 0.82rem; }
+      .slide-nav { display: none; }
+      .slide__video-wrap, .slide__slides-wrap { display: none; }
+      .thumb { width: 110px; height: 68px; }
+      .thumbstrip { height: 90px; }
+      .slideshow { bottom: 90px; }
     }
   </style>
 </head>
@@ -776,713 +381,340 @@
       <div class="nav__sep"></div>
       <span class="nav__name">Guillaume <span>Remi</span> Couture</span>
     </div>
-    <span class="nav__label">Selected Work</span>
+    <span class="nav__counter" id="navCounter">1 / 18</span>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero">
-    <img src="coverphoto.jpg" alt="Portfolio cover" class="hero__bg" />
-    <div class="hero__overlay">
-      <p class="hero__eyebrow">Portfolio</p>
-      <h1 class="hero__title">Games, Mobile &amp; Product</h1>
-      <p class="hero__sub">20 years of UX/UI across AAA titles, mobile hits, and concept-to-shipped products.</p>
-      <div class="hero__stats">
-        <div class="hero__stat"><div class="hero__stat-num">20+</div><div class="hero__stat-label">Years</div></div>
-        <div class="hero__stat"><div class="hero__stat-num">50+</div><div class="hero__stat-label">Titles</div></div>
-        <div class="hero__stat"><div class="hero__stat-num">100M+</div><div class="hero__stat-label">Users</div></div>
-      </div>
-    </div>
-  </section>
+  <!-- Progress bar -->
+  <div class="progress" id="progress"></div>
 
-  <!-- Image Carousel Strip -->
-  <div class="carousel-wrap">
-    <p class="carousel-label">All Work — Click to Expand</p>
-    <div class="carousel" id="carousel">
-      <div class="carousel__item" data-src="portfolio-imgs/mw5-starmap.png" data-caption="MW5 Mercs — Star Map">
-        <img src="portfolio-imgs/mw5-starmap.png" alt="MW5 Star Map" loading="lazy" />
-        <div class="carousel__caption">MW5 Mercs — Star Map</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/mw5-mission.png" data-caption="MW5 Mercs — Mission Briefing">
-        <img src="portfolio-imgs/mw5-mission.png" alt="MW5 Mission Briefing" loading="lazy" />
-        <div class="carousel__caption">MW5 Mercs — Mission Briefing</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/mw5-pause.png" data-caption="MW5 Mercs — Pause Menu">
-        <img src="portfolio-imgs/mw5-pause.png" alt="MW5 Pause Menu" loading="lazy" />
-        <div class="carousel__caption">MW5 Mercs — Pause Menu</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/mw5-mechbay.png" data-caption="MW5 Mercs — Mech Bay Repair">
-        <img src="portfolio-imgs/mw5-mechbay.png" alt="MW5 Mech Bay" loading="lazy" />
-        <div class="carousel__caption">MW5 Mercs — Mech Bay Repair</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/dark-fantasy-inventory.png" data-caption="Dark Fantasy — Hero Inventory">
-        <img src="portfolio-imgs/dark-fantasy-inventory.png" alt="Dark Fantasy Inventory" loading="lazy" />
-        <div class="carousel__caption">Dark Fantasy — Hero Inventory</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/spellcrafting.png" data-caption="Spellcrafting — Time Magic System">
-        <img src="portfolio-imgs/spellcrafting.png" alt="Spellcrafting" loading="lazy" />
-        <div class="carousel__caption">Spellcrafting — Time Magic System</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/fantasy-cards.png" data-caption="Fantasy Card Collection UI">
-        <img src="portfolio-imgs/fantasy-cards.png" alt="Fantasy Cards" loading="lazy" />
-        <div class="carousel__caption">Fantasy Card Collection UI</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/fantasy-deckbuilder.png" data-caption="Fantasy CCG — Deck Builder">
-        <img src="portfolio-imgs/fantasy-deckbuilder.png" alt="Fantasy Deck Builder" loading="lazy" />
-        <div class="carousel__caption">Fantasy CCG — Deck Builder</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/nba-lakers-card.png" data-caption="NBA Player Card — Frima Studio">
-        <img src="portfolio-imgs/nba-lakers-card.png" alt="NBA Lakers Card" loading="lazy" />
-        <div class="carousel__caption">NBA Player Card — Frima Studio</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/weapon-skins.png" data-caption="Military Shooter — Weapon Skins">
-        <img src="portfolio-imgs/weapon-skins.png" alt="Weapon Skins" loading="lazy" />
-        <div class="carousel__caption">Military Shooter — Weapon Skins</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/agency-decks.png" data-caption="Agency — Deck Builder">
-        <img src="portfolio-imgs/agency-decks.png" alt="Agency Decks" loading="lazy" />
-        <div class="carousel__caption">Agency — Deck Builder</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/agency-board.png" data-caption="Agency — Game Board">
-        <img src="portfolio-imgs/agency-board.png" alt="Agency Board" loading="lazy" />
-        <div class="carousel__caption">Agency — Game Board</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/mobile-game-main.png" data-caption="Mobile Game — AppLovin">
-        <img src="portfolio-imgs/mobile-game-main.png" alt="Mobile Game" loading="lazy" />
-        <div class="carousel__caption">Mobile Game — AppLovin</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/king-misfit.png" data-caption="King Misfit — Title Card">
-        <img src="portfolio-imgs/king-misfit.png" alt="King Misfit" loading="lazy" />
-        <div class="carousel__caption">King Misfit — Title Card</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/agency-title.png" data-caption="Agency — Title Screen">
-        <img src="portfolio-imgs/agency-title.png" alt="Agency Title" loading="lazy" />
-        <div class="carousel__caption">Agency — Title Screen</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-      <div class="carousel__item" data-src="portfolio-imgs/stardust-flowchart.png" data-caption="Stardust Canvas — UX Flow">
-        <img src="portfolio-imgs/stardust-flowchart.png" alt="Stardust Canvas UX Flow" loading="lazy" />
-        <div class="carousel__caption">Stardust Canvas — UX Flow</div>
-        <div class="carousel__zoom"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607ZM10.5 7.5v6m3-3h-6"/></svg></div>
-      </div>
-    </div>
-    <div class="carousel-arrows">
-      <button class="carousel-arrow" id="carouselPrev" aria-label="Scroll left">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
-      </button>
-      <button class="carousel-arrow" id="carouselNext" aria-label="Scroll right">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
-      </button>
-    </div>
-  </div>
+  <!-- Slideshow -->
+  <div class="slideshow" id="slideshow">
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
-    <button class="lightbox__close" id="lightboxClose" aria-label="Close">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
-    </button>
-    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
-    </button>
-    <div class="lightbox__img-wrap">
-      <img class="lightbox__img" id="lightboxImg" src="" alt="" />
-    </div>
-    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
-    </button>
-    <div class="lightbox__caption" id="lightboxCaption"></div>
-    <div class="lightbox__counter" id="lightboxCounter"></div>
-  </div>
-
-  <!-- Filters -->
-  <div class="filters">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="game">Game UI/UX</button>
-    <button class="filter-btn" data-filter="concept">Concepts</button>
-    <button class="filter-btn" data-filter="personal">Personal</button>
-    <button class="filter-btn" data-filter="video">Video</button>
-  </div>
-
-  <!-- Featured: Video Recap + MechWarrior -->
-  <p class="section-label">Featured</p>
-  <div class="featured-row">
-
-    <!-- Career Recap Video -->
-    <article class="card card--featured" data-category="video">
-      <div class="card__media">
+    <!-- 1. Career Recap Video -->
+    <div class="slide" data-index="0">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Video</span><span class="slide__tag">UX/UI</span></div>
+        <div class="slide__company">Various Studios</div>
+        <h2 class="slide__title">Career Recap 2006 – 2017</h2>
+        <p class="slide__desc">A retrospective spanning 11 years across multiple studios — UX, UI design, and illustration in a wide range of styles. From early career foundations to senior AAA work.</p>
+        <div class="slide__skills"><span class="slide__skill">UX Design</span><span class="slide__skill">UI Design</span><span class="slide__skill">Illustration</span><span class="slide__skill">Game UI</span></div>
+        <a href="https://youtu.be/HluAtURCDN4" target="_blank" class="slide__link">Watch on YouTube <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></a>
+      </div>
+      <div class="slide__video-wrap">
         <iframe src="https://www.youtube.com/embed/HluAtURCDN4" title="Career Recap 2006–2017" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <div class="card__tag-overlay">
-          <span class="tag tag--video">Video</span>
-          <span class="tag tag--ux">UX/UI</span>
-        </div>
       </div>
-      <div class="card__body">
-        <div class="card__company">Various Studios</div>
-        <h2 class="card__title">Career Recap 2006 – 2017</h2>
-        <p class="card__desc">A retrospective spanning 11 years of professional work across multiple studios — UX, UI design, and illustration across a wide range of styles and game genres. From early career foundations to senior AAA work.</p>
-        <div class="card__skills">
-          <span class="card__skill">UX Design</span><span class="card__skill">UI Design</span><span class="card__skill">Illustration</span><span class="card__skill">Game UI</span>
-        </div>
-        <a href="https://youtu.be/HluAtURCDN4" target="_blank" class="card__link">
-          Watch on YouTube
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </a>
-      </div>
-    </article>
-
-    <!-- MechWarrior 5 -->
-    <article class="card card--featured" data-category="game">
-      <div class="card__media">
-        <img src="portfolio-imgs/mw5-starmap.png" alt="MechWarrior 5 Mercs — Star Map UI" />
-        <div class="card__tag-overlay">
-          <span class="tag tag--game">Game UI</span>
-          <span class="tag tag--ux">UX</span>
-        </div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Piranha Games</div>
-        <h2 class="card__title">MechWarrior 5: Mercenaries — UI Design</h2>
-        <p class="card__desc">Full UI design for MechWarrior 5 Mercenaries — including the Star Map, Mission Briefing, and in-game menus — implemented directly in Unreal Engine. Designed the strategic navigation, contract negotiation, and loadout systems from concept to shipped product.</p>
-        <div class="card__skills">
-          <span class="card__skill">Unreal Engine</span><span class="card__skill">Star Map</span><span class="card__skill">Mission UI</span><span class="card__skill">HUD</span>
-        </div>
-        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6947348975440068609/" target="_blank" class="card__link">
-          View on LinkedIn
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
-        </a>
-      </div>
-    </article>
-
-  </div>
-
-  <!-- Shipped Work Grid -->
-  <p class="section-label">Shipped Work</p>
-  <div class="grid">
-
-    <!-- MW5 Mission Briefing -->
-    <article class="card" data-category="game">
-      <div class="card__media">
-        <img src="portfolio-imgs/mw5-mission.png" alt="MechWarrior 5 Mission Briefing" />
-        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Piranha Games</div>
-        <h2 class="card__title">MW5 Mercs — Mission Briefing</h2>
-        <p class="card__desc">Mission contract and tactical briefing screen. Players assign mechs, review objectives, negotiate contracts, and survey terrain before launching — all in one cohesive interface.</p>
-        <div class="card__skills"><span class="card__skill">Unreal Engine</span><span class="card__skill">Strategy UI</span><span class="card__skill">HUD</span></div>
-      </div>
-    </article>
-
-    <!-- MW5 Pause Menu -->
-    <article class="card" data-category="game">
-      <div class="card__media">
-        <img src="portfolio-imgs/mw5-pause.png" alt="MechWarrior 5 Mercenaries Pause Menu" />
-        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Piranha Games</div>
-        <h2 class="card__title">MW5 Mercenaries — Pause Menu</h2>
-        <p class="card__desc">In-world pause menu for MechWarrior 5 Mercenaries. Minimal interruption to immersion — the menu overlays on the mech bay environment, keeping the player inside the world.</p>
-        <div class="card__skills"><span class="card__skill">Unreal Engine</span><span class="card__skill">Menu Design</span><span class="card__skill">Shipped</span></div>
-      </div>
-    </article>
-
-    <!-- Dark Fantasy Inventory -->
-    <article class="card" data-category="game">
-      <div class="card__media">
-        <img src="portfolio-imgs/dark-fantasy-inventory.png" alt="Dark Fantasy Hero Inventory Screen" />
-        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span><span class="tag tag--ux">UX</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Concept</div>
-        <h2 class="card__title">Dark Fantasy — Hero Inventory</h2>
-        <p class="card__desc">Full-body character equipment screen for a dark fantasy RPG. Weapons, tools, and consumables laid out around the hero character, with quick navigation tabs and a rich atmospheric background.</p>
-        <div class="card__skills"><span class="card__skill">Inventory UI</span><span class="card__skill">RPG</span><span class="card__skill">Character Screen</span></div>
-      </div>
-    </article>
-
-    <!-- Spellcrafting -->
-    <article class="card" data-category="game">
-      <div class="card__media">
-        <img src="portfolio-imgs/spellcrafting.png" alt="Spellcrafting UI — Time Magic" />
-        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Concept</div>
-        <h2 class="card__title">Spellcrafting — Time Magic System</h2>
-        <p class="card__desc">A multi-tab RPG spellcrafting interface allowing players to build spell combinations by level. Displays cooldown, mana and stamina costs with a tactile arcane design language.</p>
-        <div class="card__skills"><span class="card__skill">RPG UI</span><span class="card__skill">Spellcrafting</span><span class="card__skill">System Design</span></div>
-      </div>
-    </article>
-
-    <!-- Fantasy Card Game -->
-    <article class="card" data-category="game">
-      <div class="card__media">
-        <img src="portfolio-imgs/fantasy-cards.png" alt="Fantasy Card Game UI" />
-        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span><span class="tag tag--mobile">Mobile</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Gogii Games</div>
-        <h2 class="card__title">Fantasy Card Collection UI</h2>
-        <p class="card__desc">Hero card selection and collection screen for a fantasy card game. Features large hero artwork, an elegant top navigation HUD, and a persistent left-side navigation rail for quick access.</p>
-        <div class="card__skills"><span class="card__skill">Card Game UI</span><span class="card__skill">Hero Selection</span><span class="card__skill">Mobile</span></div>
-      </div>
-    </article>
-
-    <!-- NBA Basketball Game -->
-    <article class="card" data-category="game mobile">
-      <div class="card__media">
-        <img src="portfolio-imgs/nba-lakers-card.png" alt="NBA Basketball Player Card UI" />
-        <div class="card__tag-overlay"><span class="tag tag--mobile">Mobile</span><span class="tag tag--game">Game UI</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Frima Studio</div>
-        <h2 class="card__title">NBA Player Card — Mobile Game</h2>
-        <p class="card__desc">Player card detail screen for a licensed NBA mobile game. Stats, abilities, and upgrade CTAs displayed around a full-body 3D player render. Designed for quick comprehension and mobile thumb reach.</p>
-        <div class="card__skills"><span class="card__skill">Mobile UI</span><span class="card__skill">Licensed IP</span><span class="card__skill">Card Game</span><span class="card__skill">NBA</span></div>
-      </div>
-    </article>
-
-    <!-- Weapon Skins / Military -->
-    <article class="card" data-category="game">
-      <div class="card__media">
-        <img src="portfolio-imgs/weapon-skins.png" alt="Military Game Weapon Skins UI" />
-        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span><span class="tag tag--defense">Defense</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Consulting</div>
-        <h2 class="card__title">Military Shooter — Weapon Skins &amp; Faction System</h2>
-        <p class="card__desc">Cosmetic and customization UI for a military tactical shooter — featuring weapon skin browsing, real-world faction flags (CAF, USA, Turkish Armed Forces, ADF, and more), and an equip/purchase flow.</p>
-        <div class="card__skills"><span class="card__skill">Cosmetics UI</span><span class="card__skill">Faction System</span><span class="card__skill">Military</span><span class="card__skill">Shooter</span></div>
-      </div>
-    </article>
-
-    <!-- Agency Game -->
-    <article class="card" data-category="game">
-      <div class="card__media">
-        <img src="portfolio-imgs/agency-decks.png" alt="Agency Card Game Deck Selection" />
-        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Hothead Games</div>
-        <h2 class="card__title">Agency — Deck Builder UI</h2>
-        <p class="card__desc">Deck management and selection screen for Agency, a global-espionage themed card game. Players create and manage up to 45 decks with an Earth globe motif reinforcing the spy-world narrative.</p>
-        <div class="card__skills"><span class="card__skill">Card Game UI</span><span class="card__skill">Deck Builder</span><span class="card__skill">Strategy</span></div>
-      </div>
-    </article>
-
-    <!-- Mobile Cat Game -->
-    <article class="card" data-category="mobile game">
-      <div class="card__media">
-        <img src="portfolio-imgs/mobile-game-main.png" alt="Mobile Game Main Screen" />
-        <div class="card__tag-overlay"><span class="tag tag--mobile">Mobile</span><span class="tag tag--game">Game UI</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">AppLovin</div>
-        <h2 class="card__title">Mobile Game — Main Menu &amp; HUD</h2>
-        <p class="card__desc">Main screen UI for a mobile casual-action game. Bold play CTA, currency and progression bars, reward chests, and bottom navigation — all optimized for one-handed portrait play.</p>
-        <div class="card__skills"><span class="card__skill">Mobile UI</span><span class="card__skill">HUD</span><span class="card__skill">Casual Game</span><span class="card__skill">AppLovin</span></div>
-      </div>
-    </article>
-
-    <!-- MW5 Mech Bay Repair -->
-    <article class="card" data-category="game">
-      <div class="card__media">
-        <img src="portfolio-imgs/mw5-mechbay.png" alt="MechWarrior 5 Mech Bay Repair Screen" />
-        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Piranha Games</div>
-        <h2 class="card__title">MW5 Mercs — Mech Bay &amp; Repair</h2>
-        <p class="card__desc">Complex repair and customization interface for damaged BattleMechs. Component-level status, repair costs, time estimates, and warehouse/market integration — all tied to a 3D mech display with labeled damage zones.</p>
-        <div class="card__skills"><span class="card__skill">Unreal Engine</span><span class="card__skill">Repair UI</span><span class="card__skill">Mech Bay</span><span class="card__skill">Systems Design</span></div>
-      </div>
-    </article>
-
-    <!-- Agency Game Board -->
-    <article class="card" data-category="game">
-      <div class="card__media">
-        <img src="portfolio-imgs/agency-board.png" alt="Agency Card Game Board" />
-        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Hothead Games</div>
-        <h2 class="card__title">Agency — Game Board &amp; Mission UI</h2>
-        <p class="card__desc">In-game board interface for Agency — mission zones, counter-missions, asset tokens, and unit deployment. Symmetrical two-player layout with Intel progress tracking and a hexagonal grid aesthetic.</p>
-        <div class="card__skills"><span class="card__skill">Strategy UI</span><span class="card__skill">Board Game</span><span class="card__skill">Mission Design</span></div>
-      </div>
-    </article>
-
-    <!-- Fantasy Deck Builder -->
-    <article class="card" data-category="game">
-      <div class="card__media">
-        <img src="portfolio-imgs/fantasy-deckbuilder.png" alt="Fantasy Card Game Deck Builder" />
-        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Gogii Games</div>
-        <h2 class="card__title">Fantasy CCG — Deck Builder &amp; Collection</h2>
-        <p class="card__desc">Full deck-building interface with card collection grid, decklist sidebar, category filters, and card detail panel. Create, disenchant, and manage decks with a rich fantasy aesthetic.</p>
-        <div class="card__skills"><span class="card__skill">Card Game UI</span><span class="card__skill">Deck Builder</span><span class="card__skill">Collection</span></div>
-      </div>
-    </article>
-
-    <!-- King Misfit -->
-    <article class="card" data-category="game">
-      <div class="card__media">
-        <img src="portfolio-imgs/king-misfit.png" alt="King Misfit Title Card" />
-        <div class="card__tag-overlay"><span class="tag tag--game">Game UI</span><span class="tag tag--concept">Concept</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Concept</div>
-        <h2 class="card__title">King Misfit — Title Card</h2>
-        <p class="card__desc">Glitch-art title card for a dark fantasy concept. Distorted typography and visual noise create a distinctive, unsettling brand identity for a game or narrative project.</p>
-        <div class="card__skills"><span class="card__skill">Title Screen</span><span class="card__skill">Visual Branding</span><span class="card__skill">Glitch Art</span></div>
-      </div>
-    </article>
-
-    <!-- Stardust Canvas UX Flow -->
-    <article class="card" data-category="concept">
-      <div class="card__media">
-        <img src="portfolio-imgs/stardust-flowchart.png" alt="Stardust Canvas UX Flowchart" />
-        <div class="card__tag-overlay"><span class="tag tag--ux">UX</span><span class="tag tag--concept">Flowchart</span></div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">UX Magicians</div>
-        <h2 class="card__title">Stardust Canvas — UX Flow &amp; User Journey</h2>
-        <p class="card__desc">Full user flow for a horoscope/astrology mobile app — splash, horoscope, collection, news feed, game, paint, rewards, filters, stickers, quotes, and share. End-to-end journey mapping for client alignment.</p>
-        <div class="card__skills"><span class="card__skill">UX Flow</span><span class="card__skill">User Journey</span><span class="card__skill">Mobile App</span><span class="card__skill">Wireframes</span></div>
-      </div>
-    </article>
-
-  </div>
-
-  <!-- Project Grid -->
-  <p class="section-label">Concepts &amp; Experiments</p>
-  <div class="grid">
-
-    <!-- Hip Hop Rap Battle -->
-    <article class="card" data-category="concept game">
-      <div class="card__media">
-        <div class="card__media-bg card__media-bg--hiphop">
-          <div class="card__media-label">START BATTLE<small>Hip Hop Rap Battle · Main Menu</small></div>
-        </div>
-        <div class="card__tag-overlay">
-          <span class="tag tag--concept">Concept</span>
-          <span class="tag tag--game">Game UI</span>
-        </div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Concept · 2–3 Hours</div>
-        <h2 class="card__title">Hip Hop Rap Battle — Main Menu</h2>
-        <p class="card__desc">Quick 2–3 hour concept for a Hip Hop Rap Battle game main menu. Pushed beyond a static screen to make the whole thing feel alive with a moving crowd and dynamic energy.</p>
-        <div class="card__skills">
-          <span class="card__skill">Main Menu</span><span class="card__skill">Motion UI</span><span class="card__skill">Game UI</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- Sci-Fi Inventory Screen -->
-    <article class="card" data-category="concept game">
-      <div class="card__media">
-        <div class="card__media-bg card__media-bg--scifi">
-          <div class="card__media-label">Inventory Screen<small>Sci-Fi · Animated Background</small></div>
-        </div>
-        <div class="card__tag-overlay">
-          <span class="tag tag--concept">Concept</span>
-          <span class="tag tag--game">Game UI</span>
-        </div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Concept</div>
-        <h2 class="card__title">Sci-Fi Inventory — Animated Background</h2>
-        <p class="card__desc">Replaced static imagery with a cinematic moving background to show how an inventory screen can set tone and communicate quality. Demonstrates how motion elevates perceived game value.</p>
-        <div class="card__skills">
-          <span class="card__skill">Inventory UI</span><span class="card__skill">Motion Design</span><span class="card__skill">HUD</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- Victory Screen -->
-    <article class="card" data-category="concept game">
-      <div class="card__media">
-        <div class="card__media-bg card__media-bg--victory">
-          <div class="card__media-label">Victory Screen<small>Rapid Prototype · No Figma</small></div>
-        </div>
-        <div class="card__tag-overlay">
-          <span class="tag tag--concept">Concept</span>
-          <span class="tag tag--ux">UX</span>
-        </div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Concept · Rapid Prototype</div>
-        <h2 class="card__title">Victory Screen — Beyond Stats</h2>
-        <p class="card__desc">Built through pure rapid prototyping — no Figma, no design systems, just fast iteration to think through how a victory experience should feel for players beyond simply listing numbers.</p>
-        <div class="card__skills">
-          <span class="card__skill">Victory Screen</span><span class="card__skill">Rapid Prototyping</span><span class="card__skill">UX</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- Starship Diagnostic UI -->
-    <article class="card" data-category="concept game">
-      <div class="card__media">
-        <div class="card__media-bg card__media-bg--starship">
-          <div class="card__media-label">Starship Diagnostic UI<small>Futuristic HUD · Repair Console</small></div>
-        </div>
-        <div class="card__tag-overlay">
-          <span class="tag tag--concept">Concept</span>
-          <span class="tag tag--game">HUD</span>
-        </div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Concept · Experimental</div>
-        <h2 class="card__title">Starship Diagnostic &amp; Repair Console</h2>
-        <p class="card__desc">Prototyping a game interface that blends futuristic HUD design with functional gameplay systems. A starship diagnostic and repair console where every element serves both form and function.</p>
-        <div class="card__skills">
-          <span class="card__skill">HUD Design</span><span class="card__skill">Sci-Fi UI</span><span class="card__skill">Gameplay Systems</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- Codex of the Void -->
-    <article class="card" data-category="concept game">
-      <div class="card__media">
-        <div class="card__media-bg card__media-bg--magic">
-          <div class="card__media-label">Codex of the Void<small>Magical Arsenal · Shop UI</small></div>
-        </div>
-        <div class="card__tag-overlay">
-          <span class="tag tag--concept">Concept</span>
-          <span class="tag tag--game">Game UI</span>
-        </div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Concept · Good UX = More Sales</div>
-        <h2 class="card__title">Codex of the Void — Magical Arsenal UI</h2>
-        <p class="card__desc">A proof of concept magical arsenal UI where players manage, explore, and purchase items all in one seamless place. Designed around the principle that good UX directly drives engagement and revenue.</p>
-        <div class="card__skills">
-          <span class="card__skill">Shop UI</span><span class="card__skill">Inventory</span><span class="card__skill">RPG</span><span class="card__skill">UX Strategy</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- Realm of Eldoria -->
-    <article class="card" data-category="concept game">
-      <div class="card__media">
-        <div class="card__media-bg card__media-bg--fantasy">
-          <div class="card__media-label">Realm of Eldoria<small>Fantasy RPG · Loading Screen</small></div>
-        </div>
-        <div class="card__tag-overlay">
-          <span class="tag tag--concept">Concept</span>
-          <span class="tag tag--game">Game UI</span>
-        </div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Concept · Fantasy RPG</div>
-        <h2 class="card__title">Realm of Eldoria — Loading Screen</h2>
-        <p class="card__desc">Loading screens don't have to be wasted time. This fantasy RPG concept pulls players deeper into the world during load — tactical briefings, world lore, and mission context replace a static bar.</p>
-        <div class="card__skills">
-          <span class="card__skill">Loading Screen</span><span class="card__skill">Fantasy UI</span><span class="card__skill">World Building</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- Void Hunters — Faction Selection -->
-    <article class="card" data-category="concept game">
-      <div class="card__media">
-        <div class="card__media-bg card__media-bg--faction">
-          <div class="card__media-label">Void Hunters<small>HALO-Inspired · Faction Selection</small></div>
-        </div>
-        <div class="card__tag-overlay">
-          <span class="tag tag--concept">Concept</span>
-          <span class="tag tag--game">Game UI</span>
-        </div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Concept · Sci-Fi Strategy</div>
-        <h2 class="card__title">Void Hunters — Faction Selection</h2>
-        <p class="card__desc">A HALO-inspired faction selection interface designed for a sci-fi strategy game or military simulation. Each faction features distinct specializations, abilities, and playstyle differentiation built into the UX.</p>
-        <div class="card__skills">
-          <span class="card__skill">Character Select</span><span class="card__skill">Strategy UI</span><span class="card__skill">Sci-Fi</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- Game Resume -->
-    <article class="card" data-category="personal">
-      <div class="card__media">
-        <div class="card__media-bg card__media-bg--rpgresume">
-          <div class="card__media-label">RC · PRESS START<small>The Resume as an RPG</small></div>
-        </div>
-        <div class="card__tag-overlay">
-          <span class="tag tag--personal">Personal</span>
-          <span class="tag tag--ux">UX</span>
-        </div>
-      </div>
-      <div class="card__body">
-        <div class="card__company">Personal Project</div>
-        <h2 class="card__title">My Resume as an RPG Game</h2>
-        <p class="card__desc">Turned my resume into a game. Click through Profile, Inventory, Map, and Quests — unlocking my career like an RPG. Every click gives you XP and health. More memorable than a PDF.</p>
-        <div class="card__skills">
-          <span class="card__skill">Gamification</span><span class="card__skill">Interactive</span><span class="card__skill">Personal Branding</span>
-        </div>
-      </div>
-    </article>
-
-  </div>
-
-  <!-- Google Slides Showcase -->
-  <p class="section-label">Early Career Showcase</p>
-  <div class="grid">
-    <div class="slides-embed" data-category="game concept personal">
-      <div class="slides-embed__header">
-        <div class="slides-embed__company">Google Slides · Archive</div>
-        <div class="slides-embed__title">Career Showcase — Early Work</div>
-        <div class="slides-embed__desc">A curated showcase of early-career work spanning illustration, UI design, and game art across multiple studios and styles.</div>
-      </div>
-      <iframe
-        src="https://docs.google.com/presentation/d/1_t3P15-rxT5p2SCMQ2P3wO-lsPRj_7tgpqBNAwkJDRE/embed?start=false&loop=false&delayms=4000"
-        title="Career Showcase — Guillaume Remi Couture"
-        allowfullscreen>
-      </iframe>
     </div>
+
+    <!-- 2. MW5 Star Map -->
+    <div class="slide" data-index="1">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/mw5-starmap.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">UX</span><span class="slide__tag">Shipped</span></div>
+        <div class="slide__company">Piranha Games</div>
+        <h2 class="slide__title">MechWarrior 5: Mercenaries — Star Map</h2>
+        <p class="slide__desc">Strategic navigation interface for MechWarrior 5 — planetary systems, contract selection, faction reputation, and resource markets all in one cohesive screen. Implemented in Unreal Engine.</p>
+        <div class="slide__skills"><span class="slide__skill">Unreal Engine</span><span class="slide__skill">Star Map</span><span class="slide__skill">Strategy UI</span><span class="slide__skill">HUD</span></div>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:6947348975440068609/" target="_blank" class="slide__link">View on LinkedIn <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></a>
+      </div>
+    </div>
+
+    <!-- 3. MW5 Mission Briefing -->
+    <div class="slide" data-index="2">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/mw5-mission.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">Shipped</span></div>
+        <div class="slide__company">Piranha Games</div>
+        <h2 class="slide__title">MW5 Mercs — Mission Briefing</h2>
+        <p class="slide__desc">Mission contract and tactical briefing screen. Players assign mechs, review objectives, negotiate contracts, and survey terrain — all before launching into battle.</p>
+        <div class="slide__skills"><span class="slide__skill">Unreal Engine</span><span class="slide__skill">Strategy UI</span><span class="slide__skill">HUD</span></div>
+      </div>
+    </div>
+
+    <!-- 4. MW5 Pause Menu -->
+    <div class="slide" data-index="3">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/mw5-pause.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">Shipped</span></div>
+        <div class="slide__company">Piranha Games</div>
+        <h2 class="slide__title">MW5 Mercs — Pause Menu</h2>
+        <p class="slide__desc">In-world pause menu that overlays on the mech bay environment — minimal immersion break, clear structure, and quick access to all key systems without pulling the player out of the world.</p>
+        <div class="slide__skills"><span class="slide__skill">Unreal Engine</span><span class="slide__skill">Menu Design</span></div>
+      </div>
+    </div>
+
+    <!-- 5. MW5 Mech Bay -->
+    <div class="slide" data-index="4">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/mw5-mechbay.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">Shipped</span></div>
+        <div class="slide__company">Piranha Games</div>
+        <h2 class="slide__title">MW5 Mercs — Mech Bay &amp; Repair</h2>
+        <p class="slide__desc">Complex repair interface for damaged BattleMechs — component-level status, repair costs, time estimates, and warehouse/market integration, all tied to a live 3D mech display with labeled damage zones.</p>
+        <div class="slide__skills"><span class="slide__skill">Unreal Engine</span><span class="slide__skill">Repair UI</span><span class="slide__skill">Systems Design</span></div>
+      </div>
+    </div>
+
+    <!-- 6. Dark Fantasy Inventory -->
+    <div class="slide" data-index="5">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/dark-fantasy-inventory.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">UX</span><span class="slide__tag">Concept</span></div>
+        <div class="slide__company">Concept</div>
+        <h2 class="slide__title">Dark Fantasy — Hero Inventory</h2>
+        <p class="slide__desc">Full-body character equipment screen for a dark fantasy RPG. Weapons, tools, and consumables laid out around the hero character with quick navigation tabs and a rich atmospheric background.</p>
+        <div class="slide__skills"><span class="slide__skill">Inventory UI</span><span class="slide__skill">RPG</span><span class="slide__skill">Character Screen</span></div>
+      </div>
+    </div>
+
+    <!-- 7. Spellcrafting -->
+    <div class="slide" data-index="6">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/spellcrafting.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">Concept</span></div>
+        <div class="slide__company">Concept</div>
+        <h2 class="slide__title">Spellcrafting — Time Magic System</h2>
+        <p class="slide__desc">Multi-tab RPG spellcrafting interface — players build spell combinations by level, with cooldown, mana and stamina costs displayed in a tactile arcane design language.</p>
+        <div class="slide__skills"><span class="slide__skill">RPG UI</span><span class="slide__skill">Spellcrafting</span><span class="slide__skill">System Design</span></div>
+      </div>
+    </div>
+
+    <!-- 8. Fantasy Cards -->
+    <div class="slide" data-index="7">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/fantasy-cards.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">Mobile</span></div>
+        <div class="slide__company">Gogii Games</div>
+        <h2 class="slide__title">Fantasy Card Collection UI</h2>
+        <p class="slide__desc">Hero card selection and collection screen — large hero artwork, an elegant top navigation HUD, and a persistent left-side navigation rail for quick access to all collections.</p>
+        <div class="slide__skills"><span class="slide__skill">Card Game UI</span><span class="slide__skill">Hero Selection</span><span class="slide__skill">Mobile</span></div>
+      </div>
+    </div>
+
+    <!-- 9. Fantasy Deck Builder -->
+    <div class="slide" data-index="8">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/fantasy-deckbuilder.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span></div>
+        <div class="slide__company">Gogii Games</div>
+        <h2 class="slide__title">Fantasy CCG — Deck Builder</h2>
+        <p class="slide__desc">Full deck-building interface with card collection grid, decklist sidebar, category filters, and card detail panel. Create, disenchant, and manage your decks with rich fantasy aesthetics.</p>
+        <div class="slide__skills"><span class="slide__skill">Card Game UI</span><span class="slide__skill">Deck Builder</span><span class="slide__skill">Collection</span></div>
+      </div>
+    </div>
+
+    <!-- 10. NBA Card -->
+    <div class="slide" data-index="9">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/nba-lakers-card.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Mobile</span><span class="slide__tag">Licensed IP</span></div>
+        <div class="slide__company">Frima Studio</div>
+        <h2 class="slide__title">NBA Player Card — Mobile Game</h2>
+        <p class="slide__desc">Player card detail screen for a licensed NBA mobile game. Stats, abilities, and upgrade CTAs displayed around a full-body 3D player render — designed for quick comprehension and mobile thumb reach.</p>
+        <div class="slide__skills"><span class="slide__skill">Mobile UI</span><span class="slide__skill">Licensed IP</span><span class="slide__skill">NBA</span></div>
+      </div>
+    </div>
+
+    <!-- 11. Weapon Skins -->
+    <div class="slide" data-index="10">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/weapon-skins.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">Defense</span></div>
+        <div class="slide__company">Consulting</div>
+        <h2 class="slide__title">Military Shooter — Weapon Skins &amp; Faction System</h2>
+        <p class="slide__desc">Cosmetic and customization UI for a military tactical shooter — weapon skin browsing, real-world faction flags (CAF, USA, Turkish Armed Forces, ADF), and a streamlined equip/purchase flow.</p>
+        <div class="slide__skills"><span class="slide__skill">Cosmetics UI</span><span class="slide__skill">Faction System</span><span class="slide__skill">Military</span></div>
+      </div>
+    </div>
+
+    <!-- 12. Agency Decks -->
+    <div class="slide" data-index="11">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/agency-decks.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span></div>
+        <div class="slide__company">Hothead Games</div>
+        <h2 class="slide__title">Agency — Deck Builder UI</h2>
+        <p class="slide__desc">Deck management and selection screen for Agency, a global-espionage themed card game. Players create and manage up to 45 decks with an Earth globe motif reinforcing the spy-world narrative.</p>
+        <div class="slide__skills"><span class="slide__skill">Card Game</span><span class="slide__skill">Deck Builder</span><span class="slide__skill">Strategy</span></div>
+      </div>
+    </div>
+
+    <!-- 13. Agency Board -->
+    <div class="slide" data-index="12">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/agency-board.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span></div>
+        <div class="slide__company">Hothead Games</div>
+        <h2 class="slide__title">Agency — Game Board &amp; Mission UI</h2>
+        <p class="slide__desc">In-game board interface — mission zones, counter-missions, asset tokens, and unit deployment. Symmetrical two-player layout with Intel progress tracking and a hexagonal grid aesthetic.</p>
+        <div class="slide__skills"><span class="slide__skill">Strategy UI</span><span class="slide__skill">Board Game</span><span class="slide__skill">Mission Design</span></div>
+      </div>
+    </div>
+
+    <!-- 14. Agency Title -->
+    <div class="slide" data-index="13">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/agency-title.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span></div>
+        <div class="slide__company">Hothead Games</div>
+        <h2 class="slide__title">Agency — Title Screen</h2>
+        <p class="slide__desc">Title screen branding and main menu for Agency — global-espionage card game. Sets the tone through map and surveillance aesthetic, spy-world typography, and atmospheric visual design.</p>
+        <div class="slide__skills"><span class="slide__skill">Title Screen</span><span class="slide__skill">Branding</span><span class="slide__skill">Menu Design</span></div>
+      </div>
+    </div>
+
+    <!-- 15. Mobile Game -->
+    <div class="slide" data-index="14">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/mobile-game-main.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Mobile</span><span class="slide__tag">Game UI</span></div>
+        <div class="slide__company">AppLovin — Central Creative</div>
+        <h2 class="slide__title">Mobile Game — Main Menu &amp; HUD</h2>
+        <p class="slide__desc">Main screen UI for a mobile casual-action game. Bold play CTA, currency and progression bars, reward chests, and bottom navigation — all optimized for one-handed portrait play at scale.</p>
+        <div class="slide__skills"><span class="slide__skill">Mobile UI</span><span class="slide__skill">HUD</span><span class="slide__skill">Casual Game</span></div>
+      </div>
+    </div>
+
+    <!-- 16. King Misfit -->
+    <div class="slide" data-index="15">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/king-misfit.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Concept</span><span class="slide__tag">Visual Branding</span></div>
+        <div class="slide__company">Concept</div>
+        <h2 class="slide__title">King Misfit — Title Card</h2>
+        <p class="slide__desc">Glitch-art title card concept for a dark narrative project. Distorted typography and visual noise create a distinctive, unsettling brand identity that stands apart from conventional game UI.</p>
+        <div class="slide__skills"><span class="slide__skill">Title Screen</span><span class="slide__skill">Glitch Art</span><span class="slide__skill">Branding</span></div>
+      </div>
+    </div>
+
+    <!-- 17. Stardust Canvas UX Flow -->
+    <div class="slide" data-index="16">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/stardust-flowchart.png'); background-position: center center;"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">UX</span><span class="slide__tag">Mobile</span></div>
+        <div class="slide__company">UX Magicians</div>
+        <h2 class="slide__title">Stardust Canvas — UX Flow</h2>
+        <p class="slide__desc">Full user journey for a horoscope/astrology mobile app — splash, horoscope, collection, news, game, paint, rewards, filters, stickers, quotes, and share. End-to-end journey mapping for stakeholder alignment.</p>
+        <div class="slide__skills"><span class="slide__skill">UX Flow</span><span class="slide__skill">User Journey</span><span class="slide__skill">Mobile App</span><span class="slide__skill">Wireframes</span></div>
+      </div>
+    </div>
+
+    <!-- 18. Google Slides Showcase -->
+    <div class="slide" data-index="17">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg'); filter: brightness(0.3)"></div>
+      <div class="slide__overlay" style="background:linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 42%, rgba(0,0,0,0.4) 100%)"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span><span class="slide__tag">Early Career</span></div>
+        <div class="slide__company">Various Studios · 2006 – 2017</div>
+        <h2 class="slide__title">Career Showcase — Early Work</h2>
+        <p class="slide__desc">A curated showcase of early-career work spanning illustration, UI design, and game art across multiple studios and styles. 156 slides covering the full arc of early professional output.</p>
+        <div class="slide__skills"><span class="slide__skill">Illustration</span><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Character Design</span></div>
+      </div>
+      <div class="slide__slides-wrap">
+        <iframe src="https://docs.google.com/presentation/d/1_t3P15-rxT5p2SCMQ2P3wO-lsPRj_7tgpqBNAwkJDRE/embed?start=false&loop=false&delayms=4000" title="Career Showcase" allowfullscreen></iframe>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Back to top -->
-  <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"/></svg>
+  <!-- Prev / Next arrows -->
+  <button class="slide-nav slide-nav--prev" id="navPrev" aria-label="Previous slide">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+  </button>
+  <button class="slide-nav slide-nav--next" id="navNext" aria-label="Next slide">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
   </button>
 
+  <!-- Thumbnail strip -->
+  <div class="thumbstrip" id="thumbstrip">
+    <div class="thumb thumb--video" data-index="0" title="Career Recap Video 2006–2017">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+    </div>
+    <div class="thumb" data-index="1" title="MW5 Star Map"><img src="portfolio-imgs/mw5-starmap.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="2" title="MW5 Mission Briefing"><img src="portfolio-imgs/mw5-mission.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="3" title="MW5 Pause Menu"><img src="portfolio-imgs/mw5-pause.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="4" title="MW5 Mech Bay"><img src="portfolio-imgs/mw5-mechbay.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="5" title="Dark Fantasy Inventory"><img src="portfolio-imgs/dark-fantasy-inventory.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="6" title="Spellcrafting"><img src="portfolio-imgs/spellcrafting.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="7" title="Fantasy Card Collection"><img src="portfolio-imgs/fantasy-cards.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="8" title="Fantasy Deck Builder"><img src="portfolio-imgs/fantasy-deckbuilder.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="9" title="NBA Player Card"><img src="portfolio-imgs/nba-lakers-card.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="10" title="Weapon Skins"><img src="portfolio-imgs/weapon-skins.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="11" title="Agency Deck Builder"><img src="portfolio-imgs/agency-decks.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="12" title="Agency Game Board"><img src="portfolio-imgs/agency-board.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="13" title="Agency Title Screen"><img src="portfolio-imgs/agency-title.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="14" title="Mobile Game"><img src="portfolio-imgs/mobile-game-main.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="15" title="King Misfit"><img src="portfolio-imgs/king-misfit.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="16" title="Stardust Canvas UX Flow"><img src="portfolio-imgs/stardust-flowchart.png" alt="" loading="lazy"></div>
+    <div class="thumb thumb--video" data-index="17" title="Early Career Showcase">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/></svg>
+    </div>
+  </div>
+
   <script>
-    // Back to top
     (function () {
-      var btn = document.getElementById('backToTop');
-      window.addEventListener('scroll', function () {
-        btn.classList.toggle('back-to-top--visible', window.scrollY > 300);
-      }, { passive: true });
-    })();
+      var total   = 18;
+      var current = 0;
+      var slides  = Array.from(document.querySelectorAll('.slide'));
+      var thumbs  = Array.from(document.querySelectorAll('.thumb'));
+      var counter = document.getElementById('navCounter');
+      var prog    = document.getElementById('progress');
+      var strip   = document.getElementById('thumbstrip');
 
-    // Filter
-    var filterBtns = document.querySelectorAll('.filter-btn');
-    var cards = document.querySelectorAll('.card[data-category], .slides-embed');
-
-    filterBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        filterBtns.forEach(function (b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-        var filter = btn.dataset.filter;
-        cards.forEach(function (card) {
-          if (filter === 'all') {
-            card.style.display = '';
-          } else {
-            var cat = (card.dataset.category || '');
-            card.style.display = cat.includes(filter) ? '' : 'none';
-          }
-        });
-      });
-    });
-
-    // Carousel
-    (function () {
-      var carousel = document.getElementById('carousel');
-      var prevBtn  = document.getElementById('carouselPrev');
-      var nextBtn  = document.getElementById('carouselNext');
-      var itemW    = 292; // item width + gap
-
-      prevBtn.addEventListener('click', function () {
-        carousel.scrollBy({ left: -(itemW * 3), behavior: 'smooth' });
-      });
-      nextBtn.addEventListener('click', function () {
-        carousel.scrollBy({ left: itemW * 3, behavior: 'smooth' });
-      });
-
-      // Drag to scroll
-      var isDown = false, startX, scrollLeft;
-      carousel.addEventListener('mousedown', function (e) {
-        isDown = true;
-        startX = e.pageX - carousel.offsetLeft;
-        scrollLeft = carousel.scrollLeft;
-      });
-      carousel.addEventListener('mouseleave', function () { isDown = false; });
-      carousel.addEventListener('mouseup', function () { isDown = false; });
-      carousel.addEventListener('mousemove', function (e) {
-        if (!isDown) return;
-        e.preventDefault();
-        var x = e.pageX - carousel.offsetLeft;
-        carousel.scrollLeft = scrollLeft - (x - startX);
-      });
-    })();
-
-    // Lightbox
-    (function () {
-      var items    = Array.from(document.querySelectorAll('.carousel__item'));
-      var lightbox = document.getElementById('lightbox');
-      var lb_img   = document.getElementById('lightboxImg');
-      var lb_cap   = document.getElementById('lightboxCaption');
-      var lb_count = document.getElementById('lightboxCounter');
-      var current  = 0;
-
-      function open(idx) {
-        current = idx;
-        var item = items[current];
-        lb_img.style.opacity = '0';
-        lb_img.src = item.dataset.src;
-        lb_img.alt = item.dataset.caption;
-        lb_cap.textContent = item.dataset.caption;
-        lb_count.textContent = (current + 1) + ' / ' + items.length;
-        lightbox.classList.add('lightbox--open');
-        document.body.style.overflow = 'hidden';
-        lb_img.onload = function () { lb_img.style.opacity = '1'; };
+      function goTo(idx) {
+        slides[current].classList.remove('slide--active');
+        thumbs[current].classList.remove('thumb--active');
+        current = (idx + total) % total;
+        slides[current].classList.add('slide--active');
+        thumbs[current].classList.add('thumb--active');
+        counter.textContent = (current + 1) + ' / ' + total;
+        prog.style.width = ((current + 1) / total * 100) + '%';
+        // Scroll thumb into view
+        var t = thumbs[current];
+        strip.scrollTo({ left: t.offsetLeft - strip.offsetWidth / 2 + t.offsetWidth / 2, behavior: 'smooth' });
       }
 
-      function close() {
-        lightbox.classList.remove('lightbox--open');
-        document.body.style.overflow = '';
-      }
+      // Init
+      goTo(0);
 
-      function prev() { open((current - 1 + items.length) % items.length); }
-      function next() { open((current + 1) % items.length); }
+      document.getElementById('navPrev').addEventListener('click', function () { goTo(current - 1); });
+      document.getElementById('navNext').addEventListener('click', function () { goTo(current + 1); });
 
-      items.forEach(function (item, i) {
-        item.addEventListener('click', function () { open(i); });
+      thumbs.forEach(function (t) {
+        t.addEventListener('click', function () { goTo(parseInt(t.dataset.index)); });
       });
 
-      document.getElementById('lightboxClose').addEventListener('click', close);
-      document.getElementById('lightboxPrev').addEventListener('click', prev);
-      document.getElementById('lightboxNext').addEventListener('click', next);
-
-      lightbox.addEventListener('click', function (e) {
-        if (e.target === lightbox) close();
-      });
-
+      // Keyboard
       document.addEventListener('keydown', function (e) {
-        if (!lightbox.classList.contains('lightbox--open')) return;
-        if (e.key === 'Escape') close();
-        if (e.key === 'ArrowLeft') prev();
-        if (e.key === 'ArrowRight') next();
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+        if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
       });
 
-      // Touch swipe on lightbox
-      var touchStartX = 0;
-      lightbox.addEventListener('touchstart', function (e) {
-        touchStartX = e.changedTouches[0].clientX;
+      // Touch swipe
+      var touchX = 0;
+      document.addEventListener('touchstart', function (e) {
+        touchX = e.changedTouches[0].clientX;
       }, { passive: true });
-      lightbox.addEventListener('touchend', function (e) {
-        var dx = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(dx) > 40) dx < 0 ? next() : prev();
+      document.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchX;
+        if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1);
       }, { passive: true });
     })();
   </script>
