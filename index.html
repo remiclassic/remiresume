@@ -99,8 +99,11 @@
     }
 
     .header__top {
-      display: none; /* hidden on desktop — photo lives in header__right */
+      display: block; /* name/title always visible; photo inside hidden on desktop */
     }
+
+    /* Hide the mobile photo — desktop uses header__right column */
+    .header__top .header__photo { display: none; }
 
     .header__title-block {}
 
@@ -566,7 +569,7 @@
         gap: 14px;
         margin-bottom: 16px;
       }
-      .header__photo { width: 68px; height: 68px; flex-shrink: 0; }
+      .header__top .header__photo { display: block; width: 68px; height: 68px; flex-shrink: 0; }
       .header__name { font-size: 1.6rem; }
       .header__title { font-size: 0.86rem; margin-top: 4px; }
       /* Show mobile download button below highlights */
