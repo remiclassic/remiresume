@@ -98,23 +98,44 @@
       position: absolute;
       inset: 0;
       background-size: cover;
-      background-position: center top;
-      transition: transform 8s ease;
+      background-position: center;
+      filter: blur(28px) brightness(0.32);
+      transform: scale(1.12);
+      transition: transform 9s ease;
     }
 
-    .slide--active .slide__bg { transform: scale(1.03); }
+    .slide--active .slide__bg { transform: scale(1.16); }
 
     .slide__overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(
         to right,
-        rgba(0,0,0,0.88) 0%,
-        rgba(0,0,0,0.55) 42%,
-        rgba(0,0,0,0.15) 70%,
-        rgba(0,0,0,0.05) 100%
+        rgba(0,0,0,0.72) 0%,
+        rgba(0,0,0,0.35) 30%,
+        transparent 55%
       );
     }
+
+    /* Sharp foreground image — always fully visible, no cropping */
+    .slide__img {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      max-width: 56%;
+      max-height: 82%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 20px 56px rgba(0,0,0,0.65);
+      opacity: 0;
+      transition: opacity 0.5s ease 0.22s;
+      display: block;
+    }
+
+    .slide--active .slide__img { opacity: 1; }
 
     .slide__panel {
       position: absolute;
@@ -365,13 +386,20 @@
       transition: width 0.4s ease;
     }
 
+    /* Medium screens — shrink foreground image */
+    @media (max-width: 1100px) {
+      .slide__img { max-width: 50%; right: 3%; }
+      .slide__panel { width: 360px; padding: 32px 36px; }
+    }
+
     /* Mobile */
     @media (max-width: 680px) {
       .slide__panel { width: 100%; padding: 24px 20px; justify-content: flex-end; padding-bottom: 20px; }
-      .slide__overlay { background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.08) 100%); }
+      .slide__overlay { background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 60%, transparent 100%); }
       .slide__title { font-size: 1.3rem; }
       .slide__desc { max-width: 100%; font-size: 0.8rem; }
       .slide-nav { display: none; }
+      .slide__img { display: none; }
       .slide__video-wrap, .slide__slides-wrap { display: none; }
       .thumb { width: 106px; height: 66px; }
       .thumbstrip { height: 88px; }
@@ -881,6 +909,27 @@
     <!-- Slide 121: Google Slides -->
     <div class="thumb thumb--video" data-index="121" title="Early Career Showcase"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/></svg></div>
   </div>
+
+  <script>
+    // Auto-inject sharp foreground images from each slide's blurred background
+    (function () {
+      document.querySelectorAll('.slide').forEach(function (slide) {
+        // Skip slides that already have their own right-side media
+        if (slide.querySelector('.slide__video-wrap') || slide.querySelector('.slide__slides-wrap')) return;
+        var bg = slide.querySelector('.slide__bg');
+        if (!bg) return;
+        var style = bg.getAttribute('style') || '';
+        var match = style.match(/url\(['"]?([^'")\s]+)['"]?\)/);
+        if (!match) return;
+        var img = document.createElement('img');
+        img.className = 'slide__img';
+        img.src = match[1];
+        img.alt = '';
+        img.loading = 'lazy';
+        slide.appendChild(img);
+      });
+    })();
+  </script>
 
   <script>
     (function () {
