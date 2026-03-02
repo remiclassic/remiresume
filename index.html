@@ -98,6 +98,12 @@
       min-width: 0;
     }
 
+    .header__top {
+      display: none; /* hidden on desktop — photo lives in header__right */
+    }
+
+    .header__title-block {}
+
     .header__right {
       flex-shrink: 0;
       display: flex;
@@ -121,6 +127,9 @@
       object-fit: cover;
       display: block;
     }
+
+    /* Mobile-only download button (hidden on desktop) */
+    .btn-download--mobile { display: none; }
 
     .header__name {
       font-size: 2.5rem;
@@ -541,28 +550,37 @@
       body { padding: 0; }
       .page { border-radius: 0; box-shadow: none; }
 
-      /* Header: stack vertically, photo + name row at top */
+      /* Header: single column, photo+name row at top */
       .header {
         flex-direction: column;
         align-items: stretch;
-        padding: 28px 20px 24px;
+        padding: 24px 20px 24px;
         gap: 0;
       }
-      .header__right {
-        flex-direction: row;
+      /* Hide desktop right column */
+      .header__right { display: none !important; }
+      /* Show mobile top row (photo left, name right) */
+      .header__top {
+        display: flex;
         align-items: center;
-        justify-content: space-between;
         gap: 14px;
-        margin-bottom: 18px;
+        margin-bottom: 16px;
       }
-      .header__photo { width: 72px; height: 72px; }
-      .header__name { font-size: 1.75rem; }
-      .header__title { font-size: 0.88rem; }
-      .header__contact { gap: 12px; }
-      .header__contact a { font-size: 0.82rem; }
-      .header__summary { font-size: 0.84rem; line-height: 1.65; }
+      .header__photo { width: 68px; height: 68px; flex-shrink: 0; }
+      .header__name { font-size: 1.6rem; }
+      .header__title { font-size: 0.86rem; margin-top: 4px; }
+      /* Show mobile download button below highlights */
+      .btn-download--mobile {
+        display: inline-flex;
+        margin-top: 16px;
+        width: 100%;
+        justify-content: center;
+      }
+      .header__contact { gap: 10px; }
+      .header__contact a { font-size: 0.81rem; }
+      .header__summary { font-size: 0.83rem; line-height: 1.65; margin-top: 14px; }
       .header__highlights { gap: 6px; margin-top: 12px; }
-      .header__highlights span { font-size: 0.72rem; padding: 3px 8px; }
+      .header__highlights span { font-size: 0.71rem; padding: 3px 8px; }
 
       /* Cover banner */
       .cover-banner { height: 130px; }
@@ -733,9 +751,11 @@
       /* Never orphan Education or Early Career onto a solo page */
       .section:nth-last-child(-n+2) { break-before: avoid !important; page-break-before: avoid !important; }
 
-      /* Hide cover banner, photo, and download button in print */
+      /* Hide cover banner, photos, and download buttons in print */
       .cover-banner { display: none !important; }
       .header__right { display: none !important; }
+      .header__top { display: none !important; }
+      .btn-download--mobile { display: none !important; }
       .header { display: block !important; padding: 18pt 20pt 14pt !important; }
       .header__body { display: block !important; }
     }
@@ -744,36 +764,49 @@
 <body>
   <div class="page">
     <header class="header">
+      <!-- Top row: name/title left, photo right (desktop) -->
       <div class="header__body">
-      <h1 class="header__name">Remi Couture</h1>
-      <p class="header__title">Senior UX/UI Designer &amp; Product Design Consultant</p>
-      <div class="header__divider"></div>
-      <div class="header__contact">
-        <a href="tel:4189078783">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
-          418 907 8783
-        </a>
-        <a href="mailto:rcouture@gmail.com">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
-          rcouture@gmail.com
-        </a>
-        <a href="https://linkedin.com/in/remicouture" target="_blank">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          linkedin.com/in/remicouture
-        </a>
-      </div>
-      <p class="header__summary">
-        Senior UX/UI designer and consultant with nearly two decades of experience leading design for products used by millions worldwide. From AAA game titles to mobile hits — clients include Disney, Sony, Riot Games, Tencent, Universal Studios, Hasbro, Twitch, and AppLovin. Combines deep UX/UI expertise with AI-assisted workflows and front-end development skills (React, JavaScript, Next.js) to help teams ship faster without sacrificing quality.
-      </p>
-      <div class="header__highlights">
-        <span>20 Years in Games &amp; Product</span>
-        <span>Millions of Users Reached</span>
-        <span>AI-Assisted Workflows</span>
-        <span>Unreal · Unity · Figma · React</span>
-      </div>
+        <div class="header__top">
+          <div class="header__title-block">
+            <h1 class="header__name">Remi Couture</h1>
+            <p class="header__title">Senior UX/UI Designer &amp; Product Design Consultant</p>
+          </div>
+          <div class="header__photo">
+            <img src="photome.png" alt="Remi Couture" />
+          </div>
+        </div>
+        <div class="header__divider"></div>
+        <div class="header__contact">
+          <a href="tel:4189078783">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
+            418 907 8783
+          </a>
+          <a href="mailto:rcouture@gmail.com">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+            rcouture@gmail.com
+          </a>
+          <a href="https://linkedin.com/in/remicouture" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            linkedin.com/in/remicouture
+          </a>
+        </div>
+        <p class="header__summary">
+          Senior UX/UI designer and consultant with nearly two decades of experience leading design for products used by millions worldwide. From AAA game titles to mobile hits — clients include Disney, Sony, Riot Games, Tencent, Universal Studios, Hasbro, Twitch, and AppLovin. Combines deep UX/UI expertise with AI-assisted workflows and front-end development skills (React, JavaScript, Next.js) to help teams ship faster without sacrificing quality.
+        </p>
+        <div class="header__highlights">
+          <span>20 Years in Games &amp; Product</span>
+          <span>Millions of Users Reached</span>
+          <span>AI-Assisted Workflows</span>
+          <span>Unreal · Unity · Figma · React</span>
+        </div>
+        <button class="btn-download btn-download--mobile" onclick="window.print()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+          Download PDF
+        </button>
       </div><!-- /.header__body -->
+      <!-- Desktop-only right column: photo + download button -->
       <div class="header__right">
-        <div class="header__photo">
+        <div class="header__photo header__photo--desktop">
           <img src="photome.png" alt="Remi Couture" />
         </div>
         <button class="btn-download" onclick="window.print()">
