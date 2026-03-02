@@ -205,6 +205,18 @@
 
     .card:hover .card__media img { transform: scale(1.03); }
 
+    .card__media--video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .card__media--video {
+      position: relative;
+    }
+
     .card__media-placeholder {
       width: 100%;
       height: 100%;
@@ -444,14 +456,40 @@
       </div>
     </article>
 
-    <!-- Placeholder cards -->
-    <article class="card card--placeholder">
-      <div class="card__placeholder-inner">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
-        <p>More projects coming soon.<br>Share your LinkedIn Featured links to add them.</p>
+    <!-- Career Recap Video 2006–2017 -->
+    <article class="card card--featured">
+      <div class="card__media card__media--video">
+        <iframe
+          src="https://www.youtube.com/embed/HluAtURCDN4"
+          title="Remi Couture — Career Recap 2006–2017"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+        <div class="card__tag-overlay">
+          <span class="tag tag--ux">UX/UI</span>
+          <span class="tag tag--game">Game UI</span>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__company">Various Studios</div>
+        <h2 class="card__title">Career Recap 2006 – 2017</h2>
+        <p class="card__desc">A retrospective spanning 11 years of professional work across multiple studios — covering user experience, user interface design, and illustration in a range of styles. From early career foundations to senior-level AAA game work.</p>
+        <div class="card__tags">
+          <span class="card__skill">UX Design</span>
+          <span class="card__skill">UI Design</span>
+          <span class="card__skill">Illustration</span>
+          <span class="card__skill">Game UI</span>
+          <span class="card__skill">2006 – 2017</span>
+        </div>
+        <a href="https://youtu.be/HluAtURCDN4" target="_blank" class="card__link">
+          Watch on YouTube
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+        </a>
       </div>
     </article>
 
+    <!-- Placeholder card -->
     <article class="card card--placeholder">
       <div class="card__placeholder-inner">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
