@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Interactive portfolio of Guillaume Remi Couture — UX/UI design work for games, mobile apps, and defense simulation projects.">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Portfolio Archive — Remi Couture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="resume.css?v=458a55d">
+  <link rel="stylesheet" href="portfolio-archive.css?v=1">
+  <link rel="stylesheet" href="contact-reveal.css?v=1">
+  <script src="contact-reveal.js?v=1" defer></script>
+</head>
+<body>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <div class="nav__left"><a class="wordmark" href="portfolio.html" aria-label="Back to portfolio hub">remi couture<span aria-hidden="true">✳</span></a><a class="nav__back" href="portfolio.html">← Portfolio hub</a></div>
+    <div class="nav__right">
+      <button class="view-toggle" id="viewToggle" type="button" aria-expanded="false" aria-controls="workIndex">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 6h16.5m-16.5 6h16.5"/></svg>
+        <span>Browse work</span>
+      </button>
+      <button class="view-toggle" id="detailsToggle" type="button" aria-pressed="true">Hide details</button><button class="view-toggle fullscreen-toggle" id="fullscreenToggle" type="button" aria-label="Enter fullscreen">⛶</button>
+    </div>
+  </nav>
+
+  <div class="progress" id="progress"></div>
+
+  <section class="work-index" id="workIndex" aria-label="Portfolio work index" aria-hidden="true" inert>
+    <div class="work-index__inner">
+      <header class="work-index__hero">
+        <div>
+          <p class="work-index__eyebrow">01 / SELECTED WORK</p>
+          <h1 class="work-index__title">Complex systems.<br><span>Playable experiences.</span></h1>
+          <p class="work-index__summary">Game interfaces, thoughtful systems, and experiments in motion. A selection of the work behind nearly two decades of designing for players — from the first idea to the shipped experience.</p>
+        </div>
+        <div class="work-index__stats" aria-label="Portfolio highlights">
+          <div class="work-index__stat"><strong>20 years</strong><span>in games &amp; product design</span></div>
+          <div class="work-index__stat"><strong>Design → build</strong><span>from concept to implementation</span></div>
+          <div class="work-index__stat"><strong>Millions</strong><span>of players &amp; users reached</span></div>
+        </div>
+      </header>
+
+      <div class="work-toolbar"><div class="work-index__filters" aria-label="Filter portfolio cards">
+        <button class="filter-chip filter-chip--active" type="button" data-filter="all">All Work</button>
+        <button class="filter-chip" type="button" data-filter="ai">AI Concepts</button>
+        <button class="filter-chip" type="button" data-filter="game">Game UI</button>
+        <button class="filter-chip" type="button" data-filter="systems">Systems</button>
+        <button class="filter-chip" type="button" data-filter="archive">Archive</button>
+      </div>
+
+      <span class="work-count" id="workCount" role="status">12 selected projects</span></div>
+      <div class="work-grid">
+        <button class="work-card work-card--large" type="button" data-slide="1" data-type="ai game">
+          <span class="work-card__media"><video poster="portfolio-imgs/hiphopvid-poster.jpg" src="videos/hiphopvid.mp4" muted loop playsinline preload="metadata"></video></span>
+          <span class="work-card__shade"></span>
+          <span class="work-card__body">
+            <span class="work-card__meta"><span>AI Concept</span><span>Video</span></span>
+            <span class="work-card__title">Hip Hop Rap Battle Main Menu</span>
+            <span class="work-card__desc">A music-first menu concept built around character energy, motion, and immediate genre read.</span>
+            <span class="work-card__open">View project</span>
+          </span>
+        </button>
+
+        <button class="work-card work-card--large" type="button" data-slide="10" data-type="game systems">
+          <span class="work-card__media"><img src="portfolio-imgs/mw5-starmap.png" alt=""></span>
+          <span class="work-card__shade"></span>
+          <span class="work-card__body">
+            <span class="work-card__meta"><span>Piranha Games</span><span>AAA</span></span>
+            <span class="work-card__title">MechWarrior 5 Star Map</span>
+            <span class="work-card__desc">Large-scale navigation, mission planning, and sci-fi information design for a complex strategy layer.</span>
+            <span class="work-card__open">View project</span>
+          </span>
+        </button>
+
+        <button class="work-card" type="button" data-slide="2" data-type="ai systems">
+          <span class="work-card__media"><video poster="portfolio-imgs/fpsscifi-poster.jpg" src="videos/fpsscifi.mp4" muted loop playsinline preload="metadata"></video></span>
+          <span class="work-card__shade"></span>
+          <span class="work-card__body">
+            <span class="work-card__meta"><span>AI Concept</span><span>Inventory</span></span>
+            <span class="work-card__title">Sci-Fi FPS Inventory</span>
+            <span class="work-card__desc">An arsenal interface where equipment browsing feels tactical, readable, and in-world.</span>
+            <span class="work-card__open">View project</span>
+          </span>
+        </button>
+
+        <button class="work-card" type="button" data-slide="11" data-type="game systems">
+          <span class="work-card__media"><img src="portfolio-imgs/weapon-skins.png" alt=""></span>
+          <span class="work-card__shade"></span>
+          <span class="work-card__body">
+            <span class="work-card__meta"><span>Consulting</span><span>Progression</span></span>
+            <span class="work-card__title">Weapon Skins & Factions</span>
+            <span class="work-card__desc">Shop, ownership, rarity, and faction identity packaged into one production-ready loop.</span>
+            <span class="work-card__open">View project</span>
+          </span>
+        </button>
+
+        <button class="work-card" type="button" data-slide="5" data-type="ai systems">
+          <span class="work-card__media"><video poster="portfolio-imgs/potion-poster.jpg" src="videos/potion.mp4" muted loop playsinline preload="metadata"></video></span>
+          <span class="work-card__shade"></span>
+          <span class="work-card__body">
+            <span class="work-card__meta"><span>AI Concept</span><span>Shop</span></span>
+            <span class="work-card__title">Magical Arsenal</span>
+            <span class="work-card__desc">Unified inventory and shop behavior with ownership states, lore, and reward clarity.</span>
+            <span class="work-card__open">View project</span>
+          </span>
+        </button>
+
+        <button class="work-card" type="button" data-slide="12" data-type="game">
+          <span class="work-card__media"><img src="portfolio-imgs/mw5-mission.png" alt=""></span>
+          <span class="work-card__shade"></span>
+          <span class="work-card__body">
+            <span class="work-card__meta"><span>Piranha Games</span><span>Briefing</span></span>
+            <span class="work-card__title">MW5 Mission Briefing</span>
+            <span class="work-card__desc">A dense pre-mission decision screen balanced for lore, risk, rewards, and launch confidence.</span>
+            <span class="work-card__open">View project</span>
+          </span>
+        </button>
+
+        <button class="work-card work-card--large" type="button" data-slide="14" data-type="game systems">
+          <span class="work-card__media"><img src="portfolio-imgs/dark-fantasy-inventory.png" alt=""></span>
+          <span class="work-card__shade"></span>
+          <span class="work-card__body">
+            <span class="work-card__meta"><span>Concept</span><span>RPG</span></span>
+            <span class="work-card__title">Dark Fantasy Hero Inventory</span>
+            <span class="work-card__desc">Character-driven equipment UI with strong item hierarchy, hero presence, and atmospheric read.</span>
+            <span class="work-card__open">View project</span>
+          </span>
+        </button>
+
+        <button class="work-card work-card--large" type="button" data-slide="20" data-type="game systems">
+          <span class="work-card__media"><img src="portfolio-imgs/fantasy-deckbuilder.png" alt=""></span>
+          <span class="work-card__shade"></span>
+          <span class="work-card__body">
+            <span class="work-card__meta"><span>Gogii Games</span><span>Deck Builder</span></span>
+            <span class="work-card__title">Fantasy CCG Deck Builder</span>
+            <span class="work-card__desc">Collection grid, decklist, filters, and details arranged for repeat decision-making.</span>
+            <span class="work-card__open">View project</span>
+          </span>
+        </button>
+
+        <button class="work-card" type="button" data-slide="16" data-type="game">
+          <span class="work-card__media"><img src="portfolio-imgs/mobile-game-main.png" alt=""></span>
+          <span class="work-card__shade"></span>
+          <span class="work-card__body">
+            <span class="work-card__meta"><span>AppLovin</span><span>Mobile</span></span>
+            <span class="work-card__title">Mobile Game HUD</span>
+            <span class="work-card__desc">High-retention mobile layout work with thumb reach, monetization surfaces, and clear mode switching.</span>
+            <span class="work-card__open">View project</span>
+          </span>
+        </button>
+
+        <button class="work-card" type="button" data-slide="18" data-type="systems">
+          <span class="work-card__media"><img src="portfolio-imgs/stardust-flowchart.png" alt=""></span>
+          <span class="work-card__shade"></span>
+          <span class="work-card__body">
+            <span class="work-card__meta"><span>UX Magicians</span><span>Flow</span></span>
+            <span class="work-card__title">Stardust Canvas UX Flow</span>
+            <span class="work-card__desc">A system map for progression, screen relationships, and decision paths across a creative product.</span>
+            <span class="work-card__open">View project</span>
+          </span>
+        </button>
+
+        <button class="work-card" type="button" data-slide="9" data-type="archive">
+          <span class="work-card__media"><img src="https://img.youtube.com/vi/HluAtURCDN4/hqdefault.jpg" alt=""></span>
+          <span class="work-card__shade"></span>
+          <span class="work-card__body">
+            <span class="work-card__meta"><span>2006-2017</span><span>Video</span></span>
+            <span class="work-card__title">Career Recap</span>
+            <span class="work-card__desc">A quick pass through early professional work across studios, styles, and production roles.</span>
+            <span class="work-card__open">View project</span>
+          </span>
+        </button>
+
+        <button class="work-card" type="button" data-slide="131" data-type="archive">
+          <span class="work-card__media"><img src="coverphoto.jpg" alt=""></span>
+          <span class="work-card__shade"></span>
+          <span class="work-card__body">
+            <span class="work-card__meta"><span>Archive</span><span>156 Slides</span></span>
+            <span class="work-card__title">Full Early Showcase</span>
+            <span class="work-card__desc">The deeper archive for anyone who wants the full career arc beyond the curated work wall.</span>
+            <span class="work-card__open">Open showcase</span>
+          </span>
+        </button>
+      </div>
+      <footer class="portfolio-footer"><div><h2>Have something in mind?</h2><p>Let’s make the complex feel intuitive.</p></div><button class="button button-primary" type="button" data-reveal-email aria-label="Reveal email address">Reveal email ↗</button></footer>
+    </div>
+  </section>
+
+  <main class="slideshow" id="slideshow" aria-label="Portfolio slideshow" aria-roledescription="carousel">
+
+    <!-- ── SLIDE 0: Who I Am Today (Intro) ── -->
+    <div class="slide slide--intro">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">AI-Native</span><span class="slide__tag">20+ Years</span><span class="slide__tag">Games · Mobile · Defense</span></div>
+        <div class="slide__company">Guillaume Remi Couture · UX / UI / Game Design</div>
+        <h2 class="slide__title">The Same Craft.<br>Amplified by AI.</h2>
+        <p class="slide__desc">20+ years designing game UI, product experiences, and interactive systems — end to end. Today I work the same way, just faster. I use AI-native tools to compress weeks of iteration into days. The thinking is still mine. The velocity is amplified.</p>
+        <div class="slide__stats">
+          <div class="slide__stat"><span class="slide__stat-value">20+</span><span class="slide__stat-label">Years Experience</span></div>
+          <div class="slide__stat"><span class="slide__stat-value">50+</span><span class="slide__stat-label">Shipped Titles</span></div>
+          <div class="slide__stat"><span class="slide__stat-value">100M+</span><span class="slide__stat-label">Users Reached</span></div>
+          <div class="slide__stat"><span class="slide__stat-value">3</span><span class="slide__stat-label">Defense Clients</span></div>
+        </div>
+        <div class="slide__skills"><span class="slide__skill">Cursor</span><span class="slide__skill">Claude</span><span class="slide__skill">Codex</span><span class="slide__skill">ChatGPT</span><span class="slide__skill">Midjourney</span><span class="slide__skill">Runway ML</span><span class="slide__skill">Figma</span><span class="slide__skill">Unreal Engine 5</span><span class="slide__skill">Rive</span><span class="slide__skill">Framer</span></div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 1: Hip Hop Rap Battle — Latest (LinkedIn) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">Motion</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">Hip Hop Rap Battle — Main Menu Concept</h2>
+        <p class="slide__desc">A rapid concept (2–3 hours) for a Hip Hop Rap Battle game main menu. Pushed beyond a static screen: crowd moving, spotlights pulsing, fog drifting, rappers hyping each other, DJ scratching in the back. MULTIPLAYER locked as the highlighted option with flickering neon and subtle animation — AAA fighting-game feel.</p>
+        <p class="slide__desc" style="margin-top:-6px;">Where UI/UX and motion design collide: it’s not just functionality, it’s setting the tone the moment players load in.</p>
+        <div class="slide__skills"><span class="slide__skill">Motion Design</span><span class="slide__skill">Game UI</span><span class="slide__skill">Menu Design</span><span class="slide__skill">Rapid Concept</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video poster="portfolio-imgs/hiphopvid-poster.jpg" src="videos/hiphopvid.mp4" controls playsinline preload="metadata" title="Hip Hop Rap Battle main menu concept"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 2: FPS Sci‑Fi Inventory (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">Game UI</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">Sci‑Fi FPS — Inventory Screen</h2>
+        <p class="slide__desc">A science-fiction first-person shooter UI concept. I swapped the static mock for a short video so the inventory screen is shown with a moving background — atmosphere, motion, and readability in one frame.</p>
+        <p class="slide__desc" style="margin-top:-6px;">It sets the tone and communicates the vision for a high-quality game the moment someone sees it.</p>
+        <div class="slide__skills"><span class="slide__skill">Inventory UI</span><span class="slide__skill">FPS</span><span class="slide__skill">Sci-Fi</span><span class="slide__skill">Motion</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video poster="portfolio-imgs/fpsscifi-poster.jpg" src="videos/fpsscifi.mp4" controls playsinline preload="metadata" title="Sci-Fi FPS inventory screen"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 3: FPS Victory Screen (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">Rapid Prototype</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">FPS Victory Screen — Recognition &amp; Progression</h2>
+        <p class="slide__desc">Victory screens that go beyond stats. This concept was built through pure rapid prototyping — no Figma, no design system — to explore how the moment could feel. Players earn points during the match (objectives, revives, support); at the end they spend them to recognize others, feeding long-term tracks like Medic, Objective, or Leadership.</p>
+        <p class="slide__desc" style="margin-top:-6px;">The recognition layer draws from Overwatch endorsements, League honor, Valorant highlights, and Battlefield ribbons — combined into one results screen. Rapid sketching and prototyping first, then AI to turn the solid concept into flows, specs, and player journeys in hours.</p>
+        <div class="slide__skills"><span class="slide__skill">Victory Screen</span><span class="slide__skill">Rapid Prototyping</span><span class="slide__skill">Recognition Systems</span><span class="slide__skill">FPS</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video src="videos/fpsvictoryscrn.mp4" controls playsinline preload="metadata" title="FPS victory screen concept"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 4: Starship Diagnostic (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">Game UI</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">Starship Diagnostic &amp; Repair Console</h2>
+        <p class="slide__desc">A game interface concept that blends futuristic HUD design with functional systems. Subsystem grid (shields, engines, weapons, life support) with real-time status and one-click drill-down; immersive repair popups for resource planning and execution; damage analysis logs scrolling like a real ship’s console.</p>
+        <p class="slide__desc" style="margin-top:-6px;">Sharp edges, bold colors, holographic effects, and 3D layering make it feel like working inside a starship’s command center. The goal: UI that feels part of the world, not a menu overlay — functional, interactive, and narratively consistent.</p>
+        <div class="slide__skills"><span class="slide__skill">Diagnostic UI</span><span class="slide__skill">Sci-Fi HUD</span><span class="slide__skill">Repair Systems</span><span class="slide__skill">Immersion</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video src="videos/diagnostic.mp4" controls playsinline preload="metadata" title="Starship diagnostic console concept"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 5: Magical Arsenal / Potion Shop (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">UX</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">Magical Arsenal — Unified Inventory &amp; Shop</h2>
+        <p class="slide__desc">A proof-of-concept UI where players manage, explore, and purchase items in one place. No separate shop: browse, filter by school, and buy directly from the inventory. Reduces friction, encourages exploration, and supports conversions.</p>
+        <p class="slide__desc" style="margin-top:-6px;">Unified arsenal and shop; ownership and lock states for a clear progression loop; item showcase and lore for emotional value; immersive background so it feels part of the world. Good UI isn’t just looks — it’s systems that feel natural, rewarding, and worth investing in.</p>
+        <div class="slide__skills"><span class="slide__skill">Inventory UI</span><span class="slide__skill">Shop UX</span><span class="slide__skill">Progression</span><span class="slide__skill">Conversion</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video poster="portfolio-imgs/potion-poster.jpg" src="videos/potion.mp4" controls playsinline preload="metadata" title="Magical arsenal and shop concept"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 6: My Resume as an RPG (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Personal</span><span class="slide__tag">Concept</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">My Resume as an RPG</h2>
+        <p class="slide__desc">I turned my resume into a game. Click through Profile, Inventory, Map, and Quests and unlock my career like an RPG. Every interaction gives you XP and health — by the time you’ve explored it all, you’re at full HP.</p>
+        <p class="slide__desc" style="margin-top:-6px;">Fun, quick, and way more memorable than a PDF.</p>
+        <div class="slide__skills"><span class="slide__skill">Game UI</span><span class="slide__skill">RPG</span><span class="slide__skill">Resume</span><span class="slide__skill">Interactive</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video src="videos/gameresume.mp4" controls playsinline preload="metadata" title="Resume as an RPG game"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 7: Fantasy RPG Loading Screen (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">UX</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">Fantasy RPG Loading Screen</h2>
+        <p class="slide__desc">Loading screens don’t have to be dead time. This concept pulls players into the experience before the game starts — gameplay tips, tactical info, and world lore in one psychologically tuned moment. Striking imagery sets the tone; tactical cues reduce hesitation when play begins; lore snippets build connection and anticipation.</p>
+        <p class="slide__desc" style="margin-top:-6px;">By the time the map loads, the player isn’t just waiting — they’ve stepped into the story. Every second in your UI is a chance to engage, teach, and excite.</p>
+        <div class="slide__skills"><span class="slide__skill">Loading Screen</span><span class="slide__skill">RPG</span><span class="slide__skill">Immersion</span><span class="slide__skill">UX Psychology</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video src="videos/loading.mp4" controls playsinline preload="metadata" title="Fantasy RPG loading screen concept"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 8: HALO-Inspired Faction Selection (Latest) ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Latest</span><span class="slide__tag">Concept</span><span class="slide__tag">Game UI</span></div>
+        <div class="slide__company">Personal · LinkedIn</div>
+        <h2 class="slide__title">HALO-Inspired Faction Selection</h2>
+        <p class="slide__desc">A faction selection interface for a sci-fi strategy or military sim. Players choose from 20 military factions (UNSC Marines, Covenant Elites, Forerunner Sentinels, etc.) via an infinite horizontal carousel with wraparound. Each faction shows roles, combat abilities, and tactical advantages; cinematic typing animations give a military-database feel.</p>
+        <p class="slide__desc" style="margin-top:-6px;">Blue/cyan holographic styling, animated space background, semi-transparent panels, 25 specialization types with custom icons. No scrolling — compact, interactive, with hover glow and modal lore. Functional selection and immersive world-building in one.</p>
+        <div class="slide__skills"><span class="slide__skill">Faction UI</span><span class="slide__skill">Sci-Fi</span><span class="slide__skill">Strategy</span><span class="slide__skill">HUD</span></div>
+      </div>
+      <div class="slide__video-wrap">
+        <video src="videos/factionselection.mp4" controls playsinline preload="metadata" title="HALO-inspired faction selection concept"></video>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 9: Career Recap Video ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Video</span><span class="slide__tag">UX/UI</span></div>
+        <div class="slide__company">Various Studios</div>
+        <h2 class="slide__title">Career Recap 2006 – 2017</h2>
+        <p class="slide__desc">A retrospective spanning 11 years across multiple studios — UX, UI design, and illustration across a wide range of styles. From early career foundations to senior AAA work.</p>
+        <div class="slide__skills"><span class="slide__skill">UX Design</span><span class="slide__skill">UI Design</span><span class="slide__skill">Illustration</span><span class="slide__skill">Game UI</span></div>
+        <a href="https://youtu.be/HluAtURCDN4" target="_blank" rel="noopener noreferrer" class="slide__link">Watch on YouTube <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></a>
+      </div>
+      <div class="slide__video-wrap">
+        <a href="https://www.youtube.com/watch?v=HluAtURCDN4" target="_blank" rel="noopener noreferrer" class="yt-preview">
+          <img src="https://img.youtube.com/vi/HluAtURCDN4/maxresdefault.jpg" alt="Career Recap 2006–2017">
+          <div class="yt-preview__btn">
+            <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#FF0000"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+            <span class="yt-preview__label">Watch on YouTube</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── SLIDES 1–16: Curated Work ── -->
+    <div class="slide" data-index="1">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/mw5-starmap.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">UX</span><span class="slide__tag">Shipped</span></div>
+        <div class="slide__company">Piranha Games</div>
+        <h2 class="slide__title">MechWarrior 5 — Star Map</h2>
+        <p class="slide__desc">Strategic navigation interface — planetary systems, contract selection, faction reputation, and resource markets in one cohesive screen. Implemented in Unreal Engine.</p>
+        <div class="slide__skills"><span class="slide__skill">Unreal Engine</span><span class="slide__skill">Star Map</span><span class="slide__skill">Strategy UI</span><span class="slide__skill">HUD</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="2">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/weapon-skins.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">Defense</span></div>
+        <div class="slide__company">Consulting</div>
+        <h2 class="slide__title">Military Shooter — Weapon Skins &amp; Factions</h2>
+        <p class="slide__desc">Cosmetic and customization UI for a military tactical shooter — weapon skin browsing, real-world faction flags, and a streamlined equip/purchase flow.</p>
+        <div class="slide__skills"><span class="slide__skill">Cosmetics UI</span><span class="slide__skill">Faction System</span><span class="slide__skill">Military</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="3">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/mw5-mission.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">Shipped</span></div>
+        <div class="slide__company">Piranha Games</div>
+        <h2 class="slide__title">MW5 Mercs — Mission Briefing</h2>
+        <p class="slide__desc">Mission contract and tactical briefing screen. Players assign mechs, review objectives, negotiate contracts, and survey terrain before launching into battle.</p>
+        <div class="slide__skills"><span class="slide__skill">Unreal Engine</span><span class="slide__skill">Strategy UI</span><span class="slide__skill">HUD</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="4">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/mw5-mechbay.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">Shipped</span></div>
+        <div class="slide__company">Piranha Games</div>
+        <h2 class="slide__title">MW5 Mercs — Mech Bay &amp; Repair</h2>
+        <p class="slide__desc">Complex repair interface — component-level status, repair costs, time estimates, and warehouse/market integration tied to a live 3D mech display with labeled damage zones.</p>
+        <div class="slide__skills"><span class="slide__skill">Unreal Engine</span><span class="slide__skill">Repair UI</span><span class="slide__skill">Systems Design</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="5">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/dark-fantasy-inventory.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">UX</span><span class="slide__tag">Concept</span></div>
+        <div class="slide__company">Concept</div>
+        <h2 class="slide__title">Dark Fantasy — Hero Inventory</h2>
+        <p class="slide__desc">Full-body character equipment screen for a dark fantasy RPG — weapons, tools, and consumables laid out around the hero with quick navigation tabs and rich atmospheric background.</p>
+        <div class="slide__skills"><span class="slide__skill">Inventory UI</span><span class="slide__skill">RPG</span><span class="slide__skill">Character Screen</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="6">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/spellcrafting.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">Concept</span></div>
+        <div class="slide__company">Concept</div>
+        <h2 class="slide__title">Spellcrafting — Time Magic System</h2>
+        <p class="slide__desc">Multi-tab RPG spellcrafting interface — players build spell combinations by level with cooldown, mana and stamina costs displayed in a tactile arcane design language.</p>
+        <div class="slide__skills"><span class="slide__skill">RPG UI</span><span class="slide__skill">Spellcrafting</span><span class="slide__skill">System Design</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="7">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/mobile-game-main.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Mobile</span><span class="slide__tag">Game UI</span></div>
+        <div class="slide__company">AppLovin — Central Creative</div>
+        <h2 class="slide__title">Mobile Game — Main Menu &amp; HUD</h2>
+        <p class="slide__desc">Main screen UI for a mobile casual-action game — bold play CTA, currency and progression bars, reward chests, and bottom navigation, all optimized for one-handed portrait play.</p>
+        <div class="slide__skills"><span class="slide__skill">Mobile UI</span><span class="slide__skill">HUD</span><span class="slide__skill">Casual Game</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="8">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/nba-lakers-card.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Mobile</span><span class="slide__tag">Licensed IP</span></div>
+        <div class="slide__company">Frima Studio</div>
+        <h2 class="slide__title">NBA Player Card — Mobile Game</h2>
+        <p class="slide__desc">Player card detail screen for a licensed NBA mobile game — stats, abilities, and upgrade CTAs around a full-body 3D player render, optimized for mobile thumb reach.</p>
+        <div class="slide__skills"><span class="slide__skill">Mobile UI</span><span class="slide__skill">Licensed IP</span><span class="slide__skill">NBA</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="9">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/stardust-flowchart.png'); background-position: center center;"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">UX</span><span class="slide__tag">Mobile</span></div>
+        <div class="slide__company">UX Magicians</div>
+        <h2 class="slide__title">Stardust Canvas — UX Flow</h2>
+        <p class="slide__desc">Full user journey for a horoscope mobile app — splash, horoscope, collection, news, game, paint, rewards, filters, stickers, quotes, and share. End-to-end journey mapping.</p>
+        <div class="slide__skills"><span class="slide__skill">UX Flow</span><span class="slide__skill">User Journey</span><span class="slide__skill">Mobile App</span><span class="slide__skill">Wireframes</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="10">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/fantasy-cards.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">Mobile</span></div>
+        <div class="slide__company">Gogii Games</div>
+        <h2 class="slide__title">Fantasy Card Collection UI</h2>
+        <p class="slide__desc">Hero card selection and collection screen — large hero artwork, an elegant HUD, and a persistent left-side navigation rail for quick access to all collections.</p>
+        <div class="slide__skills"><span class="slide__skill">Card Game UI</span><span class="slide__skill">Hero Selection</span><span class="slide__skill">Mobile</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="11">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/fantasy-deckbuilder.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span></div>
+        <div class="slide__company">Gogii Games</div>
+        <h2 class="slide__title">Fantasy CCG — Deck Builder</h2>
+        <p class="slide__desc">Full deck-building interface with card collection grid, decklist sidebar, category filters, and card detail panel. Rich fantasy aesthetics throughout.</p>
+        <div class="slide__skills"><span class="slide__skill">Card Game UI</span><span class="slide__skill">Deck Builder</span><span class="slide__skill">Collection</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="12">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/agency-decks.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span></div>
+        <div class="slide__company">Hothead Games</div>
+        <h2 class="slide__title">Agency — Deck Builder UI</h2>
+        <p class="slide__desc">Deck management screen for Agency, a global-espionage card game. Players create and manage up to 45 decks with an Earth globe motif reinforcing the spy-world narrative.</p>
+        <div class="slide__skills"><span class="slide__skill">Card Game</span><span class="slide__skill">Deck Builder</span><span class="slide__skill">Strategy</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="13">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/agency-board.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span></div>
+        <div class="slide__company">Hothead Games</div>
+        <h2 class="slide__title">Agency — Game Board &amp; Mission UI</h2>
+        <p class="slide__desc">In-game board interface — mission zones, counter-missions, asset tokens, and unit deployment. Symmetrical two-player layout with Intel progress and hexagonal grid aesthetic.</p>
+        <div class="slide__skills"><span class="slide__skill">Strategy UI</span><span class="slide__skill">Board Game</span><span class="slide__skill">Mission Design</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="14">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/agency-title.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span></div>
+        <div class="slide__company">Hothead Games</div>
+        <h2 class="slide__title">Agency — Title Screen</h2>
+        <p class="slide__desc">Title screen branding and main menu for Agency — global-espionage card game. Spy-world typography, map surveillance aesthetic, and atmospheric visual design.</p>
+        <div class="slide__skills"><span class="slide__skill">Title Screen</span><span class="slide__skill">Branding</span><span class="slide__skill">Menu Design</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="15">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/mw5-pause.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Game UI</span><span class="slide__tag">Shipped</span></div>
+        <div class="slide__company">Piranha Games</div>
+        <h2 class="slide__title">MW5 Mercs — Pause Menu</h2>
+        <p class="slide__desc">In-world pause menu overlaying the mech bay environment — minimal immersion break, clear structure, quick access to all key systems.</p>
+        <div class="slide__skills"><span class="slide__skill">Unreal Engine</span><span class="slide__skill">Menu Design</span></div>
+      </div>
+    </div>
+
+    <div class="slide" data-index="16">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/king-misfit.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Concept</span><span class="slide__tag">Visual Branding</span></div>
+        <div class="slide__company">Concept</div>
+        <h2 class="slide__title">King Misfit — Title Card</h2>
+        <p class="slide__desc">Glitch-art title card concept — distorted typography and visual noise create a distinctive, unsettling brand identity that stands apart from conventional game UI.</p>
+        <div class="slide__skills"><span class="slide__skill">Title Screen</span><span class="slide__skill">Glitch Art</span><span class="slide__skill">Branding</span></div>
+      </div>
+    </div>
+
+    <!-- ── SLIDES 17–120: Career Showcase Archive ── -->
+    <div class="slide" data-index="17"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image4.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="18"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image8.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="19"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image12.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="20"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image13.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="21"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image15.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="22"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image16.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="23"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image21.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="24"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image23.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="25"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image24.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="26"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image28.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="27"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image30.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="28"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image32.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="29"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image33.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="30"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image34.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="31"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image35.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="32"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image38.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="33"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image41.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="34"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image42.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="35"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image43.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="36"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image44.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="37"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image46.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Early Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — early work spanning UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="38"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image49.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="39"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image51.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="40"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image52.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="41"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image54.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="42"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image56.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="43"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image58.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="44"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image59.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="45"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image62.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="46"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image63.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="47"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image64.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="48"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image65.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="49"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image66.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="50"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image67.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="51"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image68.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="52"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image70.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="53"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image71.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="54"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image72.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="55"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image74.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="56"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image75.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="57"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image77.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="58"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image80.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="59"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image82.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="60"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image83.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="61"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image84.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="62"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image86.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="63"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image87.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="64"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image90.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="65"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image92.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="66"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image93.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="67"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image95.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="68"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image96.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="69"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image97.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="70"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image99.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="71"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image100.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="72"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image102.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="73"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image106.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="74"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image108.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="75"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image109.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="76"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image111.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="77"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image112.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="78"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image113.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="79"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image114.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="80"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image115.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="81"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image116.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="82"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image117.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="83"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image118.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="84"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image120.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="85"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image121.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Mid Career</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="86"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image122.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="87"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image123.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="88"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image124.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="89"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image125.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="90"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image126.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="91"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image127.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="92"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image128.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="93"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image129.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="94"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image130.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="95"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image133.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="96"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image134.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="97"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image137.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="98"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image142.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="99"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image144.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="100"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image146.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="101"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image147.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="102"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image148.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="103"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image155.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="104"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image156.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="105"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image160.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="106"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image161.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="107"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image162.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="108"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image165.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="109"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image166.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="110"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image167.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="111"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image168.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="112"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image169.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="113"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image170.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="114"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image174.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="115"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image175.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="116"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image176.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="117"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image177.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="118"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image179.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+    <div class="slide" data-index="119"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image180.png')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+
+    <!-- ── SLIDE 120: JPG from archive ── -->
+    <div class="slide" data-index="120"><div class="slide__bg" style="background-image:url('portfolio-imgs/s-image173.jpg')"></div><div class="slide__overlay"></div><div class="slide__panel"><div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span></div><div class="slide__company">Career Showcase · Later Work</div><h2 class="slide__title">Work Sample</h2><p class="slide__desc">From the career showcase presentation — UI design, illustration, and game art across multiple studios and styles.</p><div class="slide__skills"><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Illustration</span></div></div></div>
+
+    <!-- ── SLIDE 122: Consulting Today ── -->
+    <div class="slide">
+      <div class="slide__bg" style="background-image:url('portfolio-imgs/weapon-skins.png')"></div>
+      <div class="slide__overlay"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Today</span><span class="slide__tag">Defense</span><span class="slide__tag">Consulting</span></div>
+        <div class="slide__company">Remi Couture Consulting · 2022 – Present</div>
+        <h2 class="slide__title">Where I Am Now</h2>
+        <p class="slide__desc">Currently consulting on large-scale game and simulation UI for defense and government clients — including the Japan Ministry of Defense, US Department of Defense, and NATO — alongside commercial titles and mobile products.</p>
+        <p class="slide__desc" style="margin-top:-8px;">I lead UX and UI end-to-end: research, wireframes, visual design, motion, and handoff to engineering — working solo or as an embedded design lead with development teams.</p>
+        <div class="slide__skills"><span class="slide__skill">Defense Simulation</span><span class="slide__skill">UX Lead</span><span class="slide__skill">AI-Assisted Design</span><span class="slide__skill">Rapid Prototyping</span><span class="slide__skill">End-to-End</span></div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 123: Google Slides Showcase ── -->
+    <div class="slide" data-index="121">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg'); filter: brightness(0.3)"></div>
+      <div class="slide__overlay" style="background:linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 42%, rgba(0,0,0,0.4) 100%)"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Archive</span><span class="slide__tag">Early Career</span></div>
+        <div class="slide__company">Various Studios · 2006 – 2017</div>
+        <h2 class="slide__title">Career Showcase — Early Work</h2>
+        <p class="slide__desc">A curated showcase of early-career work spanning illustration, UI design, and game art across multiple studios and styles. 156 slides covering the full arc of early professional output.</p>
+        <a href="https://docs.google.com/presentation/d/1_t3P15-rxT5p2SCMQ2P3wO-lsPRj_7tgpqBNAwkJDRE/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="slide__link">Open full showcase in Google Slides <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></a>
+        <div class="slide__skills"><span class="slide__skill">Illustration</span><span class="slide__skill">UI Design</span><span class="slide__skill">Game Art</span><span class="slide__skill">Character Design</span></div>
+      </div>
+      <div class="slide__slides-wrap">
+        <a href="https://docs.google.com/presentation/d/1_t3P15-rxT5p2SCMQ2P3wO-lsPRj_7tgpqBNAwkJDRE/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="yt-preview" title="Open career showcase in Google Slides (new tab)">
+          <img src="coverphoto.jpg" alt="Career showcase preview — opens in Google Slides">
+          <div class="yt-preview__btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" width="48" height="48"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+            <span class="yt-preview__label">Open in Google Slides</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 125: Let's Work Together (CTA) ── -->
+    <div class="slide slide--cta">
+      <div class="slide__bg" style="background-image:url('coverphoto.jpg')"></div>
+      <div class="slide__overlay" style="background:rgba(0,0,0,0.78)"></div>
+      <div class="slide__panel">
+        <div class="slide__tags"><span class="slide__tag slide__tag--accent">Available</span><span class="slide__tag">Remote / On-site</span></div>
+        <div class="slide__company">Guillaume Remi Couture</div>
+        <h2 class="slide__title">Let's Build Something Together</h2>
+        <p class="slide__desc">20+ years of shipped work across AAA games, mobile, and defense. I bring senior-level craft, full-stack UX/UI execution, and AI-native speed to every project — from concept to production-ready.</p>
+        <div class="slide__cta-links">
+          <a href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener noreferrer" class="slide__cta-btn slide__cta-btn--primary">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            Connect on LinkedIn
+          </a>
+          <a href="index.html" class="slide__cta-btn slide__cta-btn--outline">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+            View Resume
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div class="presentation-bar"><div class="presentation-bar__left"><button class="view-toggle" id="thumbToggle" type="button" aria-expanded="false" aria-controls="thumbstrip">Filmstrip</button><span class="presentation-hint">← → to explore</span></div><span class="nav__counter" id="navCounter" aria-live="polite"></span></div>
+
+  <!-- Prev / Next arrows -->
+  <button class="slide-nav slide-nav--prev" id="navPrev" aria-label="Previous slide">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+  </button>
+  <button class="slide-nav slide-nav--next" id="navNext" aria-label="Next slide">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+  </button>
+
+  <!-- Thumbnail strip -->
+  <div class="thumbstrip" id="thumbstrip">
+    <!-- Slide 0: Intro -->
+    <div class="thumb" data-index="0" title="Who I Am Today" style="background:linear-gradient(135deg,#0d1b3e,#1a56db44);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="rgba(255,255,255,0.5)" width="22"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+      <span style="font-size:0.45rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Intro</span>
+    </div>
+    <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Latest</span><div class="thumb-divider__line"></div></div>
+    <!-- Slide 1: Hip Hop Rap Battle -->
+    <div class="thumb thumb--video" title="Hip Hop Rap Battle main menu" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video poster="portfolio-imgs/hiphopvid-poster.jpg" src="videos/hiphopvid.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <!-- Slide 2: FPS Sci-Fi -->
+    <div class="thumb thumb--video" title="Sci-Fi FPS inventory" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video poster="portfolio-imgs/fpsscifi-poster.jpg" src="videos/fpsscifi.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <!-- Slide 3: FPS Victory Screen -->
+    <div class="thumb thumb--video" title="FPS victory screen" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video src="videos/fpsvictoryscrn.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <!-- Slide 4: Starship Diagnostic -->
+    <div class="thumb thumb--video" title="Starship diagnostic console" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video src="videos/diagnostic.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <!-- Slide 5: Magical Arsenal / Potion -->
+    <div class="thumb thumb--video" title="Magical arsenal and shop" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video poster="portfolio-imgs/potion-poster.jpg" src="videos/potion.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <!-- Slide 6: Resume as RPG -->
+    <div class="thumb thumb--video" title="My resume as an RPG" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video src="videos/gameresume.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <!-- Slide 7: Loading Screen -->
+    <div class="thumb thumb--video" title="Fantasy RPG loading screen" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video src="videos/loading.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <!-- Slide 8: Faction Selection -->
+    <div class="thumb thumb--video" title="HALO-inspired faction selection" style="position:relative;overflow:hidden;background:#0a0a12;">
+      <video src="videos/factionselection.mp4" muted preload="metadata" loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,0.9)" viewBox="0 0 24 24" width="36"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Career Video</span><div class="thumb-divider__line"></div></div>
+    <!-- Slide 9: Video -->
+    <div class="thumb thumb--video" title="Career Recap Video 2006–2017" style="position:relative;">
+      <img src="https://img.youtube.com/vi/HluAtURCDN4/mqdefault.jpg" alt="Career Recap" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);">
+        <svg viewBox="0 0 68 48" width="32" xmlns="http://www.w3.org/2000/svg"><path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#FF0000"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+      </div>
+    </div>
+    <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Featured Work</span><div class="thumb-divider__line"></div></div>
+    <!-- Slides 2–17: Curated -->
+    <div class="thumb" data-index="2"><img src="portfolio-imgs/mw5-starmap.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="3"><img src="portfolio-imgs/weapon-skins.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="4"><img src="portfolio-imgs/mw5-mission.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="5"><img src="portfolio-imgs/mw5-mechbay.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="6"><img src="portfolio-imgs/dark-fantasy-inventory.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="7"><img src="portfolio-imgs/spellcrafting.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="8"><img src="portfolio-imgs/mobile-game-main.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="9"><img src="portfolio-imgs/nba-lakers-card.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="10"><img src="portfolio-imgs/stardust-flowchart.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="11"><img src="portfolio-imgs/fantasy-cards.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="12"><img src="portfolio-imgs/fantasy-deckbuilder.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="13"><img src="portfolio-imgs/agency-decks.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="14"><img src="portfolio-imgs/agency-board.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="15"><img src="portfolio-imgs/agency-title.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="16"><img src="portfolio-imgs/mw5-pause.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="17"><img src="portfolio-imgs/king-misfit.png" alt="" loading="lazy"></div>
+    <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Additional work</span><div class="thumb-divider__line"></div></div>
+    <!-- Slides 18–121: Archive -->
+    <div class="thumb" data-index="17"><img src="portfolio-imgs/s-image4.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="18"><img src="portfolio-imgs/s-image8.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="19"><img src="portfolio-imgs/s-image12.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="20"><img src="portfolio-imgs/s-image13.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="21"><img src="portfolio-imgs/s-image15.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="22"><img src="portfolio-imgs/s-image16.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="23"><img src="portfolio-imgs/s-image21.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="24"><img src="portfolio-imgs/s-image23.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="25"><img src="portfolio-imgs/s-image24.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="26"><img src="portfolio-imgs/s-image28.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="27"><img src="portfolio-imgs/s-image30.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="28"><img src="portfolio-imgs/s-image32.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="29"><img src="portfolio-imgs/s-image33.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="30"><img src="portfolio-imgs/s-image34.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="31"><img src="portfolio-imgs/s-image35.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="32"><img src="portfolio-imgs/s-image38.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="33"><img src="portfolio-imgs/s-image41.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="34"><img src="portfolio-imgs/s-image42.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="35"><img src="portfolio-imgs/s-image43.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="36"><img src="portfolio-imgs/s-image44.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="37"><img src="portfolio-imgs/s-image46.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="38"><img src="portfolio-imgs/s-image49.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="39"><img src="portfolio-imgs/s-image51.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="40"><img src="portfolio-imgs/s-image52.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="41"><img src="portfolio-imgs/s-image54.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="42"><img src="portfolio-imgs/s-image56.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="43"><img src="portfolio-imgs/s-image58.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="44"><img src="portfolio-imgs/s-image59.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="45"><img src="portfolio-imgs/s-image62.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="46"><img src="portfolio-imgs/s-image63.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="47"><img src="portfolio-imgs/s-image64.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="48"><img src="portfolio-imgs/s-image65.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="49"><img src="portfolio-imgs/s-image66.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="50"><img src="portfolio-imgs/s-image67.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="51"><img src="portfolio-imgs/s-image68.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="52"><img src="portfolio-imgs/s-image70.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="53"><img src="portfolio-imgs/s-image71.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="54"><img src="portfolio-imgs/s-image72.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="55"><img src="portfolio-imgs/s-image74.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="56"><img src="portfolio-imgs/s-image75.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="57"><img src="portfolio-imgs/s-image77.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="58"><img src="portfolio-imgs/s-image80.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="59"><img src="portfolio-imgs/s-image82.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="60"><img src="portfolio-imgs/s-image83.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="61"><img src="portfolio-imgs/s-image84.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="62"><img src="portfolio-imgs/s-image86.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="63"><img src="portfolio-imgs/s-image87.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="64"><img src="portfolio-imgs/s-image90.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="65"><img src="portfolio-imgs/s-image92.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="66"><img src="portfolio-imgs/s-image93.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="67"><img src="portfolio-imgs/s-image95.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="68"><img src="portfolio-imgs/s-image96.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="69"><img src="portfolio-imgs/s-image97.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="70"><img src="portfolio-imgs/s-image99.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="71"><img src="portfolio-imgs/s-image100.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="72"><img src="portfolio-imgs/s-image102.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="73"><img src="portfolio-imgs/s-image106.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="74"><img src="portfolio-imgs/s-image108.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="75"><img src="portfolio-imgs/s-image109.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="76"><img src="portfolio-imgs/s-image111.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="77"><img src="portfolio-imgs/s-image112.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="78"><img src="portfolio-imgs/s-image113.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="79"><img src="portfolio-imgs/s-image114.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="80"><img src="portfolio-imgs/s-image115.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="81"><img src="portfolio-imgs/s-image116.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="82"><img src="portfolio-imgs/s-image117.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="83"><img src="portfolio-imgs/s-image118.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="84"><img src="portfolio-imgs/s-image120.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="85"><img src="portfolio-imgs/s-image121.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="86"><img src="portfolio-imgs/s-image122.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="87"><img src="portfolio-imgs/s-image123.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="88"><img src="portfolio-imgs/s-image124.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="89"><img src="portfolio-imgs/s-image125.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="90"><img src="portfolio-imgs/s-image126.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="91"><img src="portfolio-imgs/s-image127.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="92"><img src="portfolio-imgs/s-image128.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="93"><img src="portfolio-imgs/s-image129.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="94"><img src="portfolio-imgs/s-image130.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="95"><img src="portfolio-imgs/s-image133.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="96"><img src="portfolio-imgs/s-image134.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="97"><img src="portfolio-imgs/s-image137.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="98"><img src="portfolio-imgs/s-image142.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="99"><img src="portfolio-imgs/s-image144.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="100"><img src="portfolio-imgs/s-image146.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="101"><img src="portfolio-imgs/s-image147.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="102"><img src="portfolio-imgs/s-image148.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="103"><img src="portfolio-imgs/s-image155.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="104"><img src="portfolio-imgs/s-image156.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="105"><img src="portfolio-imgs/s-image160.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="106"><img src="portfolio-imgs/s-image161.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="107"><img src="portfolio-imgs/s-image162.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="108"><img src="portfolio-imgs/s-image165.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="109"><img src="portfolio-imgs/s-image166.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="110"><img src="portfolio-imgs/s-image167.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="111"><img src="portfolio-imgs/s-image168.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="112"><img src="portfolio-imgs/s-image169.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="113"><img src="portfolio-imgs/s-image170.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="114"><img src="portfolio-imgs/s-image174.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="115"><img src="portfolio-imgs/s-image175.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="116"><img src="portfolio-imgs/s-image176.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="117"><img src="portfolio-imgs/s-image177.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="118"><img src="portfolio-imgs/s-image179.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="119"><img src="portfolio-imgs/s-image180.png" alt="" loading="lazy"></div>
+    <div class="thumb" data-index="120"><img src="portfolio-imgs/s-image173.jpg" alt="" loading="lazy"></div>
+    <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Today</span><div class="thumb-divider__line"></div></div>
+    <!-- Slide 122: Consulting Today -->
+    <div class="thumb" title="Where I Am Now" style="position:relative;overflow:hidden;"><img src="portfolio-imgs/weapon-skins.png" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"><div style="position:absolute;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;"><span style="font-size:0.44rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Today</span></div></div>
+    <div class="thumb-divider"><div class="thumb-divider__line"></div><span class="thumb-divider__label">Showcase</span><div class="thumb-divider__line"></div></div>
+    <!-- Slide 123: Google Slides -->
+    <div class="thumb thumb--video" title="Early Career Showcase"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/></svg></div>
+    <!-- Slide 124: CTA -->
+    <div class="thumb" title="Let's Work Together" style="background:linear-gradient(135deg,#0d1b3e,#1a56db55);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="rgba(255,255,255,0.5)" width="20"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+      <span style="font-size:0.44rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Contact</span>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var total;
+    var current = 0;
+    var slides  = Array.from(document.querySelectorAll('.slide'));
+    total = slides.length;
+    var thumbs  = Array.from(document.querySelectorAll('.thumb'));
+    var counter = document.getElementById('navCounter');
+    var prog    = document.getElementById('progress');
+    var strip   = document.getElementById('thumbstrip');
+    var viewToggle = document.getElementById('viewToggle');
+    var workIndex = document.getElementById('workIndex');
+    var filterChips = Array.from(document.querySelectorAll('.filter-chip'));
+    var workCards = Array.from(document.querySelectorAll('.work-card'));
+
+    var lastCard = null;
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function setIndexOpen(open) {
+      document.body.classList.toggle('work-index-open', open);
+      viewToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      workIndex.setAttribute('aria-hidden', open ? 'false' : 'true');
+      workIndex.inert = !open;
+      viewToggle.querySelector('span').textContent = open ? 'Back to slideshow' : 'Browse work';
+      document.getElementById('slideshow').inert = open;
+      strip.inert = open || !document.body.classList.contains('filmstrip-open');
+      if (open) { pauseAllVideos(); if (lastCard) lastCard.focus({ preventScroll:true }); }
+      if (!open && workIndex.contains(document.activeElement)) viewToggle.focus({ preventScroll: true });
+    }
+
+    // ── STEP 1: Move all slide bg URLs to data-src (defer loading) ──────────
+    slides.forEach(function (slide) {
+      var bg = slide.querySelector('.slide__bg');
+      if (!bg) return;
+      var styleAttr = bg.getAttribute('style') || '';
+      var match = styleAttr.match(/url\(['"]?([^'")\s]+)['"]?\)/);
+      if (match) {
+        bg.dataset.src = match[1];
+        bg.style.backgroundImage = 'none';
+      }
+    });
+
+    // ── STEP 2: Inject foreground <img> with data-src (not src) ─────────────
+    slides.forEach(function (slide) {
+      if (slide.querySelector('.slide__video-wrap') || slide.querySelector('.slide__slides-wrap')) return;
+      if (slide.classList.contains('slide--cta') || slide.classList.contains('slide--intro')) return;
+      var bg = slide.querySelector('.slide__bg');
+      if (!bg || !bg.dataset.src) return;
+      var img = document.createElement('img');
+      img.className = 'slide__img';
+      img.dataset.src = bg.dataset.src;
+      img.alt = slide.querySelector('.slide__title').textContent.trim();
+      slide.appendChild(img);
+    });
+
+    // ── STEP 3: Thumbnail lazy loading via IntersectionObserver ─────────────
+    var thumbImgs = Array.from(strip.querySelectorAll('img[src]'));
+    thumbImgs.forEach(function (img) {
+      // Only defer thumbs that are not the YouTube preview (those use external URLs)
+      if (img.src && img.src.indexOf('youtube.com') === -1) {
+        img.dataset.src = img.getAttribute('src');
+        img.removeAttribute('src');
+      }
+    });
+
+    if ('IntersectionObserver' in window) {
+      var thumbObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var img = entry.target;
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+              delete img.dataset.src;
+            }
+            thumbObserver.unobserve(img);
+          }
+        });
+      }, { root: strip, rootMargin: '0px 400px' });
+
+      strip.querySelectorAll('img[data-src]').forEach(function (img) {
+        thumbObserver.observe(img);
+      });
+    } else {
+      // Fallback: load all thumbs immediately if no IntersectionObserver
+      strip.querySelectorAll('img[data-src]').forEach(function (img) {
+        img.src = img.dataset.src;
+      });
+    }
+
+    // ── STEP 4: Load a single slide's images on demand ───────────────────────
+    var loaded = {};
+
+    function loadSlide(idx) {
+      if (idx < 0 || idx >= total || loaded[idx]) return;
+      loaded[idx] = true;
+
+      var slide = slides[idx];
+      if (!slide) return;
+
+      // Load blurred background
+      var bg = slide.querySelector('.slide__bg');
+      if (bg && bg.dataset.src) {
+        var url = bg.dataset.src;
+        var tmp = new Image();
+        tmp.onload = function () {
+          bg.style.backgroundImage = "url('" + url + "')";
+        };
+        tmp.src = url;
+      }
+
+      // Load sharp foreground image
+      var fgImg = slide.querySelector('.slide__img');
+      if (fgImg && fgImg.dataset.src) {
+        fgImg.src = fgImg.dataset.src;
+      }
+    }
+
+    // ── STEP 5: Section labels ────────────────────────────────────────────────
+    var sections = [
+      [0,   0,   'Intro'],
+      [1,   8,   'Latest'],
+      [9,   9,   'Career Video'],
+      [10,  25,  'Featured Work'],
+      [26,  129, 'Additional work'],
+      [130, 130, 'Consulting Today'],
+      [131, 131, 'Full Showcase'],
+      [132, 132, 'Contact']
+    ];
+
+    function getSection(idx) {
+      for (var i = 0; i < sections.length; i++) {
+        if (idx >= sections[i][0] && idx <= sections[i][1]) return sections[i][2];
+      }
+      return '';
+    }
+
+    // ── STEP 6: Navigation ────────────────────────────────────────────────────
+    function pauseAllVideos() {
+      document.querySelectorAll('.slide__video-wrap video').forEach(function (v) {
+        v.pause();
+      });
+    }
+
+    function goTo(idx, keepIndexOpen) {
+      if (!keepIndexOpen) setIndexOpen(false);
+      pauseAllVideos();
+      slides[current].classList.remove('slide--active');
+      slides[current].inert = true;
+      slides[current].setAttribute('aria-hidden', 'true');
+      thumbs[current].classList.remove('thumb--active');
+      thumbs[current].removeAttribute('aria-current');
+      current = (idx + total) % total;
+
+      // Load current slide + 2 ahead + 1 behind
+      loadSlide(current);
+      loadSlide((current + 1) % total);
+      loadSlide((current + 2) % total);
+      loadSlide((current - 1 + total) % total);
+
+      slides[current].classList.add('slide--active');
+      slides[current].inert = false;
+      slides[current].setAttribute('aria-hidden', 'false');
+      thumbs[current].classList.add('thumb--active');
+      thumbs[current].setAttribute('aria-current', 'true');
+      slides[current].querySelector('.slide__panel').scrollTop = 0;
+
+      var label = getSection(current);
+      counter.textContent = label
+        ? label + '  ·  ' + (current + 1) + ' / ' + total
+        : (current + 1) + ' / ' + total;
+      prog.style.width = ((current + 1) / total * 100) + '%';
+
+      var t = thumbs[current];
+      strip.scrollTo({ left: t.offsetLeft - strip.offsetWidth / 2 + t.offsetWidth / 2, behavior: reducedMotion ? 'instant' : 'smooth' });
+    }
+
+    slides.forEach(function(slide) { slide.inert = true; slide.setAttribute('aria-hidden', 'true'); });
+    filterChips.forEach(function(chip) { chip.setAttribute('aria-pressed', chip.dataset.filter === 'all' ? 'true' : 'false'); });
+    // Initial load: first 3 slides immediately
+    loadSlide(0);
+    loadSlide(1);
+    loadSlide(2);
+    goTo(1, true);
+    setIndexOpen(false);
+
+
+    var detailsToggle = document.getElementById('detailsToggle');
+    function setDetails(show) {
+      document.body.classList.toggle('details-hidden', !show);
+      detailsToggle.setAttribute('aria-pressed', String(show));
+      detailsToggle.textContent = show ? 'Hide details' : 'Show details';
+      slides.forEach(function(slide) {
+        var panel = slide.querySelector('.slide__panel');
+        var isTextSlide = slide.matches('.slide--intro, .slide--cta');
+        panel.inert = !show && !isTextSlide;
+      });
+    }
+    setDetails(true);
+    detailsToggle.addEventListener('click', function() {
+      setDetails(document.body.classList.contains('details-hidden'));
+    });
+    var thumbToggle = document.getElementById('thumbToggle');
+    thumbToggle.addEventListener('click', function() {
+      var open = document.body.classList.toggle('filmstrip-open');
+      thumbToggle.setAttribute('aria-expanded', String(open));
+      strip.inert = !open;
+      if(open) strip.scrollTo({left:thumbs[current].offsetLeft - strip.offsetWidth / 2 + thumbs[current].offsetWidth / 2});
+    });
+    var fullscreenToggle = document.getElementById('fullscreenToggle');
+    if (!document.fullscreenEnabled) fullscreenToggle.hidden = true;
+    fullscreenToggle.addEventListener('click', function() {
+      var action = document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+      action.catch(function() { fullscreenToggle.hidden = true; });
+    });
+    document.addEventListener('fullscreenchange', function() {
+      fullscreenToggle.setAttribute('aria-label', document.fullscreenElement ? 'Exit fullscreen' : 'Enter fullscreen');
+    });
+
+    document.getElementById('navPrev').addEventListener('click', function () { goTo(current - 1); });
+    document.getElementById('navNext').addEventListener('click', function () { goTo(current + 1); });
+
+    viewToggle.addEventListener('click', function () {
+      setIndexOpen(!document.body.classList.contains('work-index-open'));
+    });
+
+    thumbs.forEach(function (t, i) {
+      t.setAttribute('role', 'button');
+      t.tabIndex = 0;
+      t.setAttribute('aria-label', 'Slide ' + (i + 1) + ': ' + slides[i].querySelector('.slide__title').textContent.trim());
+      t.addEventListener('click', function () { goTo(i); });
+      t.addEventListener('keydown', function(e) { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo(i); } });
+    });
+
+    filterChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var filter = chip.dataset.filter;
+        filterChips.forEach(function (c) { c.classList.toggle('filter-chip--active', c === chip); c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+        workCards.forEach(function (card) {
+          var types = (card.dataset.type || '').split(/\s+/);
+          card.classList.toggle('is-hidden', filter !== 'all' && types.indexOf(filter) === -1);
+        });
+        document.getElementById('workCount').textContent = workCards.filter(function(card) { return !card.classList.contains('is-hidden'); }).length + ' selected projects';
+      });
+    });
+
+    workCards.forEach(function (card) {
+      var previewVideo = card.querySelector('video');
+      card.addEventListener('click', function () {
+        lastCard = card;
+        goTo(parseInt(card.dataset.slide, 10) || 0);
+      });
+      if (previewVideo) {
+        card.addEventListener('mouseenter', function () { if (!reducedMotion) previewVideo.play().catch(function() {}); });
+        card.addEventListener('mouseleave', function () {
+          previewVideo.pause();
+          previewVideo.currentTime = 0;
+        });
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !document.body.classList.contains('work-index-open')) {
+        setIndexOpen(true);
+        return;
+      }
+      if (document.body.classList.contains('work-index-open')) return;
+      if (e.target.closest('video, input, textarea, select')) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+    });
+
+    var touchX = 0;
+    var touchY = 0;
+    var touchTarget = null;
+    document.addEventListener('touchstart', function (e) {
+      touchX = e.changedTouches[0].clientX;
+      touchY = e.changedTouches[0].clientY;
+      touchTarget = e.target;
+    }, { passive: true });
+    document.addEventListener('touchend', function (e) {
+      if (document.body.classList.contains('work-index-open')) return;
+      // Ignore swipes that originate inside the thumbstrip
+      if (strip.contains(touchTarget) || touchTarget.closest('video, .slide__panel, button, a')) return;
+      var dx = e.changedTouches[0].clientX - touchX;
+      var dy = e.changedTouches[0].clientY - touchY;
+      // Only treat as horizontal swipe if mostly horizontal
+      if (Math.abs(dx) > Math.abs(dy) * 1.4 && Math.abs(dx) > 44) {
+        dx < 0 ? goTo(current + 1) : goTo(current - 1);
+      }
+    }, { passive: true });
+    if (new URLSearchParams(location.search).get('view') === 'gallery') setIndexOpen(true);
+  })();
+  </script>
+
+</body>
+</html>

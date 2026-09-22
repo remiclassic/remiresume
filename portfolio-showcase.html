@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Selected game UI and UX work by Remi Couture. Explore complex game systems, user journeys, wireframes, component libraries, and motion concepts.">
+  <title>Selected Work — Remi Couture</title>
+  <link rel="canonical" href="https://remiclassic.github.io/remiresume/portfolio-showcase.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="resume.css?v=20260922-career">
+  <link rel="stylesheet" href="portfolio.css?v=products1">
+  <script src="portfolio-data.js?v=products1" defer></script>
+  <script src="portfolio-ux-data.js?v=products1" defer></script>
+  <script src="portfolio-ux.js?v=products1" defer></script>
+  <script src="portfolio.js?v=products1" defer></script>
+  <link rel="stylesheet" href="contact-reveal.css?v=1">
+  <script src="contact-reveal.js?v=1" defer></script>
+</head>
+<body class="portfolio">
+  <a class="skip-link" href="#projectTitle">Skip to project</a>
+  <header class="portfolio-nav">
+    <a class="wordmark" href="index.html">remi couture<span aria-hidden="true">✳</span></a>
+    <span class="nav-label">SELECTED WORK / UI + UX</span>
+    <nav aria-label="Portfolio navigation">
+      <button id="browseButton" type="button">All projects <span aria-hidden="true">↗</span></button>
+      <a href="portfolio.html">Portfolio hub</a>
+      <button class="contact-link" type="button" data-reveal-email aria-label="Reveal email address">Reveal email ↗</button>
+      <button id="fullscreenButton" class="fullscreen-button" type="button" aria-label="Enter fullscreen">⛶</button>
+    </nav>
+  </header>
+  <main class="presentation" id="presentation" aria-label="Selected portfolio work">
+    <aside class="project-story" id="projectStory">
+      <div class="story-top"><p class="eyebrow" id="projectContext"></p><span class="project-number" id="projectNumber"></span></div>
+      <h1 id="projectTitle" tabindex="-1"></h1>
+      <p class="project-era" id="projectEra"></p>
+      <p class="project-summary" id="projectSummary"></p>
+      <div class="project-tags" id="projectTags"></div>
+      <div class="design-note"><span class="note-label">IN THIS SCREEN</span><h2 id="frameTitle"></h2><p id="frameNote"></p></div>
+      <p class="design-focus" id="frameFocus"></p>
+      <button class="story-contact" type="button" data-reveal-email aria-label="Reveal email address">Reveal email ↗</button>
+    </aside>
+    <section class="work-stage" aria-label="Project screens">
+      <div class="stage-heading"><div><span class="stage-dot" aria-hidden="true"></span><span id="stageName"></span></div><div class="stage-tools"><button id="variantButton" type="button" hidden>View original</button><button id="detailsButton" aria-expanded="true" aria-controls="projectStory" type="button">Hide notes</button><button id="inspectButton" type="button">Enlarge ↗</button></div></div>
+      <div class="study-modes" aria-label="Explore this project"><button type="button" id="screensMode" aria-pressed="true">Original screens</button><button type="button" id="flowMode" aria-pressed="false">UX walkthrough</button><button type="button" id="prototypeMode" aria-pressed="false">Play the concept <span aria-hidden="true">↗</span></button></div>
+      <figure class="artwork" id="artwork"></figure>
+      <div class="screen-navigation"><div id="screenTabs" class="screen-tabs" aria-label="Screens in this project"></div><span class="screen-count" id="screenCount"></span></div>
+    </section>
+  </main>
+  <footer class="project-dock">
+    <div class="dock-caption"><span>THE COLLECTION</span><small>Use ← → to explore</small></div>
+    <nav class="project-tabs" id="projectTabs" aria-label="Choose project"></nav>
+    <div class="arrow-controls"><button id="previousButton" type="button" aria-label="Previous screen">←</button><button id="nextButton" type="button" aria-label="Next screen">→</button></div>
+  </footer>
+  <div class="sr-only" id="announcement" role="status" aria-live="polite"></div>
+  <dialog class="project-dialog" id="projectDialog" aria-labelledby="browseTitle">
+    <div class="dialog-heading"><div><p class="eyebrow">A CLOSER LOOK</p><h2 id="browseTitle">The craft. And the thinking behind it.</h2></div><button class="close-button" type="button" id="closeBrowse" aria-label="Close project browser">×</button></div>
+    <p class="browse-intro">Original interfaces, reconstructed UX walkthroughs, and new interactive concepts. Explore the screens and the decisions between them.</p>
+    <div class="browse-filters" id="browseFilters" aria-label="Filter projects"><button type="button" data-filter="all" aria-pressed="true">All work</button><button type="button" data-filter="UX process" aria-pressed="false">UX process</button><button type="button" data-filter="Product UI" aria-pressed="false">Product UI</button><button type="button" data-filter="Game UI" aria-pressed="false">Game UI</button><button type="button" data-filter="Concepts" aria-pressed="false">Motion & concepts</button></div>
+    <div class="browse-grid" id="browseGrid"></div>
+    <div class="archive-link"><div><strong>There’s more to the story.</strong><p>Additional game interfaces, illustration, and earlier work.</p></div><a href="portfolio-archive.html">Explore the full archive ↗</a></div>
+  </dialog>
+  <dialog class="image-dialog" id="imageDialog" aria-labelledby="imageTitle">
+    <header><h2 id="imageTitle"></h2><div><button id="zoomButton" type="button" aria-pressed="false">Original size</button><button id="closeImage" type="button" aria-label="Close enlarged image">Close ×</button></div></header>
+    <div class="image-scroll" id="imageScroll"><img id="fullImage" alt=""></div>
+    <p>Use “Original size” to read detailed UX boards. Scroll to explore; press Escape to close.</p>
+  </dialog>
+  <noscript><p class="noscript">Enable JavaScript to explore the presentation, or <a href="index.html">read the resume</a>.</p></noscript>
+</body>
+</html>

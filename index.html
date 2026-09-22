@@ -15,13 +15,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="resume.css?v=20260922-career">
+  <link rel="stylesheet" href="contact-reveal.css?v=1">
+  <script src="contact-reveal.js?v=1" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to resume</a>
   <nav class="site-nav" aria-label="Primary navigation">
     <a class="wordmark" href="#top">remi couture<span aria-hidden="true">✳</span></a>
     <div class="nav-links"><a href="#experience">Experience</a><a href="#building">What I’m building</a><a href="portfolio.html">Portfolio ↗</a></div>
-    <a class="nav-contact" href="mailto:rcouture@gmail.com">Let’s talk <span aria-hidden="true">↗</span></a>
+    <button class="nav-contact" type="button" data-reveal-email aria-label="Reveal email address">Reveal email ↗</button>
   </nav>
   <div class="page">
     <header class="hero">
@@ -69,27 +71,27 @@
             </div>
           </div>
           <div class="skills__group">
-            <div class="skills__label">Tools</div>
+            <div class="skills__label">Design &amp; Asset Creation Tools</div>
             <div class="skills__tags">
-              <span>Figma</span><span>Photoshop</span><span>Illustrator</span><span>Rive</span><span>Framer</span>
+              <span>Figma</span><span>Photoshop</span><span>Illustrator</span><span>Rive</span><span>Framer</span><span>Blender</span><span>SliceForge</span>
             </div>
           </div>
           <div class="skills__group">
-            <div class="skills__label">Game Engines</div>
+            <div class="skills__label">Game Engines &amp; UI Frameworks</div>
             <div class="skills__tags">
-              <span>Unreal Engine 4 &amp; 5</span><span>UMG</span><span>CommonUI</span><span>Unity</span>
+              <span>Unreal Engine 4 &amp; 5</span><span>UMG</span><span>CommonUI</span><span>Unity</span><span>Godot</span><span>Custom Engines / WebGL</span>
             </div>
           </div>
           <div class="skills__group">
             <div class="skills__label">AI-Assisted Workflows</div>
             <div class="skills__tags">
-              <span>Cursor</span><span>Midjourney</span><span>ChatGPT / Claude</span><span>Runway ML</span><span>v0 by Vercel</span><span>AI-Assisted Design</span>
+              <span>Cursor</span><span>Claude</span><span>Codex</span><span>ChatGPT</span><span>Midjourney</span><span>Runway ML</span><span>AI-Assisted Design</span>
             </div>
           </div>
           <div class="skills__group">
-            <div class="skills__label">Front-End Development</div>
+            <div class="skills__label">Development &amp; IDEs</div>
             <div class="skills__tags">
-              <span>React</span><span>JavaScript</span><span>TypeScript</span><span>Next.js</span>
+              <span>Visual Studio</span><span>React</span><span>JavaScript</span><span>TypeScript</span><span>Next.js</span><span>Phaser</span><span>Three.js</span>
             </div>
           </div>
         </div>
@@ -339,7 +341,7 @@
     </main>
   </div>
 
-  <footer class="site-footer"><p class="eyebrow">LET’S BUILD SOMETHING GOOD</p><h2>Your next challenge.<br><span>My kind of work.</span></h2><a class="footer-email" href="mailto:rcouture@gmail.com">rcouture@gmail.com ↗</a><div class="footer-bottom"><span>Guillaume (Rémi) Couture · Product designer &amp; tool builder</span><div><a href="tel:+14189078783">+1 418 907 8783</a><a href="https://www.linkedin.com/in/remicouture/">LinkedIn ↗</a><a href="https://www.strategicsloth.com/">Strategic Sloth ↗</a></div></div></footer>
+  <footer class="site-footer"><p class="eyebrow">LET’S BUILD SOMETHING GOOD</p><h2>Your next challenge.<br><span>My kind of work.</span></h2><button class="footer-email" type="button" data-reveal-email aria-label="Reveal email address">Reveal email ↗</button><div class="footer-bottom"><span>Guillaume (Rémi) Couture · Product designer &amp; tool builder</span><div><a href="tel:+14189078783">+1 418 907 8783</a><a href="https://www.linkedin.com/in/remicouture/">LinkedIn ↗</a><a href="https://www.strategicsloth.com/">Strategic Sloth ↗</a></div></div></footer>
   <!-- Back to top button -->
   <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"/></svg>
