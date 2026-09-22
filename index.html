@@ -3,889 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Resume and portfolio of Guillaume Remi Couture — senior UX/UI designer and product design consultant with 20+ years in games, mobile, and defense.">
+  <meta name="description" content="Resume and portfolio of Guillaume Remi Couture — principal product designer, game UI/UX specialist, and tool builder behind Strategic Sloth and SliceForge.">
+  <link rel="canonical" href="https://remiclassic.github.io/remiresume/">
+  <meta property="og:title" content="Remi Couture — Product Designer &amp; Tool Builder">
+  <meta property="og:description" content="Nearly two decades of game UI/UX and product design. The person behind Strategic Sloth, SliceForge, and Focusrail.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://remiclassic.github.io/remiresume/photome.png">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title>Remi Couture - UX/UI &amp; Product Design Consultant</title>
+  <title>Remi Couture — Product Designer &amp; Tool Builder</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --color-bg: #eef0f4;
-      --color-surface: #ffffff;
-      --color-text: #1a1a2e;
-      --color-text-secondary: #444457;
-      --color-accent: #1a56db;
-      --color-accent-light: #eef3fd;
-      --color-border: #dde1e9;
-      --color-muted: #6e7491;
-      --color-header-bg: #1a1a2e;
-      --font: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    html {
-      font-size: 15px;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body {
-      font-family: var(--font);
-      background: var(--color-bg);
-      color: var(--color-text);
-      line-height: 1.6;
-      padding: 32px 16px 48px;
-    }
-
-    /* ── Toolbar (print button) ────────────────────────── */
-    .btn-print {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 8px 16px;
-      background: rgba(255,255,255,0.12);
-      color: #fff;
-      font-family: var(--font);
-      font-size: 0.8rem;
-      font-weight: 500;
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 6px;
-      cursor: pointer;
-      letter-spacing: 0.02em;
-      text-decoration: none;
-      transition: background 0.18s, border-color 0.18s;
-      white-space: nowrap;
-      flex-shrink: 0;
-      align-self: flex-start;
-    }
-
-    .btn-print:hover {
-      background: rgba(255,255,255,0.22);
-      border-color: rgba(255,255,255,0.4);
-    }
-
-    .btn-print svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-    }
-
-    /* ── Page shell ────────────────────────────────────── */
-    .page {
-      max-width: 860px;
-      margin: 0 auto;
-      background: var(--color-surface);
-      border-radius: 8px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
-      overflow: hidden;
-    }
-
-    /* ── Header ────────────────────────────────────────── */
-    .header {
-      background: var(--color-header-bg);
-      padding: 40px 52px 36px;
-      color: #fff;
-      display: flex;
-      gap: 32px;
-      align-items: flex-start;
-    }
-
-    .header__body {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .header__top {
-      display: block; /* name/title always visible; photo inside hidden on desktop */
-    }
-
-    /* Hide the mobile photo — desktop uses header__right column */
-    .header__top .header__photo { display: none; }
-
-    .header__title-block {}
-
-    .header__right {
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .header__photo {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3px solid rgba(255,255,255,0.18);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-    }
-
-    .header__photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Mobile-only print button (hidden on desktop) */
-    .btn-print--mobile { display: none; }
-
-    .header__name {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      line-height: 1.1;
-      color: #fff;
-    }
-
-    .header__name--preferred {
-      border-bottom: 2px solid rgba(255,255,255,0.5);
-      padding-bottom: 1px;
-    }
-
-    .header__title {
-      font-size: 0.95rem;
-      font-weight: 400;
-      color: #a8b4cc;
-      margin-top: 6px;
-      letter-spacing: 0.03em;
-    }
-
-    .header__divider {
-      width: 48px;
-      height: 3px;
-      background: var(--color-accent);
-      border-radius: 2px;
-      margin: 14px 0;
-    }
-
-    .header__contact {
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-
-    .header__contact a {
-      font-size: 0.875rem;
-      color: #c5cee0;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: color 0.18s;
-    }
-
-    .header__contact a:hover {
-      color: #fff;
-    }
-
-    .header__contact svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-      opacity: 0.7;
-    }
-
-    .header__summary {
-      max-width: 72ch;
-      margin-top: 16px;
-      font-size: 0.875rem;
-      color: #9aaabb;
-      line-height: 1.75;
-      font-weight: 300;
-    }
-
-    .header__highlights {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .header__highlights span {
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: #c5d0e8;
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 4px;
-      padding: 4px 10px;
-      letter-spacing: 0.02em;
-    }
-
-    /* ── Cover banner ───────────────────────────────────── */
-    .cover-banner {
-      position: relative;
-      width: 100%;
-      height: 200px;
-      overflow: hidden;
-    }
-
-    .cover-banner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%;
-      display: block;
-    }
-
-    .cover-banner__overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to right,
-        rgba(26, 26, 46, 0.72) 0%,
-        rgba(26, 26, 46, 0.2) 50%,
-        rgba(26, 26, 46, 0.55) 100%
-      );
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 52px;
-    }
-
-    .cover-banner__label {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: 0.02em;
-      line-height: 1.4;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-    }
-
-    .cover-banner__label span {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 400;
-      color: #c5d0e8;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .cover-banner__btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 10px 22px;
-      background: var(--color-accent);
-      color: #fff;
-      font-family: var(--font);
-      font-size: 0.82rem;
-      font-weight: 600;
-      border-radius: 6px;
-      text-decoration: none;
-      letter-spacing: 0.02em;
-      box-shadow: 0 4px 16px rgba(26, 86, 219, 0.45);
-      transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
-      white-space: nowrap;
-    }
-
-    .cover-banner__btn:hover {
-      background: #1447c0;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(26, 86, 219, 0.55);
-    }
-
-    .cover-banner__btn svg {
-      width: 15px;
-      height: 15px;
-    }
-
-    /* ── Content ───────────────────────────────────────── */
-    .content {
-      padding: 0 52px 52px;
-    }
-
-    /* ── Sections ──────────────────────────────────────── */
-    .section {
-      padding-top: 36px;
-    }
-
-    .section__title {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--color-accent);
-      margin-bottom: 20px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--color-border);
-      display: block;
-    }
-
-    /* ── Job entries ───────────────────────────────────── */
-    .job {
-      display: grid;
-      grid-template-columns: 130px 1fr;
-      gap: 0 24px;
-      margin-bottom: 28px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .job:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .job__left {
-      padding-top: 2px;
-    }
-
-    .job__date {
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--color-muted);
-      line-height: 1.5;
-    }
-
-    .job__location {
-      font-size: 0.78rem;
-      color: var(--color-muted);
-      margin-top: 4px;
-      line-height: 1.5;
-    }
-
-    .job__right {}
-
-    .job__company {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--color-text);
-      line-height: 1.3;
-    }
-
-    .job__role {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--color-accent);
-      margin-top: 1px;
-      margin-bottom: 8px;
-    }
-
-    .job__bullets {
-      list-style: none;
-      padding: 0;
-    }
-
-    .job__bullets li {
-      position: relative;
-      padding-left: 14px;
-      font-size: 0.85rem;
-      color: var(--color-text-secondary);
-      line-height: 1.7;
-      margin-bottom: 2px;
-    }
-
-    .job__bullets li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 9px;
-      width: 5px;
-      height: 1px;
-      background: var(--color-muted);
-    }
-
-    .job__detail {
-      font-size: 0.82rem;
-      color: var(--color-muted);
-      line-height: 1.65;
-      margin-top: 6px;
-    }
-
-    .job__clients {
-      font-size: 0.8rem;
-      color: var(--color-muted);
-      margin-top: 6px;
-      font-style: italic;
-    }
-
-    .job__tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-top: 9px;
-    }
-
-    .job__tools span {
-      font-size: 0.72rem;
-      font-weight: 500;
-      padding: 3px 9px;
-      background: var(--color-accent-light);
-      color: var(--color-accent);
-      border: 1px solid #c5d7f9;
-      border-radius: 3px;
-      letter-spacing: 0.01em;
-    }
-
-    /* ── Skills ────────────────────────────────────────── */
-    .skills__grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px 28px;
-    }
-
-    @media screen and (max-width: 640px) {
-      .skills__grid { grid-template-columns: 1fr; gap: 14px; }
-    }
-
-    .skills__group {}
-
-    .skills__label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--color-text);
-      margin-bottom: 5px;
-    }
-
-    .skills__tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .skills__tags span {
-      font-size: 0.78rem;
-      color: var(--color-text-secondary);
-      background: #f3f4f6;
-      border: 1px solid var(--color-border);
-      border-radius: 4px;
-      padding: 3px 9px;
-    }
-
-    /* ── Recommendations ───────────────────────────────── */
-    .rec__item {
-      padding: 12px 16px;
-      border-left: 3px solid var(--color-accent);
-      background: #f8faff;
-      border-radius: 0 6px 6px 0;
-      margin-bottom: 10px;
-    }
-
-    .rec__item:last-child { margin-bottom: 0; }
-
-    .rec__quote {
-      font-size: 0.875rem;
-      color: var(--color-text-secondary);
-      line-height: 1.7;
-      font-style: italic;
-    }
-
-    .rec__author {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--color-muted);
-      margin-top: 6px;
-    }
-
-    /* ── Early Career ───────────────────────────────────── */
-    .early-career__item {
-      display: grid;
-      grid-template-columns: 130px 1fr;
-      gap: 0 24px;
-      padding: 6px 0;
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .early-career__item:last-child {
-      border-bottom: none;
-    }
-
-    .early-career__left {
-      padding-top: 1px;
-    }
-
-    .early-career__date {
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--color-muted);
-    }
-
-    .early-career__location {
-      font-size: 0.78rem;
-      color: var(--color-muted);
-      margin-top: 2px;
-    }
-
-    .early-career__company {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--color-text);
-    }
-
-    .early-career__role {
-      font-size: 0.82rem;
-      color: var(--color-text-secondary);
-      margin-top: 1px;
-    }
-
-    /* ── Education ─────────────────────────────────────── */
-    .edu__item {
-      display: grid;
-      grid-template-columns: 130px 1fr;
-      gap: 0 24px;
-    }
-
-    .edu__date {
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--color-muted);
-      padding-top: 2px;
-    }
-
-    .edu__school {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--color-text);
-    }
-
-    .edu__location {
-      font-size: 0.85rem;
-      color: var(--color-muted);
-      margin-top: 2px;
-    }
-
-    /* ── Responsive ────────────────────────────────────── */
-    @media screen and (max-width: 640px) {
-      body { padding: 0; }
-      .page { border-radius: 0; box-shadow: none; }
-
-      /* Header: single column, photo+name row at top */
-      .header {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 24px 20px 24px;
-        gap: 0;
-      }
-      /* Hide desktop right column */
-      .header__right { display: none !important; }
-      /* Show mobile top row (photo left, name right) */
-      .header__top {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 16px;
-      }
-      .header__top .header__photo { display: block; width: 68px; height: 68px; flex-shrink: 0; }
-      .header__name { font-size: 1.6rem; }
-      .header__title { font-size: 0.86rem; margin-top: 4px; }
-      /* Show mobile print button below highlights */
-      .btn-print--mobile {
-        display: inline-flex;
-        margin-top: 16px;
-        width: 100%;
-        justify-content: center;
-      }
-      .header__contact { gap: 10px; }
-      .header__contact a { font-size: 0.81rem; }
-      .header__summary { font-size: 0.83rem; line-height: 1.65; margin-top: 14px; }
-      .header__highlights { gap: 6px; margin-top: 12px; }
-      .header__highlights span { font-size: 0.71rem; padding: 3px 8px; }
-
-      /* Cover banner */
-      .cover-banner { height: 130px; }
-      .cover-banner__overlay { padding: 0 20px; gap: 12px; }
-      .cover-banner__label { font-size: 0.85rem; }
-      .cover-banner__btn { padding: 8px 14px; font-size: 0.76rem; }
-
-      /* Content */
-      .content { padding: 0 20px 36px; }
-      .section { padding-top: 28px; }
-
-      /* Jobs: single column, date inline */
-      .job { grid-template-columns: 1fr; gap: 2px; }
-      .job__left { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; margin-bottom: 6px; }
-      .job__location { margin-top: 0; }
-      .job__date { font-size: 0.78rem; }
-
-      /* Education */
-      .edu__item { grid-template-columns: 1fr; gap: 4px; }
-      .edu__left { display: flex; gap: 8px; align-items: baseline; }
-    }
-
-    /* ── Back to top ────────────────────────────────────── */
-    .back-to-top {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--color-accent);
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 16px rgba(26, 86, 219, 0.4);
-      opacity: 0;
-      transform: translateY(12px);
-      pointer-events: none;
-      transition: opacity 0.22s, transform 0.22s, background 0.18s;
-      z-index: 100;
-    }
-
-    .back-to-top--visible {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    .back-to-top:hover {
-      background: #1447c0;
-      box-shadow: 0 6px 20px rgba(26, 86, 219, 0.55);
-    }
-
-    .back-to-top svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    /* ── Print ─────────────────────────────────────────── */
-
-    /* A4 = 210 × 297 mm. Zero @page margin — all spacing via CSS padding below */
-    @page {
-      size: A4 portrait;
-      margin: 0;
-    }
-
-    @media print {
-      * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-      }
-
-      html { font-size: 8.6pt; }
-      body { background: #fff !important; padding: 0 !important; margin: 0 !important; }
-
-      .page {
-        width: 210mm !important;
-        max-width: 210mm !important;
-        margin: 0 !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        border: none !important;
-      }
-
-      /* ── Header ── */
-      .header {
-        background: #fff !important;
-        padding: 9mm 13mm 5mm !important;
-        border-bottom: 1.5pt solid #1a1a2e !important;
-      }
-
-      .header__name        { color: #1a1a2e !important; font-size: 17pt !important; letter-spacing: -0.01em !important; }
-      .header__title       { color: #444 !important; font-size: 7.8pt !important; margin-top: 2pt !important; }
-      .header__divider     { background: #1a56db !important; width: 28pt !important; height: 2pt !important; margin: 5pt 0 !important; }
-      .header__contact     { gap: 14pt !important; }
-      .header__contact a   { color: #333 !important; font-size: 7.2pt !important; }
-      .header__contact svg { opacity: 0.45 !important; stroke: #333 !important; }
-
-      /* Hide screen-only prose — saves ~22mm of vertical space */
-      .header__summary    { display: none !important; }
-      .header__highlights { display: none !important; }
-
-      /* ── Content ── */
-      .content { padding: 0 13mm 9mm !important; }
-      .section { padding-top: 7pt !important; }
-
-      .section__title {
-        font-size: 6pt !important;
-        color: #1a56db !important;
-        border-bottom: 0.6pt solid #ccc !important;
-        margin-bottom: 6pt !important;
-        padding-bottom: 3pt !important;
-      }
-
-      /*
-       * KEY FIX: Switch job rows from CSS Grid to block + float.
-       * CSS Grid containers don't reliably honour break-inside:avoid in
-       * print — block elements do. Float the date column right so the
-       * classic two-column look is preserved without using grid.
-       */
-      .job {
-        display: block !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-        overflow: hidden !important; /* clearfix */
-        margin-bottom: 5pt !important;
-        padding-bottom: 5pt !important;
-        border-bottom: 0.5pt solid #dde1e9 !important;
-      }
-
-      .job:last-child { border-bottom: none !important; }
-
-      /* Date + location float to the right */
-      .job__left {
-        float: right !important;
-        width: 62pt !important;
-        text-align: right !important;
-        padding-left: 6pt !important;
-        padding-top: 1pt !important;
-      }
-
-      /* Company / role / bullets fill the rest */
-      .job__right { display: block !important; }
-
-      .job__date     { font-size: 6.5pt !important; color: #6e7491 !important; line-height: 1.35 !important; }
-      .job__location { font-size: 6.5pt !important; color: #6e7491 !important; margin-top: 1pt !important; line-height: 1.35 !important; }
-
-      .job__company  { font-size: 8.5pt !important; font-weight: 700 !important; line-height: 1.2 !important; color: #1a1a2e !important; }
-      .job__role     { font-size: 7.5pt !important; color: #1a56db !important; margin-top: 1pt !important; margin-bottom: 3pt !important; font-weight: 500 !important; }
-
-      .job__bullets li {
-        font-size: 6.8pt !important;
-        line-height: 1.42 !important;
-        margin-bottom: 0 !important;
-        padding-left: 9pt !important;
-        color: #333 !important;
-      }
-
-      .job__clients { font-size: 6.2pt !important; margin-top: 2pt !important; color: #666 !important; }
-
-      .job__tools { margin-top: 3pt !important; gap: 2pt !important; }
-      .job__tools span {
-        font-size: 5.8pt !important;
-        padding: 1pt 4.5pt !important;
-        background: transparent !important;
-        border: 0.5pt solid #bbb !important;
-        color: #555 !important;
-        border-radius: 2px !important;
-      }
-
-      /* Education: same block+float pattern */
-      .edu__item {
-        display: block !important;
-        overflow: hidden !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-      }
-      .edu__date {
-        float: right !important;
-        font-size: 6.5pt !important;
-        color: #6e7491 !important;
-        width: 62pt !important;
-        text-align: right !important;
-      }
-      .edu__school   { font-size: 8.5pt !important; font-weight: 700 !important; color: #1a1a2e !important; }
-      .edu__location { font-size: 7.2pt !important; color: #555 !important; }
-
-      /* Skills section */
-      .skills__grid { grid-template-columns: repeat(3, 1fr) !important; gap: 5pt 14pt !important; }
-      .skills__label { font-size: 6pt !important; margin-bottom: 3pt !important; }
-      .skills__tags span { font-size: 6.2pt !important; padding: 1.5pt 5pt !important; background: transparent !important; border-color: #ccc !important; }
-
-      /* Recommendations */
-      .rec__item { background: transparent !important; padding: 4pt 8pt !important; margin-bottom: 5pt !important; break-inside: avoid !important; }
-      .rec__quote { font-size: 7pt !important; line-height: 1.45 !important; }
-      .rec__author { font-size: 6.5pt !important; margin-top: 3pt !important; }
-
-      /* Early career */
-      .early-career__item { grid-template-columns: 60pt 1fr !important; gap: 0 11pt !important; padding: 3pt 0 !important; }
-      .early-career__date, .early-career__location { font-size: 6.5pt !important; }
-      .early-career__company { font-size: 8pt !important; }
-      .early-career__role { font-size: 7pt !important; }
-
-      /* Never orphan Education or Early Career onto a solo page */
-      .section:nth-last-child(-n+2) { break-before: avoid !important; page-break-before: avoid !important; }
-
-      .back-to-top { display: none !important; }
-
-      /* Hide cover banner, photos, and print buttons in print */
-      .cover-banner { display: none !important; }
-      .header__right { display: none !important; }
-      .header__top { display: none !important; }
-      .btn-print--mobile { display: none !important; }
-      .header { display: block !important; padding: 18pt 20pt 14pt !important; }
-      .header__body { display: block !important; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="resume.css">
 </head>
-<body>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to resume</a>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="wordmark" href="#top">remi couture<span aria-hidden="true">✳</span></a>
+    <div class="nav-links"><a href="#experience">Experience</a><a href="#building">What I’m building</a><a href="portfolio.html">Portfolio ↗</a></div>
+    <a class="nav-contact" href="mailto:rcouture@gmail.com">Let’s talk <span aria-hidden="true">↗</span></a>
+  </nav>
   <div class="page">
-    <header class="header">
-      <!-- Top row: name/title left, photo right (desktop) -->
-      <div class="header__body">
-        <div class="header__top">
-          <div class="header__title-block">
-            <h1 class="header__name">Guillaume <span class="header__name--preferred">Remi</span> Couture</h1>
-            <p class="header__title">Senior UX/UI Designer &amp; Product Design Consultant</p>
-          </div>
-          <div class="header__photo">
-            <img src="photome.png" alt="Remi Couture" />
-          </div>
-        </div>
-        <div class="header__divider"></div>
-        <div class="header__contact">
-          <a href="tel:4189078783">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>
-            418 907 8783
-          </a>
-          <a href="mailto:rcouture@gmail.com">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
-            rcouture@gmail.com
-          </a>
-          <a href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            linkedin.com/in/remicouture
-          </a>
-        </div>
-        <p class="header__summary">
-          Senior UX/UI designer and consultant with nearly two decades of experience leading design for products used by millions worldwide. Clients span entertainment, gaming, and defense — including Disney, Sony, Riot Games, Tencent, Universal Studios, Hasbro, Twitch, AppLovin, and government partners such as the Japan Ministry of Defense, US Department of Defense, and NATO. Combines deep UX/UI expertise with AI-assisted workflows and front-end development skills (React, JavaScript, Next.js) to help teams ship faster without sacrificing quality.
-        </p>
-        <div class="header__highlights">
-          <span>20 Years in Games &amp; Product</span>
-          <span>Millions of Users Reached</span>
-          <span>Defense &amp; Government Clients</span>
-          <span>AI-Assisted Workflows</span>
-        </div>
-        <button type="button" class="btn-print btn-print--mobile" onclick="window.print()" aria-label="Print resume">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829A2.25 2.25 0 0 0 5.25 12h13.5a2.25 2.25 0 0 0-1.47-2.829M6.72 13.829l-1.06 4.24A2.25 2.25 0 0 0 7.44 21h9.12a2.25 2.25 0 0 0 2.18-1.931l-1.06-4.24M6.72 13.829h10.56M9 6.75V4.5A1.5 1.5 0 0 1 10.5 3h3A1.5 1.5 0 0 1 15 4.5v2.25"/></svg>
-          Print Resume
-        </button>
-      </div><!-- /.header__body -->
-      <!-- Desktop-only right column: photo + print button -->
-      <div class="header__right">
-        <div class="header__photo header__photo--desktop">
-          <img src="photome.png" alt="Remi Couture" />
-        </div>
-        <button type="button" class="btn-print" onclick="window.print()" aria-label="Print resume">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829A2.25 2.25 0 0 0 5.25 12h13.5a2.25 2.25 0 0 0-1.47-2.829M6.72 13.829l-1.06 4.24A2.25 2.25 0 0 0 7.44 21h9.12a2.25 2.25 0 0 0 2.18-1.931l-1.06-4.24M6.72 13.829h10.56M9 6.75V4.5A1.5 1.5 0 0 1 10.5 3h3A1.5 1.5 0 0 1 15 4.5v2.25"/></svg>
-          Print Resume
-        </button>
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot"></span> DESIGNER. BUILDER. PLAYER ADVOCATE.</p>
+        <h1>Remi Couture<span class="name-detail">Guillaume (Rémi) Couture</span></h1>
+        <p class="hero-statement">Complex systems.<br><span>Human experiences.</span></p>
+        <p class="hero-role">Principal Product Designer &amp; Tool Builder · Game UI/UX</p>
+        <p class="hero-summary">I turn complex ideas into intuitive products, game interfaces, and tools people can actually use. Nearly two decades of design craft, from the first sketch to the shipped experience.</p>
+        <div class="hero-actions"><a class="button button-primary" href="portfolio.html">Explore my work <span aria-hidden="true">↗</span></a><button class="button" type="button" onclick="window.print()">Print / Save PDF <span aria-hidden="true">↓</span></button></div>
+        <p class="hero-location">Based in Greater Montreal · Working with teams worldwide</p>
+      </div>
+      <div class="portrait-panel">
+        <div class="portrait-label"><span>THE PERSON BEHIND THE PIXELS</span><span>01 / RC</span></div>
+        <span class="portrait-star" aria-hidden="true">✳</span>
+        <img src="photome.png" alt="Remi Couture" width="480" height="480" fetchpriority="high">
+        <div class="portrait-caption"><span>Thoughtful by nature.<br><strong>Hands-on by choice.</strong></span><span class="portrait-note">Design ↗<br>Build ↗<br>Play ↗</span></div>
       </div>
     </header>
-
-    <div class="cover-banner">
-      <img src="coverphoto.jpg" alt="Portfolio cover — games &amp; products designed by Remi Couture" />
-      <div class="cover-banner__overlay">
-        <div class="cover-banner__label">
-          <span>Selected work</span>
-          Games, Mobile &amp; Product Experiences
-        </div>
-        <a href="portfolio.html" class="cover-banner__btn">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-          View Portfolio
-        </a>
-      </div>
+    <div class="proof-strip" aria-label="Career highlights">
+      <div><strong>20 years</strong><span>in games &amp; product design</span></div>
+      <div><strong>Millions</strong><span>of players &amp; users reached</span></div>
+      <div><strong>9 studios</strong><span>supported as UX Director</span></div>
+      <div><strong>Design → build</strong><span>strategy through implementation</span></div>
     </div>
-
-    <main class="content">
+    <div class="brand-strip"><p>EXPERIENCE ACROSS TEAMS &amp; CLIENTS</p><div><span>Disney</span><span>Sony</span><span>Riot Games</span><span>AppLovin</span><span>Tencent</span><span>Twitch</span></div></div>
+    <section class="building section" id="building" aria-labelledby="building-title">
+      <div class="section-heading"><p class="eyebrow">01 / INDEPENDENT WORK</p><h2 id="building-title">The same craft.<br><span>My own tools.</span></h2><p>Alongside consulting, I build tools through Strategic Sloth, my independent tools and game studio.</p></div>
+      <div class="project-grid">
+        <a class="project-card slice-card" href="https://www.sliceforge.io/"><div class="project-meta"><span>GAME UI PRODUCTION</span><span aria-hidden="true">↗</span></div><div class="slice-art" aria-hidden="true"><span></span><span></span><span></span><span></span><span>✳</span><span></span><span></span><span></span><span></span></div><h3>SliceForge</h3><p>From visual reference to editable screens, reusable components, and exportable game UI kits.</p><span class="project-link">Explore the product ↗</span></a>
+        <a class="project-card focus-card" href="https://www.fab.com/listings/47a56c00-ab32-4c20-8aba-04935b4a2578"><div class="project-meta"><span>UNREAL ENGINE TOOL · ON FAB</span><span aria-hidden="true">↗</span></div><div class="focus-art" aria-hidden="true"><span>01</span><i>→</i><span>02</span><i>→</i><span>03</span></div><h3>Focusrail</h3><p>Controller and keyboard navigation tools for Unreal Engine. Build, debug, and validate UI focus.</p><span class="project-link">View on Fab ↗</span></a>
+      </div>
+      <a class="studio-link" href="https://www.strategicsloth.com/"><span><span aria-hidden="true">✳</span> Different tools. The same care for the person using them.</span><strong>Meet Strategic Sloth ↗</strong></a>
+    </section>
+    <main class="content" id="main">
 
       <!-- SKILLS -->
-      <section class="section">
-        <h2 class="section__title">Core Skills</h2>
+      <section class="section" id="skills">
+        <p class="eyebrow">02 / THE TOOLKIT</p><h2 class="section__title">Strategy meets execution.</h2>
         <div class="skills__grid">
           <div class="skills__group">
             <div class="skills__label">UX &amp; Design</div>
@@ -902,11 +77,11 @@
           <div class="skills__group">
             <div class="skills__label">Game Engines</div>
             <div class="skills__tags">
-              <span>Unreal Engine 4 &amp; 5</span><span>Unity</span>
+              <span>Unreal Engine 4 &amp; 5</span><span>UMG</span><span>CommonUI</span><span>Unity</span>
             </div>
           </div>
           <div class="skills__group">
-            <div class="skills__label">AI-Native Workflows</div>
+            <div class="skills__label">AI-Assisted Workflows</div>
             <div class="skills__tags">
               <span>Cursor</span><span>Midjourney</span><span>ChatGPT / Claude</span><span>Runway ML</span><span>v0 by Vercel</span><span>AI-Assisted Design</span>
             </div>
@@ -914,15 +89,15 @@
           <div class="skills__group">
             <div class="skills__label">Front-End Development</div>
             <div class="skills__tags">
-              <span>React</span><span>JavaScript</span><span>Next.js</span>
+              <span>React</span><span>JavaScript</span><span>TypeScript</span><span>Next.js</span>
             </div>
           </div>
         </div>
       </section>
 
       <!-- WORK EXPERIENCE -->
-      <section class="section">
-        <h2 class="section__title">Work Experience</h2>
+      <section class="section" id="experience">
+        <p class="eyebrow">03 / EXPERIENCE</p><h2 class="section__title">A career built around people.</h2>
 
         <article class="job">
           <div class="job__left">
@@ -935,7 +110,7 @@
             <ul class="job__bullets">
               <li>Serving high-security clients including the <strong>Japan Ministry of Defense</strong>, <strong>US Department of Defense</strong>, and <strong>NATO</strong> — delivering UX/UI solutions for mission-critical digital products</li>
               <li>Delivered end-to-end UX/UI consulting for game studios and tech product teams, covering strategy, design systems, and Unreal Engine / Unity implementation</li>
-              <li>Integrated AI-assisted workflows (Midjourney, GPT-4, Cursor) to cut prototyping time and accelerate visual design iteration for clients</li>
+              <li>Integrated AI-assisted workflows (Midjourney, ChatGPT, Cursor) to cut prototyping time and accelerate visual design iteration for clients</li>
               <li>Advised on product vision and design system architecture, enabling teams to scale UI production without sacrificing consistency</li>
               <li>Bridged design and engineering using front-end development skills (React, JavaScript, Next.js) to prototype and validate UX solutions directly in code</li>
             </ul>
@@ -1059,7 +234,7 @@
             <div class="job__company">Piranha Games</div>
             <div class="job__role">UX/UI Designer</div>
             <ul class="job__bullets">
-              <li>Owned 2D/3D UI design for MechWarrior Online in Unreal Engine 4, creating menus, HUDs, and in-game overlays played by hundreds of thousands of users</li>
+              <li>Owned 2D/3D UI design for MechWarrior Online, creating menus, HUDs, and in-game overlays played by hundreds of thousands of users</li>
               <li>Authored and maintained the UX Style Guide, establishing interaction patterns and visual standards across the full UI system</li>
               <li>Embedded directly with UI engineers through implementation, ensuring pixel-accurate delivery of designs in-engine</li>
             </ul>
@@ -1179,8 +354,9 @@
     </main>
   </div>
 
+  <footer class="site-footer"><p class="eyebrow">LET’S BUILD SOMETHING GOOD</p><h2>Your next challenge.<br><span>My kind of work.</span></h2><a class="footer-email" href="mailto:rcouture@gmail.com">rcouture@gmail.com ↗</a><div class="footer-bottom"><span>Guillaume (Rémi) Couture · Product designer &amp; tool builder</span><div><a href="tel:+14189078783">+1 418 907 8783</a><a href="https://www.linkedin.com/in/remicouture/">LinkedIn ↗</a><a href="https://www.strategicsloth.com/">Strategic Sloth ↗</a></div></div></footer>
   <!-- Back to top button -->
-  <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"/></svg>
   </button>
 
