@@ -1,0 +1,2 @@
+:where(button[data-reveal-email]) { appearance:none; background:transparent; border:0; padding:0; color:inherit; font:inherit; text-align:left; cursor:pointer; }
+[data-reveal-email]:focus-visible { outline:3px solid var(--green,#45633e); outline-offset:5px; }
