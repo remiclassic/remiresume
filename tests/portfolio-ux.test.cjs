@@ -25,6 +25,7 @@ test('all prototype actions resolve and every state is reachable',()=>{
   for(const study of Object.values(studies)){
     const demo=study.prototype;if(!demo)continue;
     assert.ok(fs.existsSync(path.join(root,'portfolio-imgs',demo.art)));
+    if(demo.renderer === 'vanguard-react') continue; // Covered by vanguard-react.test.cjs.
     const seen=new Set();const queue=[demo.start,...demo.scenarios.map(s=>s[0])];
     while(queue.length){
       const key=queue.shift();if(seen.has(key))continue;
@@ -36,22 +37,6 @@ test('all prototype actions resolve and every state is reachable',()=>{
   }
 });
 const advance=(states,key,label)=>{const action=states[key].actions.find(a=>a[0]===label);assert.ok(action,`${key}: ${label}`);return action[1];};
-test('Vanguard preview cancellation and join recovery retain equipped equipment',()=>{
-  const s=studies.vanguard.prototype.states;
-  const weapon=key=>s[key].facts.find(([label])=>label==='Equipped')[1];
-  assert.equal(weapon('preview'),'Halberd');
-  assert.equal(weapon(advance(s,'preview','Cancel preview')),'Halberd');
-  assert.equal(weapon(advance(s,'preview','Equip poleaxe')),'Poleaxe');
-  assert.equal(weapon(advance(s,'previewHalberd','Cancel preview')),'Poleaxe');
-  for(const [review,weaponName] of [['reviewHalberd','Halberd'],['reviewPoleaxe','Poleaxe']]){
-    const joining=advance(s,review,'Deploy');
-    const failed=advance(s,joining,'Simulate join failure');
-    assert.equal(weapon(failed),weaponName);
-    assert.equal(advance(s,failed,'Retry join'),joining);
-    assert.equal(advance(s,failed,'Return to review'),review);
-  }
-  assert.equal(weapon(advance(s,'locked','Back to weapons')),'Halberd');
-});
 test('repair requires review and confirmation; shortfall offers affordable recovery',()=>{
   const s=studies.mechwarrior.prototype.states;
   assert.equal(advance(s,'inspect','Review repair'),'review');

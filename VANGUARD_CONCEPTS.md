@@ -13,7 +13,7 @@
 
 ## Rationale and scope
 
-The source's repeated 9 ratings lack a visible scale; rank resembles a combat trait; equipment lacks names and state labels. The revisit clarifies these decisions while preserving the art direction. Qualitative traits, rank requirements and match details are illustrative. Heavy armor may conflict with the low-protection trait; validate or revise the silhouette. The prototype explores one class and selected weapon branches, with no live connection or persistent save. Generated screens are mockups: implementation would require native text, localization, accessible components and controller focus.
+The source's repeated 9 ratings lack a visible scale; rank resembles a combat trait; equipment lacks names and state labels. The revisit clarifies these decisions while preserving the art direction. Qualitative traits, rank requirements and match details are illustrative. Heavy armor may conflict with the low-protection trait; validate or revise the silhouette. The React prototype now explores four classes with separate assets, shared equipment state, and a fixed-ratio layout; see VANGUARD_REACT.md. There is no live game connection or persistent save. Generated screens are mockups: implementation would require native text, localization, accessible components and controller focus.
 
 ## Proposed validation
 

@@ -12,6 +12,10 @@
   const imagePath = src => `portfolio-imgs/${src}`;
 
   window.renderUXStudy = ({host, project, mode, source, prototype, updateNotes}) => {
+    if (project.id === 'vanguard' && mode === 'prototype') {
+      window.renderVanguard({host,source,updateNotes});
+      return;
+    }
     const study = window.portfolioUX[project.id];
     host.replaceChildren();
     if (mode === 'prototype') {

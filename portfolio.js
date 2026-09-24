@@ -35,6 +35,7 @@
   });
 
   function show(nextProject, nextFrame, updateHash = true) {
+    $('artwork').disposeVanguard?.();
     const previousVideo = $('artwork').querySelector('video');
     if (previousVideo) previousVideo.pause();
     if (projectIndex !== nextProject) viewMode = 'screens';
@@ -101,6 +102,10 @@
       });
       const sourceButton = makeButton('Back to screens',()=>setMode('screens'));
       $('screenTabs').replaceChildren(sourceButton);
+      if(project.id==='vanguard' && viewMode==='prototype') {
+        const open=document.createElement('a');open.href='vanguard.html';open.target='_blank';open.rel='noopener';open.textContent='Open full-size ↗';open.style.cssText='font-size:11px;padding:9px 10px;white-space:nowrap';
+        $('screenTabs').append(makeButton('Reset demo',()=>window.vanguardControls.reset()),makeButton('Try join recovery',()=>window.vanguardControls.failNext()),open);
+      }
       if(study.prototype && viewMode==='flow') $('screenTabs').append(makeButton('Play the concept ↗',()=>setMode('prototype')));
       setText('screenCount',viewMode==='flow' ? '4 flow steps' : 'Interactive concept');
       setText('stageName',`${project.name} / ${currentEra(project,frame)}`);
@@ -213,7 +218,7 @@
     browse();
   });
   document.addEventListener('keydown', event => {
-    if (projectDialog.open || imageDialog.open || event.target.closest('video, input, textarea, select, .ux-flow-board, .ux-prototype')) return;
+    if (projectDialog.open || imageDialog.open || event.target.closest('video, input, textarea, select, .ux-flow-board, .ux-prototype, .vg-viewport')) return;
     if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
       event.preventDefault(); move(event.key === 'ArrowRight' ? 1 : -1);
     }
