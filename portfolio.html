@@ -17,7 +17,7 @@
 <script>
 // Preserve previously shared direct links to the guided showcase.
 function openPortfolioDeepLink() {
- if (/^#(fintech|cyber|hockey|soccer|squad|mechwarrior|stardust|multiplayer|mobile|cards|motion)(\/|$)/.test(location.hash)) location.replace('portfolio-showcase.html'+location.hash);
+ if (/^#(vanguard|fintech|cyber|hockey|soccer|squad|mechwarrior|stardust|multiplayer|mobile|cards|motion)(\/|$)/.test(location.hash)) location.replace('portfolio-showcase.html'+location.hash);
 }
 openPortfolioDeepLink();
 window.addEventListener('hashchange',openPortfolioDeepLink);
@@ -31,6 +31,21 @@ window.addEventListener('hashchange',openPortfolioDeepLink);
 <nav class="site-nav" aria-label="Primary navigation"><a class="wordmark" href="index.html">remi couture<span aria-hidden="true">✳</span></a><div class="nav-links"><a href="index.html">Resume</a><button type="button" data-reveal-email aria-label="Reveal email address">Reveal email ↗</button></div></nav>
 <main class="hub" id="main">
 <header class="hub-intro"><div><p class="eyebrow">THE PORTFOLIO / UI + UX</p><h1>Different ways<br>to <span>see the work.</span></h1></div><p>Start with the thinking, browse the visuals, or settle into the full collection. Choose the view that fits what you’re looking for.</p></header>
+<section class="hub-feature" aria-labelledby="vanguard-feature-title">
+  <div class="hub-feature-copy">
+    <p class="eyebrow">OLD CONCEPTS REVISITED / GAME UI + UX / 2026</p>
+    <h2 id="vanguard-feature-title">Before the battle.<br>Make the choice clear.</h2>
+    <p>A medieval class-selection concept, revisited as a complete preparation journey. Preserve the steel, smoke, and heraldry. Give every decision a clear role, an explicit state, and a way back.</p>
+    <p class="hub-feature-dates">One starting concept · Three new companion screens<br>AI-assisted visual exploration with a proposed UX study. Original date unconfirmed.</p>
+    <div class="hub-feature-actions"><a class="button button-primary" href="portfolio-showcase.html#vanguard/2">Explore Vanguard ↗</a><a href="portfolio-showcase.html#vanguard/flow">Read the UX walkthrough ↗</a><a href="portfolio-showcase.html#vanguard/prototype">Try the interactive concept ↗</a></div>
+  </div>
+  <div class="hub-feature-images">
+    <a href="portfolio-showcase.html#vanguard/1"><img src="portfolio-imgs/vanguard/original.png" alt="Supplied medieval Vanguard class-selection concept"><span>The starting point ↗</span></a>
+    <a href="portfolio-showcase.html#vanguard/2"><img src="portfolio-imgs/vanguard/class-selection.png" alt="Revisited Vanguard role selection with named class traits and equipped items"><span>01 / Understand your role ↗</span></a>
+    <a href="portfolio-showcase.html#vanguard/3"><img loading="lazy" src="portfolio-imgs/vanguard/loadout.png" alt="Poleaxe comparison showing preview, equipped and locked weapon states"><span>02 / Compare your loadout ↗</span></a>
+    <a href="portfolio-showcase.html#vanguard/4"><img loading="lazy" src="portfolio-imgs/vanguard/deployment.png" alt="Deployment review showing team, class, equipment and an explicit Deploy action"><span>03 / Enter with confidence ↗</span></a>
+  </div>
+</section>
 <section class="hub-feature" aria-labelledby="product-feature-title">
   <div class="hub-feature-copy">
     <p class="eyebrow">NEW / PRODUCT UI &amp; UX / 2026</p>
