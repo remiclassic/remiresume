@@ -8,11 +8,24 @@
   try { choice = localStorage.getItem(key); } catch (_) {}
   let started = false;
   const panel = document.createElement('aside');
+  panel.id = 'analytics-preferences';
   panel.setAttribute('aria-label', 'Analytics privacy preferences');
   panel.style.cssText = 'position:fixed;bottom:16px;left:16px;right:16px;max-width:480px;z-index:10000;padding:16px;background:#fff;color:#18212f;border:1px solid #cbd5e1;border-radius:12px;box-shadow:0 4px 24px #0002;font:14px/1.5 system-ui,sans-serif';
   const printStyle = document.createElement('style');
   printStyle.textContent = '@media print { aside[aria-label="Analytics privacy preferences"] { display:none !important; } }';
   document.head.append(printStyle);
+  const settings = document.createElement('button');
+  settings.type = 'button';
+  settings.textContent = 'Cookie settings';
+  settings.setAttribute('aria-controls', panel.id);
+  settings.setAttribute('aria-expanded', 'false');
+  settings.style.cssText = 'cursor:pointer;background:none;border:0;color:inherit;font:inherit;text-decoration:underline;padding:8px';
+  settings.addEventListener('click', () => {
+    render(true);
+    panel.querySelector('button').focus();
+  });
+  const settingsHost = document.querySelector('.footer-bottom, .hub-footer, .portfolio-footer, .portfolio-nav nav') || document.body;
+  settingsHost.append(settings);
   function start() {
     window['ga-disable-' + id] = false;
     if (started) return;
@@ -43,6 +56,7 @@
       });
     }
     render(false);
+    settings.focus({preventScroll:true});
   }
   function button(label, action) {
     const item = document.createElement('button');
@@ -54,16 +68,17 @@
   }
   function render(expanded) {
     panel.replaceChildren();
-    if (!expanded && (choice === 'accepted' || choice === 'rejected')) {
-      button('Cookie settings', () => render(true));
-      return;
-    }
+    const saved = choice === 'accepted' || choice === 'rejected';
+    panel.hidden = !expanded && saved;
+    settings.setAttribute('aria-expanded', String(!panel.hidden));
+    if (panel.hidden) return;
     const text = document.createElement('p');
-    text.textContent = 'Optional analytics: allow Google Analytics to measure visits to this résumé and portfolio? No contact details or URL query strings are sent. Your choice is saved in this browser and can be changed here anytime.';
+    text.textContent = 'Optional analytics: allow Google Analytics to measure visits to this résumé and portfolio? No contact details or URL query strings are sent. Your choice is saved in this browser and can be changed using Cookie settings anytime.';
     text.style.margin = '0 0 6px';
     panel.append(text);
     button('Reject', () => save('rejected'));
     button('Accept analytics', () => save('accepted'));
+    if (saved) button('Close', () => { render(false); settings.focus({preventScroll:true}); });
   }
   document.body.append(panel);
   render(false);
