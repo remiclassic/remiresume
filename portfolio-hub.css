@@ -40,3 +40,6 @@
 @media(prefers-reduced-motion:reduce) { .route { transition:none; }.route:hover { transform:none; } }
 @media(max-width:800px) { .hub-feature { grid-template-columns:1fr; padding:22px; gap:26px; }.hub-feature-copy h2 { font-size:36px; } }
 @media(max-width:400px) { .hub-feature { padding:16px; }.hub-feature-images { gap:8px; }.hub-feature-images span { font-size:10px; padding:8px; }.hub-feature-images small { display:block; margin-left:0; } }
+
+.norman-feature-media{display:grid;gap:14px;min-width:0;align-self:center}.norman-feature .hub-feature-images img{object-fit:cover}
+.norman-feature .hub-feature-copy>p+p:not(.hub-feature-dates){margin-top:14px}
