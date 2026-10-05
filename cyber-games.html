@@ -37,6 +37,33 @@
 .cg-outcomes{margin-bottom:56px}.cg-outcomes-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px;margin-top:30px;border-top:1px solid var(--line);padding-top:26px}
 .cg-outcomes-grid h3{font-size:19px;letter-spacing:-.02em;margin-bottom:10px}.cg-outcomes-grid p{font-size:14px;line-height:1.7;color:var(--muted)}
 .cg-contact{padding:32px;background:var(--sage);border:1px solid var(--line);border-radius:8px;margin-bottom:40px}.cg-contact h2{font-size:30px;margin-bottom:16px}.cg-contact p{color:var(--muted);line-height:1.8;max-width:680px}
+.cg-open{margin-top:18px;color:var(--ink)!important}.cg-open b{font-weight:700}
+.cg-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.cg-block{padding-block:56px;border-top:1px solid var(--line);scroll-margin-top:80px}
+.cg-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px 48px;flex-wrap:wrap;margin-bottom:30px}
+.cg-head h2{font-size:clamp(28px,3.4vw,46px);line-height:1.08;letter-spacing:-.04em;margin-top:14px;max-width:21ch}
+.cg-head>p{max-width:420px;font-size:14.5px;line-height:1.8;color:var(--muted)}
+.cg-facts-tight{margin-block:30px 0}.cg-facts h3{font-size:19px;margin-bottom:12px}.cg-facts a{display:inline-block;margin-top:12px;font-size:13px;font-weight:600}
+.cg-frame{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#07111b;border:1px solid #2f3a35}
+.cg-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center}
+.cg-frame:after{content:'';position:absolute;inset:0;background:#04070b66}
+.cg-frame .button{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);font-size:16px;padding:16px 26px;white-space:nowrap;box-shadow:0 14px 40px #000a}
+.cg-frame .button,.cg-frame .button:hover{background:#d6eab8;border-color:#d6eab8;color:#16210c}
+.cg-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2;background:#07111b}
+.cg-frame.is-live:after{display:none}
+.cg-frame-game.is-live{aspect-ratio:auto;height:820px}
+.cg-note{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.7}
+.cg-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:26px 0;border-block:1px solid var(--line)}
+.cg-stats b{display:block;font-size:clamp(24px,2.6vw,34px);letter-spacing:-.04em;line-height:1.1}.cg-stats span{display:block;font-size:13px;color:var(--muted);margin-top:8px;line-height:1.5}
+.cg-bring{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+.cg-bring article{padding:26px 24px;border:1px solid var(--line);border-radius:8px;background:#fbfaf5}
+.cg-bring h3{font-size:20px;letter-spacing:-.02em;margin-bottom:10px}.cg-bring p{font-size:14px;line-height:1.75;color:var(--muted)}
+.cg-plan{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.6fr);gap:40px;margin-top:30px;padding:34px 32px;background:var(--ink);color:#fff;border-radius:8px}
+.cg-plan .eyebrow{color:#cfe3bf}.cg-plan h3{font-size:clamp(24px,2.4vw,32px);line-height:1.15;letter-spacing:-.03em;margin-top:14px}
+.cg-plan ol{list-style:none;margin:0;padding:0;display:grid;gap:0}.cg-plan li{padding:16px 0;border-top:1px solid #ffffff26;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:8px 28px}
+.cg-plan li:first-child{border-top:0;padding-top:0}.cg-plan b{font-size:16px;line-height:1.4}.cg-plan span{font-size:14px;line-height:1.7;color:#cfd5c8}
+@media(max-width:960px){.cg-frame-game.is-live{height:900px}}
+@media(max-width:800px){.cg-block{padding-block:40px}.cg-stats{grid-template-columns:1fr 1fr}.cg-bring{grid-template-columns:1fr}.cg-plan{grid-template-columns:1fr;gap:22px;padding:26px 20px}.cg-plan li{grid-template-columns:1fr}.cg-frame .button{font-size:14px;padding:13px 18px}.cg-actions .button{flex:1 1 40%;text-align:center}}
 @media(max-width:1000px){.cg-rules{grid-template-columns:1fr 1fr}.cg-outcomes-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:800px){.cg-facts,.cg-game{grid-template-columns:1fr}.cg-game{gap:22px;padding-block:36px}.cg-media{position:static}.cg-index{grid-template-columns:1fr 1fr;gap:12px}.cg-method{padding:28px 20px}}
 @media(max-width:520px){.cg-index,.cg-rules,.cg-outcomes-grid{grid-template-columns:1fr}}
@@ -47,7 +74,7 @@
 <a class="skip-link" href="#main">Skip to case study</a>
 <nav class="site-nav" aria-label="Primary navigation"><a class="wordmark" href="index.html">remi couture<span aria-hidden="true">✳</span></a><div class="nav-links"><a href="portfolio.html#training">Portfolio</a><a href="index.html">Resume</a><button type="button" data-reveal-email>Reveal email ↗</button></div></nav>
 <main class="hub" id="main">
-<header class="cg-intro"><p class="eyebrow">CASE STUDY / CYBER TRAINING GAMES</p><h1>Cyber training<br>that plays like a game.</h1><p>Six minigames built for a commercial cyber range, each teaching one skill in a few minutes. Below is real gameplay from every one, and the design thinking behind it: the problem, the idea, the UX decisions, and what the learner walks away with.</p></header>
+<header class="cg-intro"><p class="eyebrow">CASE STUDY / CYBER TRAINING GAMES</p><h1>Cyber training<br>that plays like a game.</h1><p>Six minigames built for a commercial cyber range, each teaching one skill in a few minutes. Below is real gameplay from every one, and the design thinking behind it: the problem, the idea, the UX decisions, and what the learner walks away with.</p><p class="cg-open"><b>Open to senior product design and UX roles on cyber training products.</b> Based in Greater Montreal, working remotely with teams worldwide.</p><div class="cg-actions"><button class="button button-primary" type="button" data-reveal-email>Contact me ↗</button><a class="button" href="#hire">What I bring to your team ↓</a><a class="button" href="index.html">Résumé ↗</a><a class="button" href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener">LinkedIn ↗</a></div></header>
 <section class="cg-facts" aria-label="Project context">
 <div><h2>The design question</h2><p>How do you get a learner to practice a security skill, not just read about it, in the five minutes they actually have?</p></div>
 <div><h2>My focus</h2><p>Game design, UX and UI, and front-end build. I take a learning objective, find the mechanic that is the skill, and build it to embed in a training platform.</p></div>
@@ -157,6 +184,34 @@
     </dl>
   </div>
 </article>
+
+<section class="cg-block" id="play" aria-labelledby="play-title">
+<div class="cg-head"><div><p class="eyebrow">PLAY ONE NOW</p><h2 id="play-title">Keep Finance Online</h2></div><p>A network defense game you can play right here. Inspect traffic, write the access rules, and keep the service up. Three rounds, about five minutes, then a debrief that replays your decisions.</p></div>
+<div class="cg-frame cg-frame-game" data-embed="training-demos/network-defense/index.html">
+  <img src="portfolio-imgs/training/network-defense.webp" alt="Keep Finance Online gameplay: an isometric network with a gateway, an inspection point, a core server, and a Finance connection to restore." width="1600" height="1000" loading="lazy">
+  <button class="button button-primary" type="button">▶ Play the game</button>
+</div>
+<p class="cg-note">No sign-up · Plays in your browser · <a href="training-demos/network-defense/index.html" target="_blank" rel="noopener">Open full screen ↗</a></p>
+</section>
+
+<section class="cg-block" id="product-design" aria-labelledby="pd-title">
+<div class="cg-head"><div><p class="eyebrow">UI / UX CASE STUDY</p><h2 id="pd-title">Product design: a first-time experience for a gamified cyber range.</h2></div><p>Onboarding, learning paths, and mission entry. Portfolio examples use sample content and neutral branding.</p></div>
+<div class="cg-facts cg-facts-tight">
+<div><h3>The problem</h3><p>How does a new learner get from choosing a training path to understanding, and starting, the next activity?</p></div>
+<div><h3>Design approach</h3><p>Learner flow, interface design, and interactive prototyping: compare onboarding directions, make module status clear, and connect the map to the briefing.</p></div>
+<div><h3>What to explore</h3><p>Load the animated globe and zoom into a module location, then compare the path selection and onboarding flows. These are design prototypes with sample progress.</p></div>
+</div>
+<div class="cg-frame" data-embed="training-demos/live-globe/demo.html">
+  <img src="portfolio-imgs/training/globe.webp" alt="Globe view of the training world with the first module pinned on the map and a next-up panel." width="1600" height="900" loading="lazy">
+  <button class="button button-primary" type="button">Load and play the globe →</button>
+</div>
+<p class="cg-note">The learning path lives on the map, with the next module always one click away. Needs an internet connection for imagery · <a href="training-demos/live-globe/demo.html" target="_blank" rel="noopener">Open full screen ↗</a></p>
+<div class="cg-facts cg-facts-tight">
+<div><h3>Seven design directions</h3><p>From a live globe and a world map to a direct-path SOC view, for military, enterprise, and friendlier audiences.</p><a href="training-demos/proto/ftue-world-map/01-choose.html">Try the world map flow ↗</a></div>
+<div><h3>Six-step onboarding</h3><p>Welcome, agreement, security, identity, training path, ready. One decision per screen.</p><a href="training-demos/proto/ftue-v2/01-welcome.html">Explore onboarding ↗</a></div>
+<div><h3>Path to first activity</h3><p>Choose a program or path, read the briefing, start the first module. No dead ends.</p><a href="training-demos/proto/soc-direct/01-paths.html">Try the direct path ↗</a></div>
+</div>
+</section>
 <section class="cg-method" aria-labelledby="method-title">
 <p class="eyebrow">THE DESIGN THINKING</p><h2 id="method-title">Fun is the easy part. Making it teach is the work.</h2><p>Most “gamified” training is a quiz with points on top. I start from the skill and work outward. Every concept has to pass these eight rules before anything gets built.</p>
 <ol class="cg-rules"><li><h3>Start from the job, not the game</h3><p>Before any mechanic or art: which role is this for, which skill does it drill, and what should someone do better after ten sessions? If I cannot answer in a sentence, it is entertainment, not training.</p></li><li><h3>One skill per game</h3><p>A game that teaches ports, protocols, and firewall rules at once teaches none of them. Each game isolates a single skill so the score means something.</p></li><li><h3>The knowledge is the controller</h3><p>You cannot win by reflexes or by clicking fast. The only way to act in the game is to use the skill, so the mechanic falls apart for anyone who does not know the material.</p></li><li><h3>Recall beats recognition</h3><p>Picking from four options is recognition. Typing the pattern, placing the card, or drawing the route is recall, and recall is what holds up on the job.</p></li><li><h3>Feedback teaches while you play</h3><p>A wrong move explains itself on the spot, in the game, in under a second. Nobody waits for an end screen to find out what they got wrong.</p></li><li><h3>Harder means deeper, not faster</h3><p>Later rounds add ambiguity, exceptions, and trade-offs. Speeding up the clock only tests typing.</p></li><li><h3>Score accuracy first</h3><p>Speed is a capped bonus. Missing a real threat costs more than a false alarm, the same way it does in a SOC.</p></li><li><h3>Five minutes, worth replaying</h3><p>Short enough for a coffee break, with content that reshuffles every run so a learner cannot memorize the answers.</p></li></ol>
@@ -165,5 +220,51 @@
 <p class="eyebrow">WHAT IT DOES FOR LEARNERS</p><h2 id="outcomes-title">Training people open, finish, and come back to.</h2><p>These are the design goals each game is built toward. They are intentions I design for, not measured results.</p>
 <div class="cg-outcomes-grid"><div><h3>They start</h3><p>A five-minute game with one clear goal is easier to open than a forty-minute module. The first action happens in seconds, not after three screens of reading.</p></div><div><h3>They practice, not just read</h3><p>Every round is retrieval practice: the learner has to produce the answer and act on it. That is the part passive content skips.</p></div><div><h3>They find out why</h3><p>Feedback lands on the decision that caused it, so a mistake turns into the next correct move instead of a red mark at the end.</p></div><div><h3>They come back</h3><p>Fresh content each run and a score to beat give people a reason to replay, and repetition spread over days is what makes a skill stick.</p></div><div><h3>You can see it</h3><p>The games are built to report score and completion to the host platform, so an instructor sees who has the skill and who needs help.</p></div></div>
 </section>
-<section class="cg-contact"><h2>Want games like these in your product?</h2><p>I design and build training games and the interfaces around them, as a team member or through my studio, Strategic Sloth. You can play one of my own games and see the studio offer on the studio site.</p><div class="hub-feature-actions"><button class="button button-primary" type="button" data-reveal-email>Contact me ↗</button><a href="https://strategicsloth.com/training/" target="_blank" rel="noopener">Play a game and see the studio offer ↗</a><a href="training.html">Read the training UX case study ↗</a><a href="portfolio.html#training">Back to portfolio ←</a></div></section>
+
+<section class="cg-block cg-hire" id="hire" aria-labelledby="hire-title">
+<div class="cg-head"><div><p class="eyebrow">WHAT I BRING TO YOUR TEAM</p><h2 id="hire-title">A designer who already knows your product, your learner, and your stack.</h2></div><p>Most designers need six months to learn what a cyber range is. I have designed the learner journey and the games inside one, and I can build what I design.</p></div>
+<div class="cg-stats">
+<div><b>20 years</b><span>in games and product design</span></div>
+<div><b>6 games</b><span>designed and built for a commercial cyber range</span></div>
+<div><b>Design → build</b><span>from strategy through implementation</span></div>
+<div><b>EN / JA</b><span>games built for two languages from the start</span></div>
+</div>
+<div class="cg-bring">
+<article><h3>Learner experience</h3><p>Onboarding, learning paths, mission briefings, objectives, feedback, and debriefs. The whole route from first login to first completed activity.</p></article>
+<article><h3>Gamification that teaches</h3><p>Minigames, progression, and scoring that drill a real skill, designed against a written gate so fun never replaces learning.</p></article>
+<article><h3>Security framework literacy</h3><p>The games on this page are built on MITRE ATT&amp;CK tactics and techniques, the Cyber Kill Chain, and NICE work roles. I can talk to your content team in their terms.</p></article>
+<article><h3>Dense, expert interfaces</h3><p>Game HUD experience applied to consoles, maps, and dashboards: clear hierarchy, readable status, and keyboard-first interaction.</p></article>
+<article><h3>Design systems</h3><p>Component libraries and UI standards that let a team scale screens and content without losing consistency. I ran UX standards across nine studios at once.</p></article>
+<article><h3>Front-end build</h3><p>React, TypeScript, Next.js, Phaser, and Three.js on the web. UMG and CommonUI in Unreal Engine. Prototypes your engineers can read, or production UI.</p></article>
+</div>
+<div class="cg-plan">
+<div><p class="eyebrow">MY FIRST 90 DAYS</p><h3>What you would get, in order.</h3></div>
+<ol>
+<li><b>Days 1 to 30 · Learn and audit</b><span>Walk the product as a new learner and as an instructor. Map where people stall, and agree with product and content on the three fixes that matter most.</span></li>
+<li><b>Days 31 to 60 · Ship one flow, prototype one game</b><span>Redesign the highest-impact flow through to a testable build, and take one learning objective from concept to a playable prototype.</span></li>
+<li><b>Days 61 to 90 · Make it repeatable</b><span>Turn what worked into components, patterns, and a game design checklist the team can use without me in the room.</span></li>
+</ol>
+</div>
+<div class="cg-facts cg-facts-tight">
+<div><h3>Roles I fit</h3><p>Senior or Principal Product Designer, UX / UI Lead, learning experience or game designer for training, and hybrid designer-developer roles.</p></div>
+<div><h3>How I work</h3><p>Daily with engineers and producers, early with content developers and subject experts, and in code when a prototype answers the question faster than a meeting.</p></div>
+<div><h3>Background</h3><p>Disney, Sony, Riot Games, Tencent, Twitch, and AppLovin on the game side. Consulting on mission-critical products for high-security clients since 2025.</p><a href="index.html#experience">See my full experience ↗</a></div>
+</div>
+</section>
+<section class="cg-contact"><h2>Hiring for a cyber training product? Let’s talk.</h2><p>I am open to full-time and contract roles, remote from Greater Montreal. I can walk you through any game or flow on this page, the decisions behind it, and how I would approach your product.</p><div class="hub-feature-actions"><button class="button button-primary" type="button" data-reveal-email>Contact me about a role ↗</button><a href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener">Connect on LinkedIn ↗</a><a href="https://www.linkedin.com/in/remicouture/details/recommendations/" target="_blank" rel="noopener">Read recommendations from managers and teammates ↗</a><a href="index.html">View my résumé ↗</a><a href="https://strategicsloth.com/training/" target="_blank" rel="noopener">Play a game and see the studio offer ↗</a><a href="training.html">Read the training UX case study ↗</a><a href="portfolio.html#training">Back to portfolio ←</a></div></section>
+<script>
+document.querySelectorAll('[data-embed]').forEach(function (frame) {
+  var button = frame.querySelector('button');
+  button.addEventListener('click', function () {
+    var iframe = document.createElement('iframe');
+    iframe.src = frame.getAttribute('data-embed');
+    iframe.title = frame.querySelector('img').alt;
+    iframe.allow = 'fullscreen';
+    frame.appendChild(iframe);
+    frame.classList.add('is-live');
+    button.remove();
+    iframe.focus();
+  }, { once: true });
+});
+</script>
 </main></body></html>
