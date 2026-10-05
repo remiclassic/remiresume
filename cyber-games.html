@@ -64,6 +64,50 @@
 .cg-plan li:first-child{border-top:0;padding-top:0}.cg-plan b{font-size:16px;line-height:1.4}.cg-plan span{font-size:14px;line-height:1.7;color:#cfd5c8}
 @media(max-width:960px){.cg-frame-game.is-live{height:900px}}
 @media(max-width:800px){.cg-block{padding-block:40px}.cg-stats{grid-template-columns:1fr 1fr}.cg-bring{grid-template-columns:1fr}.cg-plan{grid-template-columns:1fr;gap:22px;padding:26px 20px}.cg-plan li{grid-template-columns:1fr}.cg-frame .button{font-size:14px;padding:13px 18px}.cg-actions .button{flex:1 1 40%;text-align:center}}
+.cg-stage{background:radial-gradient(ellipse 80% 480px at 72% 0,#2a2f6b70,transparent 70%),#0a0e1b;color:#f3f5fa;--ink:#f3f5fa;--muted:#aab3c7;--line:#ffffff24}
+.cg-stage-inner{max-width:1320px;margin:auto;padding:64px 32px 72px}
+.cg-stage .cg-intro{max-width:none;margin-bottom:44px}
+.cg-stage .cg-intro h1{font-size:clamp(44px,7vw,104px);line-height:.98;letter-spacing:-.05em;font-weight:700;margin:18px 0 26px}
+.cg-stage .cg-intro h1 span{color:#d6eab8}
+.cg-stage .eyebrow{color:#d6eab8}
+.cg-stage .cg-intro p{font-size:17px;max-width:680px}
+.cg-stage .cg-open{color:#f3f5fa!important}
+.cg-stage .button{border-color:#ffffff40;color:#f3f5fa}
+.cg-stage .button:hover{background:#ffffff1a;color:#fff}
+.cg-stage .button-primary,.cg-stage .button-primary:hover{background:#d6eab8;border-color:#d6eab8;color:#16210c}
+.cg-stage :focus-visible{outline-color:#d6eab8}
+.cg-index-label{font-size:11px;font-weight:700;letter-spacing:.13em;color:#aab3c7;margin-bottom:16px}
+.cg-stage .cg-index{margin-bottom:0;gap:20px}
+.cg-stage .cg-index a{border:1px solid #ffffff24;box-shadow:0 24px 50px #0008;border-radius:10px}
+.cg-index video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
+.cg-index video.is-playing{opacity:1}
+.cg-index a:has(.is-playing):after{background:linear-gradient(#07111b00 55%,#07111be6 96%)}
+@media(max-width:800px){.cg-stage-inner{padding:40px 20px 48px}.cg-stage .cg-intro p{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.cg-index video{display:none}}
+.mc-hero video{display:block;width:100%;aspect-ratio:16/9;background:#07111b;border-radius:10px;border:1px solid #2f3a35}
+.mc-meta{margin-top:26px}
+.mc-part{font-size:clamp(24px,2.6vw,34px);letter-spacing:-.035em;line-height:1.1;margin:64px 0 4px;padding-top:26px;border-top:2px solid var(--ink)}
+.mc-row{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:40px;align-items:center;padding-block:34px;border-bottom:1px solid var(--line)}
+.mc-row.mc-flip .mc-row-media{order:2}
+.mc-row-media{position:relative}
+.mc-shot{display:block;border-radius:8px;overflow:hidden;border:1px solid #2f3a35;background:#07111b;box-shadow:0 18px 40px #1a221a22}
+.mc-shot img{display:block;width:100%;height:auto;transition:transform .5s}
+.mc-shot:hover img{transform:scale(1.03)}
+.mc-tag{position:absolute;top:12px;left:12px;background:#07111be6;color:#d6eab8;border:1px solid #d6eab855;border-radius:4px;padding:5px 9px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.mc-row-copy h3{font-size:clamp(22px,2.3vw,30px);line-height:1.15;letter-spacing:-.03em;margin:12px 0 12px}
+.mc-row-copy>p:not(.eyebrow){font-size:15px;line-height:1.75;color:var(--muted)}
+.mc-row-copy ul{margin:16px 0 0;padding-left:18px;display:grid;gap:8px;font-size:14px;line-height:1.7;color:var(--muted)}
+.mc-row-copy li b{color:var(--ink);font-weight:600}
+.mc-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:26px}
+.mc-gallery figure{margin:0}.mc-gallery figcaption{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.5}
+.mc-next{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.5fr);gap:40px;margin-top:44px;padding:34px 32px;background:var(--sage);border:1px solid var(--line);border-radius:8px}
+.mc-next h3{font-size:clamp(22px,2.3vw,30px);line-height:1.15;letter-spacing:-.03em;margin-top:14px}
+.mc-next ul{list-style:none;margin:0;padding:0;display:grid}
+.mc-next li{padding:14px 0;border-top:1px solid #c3cbb3;font-size:14px;line-height:1.7;color:var(--muted)}
+.mc-next li:first-child{border-top:0;padding-top:0}.mc-next li b{color:var(--ink);font-weight:600}
+@media(max-width:800px){.mc-row,.mc-next{grid-template-columns:1fr;gap:20px}.mc-row.mc-flip .mc-row-media{order:0}.mc-gallery{grid-template-columns:1fr 1fr;gap:14px}.mc-part{margin-top:44px}.mc-next{padding:26px 20px}}
+@media(max-width:520px){.mc-gallery{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.mc-shot img{transition:none}.mc-shot:hover img{transform:none}}
 @media(max-width:1000px){.cg-rules{grid-template-columns:1fr 1fr}.cg-outcomes-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:800px){.cg-facts,.cg-game{grid-template-columns:1fr}.cg-game{gap:22px;padding-block:36px}.cg-media{position:static}.cg-index{grid-template-columns:1fr 1fr;gap:12px}.cg-method{padding:28px 20px}}
 @media(max-width:520px){.cg-index,.cg-rules,.cg-outcomes-grid{grid-template-columns:1fr}}
@@ -73,14 +117,17 @@
 <body>
 <a class="skip-link" href="#main">Skip to case study</a>
 <nav class="site-nav" aria-label="Primary navigation"><a class="wordmark" href="index.html">remi couture<span aria-hidden="true">✳</span></a><div class="nav-links"><a href="portfolio.html#training">Portfolio</a><a href="index.html">Resume</a><button type="button" data-reveal-email>Reveal email ↗</button></div></nav>
+<header class="cg-stage"><div class="cg-stage-inner">
+<div class="cg-intro"><p class="eyebrow">CASE STUDY / CYBER TRAINING GAMES</p><h1>Cyber training<br>that plays <span>like a game.</span></h1><p>Six training minigames, a mission-control hub, and a first-time learner experience, designed and built for cyber ranges. Below is real gameplay, working prototypes, and the UX and game design thinking behind every decision.</p><p class="cg-open"><b>Open to senior product design and UX roles on cyber training products.</b> Based in Greater Montreal, working remotely with teams worldwide.</p><div class="cg-actions"><button class="button button-primary" type="button" data-reveal-email>Contact me ↗</button><a class="button" href="#mission-control">Mission Control case study ↓</a><a class="button" href="#hire">What I bring to your team ↓</a><a class="button" href="index.html">Résumé ↗</a><a class="button" href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener">LinkedIn ↗</a></div></div>
+<p class="cg-index-label">SIX GAMES · REAL GAMEPLAY · PICK ONE</p>
+<nav class="cg-index" aria-label="The games"><a href="#countermeasure-defense"><img src="portfolio-media/cyber-games/countermeasure-defense-720.webp" alt="" width="720" height="405"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/cyber-games/countermeasure-defense.mp4"></video><span>Countermeasure Defense<small>Arcade shooter</small></span></a><a href="#kill-chain-solitaire"><img src="portfolio-media/cyber-games/kill-chain-solitaire-720.webp" alt="" width="720" height="405"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/cyber-games/kill-chain-solitaire.mp4"></video><span>Kill Chain Solitaire<small>Card game</small></span></a><a href="#cyber-quiz-show"><img src="portfolio-media/cyber-games/cyber-quiz-show-720.webp" alt="" width="720" height="405"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/cyber-games/cyber-quiz-show.mp4"></video><span>Cyber Quiz Show<small>Trivia board</small></span></a><a href="#regex-defense"><img src="portfolio-media/cyber-games/regex-defense-720.webp" alt="" width="720" height="405"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/cyber-games/regex-defense.mp4"></video><span>Regex Defense<small>Wave defense</small></span></a><a href="#port-connect"><img src="portfolio-media/cyber-games/port-connect-720.webp" alt="" width="720" height="405"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/cyber-games/port-connect.mp4"></video><span>Port Connect<small>Path puzzle</small></span></a><a href="#attack-path-mapper"><img src="portfolio-media/cyber-games/attack-path-mapper-720.webp" alt="" width="720" height="405"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/cyber-games/attack-path-mapper.mp4"></video><span>Attack Path Mapper<small>Strategy</small></span></a></nav>
+</div></header>
 <main class="hub" id="main">
-<header class="cg-intro"><p class="eyebrow">CASE STUDY / CYBER TRAINING GAMES</p><h1>Cyber training<br>that plays like a game.</h1><p>Six minigames built for a commercial cyber range, each teaching one skill in a few minutes. Below is real gameplay from every one, and the design thinking behind it: the problem, the idea, the UX decisions, and what the learner walks away with.</p><p class="cg-open"><b>Open to senior product design and UX roles on cyber training products.</b> Based in Greater Montreal, working remotely with teams worldwide.</p><div class="cg-actions"><button class="button button-primary" type="button" data-reveal-email>Contact me ↗</button><a class="button" href="#hire">What I bring to your team ↓</a><a class="button" href="index.html">Résumé ↗</a><a class="button" href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener">LinkedIn ↗</a></div></header>
 <section class="cg-facts" aria-label="Project context">
 <div><h2>The design question</h2><p>How do you get a learner to practice a security skill, not just read about it, in the five minutes they actually have?</p></div>
 <div><h2>My focus</h2><p>Game design, UX and UI, and front-end build. I take a learning objective, find the mechanic that is the skill, and build it to embed in a training platform.</p></div>
 <div><h2>About the examples</h2><p>Client-built games shown under neutral names, with client and product branding removed. The footage is recorded from working builds.</p></div>
 </section>
-<nav class="cg-index" aria-label="The games"><a href="#countermeasure-defense"><img src="portfolio-media/cyber-games/countermeasure-defense-720.webp" alt="" width="720" height="405" loading="lazy"><span>Countermeasure Defense<small>Arcade shooter</small></span></a><a href="#kill-chain-solitaire"><img src="portfolio-media/cyber-games/kill-chain-solitaire-720.webp" alt="" width="720" height="405" loading="lazy"><span>Kill Chain Solitaire<small>Card game</small></span></a><a href="#cyber-quiz-show"><img src="portfolio-media/cyber-games/cyber-quiz-show-720.webp" alt="" width="720" height="405" loading="lazy"><span>Cyber Quiz Show<small>Trivia board</small></span></a><a href="#regex-defense"><img src="portfolio-media/cyber-games/regex-defense-720.webp" alt="" width="720" height="405" loading="lazy"><span>Regex Defense<small>Wave defense</small></span></a><a href="#port-connect"><img src="portfolio-media/cyber-games/port-connect-720.webp" alt="" width="720" height="405" loading="lazy"><span>Port Connect<small>Path puzzle</small></span></a><a href="#attack-path-mapper"><img src="portfolio-media/cyber-games/attack-path-mapper-720.webp" alt="" width="720" height="405" loading="lazy"><span>Attack Path Mapper<small>Strategy</small></span></a></nav>
 
 <article class="cg-game" id="countermeasure-defense">
   <div class="cg-media">
@@ -194,6 +241,76 @@
 <p class="cg-note">No sign-up · Plays in your browser · <a href="training-demos/network-defense/index.html" target="_blank" rel="noopener">Open full screen ↗</a></p>
 </section>
 
+<section class="cg-block mc" id="mission-control" aria-labelledby="mc-title">
+<div class="cg-head"><div><p class="eyebrow">CASE STUDY / MISSION CONTROL PROTOTYPE</p><h2 id="mc-title">Mission Control: one screen that always answers “what do I do next?”</h2></div><p>An early prototype of mine for the home screen of a gamified cyber training platform. I designed it and built it as a working front end, so every interaction below can be tried, not just described.</p></div>
+<div class="mc-hero">
+  <video controls muted loop playsinline preload="none" poster="portfolio-media/mission-control/mission-control.jpg" aria-label="Walkthrough of the Mission Control prototype"><source src="portfolio-media/mission-control/mission-control.mp4" type="video/mp4"><a href="portfolio-media/mission-control/mission-control.mp4">Watch the walkthrough</a></video>
+</div>
+<p class="cg-note">21-second walkthrough · Press play to load · Live prototype link coming shortly</p>
+<div class="cg-facts cg-facts-tight mc-meta">
+<div><h3>The design question</h3><p>A learner logs in with twenty minutes to spare. How do they see where they are, pick the next mission, and start it, without reading a manual or getting lost in features?</p></div>
+<div><h3>My role</h3><p>UX and UI design, game systems design, and the front-end prototype. Screens, states, motion, and copy are mine, along with the design specs for ranks, level-ups, and the debrief.</p></div>
+<div><h3>How it is built</h3><p>React, TypeScript, Vite, and Tailwind. The map is plain DOM with CSS 3D: four layers at different depths give parallax as the camera moves, with no canvas or game engine.</p></div>
+</div>
+
+<h3 class="mc-part">The UX thinking</h3>
+
+<article class="mc-row">
+  <div class="mc-row-media"><a class="mc-shot" href="portfolio-media/mission-control/01-mission-control-default.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/01-mission-control-default.webp" alt="Mission control map with the mission list on the left, numbered markers on a world map, and the current objective card at lower right." width="1600" height="900" loading="lazy"></a></div>
+  <div class="mc-row-copy"><p class="eyebrow">UX 01 / HIERARCHY</p><h3>Three layers: what to do, who you are, what is happening.</h3><p>A mission hub can drown a learner in status. I sorted every element into one of three layers and gave each a fixed place, so the eye learns the screen once.</p><ul><li><b>Primary:</b> the mission list, the numbered markers on the map, and the current objective card with its one button.</li><li><b>Secondary:</b> identity and level, the active operation, and the control to change learning path.</li><li><b>Ambient:</b> the live ticker, global events, satellites, and vessels. They make the world feel alive and never ask for a decision.</li></ul></div>
+</article>
+<article class="mc-row mc-flip">
+  <div class="mc-row-media"><a class="mc-shot" href="portfolio-media/mission-control/03-tutorial-step2-mission-list-spotlight.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/03-tutorial-step2-mission-list-spotlight.webp" alt="Tutorial step: the screen is dimmed, the first mission is ringed, and a popover explains the mission list." width="1600" height="900" loading="lazy"></a></div>
+  <div class="mc-row-copy"><p class="eyebrow">UX 02 / ONBOARDING</p><h3>Say the one thing that matters, then get out of the way.</h3><p>The first-run tutorial is three steps. It tells the learner that the learning path is the main mission and everything else on the map is optional, then spotlights the first mission and the button that starts it.</p><ul><li>The learner completes each step by doing it, not by pressing Next. A wrong click shakes the hint instead of blocking.</li><li>The map stays live behind the dimmed overlay, so the tutorial teaches the real screen, not a slideshow.</li><li>A longer eight-step tour is available on demand for learners who want it.</li></ul></div>
+</article>
+<article class="mc-row">
+  <div class="mc-row-media"><a class="mc-shot" href="portfolio-media/mission-control/05-mission-selected-marker-tooltip.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/05-mission-selected-marker-tooltip.webp" alt="A mission selected in the list, its marker tooltip open on the map, and the objective card updated to match." width="1600" height="900" loading="lazy"></a></div>
+  <div class="mc-row-copy"><p class="eyebrow">UX 03 / THE CALL TO ACTION</p><h3>One button that always tells the truth.</h3><p>Starting a mission spins up a live environment, which takes time and can fail. I put that whole process into a single button whose label is the state, so there is never a second place to look.</p><ul><li>Idle, loading, ready, continue: four labels on the same control, with progress shown inside it.</li><li>A long press during loading aborts, with a fill bar that shows the hold. Rapid repeat clicks are caught and explained.</li><li>Locked missions say why they are locked. Hovering a mission eases the camera to its marker and cross-fades the objective card.</li></ul></div>
+</article>
+<article class="mc-row mc-flip">
+  <div class="mc-row-media"><a class="mc-shot" href="portfolio-media/mission-control/08-learning-path-selector.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/08-learning-path-selector.webp" alt="Learning path selector sheet with category filters and a row of path cards, one highlighted with an Initialize Path button." width="1600" height="900" loading="lazy"></a></div>
+  <div class="mc-row-copy"><p class="eyebrow">UX 04 / CHOOSING A PATH</p><h3>Compare twenty paths without leaving the map.</h3><p>Changing learning path is a big decision that should feel reversible. The selector opens as a sheet over the map, with a full-screen grid for people who want to browse.</p><ul><li>Filter by category, sort by name, move with arrow keys, close with Escape.</li><li>Each card shows duration and last activity before any commitment.</li><li>A confirm step says exactly what will change and that current progress is saved.</li></ul></div>
+</article>
+<article class="mc-row">
+  <div class="mc-row-media"><a class="mc-shot" href="portfolio-media/mission-control/07-mission-console.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/07-mission-console.webp" alt="Mission console with a learning modules rail on the left and a terminal showing packet capture analysis." width="1600" height="900" loading="lazy"></a></div>
+  <div class="mc-row-copy"><p class="eyebrow">UX 05 / INTO THE WORK</p><h3>From the map to the keyboard in two clicks.</h3><p>The mission console keeps the task, the progress, and the terminal on one screen, so the learner never tabs away to remember what they were asked.</p><ul><li>Learning modules and overall progress on a left rail, the answer box and hint under it.</li><li>The terminal takes the rest of the screen. The world ticker stays at the bottom for continuity with the hub.</li><li>The console spec covers four exercise types, a timer with a five-minute warning, and hints that cost points.</li></ul></div>
+</article>
+<h3 class="mc-part">The game design thinking</h3>
+
+<article class="mc-row">
+  <div class="mc-row-media"><a class="mc-shot" href="portfolio-media/mission-control/18-mission-results-xp-rankup-levelup.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/18-mission-results-xp-rankup-levelup.webp" alt="Results cards: player level, a work-role XP breakdown across seven roles, a rank-up strip, and a level-up banner from 5 to 6." width="1600" height="767" loading="lazy"></a></div>
+  <div class="mc-row-copy"><p class="eyebrow">GAME DESIGN 01 / PROGRESSION</p><h3>Two tracks: how far you have come, and what you are good at.</h3><p>A single XP bar tells a security team nothing. I split progress into a player level for motivation and work-role XP for meaning, so one mission can advance a learner as a Cyber Defense Analyst and as an Incident Responder at the same time.</p><ul><li>Ten player levels on a rising XP curve, from 1,000 XP for level 2 to 27,000 for level 10.</li><li>Work-role XP is shown as a breakdown per role, with rank-ups listed only when a rank actually changed.</li><li>Celebrations are additive, not disruptive: inline, about three seconds, skippable, and never a full-screen takeover.</li></ul></div>
+</article>
+<article class="mc-row mc-flip">
+  <div class="mc-row-media"><a class="mc-shot" href="portfolio-media/mission-control/spec-rank-progression.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/spec-rank-progression.webp" alt="Rank progression chart showing tiers of helmet icons in cyan, bronze, silver, and gold with star counts." width="1600" height="900" loading="lazy"></a><span class="mc-tag">Design spec</span></div>
+  <div class="mc-row-copy"><p class="eyebrow">GAME DESIGN 02 / RANK LADDER</p><h3>Thirty-four ranks a learner can read at a glance.</h3><p>Long ladders fail when rank 17 looks like rank 18. Each of the eight tiers gets a new helmet silhouette, each rank inside a tier steps through four metals, and stars count position, so shape, color, and number all say the same thing.</p><ul><li>Eight tiers, from Initiate to Legendary.</li><li>Four metals inside each tier: cyan, bronze, silver, gold.</li><li>Readable at avatar size, which is where a rank is seen most.</li></ul></div>
+</article>
+<article class="mc-row">
+  <div class="mc-row-media"><a class="mc-shot" href="portfolio-media/mission-control/14-global-operation-briefing.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/14-global-operation-briefing.webp" alt="An operation briefing panel on the map with severity, narrative, threat actor, sectors, regions, and days remaining." width="1600" height="900" loading="lazy"></a></div>
+  <div class="mc-row-copy"><p class="eyebrow">GAME DESIGN 03 / A LIVING WORLD</p><h3>Give people a reason to look at the map again tomorrow.</h3><p>A static hub gets ignored after the first week. Timed operations, global events, and a live feed make the map change between visits, and each one leads back to training.</p><ul><li>A weekly operation with a narrative, a threat actor, affected sectors, and a countdown, linked to related missions.</li><li>Event cards arrive a few at a time, dismiss themselves, and can be switched off for learners who want quiet.</li><li>A scrolling feed with severity chips that pauses on hover and expands on click or keyboard.</li></ul></div>
+</article>
+<article class="mc-row mc-flip">
+  <div class="mc-row-media"><a class="mc-shot" href="portfolio-media/mission-control/17-code-matrix-minigame.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/17-code-matrix-minigame.webp" alt="A pattern-matching minigame: a five by five grid of hex values with a target pattern and a trace-risk bar." width="1600" height="900" loading="lazy"></a></div>
+  <div class="mc-row-copy"><p class="eyebrow">GAME DESIGN 04 / OPTIONAL PLAY</p><h3>Side games that reward curiosity without derailing the course.</h3><p>Exploration is labelled as exploration. Quick games live on the map and in the feed for learners who want a break that still exercises a skill, and they pay small XP so they never beat doing the mission.</p><ul><li>Minigame markers sit on the map beside mission markers, visually distinct.</li><li>Three quick interactions built into the world: a pattern-matching grid, a signal race, and a rhythm challenge with three difficulty levels.</li><li>Rewards are small by design, about 20 to 80 XP per win.</li></ul></div>
+</article>
+<article class="mc-row">
+  <div class="mc-row-media"><a class="mc-shot" href="portfolio-media/mission-control/spec-mission-debrief.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/spec-mission-debrief.webp" alt="Mission debrief with a grade, duration bands, points deducted, bonus points, and progression cards." width="1600" height="900" loading="lazy"></a><span class="mc-tag">Design spec</span></div>
+  <div class="mc-row-copy"><p class="eyebrow">GAME DESIGN 05 / DEBRIEF</p><h3>Explain the score, or the score teaches nothing.</h3><p>The debrief shows the grade and then accounts for it. Learners see what they lost and what they earned, in plain categories, with a clear way to try again.</p><ul><li>A letter grade with four time bands, from optimal to failed.</li><li>Points deducted for hints, wrong attempts, and time. Bonus points for first-try accuracy, no hints, and streaks.</li><li>Three exits: leave, retry, or play the next mission. A fail still awards partial XP and points to review material.</li></ul></div>
+</article>
+<h3 class="mc-part">More screens</h3>
+<div class="mc-gallery"><figure><a class="mc-shot" href="portfolio-media/mission-control/02-tutorial-step1-welcome.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/02-tutorial-step1-welcome.webp" alt="First-run welcome over the live map" width="1600" height="900" loading="lazy"></a><figcaption>First-run welcome over the live map</figcaption></figure><figure><a class="mc-shot" href="portfolio-media/mission-control/04-tutorial-step3-load-mission-spotlight.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/04-tutorial-step3-load-mission-spotlight.webp" alt="Tutorial spotlight on the start button" width="1600" height="900" loading="lazy"></a><figcaption>Tutorial spotlight on the start button</figcaption></figure><figure><a class="mc-shot" href="portfolio-media/mission-control/06-load-mission-loading-state.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/06-load-mission-loading-state.webp" alt="The start button in its loading state" width="1600" height="900" loading="lazy"></a><figcaption>The start button in its loading state</figcaption></figure><figure><a class="mc-shot" href="portfolio-media/mission-control/09-learning-path-confirm-switch.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/09-learning-path-confirm-switch.webp" alt="Confirming a change of learning path" width="1600" height="900" loading="lazy"></a><figcaption>Confirming a change of learning path</figcaption></figure><figure><a class="mc-shot" href="portfolio-media/mission-control/10-learning-path-overview.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/10-learning-path-overview.webp" alt="Learning path overview with eight missions" width="1600" height="900" loading="lazy"></a><figcaption>Learning path overview with eight missions</figcaption></figure><figure><a class="mc-shot" href="portfolio-media/mission-control/11-player-progression-panel.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/11-player-progression-panel.webp" alt="Player progression: XP, skills, quests, achievements" width="1600" height="900" loading="lazy"></a><figcaption>Player progression: XP, skills, quests, achievements</figcaption></figure><figure><a class="mc-shot" href="portfolio-media/mission-control/13-global-event-popup.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/13-global-event-popup.webp" alt="A global event card, expanded" width="1600" height="900" loading="lazy"></a><figcaption>A global event card, expanded</figcaption></figure><figure><a class="mc-shot" href="portfolio-media/mission-control/15-live-ticker-expanded.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/15-live-ticker-expanded.webp" alt="A live feed item expanded into details" width="1600" height="900" loading="lazy"></a><figcaption>A live feed item expanded into details</figcaption></figure><figure><a class="mc-shot" href="portfolio-media/mission-control/spec-level-up-modal.webp" target="_blank" rel="noopener"><img src="portfolio-media/mission-control/spec-level-up-modal.webp" alt="Level-up modal with rewards (design spec)" width="1600" height="900" loading="lazy"></a><figcaption>Level-up modal with rewards (design spec)</figcaption></figure></div>
+
+<div class="mc-next">
+  <div><p class="eyebrow">WHAT I WOULD DO NEXT</p><h3>It is a prototype, and I know where it stops.</h3></div>
+  <ul>
+    <li><b>Test the core claim.</b> Can a new learner say what their next action is within ten seconds of landing? That is the number I would measure first.</li>
+    <li><b>Connect it to real data.</b> Missions, progress, and events are sample data here. The path selector and the map need one shared source of truth.</li>
+    <li><b>Finish accessibility.</b> The feed and results are keyboard and screen-reader ready. Map markers and panels are next, along with reduced motion across the whole screen.</li>
+    <li><b>Design for smaller screens.</b> This version is desktop only. A tablet layout would start from the mission list, not the map.</li>
+  </ul>
+</div>
+</section>
+
 <section class="cg-block" id="product-design" aria-labelledby="pd-title">
 <div class="cg-head"><div><p class="eyebrow">UI / UX CASE STUDY</p><h2 id="pd-title">Product design: a first-time experience for a gamified cyber range.</h2></div><p>Onboarding, learning paths, and mission entry. Portfolio examples use sample content and neutral branding.</p></div>
 <div class="cg-facts cg-facts-tight">
@@ -266,5 +383,23 @@ document.querySelectorAll('[data-embed]').forEach(function (frame) {
     iframe.focus();
   }, { once: true });
 });
+</script>
+<script>
+(function () {
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var watcher = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      var video = entry.target;
+      if (entry.isIntersecting) {
+        if (video.dataset.src) { video.src = video.dataset.src; video.removeAttribute('data-src'); }
+        video.play().then(function () { video.classList.add('is-playing'); }).catch(function () {});
+      } else { video.pause(); }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.cg-index video').forEach(function (video) {
+    video.addEventListener('error', function () { video.remove(); });
+    watcher.observe(video);
+  });
+})();
 </script>
 </main></body></html>
