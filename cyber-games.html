@@ -6,7 +6,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=sloth1">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cyber training games — Remi Couture</title>
-<meta name="description" content="Six cybersecurity training minigames by Remi Couture, with gameplay video and the design thinking behind each: the problem, the idea, the UX decisions, and what the learner gets.">
+<meta name="description" content="Eight cybersecurity training games designed and built by Remi Couture, with gameplay video, real content, and the design thinking behind each, plus a mission-control case study.">
 <link rel="canonical" href="https://remiclassic.github.io/remiresume/cyber-games.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,11 +111,15 @@
 .cg-mine{padding-bottom:8px}
 .cg-mine .cg-head{margin-bottom:24px}
 .cg-mine .cg-stats{margin-bottom:8px}
-.cg-index-mine{grid-template-columns:repeat(4,minmax(0,1fr))!important}
-.cg-index-mine span{font-size:clamp(15px,1.5vw,21px)}
+.cg-index-mine{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:22px!important}
+.cg-index-mine a{grid-column:span 2}
+.cg-index-mine a:nth-child(-n+2){grid-column:span 3}
+.cg-index-mine span{font-size:clamp(20px,2.2vw,32px);left:22px;right:22px;bottom:18px}
+.cg-index-mine a:nth-child(-n+2) span{font-size:clamp(24px,3vw,44px)}
+.cg-index-mine small{font-size:11px;margin-top:8px}
 .cg-divider{margin-top:56px;padding-top:28px;border-top:2px solid var(--ink)}
 .cg-divider h2{font-size:clamp(26px,3vw,40px);letter-spacing:-.04em;line-height:1.1;margin-top:12px}
-@media(max-width:800px){.cg-index-mine{grid-template-columns:1fr 1fr!important}}
+@media(max-width:900px){.cg-index-mine{grid-template-columns:1fr 1fr!important;gap:14px!important}.cg-index-mine a,.cg-index-mine a:nth-child(-n+2){grid-column:auto}.cg-index-mine a:nth-child(-n+2) span,.cg-index-mine span{font-size:clamp(17px,3.4vw,26px)}}
 @media(max-width:520px){.cg-index-mine{grid-template-columns:1fr!important}}
 @media(max-width:1000px){.cg-rules{grid-template-columns:1fr 1fr}.cg-outcomes-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:800px){.cg-facts,.cg-game{grid-template-columns:1fr}.cg-game{gap:22px;padding-block:36px}.cg-media{position:static}.cg-index{grid-template-columns:1fr 1fr;gap:12px}.cg-method{padding:28px 20px}}
@@ -130,14 +134,12 @@
 <div class="cg-intro"><p class="eyebrow">CASE STUDY / CYBER TRAINING GAMES</p><h1>Cyber training<br>that plays <span>like a game.</span></h1><p>Eight training games I designed and built, a mission-control hub, and a first-time learner experience for cyber ranges. Below is real gameplay, working prototypes, and the UX and game design thinking behind every decision.</p><p class="cg-open"><b>Open to senior product design and UX roles on cyber training products.</b> Based in Greater Montreal, working remotely with teams worldwide.</p><div class="cg-actions"><button class="button button-primary" type="button" data-reveal-email>Contact me ↗</button><a class="button" href="#mission-control">Mission Control case study ↓</a><a class="button" href="#hire">What I bring to your team ↓</a><a class="button" href="index.html">Résumé ↗</a><a class="button" href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener">LinkedIn ↗</a></div></div>
 <p class="cg-index-label">EIGHT GAMES I DESIGNED AND BUILT · REAL GAMEPLAY · PICK ONE</p>
 <nav class="cg-index cg-index-mine" aria-label="My games"><a href="#my-network-defense"><img src="portfolio-media/my-games/network-defense.jpg" alt="" width="1280" height="720"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/my-games/network-defense.mp4"></video><span>Network Defense<small>ISOMETRIC STRATEGY</small></span></a><a href="#my-phishing"><img src="portfolio-media/my-games/phishing.jpg" alt="" width="1280" height="720"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/my-games/phishing.mp4"></video><span>Phishing Speed Drill<small>TIMED INBOX DRILL</small></span></a><a href="#my-triage"><img src="portfolio-media/my-games/triage.jpg" alt="" width="1280" height="720"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/my-games/triage.mp4"></video><span>Incident Triage Race<small>ALERT TRIAGE BOARD</small></span></a><a href="#my-soc"><img src="portfolio-media/my-games/soc.jpg" alt="" width="1280" height="720"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/my-games/soc.mp4"></video><span>SOC Dashboard Challenge<small>SOC INVESTIGATION CASE</small></span></a><a href="#my-dispatch"><img src="portfolio-media/my-games/dispatch.jpg" alt="" width="1280" height="720"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/my-games/dispatch.mp4"></video><span>Cyber Dispatch<small>DISPATCHER DESK</small></span></a><a href="#my-queryhunt"><img src="portfolio-media/my-games/queryhunt.jpg" alt="" width="1280" height="720"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/my-games/queryhunt.mp4"></video><span>Query Hunt<small>SQL INVESTIGATION</small></span></a><a href="#my-cloud"><img src="portfolio-media/my-games/cloud.jpg" alt="" width="1280" height="720"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/my-games/cloud.mp4"></video><span>Cloud Command<small>ARCADE FLIGHT</small></span></a><a href="#my-privilege"><img src="portfolio-media/my-games/privilege.jpg" alt="" width="1280" height="720"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/my-games/privilege.mp4"></video><span>Privilege Path Puzzle<small>ACCESS GRAPH PUZZLE</small></span></a></nav>
-<p class="cg-index-label" style="margin-top:34px">ALSO FEATURED · SIX GAMES FROM THE PLATFORM’S HUB</p>
-<nav class="cg-index" aria-label="The games"><a href="#countermeasure-defense"><img src="portfolio-media/cyber-games/countermeasure-defense-720.webp" alt="" width="720" height="405"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/cyber-games/countermeasure-defense.mp4"></video><span>Countermeasure Defense<small>Arcade shooter</small></span></a><a href="#kill-chain-solitaire"><img src="portfolio-media/cyber-games/kill-chain-solitaire-720.webp" alt="" width="720" height="405"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/cyber-games/kill-chain-solitaire.mp4"></video><span>Kill Chain Solitaire<small>Card game</small></span></a><a href="#cyber-quiz-show"><img src="portfolio-media/cyber-games/cyber-quiz-show-720.webp" alt="" width="720" height="405"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/cyber-games/cyber-quiz-show.mp4"></video><span>Cyber Quiz Show<small>Trivia board</small></span></a><a href="#regex-defense"><img src="portfolio-media/cyber-games/regex-defense-720.webp" alt="" width="720" height="405"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/cyber-games/regex-defense.mp4"></video><span>Regex Defense<small>Wave defense</small></span></a><a href="#port-connect"><img src="portfolio-media/cyber-games/port-connect-720.webp" alt="" width="720" height="405"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/cyber-games/port-connect.mp4"></video><span>Port Connect<small>Path puzzle</small></span></a><a href="#attack-path-mapper"><img src="portfolio-media/cyber-games/attack-path-mapper-720.webp" alt="" width="720" height="405"><video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="portfolio-media/cyber-games/attack-path-mapper.mp4"></video><span>Attack Path Mapper<small>Strategy</small></span></a></nav>
 </div></header>
 <main class="hub" id="main">
 <section class="cg-facts" aria-label="Project context">
 <div><h2>The design question</h2><p>How do you get a learner to practice a security skill, not just read about it, in the five minutes they actually have?</p></div>
 <div><h2>My focus</h2><p>Game design, UX and UI, and front-end build. I take a learning objective, find the mechanic that is the skill, and build it to embed in a training platform.</p></div>
-<div><h2>About the examples</h2><p>Client-built games shown under neutral names, with client and product branding removed. The footage is recorded from working builds.</p></div>
+<div><h2>About the examples</h2><p>My own games and prototypes, shown under neutral branding with sample content. The footage is recorded from working builds.</p></div>
 </section>
 
 <section class="cg-mine" id="my-games" aria-labelledby="mine-title">
@@ -294,110 +296,6 @@
   </div>
 </article>
 </section>
-<div class="cg-divider" id="platform-games"><p class="eyebrow">ALSO FEATURED</p><h2>Six more games from the platform’s hub.</h2></div>
-<article class="cg-game" id="countermeasure-defense">
-  <div class="cg-media">
-    <video controls muted loop playsinline preload="none" poster="portfolio-media/cyber-games/countermeasure-defense.jpg" aria-label="Countermeasure Defense gameplay"><source src="portfolio-media/cyber-games/countermeasure-defense.mp4" type="video/mp4"><a href="portfolio-media/cyber-games/countermeasure-defense.mp4">Watch Countermeasure Defense gameplay</a></video>
-    <p>Real gameplay · Press play to load · No sound</p>
-  </div>
-  <div class="cg-copy">
-    <p class="eyebrow">01 / ARCADE SHOOTER</p>
-    <h2>Countermeasure Defense</h2>
-    <p class="cg-teaches">Teaches: matching attacker tactics to the right response</p>
-    <dl>
-      <div><dt>The problem</dt><dd>Analysts learn ATT&amp;CK tactics and kill chain stages as a list of names. What the job needs is the next step: seeing a tactic and knowing at once whether the right move is to prevent, detect, contain, or recover.</dd></div>
-      <div><dt>The idea</dt><dd>Turn each response type into a weapon. Threats arrive labelled with a tactic, and only the matching countermeasure stops them. In ninety seconds a learner makes dozens of tactic-to-response calls. A second mode runs the same loop on the seven kill chain stages.</dd></div>
-      <div><dt>UX decisions</dt><dd><ul><li>Four responses on keys 1 to 4, each with its own color, symbol, and label, so the choice never depends on color alone.</li><li>Selecting a response rings every threat it defeats. The hint is built into the control, not buried in a help screen.</li><li>A legend of every tactic and its response stays on screen, so a new learner can look it up mid-wave and a practiced one stops needing it.</li><li>High-priority threats move faster and hurt more, and some change tactic mid-flight, which forces a re-read instead of muscle memory.</li></ul></dd></div>
-      <div><dt>What the learner gets</dt><dd>Fast, repeated practice at reading a tactic and choosing the response, with a combo and a live accuracy rating that reward staying right under pressure.</dd></div>
-    </dl>
-  </div>
-</article>
-<article class="cg-game" id="kill-chain-solitaire">
-  <div class="cg-media">
-    <video controls muted loop playsinline preload="none" poster="portfolio-media/cyber-games/kill-chain-solitaire.jpg" aria-label="Kill Chain Solitaire gameplay"><source src="portfolio-media/cyber-games/kill-chain-solitaire.mp4" type="video/mp4"><a href="portfolio-media/cyber-games/kill-chain-solitaire.mp4">Watch Kill Chain Solitaire gameplay</a></video>
-    <p>Real gameplay · Press play to load · No sound</p>
-  </div>
-  <div class="cg-copy">
-    <p class="eyebrow">02 / CARD GAME</p>
-    <h2>Kill Chain Solitaire</h2>
-    <p class="cg-teaches">Teaches: how an attack unfolds, phase by phase</p>
-    <dl>
-      <div><dt>The problem</dt><dd>Analysts can recite the seven kill chain phases but struggle to connect them to real tools and to each other. That sequence is what lets a defender work out how far an intrusion has gone and what comes next.</dd></div>
-      <div><dt>The idea</dt><dd>Borrow a game everyone already knows. Each card is an attacker tool tied to a phase, each pile is one attack, and a card only lands if it is the next phase in the chain. Closing a pile means the learner has rebuilt a full intrusion from first scan to final action.</dd></div>
-      <div><dt>UX decisions</dt><dd><ul><li>Familiar solitaire rules and a one-screen briefing, so the first card moves within seconds.</li><li>The seven phases sit across the top as a tracker that lights up as each one is placed.</li><li>Valid slots glow while a card is dragged. A wrong drop sends the card back with no score penalty, so trying is safe.</li><li>Picking up a card shows what the tool does and where it sits in the chain, so the content is read in the moment it is used.</li></ul></dd></div>
-      <div><dt>What the learner gets</dt><dd>A working mental model of how an attack progresses, built by placing real tools into the sequence again and again.</dd></div>
-    </dl>
-  </div>
-</article>
-<article class="cg-game" id="cyber-quiz-show">
-  <div class="cg-media">
-    <video controls muted loop playsinline preload="none" poster="portfolio-media/cyber-games/cyber-quiz-show.jpg" aria-label="Cyber Quiz Show gameplay"><source src="portfolio-media/cyber-games/cyber-quiz-show.mp4" type="video/mp4"><a href="portfolio-media/cyber-games/cyber-quiz-show.mp4">Watch Cyber Quiz Show gameplay</a></video>
-    <p>Real gameplay · Press play to load · No sound</p>
-  </div>
-  <div class="cg-copy">
-    <p class="eyebrow">03 / TRIVIA BOARD</p>
-    <h2>Cyber Quiz Show</h2>
-    <p class="cg-teaches">Teaches: core knowledge, by work role</p>
-    <dl>
-      <div><dt>The problem</dt><dd>Broad knowledge checks are the dullest part of any course. Learners click through, forget it, and the result says little about which areas are actually weak.</dd></div>
-      <div><dt>The idea</dt><dd>Keep the breadth and add stakes. Six categories each map to a work role, tiles rise in value with difficulty, and wager rounds ask the learner to bet on their own confidence before they see the question.</dd></div>
-      <div><dt>UX decisions</dt><dd><ul><li>A widescreen board the learner reads at a glance: six categories across, value and difficulty down.</li><li>Every category header names the work role it belongs to, so the learner sees which job a gap affects.</li><li>A 30-second timer ring that shifts from cyan to gold to red, and a streak counter that makes momentum visible.</li><li>Right or wrong, the correct answer lights up on the spot, so a miss still teaches. Keys 1 to 4 answer without the mouse.</li></ul></dd></div>
-      <div><dt>What the learner gets</dt><dd>A quick, honest read on what they know across six domains, with a grade and a balance that give them a reason to play the board again.</dd></div>
-    </dl>
-  </div>
-</article>
-<article class="cg-game" id="regex-defense">
-  <div class="cg-media">
-    <video controls muted loop playsinline preload="none" poster="portfolio-media/cyber-games/regex-defense.jpg" aria-label="Regex Defense gameplay"><source src="portfolio-media/cyber-games/regex-defense.mp4" type="video/mp4"><a href="portfolio-media/cyber-games/regex-defense.mp4">Watch Regex Defense gameplay</a></video>
-    <p>Real gameplay · Press play to load · No sound</p>
-  </div>
-  <div class="cg-copy">
-    <p class="eyebrow">04 / WAVE DEFENSE</p>
-    <h2>Regex Defense</h2>
-    <p class="cg-teaches">Teaches: regular expressions under pressure</p>
-    <dl>
-      <div><dt>The problem</dt><dd>Regular expressions show up in log search, detection rules, and data filters, and almost everyone learns them by copying from a cheat sheet. Reading regex is one thing. Writing it cold is another.</dd></div>
-      <div><dt>The idea</dt><dd>Make typing the pattern the only way to act. Hostile strings advance in waves, and a regex that matches a whole string takes it out. The first level drills quantifiers, the next moves to character classes and anchors, and later waves add characters that have to be escaped.</dd></div>
-      <div><dt>UX decisions</dt><dd><ul><li>A command console at the center of the screen: the keyboard is the controller.</li><li>Live preview. Strings the pattern would match turn green while the learner types, before they commit to the shot.</li><li>One pattern that clears several targets builds the combo, so writing a general pattern beats picking them off one by one.</li><li>A briefing names the concept before each level, and a regex reference stays on screen during play, so looking it up is part of the loop.</li></ul></dd></div>
-      <div><dt>What the learner gets</dt><dd>The jump from recognizing regex to producing it, practiced on short strings before it matters in a real query.</dd></div>
-    </dl>
-  </div>
-</article>
-<article class="cg-game" id="port-connect">
-  <div class="cg-media">
-    <video controls muted loop playsinline preload="none" poster="portfolio-media/cyber-games/port-connect.jpg" aria-label="Port Connect gameplay"><source src="portfolio-media/cyber-games/port-connect.mp4" type="video/mp4"><a href="portfolio-media/cyber-games/port-connect.mp4">Watch Port Connect gameplay</a></video>
-    <p>Real gameplay · Press play to load · No sound</p>
-  </div>
-  <div class="cg-copy">
-    <p class="eyebrow">05 / PATH PUZZLE</p>
-    <h2>Port Connect</h2>
-    <p class="cg-teaches">Teaches: ports and protocols</p>
-    <dl>
-      <div><dt>The problem</dt><dd>Port numbers are pure memorization, and flash cards are how most people try and fail to learn them. The facts do not stick because nothing is done with them.</dd></div>
-      <div><dt>The idea</dt><dd>Wrap the recall in a spatial puzzle. The learner links each port to its protocol by drawing a path, paths cannot cross, and the grid must be filled. The puzzle gives a reason to care about the pairing, and each link explains what the service is for.</dd></div>
-      <div><dt>UX decisions</dt><dd><ul><li>Three guided boards with color hints, then free play where every tile is the same grey, so the pairing has to be recalled.</li><li>Draw with mouse, touch, or pen. A wrong link simply will not connect, and nothing is deducted for trying again.</li><li>Connecting a port opens its reference card: what it is for, how it gets attacked, and how to protect it.</li><li>Boards are generated and checked by a solver, so replaying means a new layout, not a memorized one.</li></ul></dd></div>
-      <div><dt>What the learner gets</dt><dd>Port and protocol pairs they can recall without a lookup, learned through a puzzle they would play anyway.</dd></div>
-    </dl>
-  </div>
-</article>
-<article class="cg-game" id="attack-path-mapper">
-  <div class="cg-media">
-    <video controls muted loop playsinline preload="none" poster="portfolio-media/cyber-games/attack-path-mapper.jpg" aria-label="Attack Path Mapper gameplay"><source src="portfolio-media/cyber-games/attack-path-mapper.mp4" type="video/mp4"><a href="portfolio-media/cyber-games/attack-path-mapper.mp4">Watch Attack Path Mapper gameplay</a></video>
-    <p>Real gameplay · Press play to load · No sound</p>
-  </div>
-  <div class="cg-copy">
-    <p class="eyebrow">06 / STRATEGY</p>
-    <h2>Attack Path Mapper</h2>
-    <p class="cg-teaches">Teaches: threat modeling and detection coverage</p>
-    <dl>
-      <div><dt>The problem</dt><dd>Threat modeling is usually taught as a diagram to read. Learners see the finished attack path and never practice the reasoning that produces one, or the question that matters most: would we have caught it?</dd></div>
-      <div><dt>The idea</dt><dd>Hand the learner the adversary role. They pick a target organization, chain techniques into a route toward an objective, and run it. The simulation checks every step against the controls in place and shows where detection held and where it had gaps.</dd></div>
-      <div><dt>UX decisions</dt><dd><ul><li>A mission dossier sets the target, its objectives, and the security controls already in place.</li><li>Techniques come from a searchable ATT&amp;CK catalog and connect on a node graph, so the path is visible as it grows.</li><li>Running the simulation traces the route step by step, then names the control that caught each step.</li><li>No route scores 100. Every path trades reaching the objective against being seen, and Retry reopens the same board to refine it.</li></ul></dd></div>
-      <div><dt>What the learner gets</dt><dd>Practice thinking like an attacker in order to defend: tracing a route, then judging which controls would stop or spot it.</dd></div>
-    </dl>
-  </div>
-</article>
-
 <section class="cg-block" id="play" aria-labelledby="play-title">
 <div class="cg-head"><div><p class="eyebrow">PLAY ONE NOW</p><h2 id="play-title">Keep Finance Online</h2></div><p>A network defense game you can play right here. Inspect traffic, write the access rules, and keep the service up. Three rounds, about five minutes, then a debrief that replays your decisions.</p></div>
 <div class="cg-frame cg-frame-game" data-embed="training-demos/network-defense/index.html">
@@ -505,17 +403,17 @@
 </section>
 
 <section class="cg-block cg-hire" id="hire" aria-labelledby="hire-title">
-<div class="cg-head"><div><p class="eyebrow">WHAT I BRING TO YOUR TEAM</p><h2 id="hire-title">A designer who already knows your product, your learner, and your stack.</h2></div><p>Most designers need six months to learn what a cyber range is. I have designed the learner journey and the games inside one, and I can build what I design.</p></div>
+<div class="cg-head"><div><p class="eyebrow">WHAT I BRING TO YOUR TEAM</p><h2 id="hire-title">A designer who already knows your product, your learner, and your stack.</h2></div><p>Most designers need six months to learn what a cyber range is. I have designed the learner journey for one, built eight training games of my own, and I can build what I design.</p></div>
 <div class="cg-stats">
 <div><b>20 years</b><span>in games and product design</span></div>
 <div><b>8 games</b><span>designed and built, playable from briefing to debrief</span></div>
 <div><b>Design → build</b><span>from strategy through implementation</span></div>
-<div><b>EN / JA</b><span>games built for two languages from the start</span></div>
+<div><b>209 tests</b><span>proving the learning rules of every game</span></div>
 </div>
 <div class="cg-bring">
 <article><h3>Learner experience</h3><p>Onboarding, learning paths, mission briefings, objectives, feedback, and debriefs. The whole route from first login to first completed activity.</p></article>
 <article><h3>Gamification that teaches</h3><p>Minigames, progression, and scoring that drill a real skill, designed against a written gate so fun never replaces learning.</p></article>
-<article><h3>Security framework literacy</h3><p>The games on this page are built on MITRE ATT&amp;CK tactics and techniques, the Cyber Kill Chain, and NICE work roles. I can talk to your content team in their terms.</p></article>
+<article><h3>Security framework literacy</h3><p>I work in your content team’s vocabulary: MITRE ATT&amp;CK, the Cyber Kill Chain, and NICE work roles. My games are built so each scenario can be mapped to them.</p></article>
 <article><h3>Dense, expert interfaces</h3><p>Game HUD experience applied to consoles, maps, and dashboards: clear hierarchy, readable status, and keyboard-first interaction.</p></article>
 <article><h3>Design systems</h3><p>Component libraries and UI standards that let a team scale screens and content without losing consistency. I ran UX standards across nine studios at once.</p></article>
 <article><h3>Front-end build</h3><p>React, TypeScript, Next.js, Phaser, and Three.js on the web. UMG and CommonUI in Unreal Engine. Prototypes your engineers can read, or production UI.</p></article>
