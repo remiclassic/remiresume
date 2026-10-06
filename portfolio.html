@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="resume.css?v=20260922-career">
-<link rel="stylesheet" href="portfolio-hub.css?v=norman-ascension2">
+<link rel="stylesheet" href="portfolio-hub.css?v=organized1">
 <script>
 // Preserve previously shared direct links to the guided showcase.
 function openPortfolioDeepLink() {
@@ -30,10 +30,18 @@ window.addEventListener('hashchange',openPortfolioDeepLink);
 <a class="skip-link" href="#main">Skip to portfolio</a>
 <nav class="site-nav" aria-label="Primary navigation"><a class="wordmark" href="index.html">remi couture<span aria-hidden="true">✳</span></a><div class="nav-links"><a href="index.html">Resume</a><button type="button" data-reveal-email aria-label="Reveal email address">Reveal email ↗</button></div></nav>
 <main class="hub" id="main">
-<header class="hub-intro"><div><p class="eyebrow">THE PORTFOLIO / UI + UX</p><h1>Different ways<br>to <span>see the work.</span></h1></div><p>Start with the thinking, browse the visuals, or settle into the full collection. Choose the view that fits what you’re looking for.</p></header>
+<header class="hub-intro"><div><p class="eyebrow">THE PORTFOLIO · UI + UX</p><h1>The work,<br>in <span>one place.</span></h1></div><p>Browse the whole collection three ways, or go straight to a section: my own game, training and product design, and game UI.</p></header>
+<nav class="hub-index" aria-label="Portfolio sections"><a href="#browse"><span>00</span>Browse everything<small>Showcase · gallery · slideshow</small></a><a href="#own-game"><span>01</span>My game<small>Norman Ascension</small></a><a href="#training-product"><span>02</span>Training + product<small>Cyber training · fintech · learning</small></a><a href="#game-ui"><span>03</span>Game UI + UX<small>SQUAD · Vanguard · sports</small></a><a href="#topics"><span>04</span>By topic<small>Flows · visual craft · motion</small></a></nav>
+<section class="hub-routes" id="browse" aria-label="Choose a portfolio experience">
+<a class="route" href="portfolio-showcase.html"><div class="route-art"><img src="portfolio-imgs/multiplayer-color/character-selection.png" alt="Full-color Phoenix selection concept"><span class="route-tag">START HERE · SELECTED WORK</span></div><div class="route-body"><span class="route-number">01 / THE GUIDED SHOWCASE</span><h2>See the work.<br>Explore the thinking.</h2><p>Eleven curated collections with original screens, UX walkthroughs, playable concepts, and before-and-after visual refinements.</p><span class="route-cta">Explore selected work <span aria-hidden="true">↗</span></span></div></a>
+<a class="route" href="portfolio-archive.html?view=gallery"><div class="route-art route-grid"><img src="portfolio-imgs/mw5-starmap.png" alt="MechWarrior interface"><img src="portfolio-imgs/fantasy-cards.png" alt="Fantasy card collection"><img src="portfolio-imgs/hiphopvid-poster.jpg" alt="Hip hop motion concept"><img src="portfolio-imgs/stardust-flowchart.png" alt="Stardust UX flow"></div><div class="route-body"><span class="route-number">02 / THE PROJECT GALLERY</span><h2>Follow your curiosity.</h2><p>Scan project cards, filter by discipline, and open the work that catches your eye. A visual overview for exploring at your own pace.</p><span class="route-cta">Browse the gallery <span aria-hidden="true">↗</span></span></div></a>
+<a class="route" href="portfolio-archive.html?view=slideshow"><div class="route-art"><img src="portfolio-imgs/mw5-mechbay.png" alt="MechWarrior mech bay interface"><span class="route-tag">THE FULL COLLECTION</span></div><div class="route-body"><span class="route-number">03 / THE CINEMATIC SLIDESHOW</span><h2>Take the longer look.</h2><p>A full-screen sequence of game interfaces, motion studies, and work from the archive. Browse the full collection one screen at a time.</p><span class="route-cta">Play the slideshow <span aria-hidden="true">↗</span></span></div></a>
+</section>
+<section class="hub-group" id="own-game" aria-labelledby="own-game-title">
+<header class="hub-group-head"><span>01</span><h2 id="own-game-title">My game</h2><p>Designed and developed by me, in production now.</p></header>
 <section class="hub-feature norman-feature" id="norman-ascension" aria-labelledby="norman-feature-title">
   <div class="hub-feature-copy">
-    <p class="eyebrow">MY GAME / DESIGNER + DEVELOPER / COMING TO STEAM</p>
+    <p class="eyebrow">MY GAME · DESIGNER + DEVELOPER · COMING TO STEAM</p>
     <h2 id="norman-feature-title">Norman Ascension.<br>One life ends. Your House continues.</h2>
     <p>Normandy, 1066. An online multiplayer medieval life and dynasty RPG set in a persistent shared world. You begin as an unknown eighteen-year-old with modest means and a name few remember. Work, trade, serve, break the law or practise your faith; marry, raise an heir, and carry your House into the next generation.</p>
     <p>I am the game’s designer and developer: the life and dynasty systems, travel between Norman towns, markets, crafting and contracts, player chat, letters, factions and marriages between player Houses, asynchronous caravan interceptions, succession, and the House Chronicle that records each family’s story.</p>
@@ -56,9 +64,12 @@ window.addEventListener('hashchange',openPortfolioDeepLink);
     </div>
   </div>
 </section>
+</section>
+<section class="hub-group" id="training-product" aria-labelledby="training-product-title">
+<header class="hub-group-head"><span>02</span><h2 id="training-product-title">Training + product design</h2><p>Learning interfaces and product UI, where clarity matters more than spectacle.</p></header>
 <section class="hub-feature training-feature" id="training" aria-labelledby="training-feature-title">
   <div class="hub-feature-copy">
-    <p class="eyebrow">FEATURED / CYBER TRAINING + SIMULATION</p>
+    <p class="eyebrow">CASE STUDY · CYBER TRAINING + SIMULATION</p>
     <h2 id="training-feature-title">My approach to<br>training interface design.</h2>
     <p>My focus: learner onboarding, decision hierarchy, and the handoff from a learning path to its first activity. These studies show how I compare directions and make the next action clear.</p>
     <p class="hub-feature-dates">UI / UX design &amp; interactive prototyping<br>Design examples with sample content. The globe and minigame are working frontend prototypes.</p>
@@ -75,24 +86,9 @@ window.addEventListener('hashchange',openPortfolioDeepLink);
     <p>60-second motion showcase · Press play to load · No sound needed</p>
   </div>
 </section>
-<section class="hub-feature" aria-labelledby="vanguard-feature-title">
-  <div class="hub-feature-copy">
-    <p class="eyebrow">OLD CONCEPTS REVISITED / GAME UI + UX / 2026</p>
-    <h2 id="vanguard-feature-title">Before the battle.<br>Make the choice clear.</h2>
-    <p>A medieval class-selection concept, revisited as a complete preparation journey. Preserve the steel, smoke, and heraldry. Give every decision a clear role, an explicit state, and a way back.</p>
-    <p class="hub-feature-dates">One starting concept · Three new companion screens<br>AI-assisted visual exploration with a proposed UX study. Original date unconfirmed.</p>
-    <div class="hub-feature-actions"><a class="button button-primary" href="portfolio-showcase.html#vanguard/2">Explore Vanguard ↗</a><a href="portfolio-showcase.html#vanguard/flow">Read the UX walkthrough ↗</a><a href="portfolio-showcase.html#vanguard/prototype">Try the interactive concept ↗</a></div>
-  </div>
-  <div class="hub-feature-images">
-    <a href="portfolio-showcase.html#vanguard/1"><img src="portfolio-imgs/vanguard/original.png" alt="Supplied medieval Vanguard class-selection concept"><span>The starting point ↗</span></a>
-    <a href="portfolio-showcase.html#vanguard/2"><img src="portfolio-imgs/vanguard/class-selection.png" alt="Revisited Vanguard role selection with named class traits and equipped items"><span>01 / Understand your role ↗</span></a>
-    <a href="portfolio-showcase.html#vanguard/3"><img loading="lazy" src="portfolio-imgs/vanguard/loadout.png" alt="Poleaxe comparison showing preview, equipped and locked weapon states"><span>02 / Compare your loadout ↗</span></a>
-    <a href="portfolio-showcase.html#vanguard/4"><img loading="lazy" src="portfolio-imgs/vanguard/deployment.png" alt="Deployment review showing team, class, equipment and an explicit Deploy action"><span>03 / Enter with confidence ↗</span></a>
-  </div>
-</section>
 <section class="hub-feature" aria-labelledby="product-feature-title">
   <div class="hub-feature-copy">
-    <p class="eyebrow">NEW / PRODUCT UI &amp; UX / 2026</p>
+    <p class="eyebrow">CONCEPT STUDY · PRODUCT UI + UX · 2026</p>
     <h2 id="product-feature-title">Trust the next step.<br>Build the next skill.</h2>
     <p>Fintech that makes the commitment clear. Cybersecurity learning that makes the reasoning stick. Two new concept studies connecting polished product interfaces with the decisions, feedback, and recovery behind them.</p>
     <p class="hub-feature-dates">Independent portfolio concepts · 2026<br>Inspired by prior experience. Fictional products and sample data.</p>
@@ -105,9 +101,41 @@ window.addEventListener('hashchange',openPortfolioDeepLink);
     <a href="portfolio-showcase.html#cyber/2"><img src="portfolio-imgs/products/lab.png" alt="Signal simulated phishing exercise and evidence feedback"><span>Practice &amp; feedback ↗</span></a>
   </div>
 </section>
+</section>
+<section class="hub-group" id="game-ui" aria-labelledby="game-ui-title">
+<header class="hub-group-head"><span>03</span><h2 id="game-ui-title">Game UI + UX</h2><p>Studio work and concept studies, each with a UX walkthrough.</p></header>
+<section class="hub-feature" aria-labelledby="squad-feature-title">
+  <div class="hub-feature-copy">
+    <p class="eyebrow">STUDIO WORK + CONCEPTS · SQUAD · 2022–2026</p>
+    <h2 id="squad-feature-title">Faction identity.<br>Every detail connected.</h2>
+    <p>Your faction, your equipment, your next decision. Explore the original customization design and three new companion concepts built around the same military visual language.</p>
+    <p class="hub-feature-dates">Original: 2022–2025 studio period<br>Companion concepts &amp; UX walkthrough: 2026</p>
+    <div class="hub-feature-actions"><a class="button button-primary" href="portfolio-showcase.html#squad/2">Explore SQUAD concepts ↗</a><a href="portfolio-showcase.html#squad/flow">Read the UX walkthrough ↗</a></div>
+  </div>
+  <div class="hub-feature-images">
+    <a class="squad-main-preview" href="portfolio-showcase.html#squad/2"><img src="portfolio-imgs/squad/faction-selection.png" alt="SQUAD companion concept: Canadian soldier, faction flags, and equipment categories"><span>Faction overview <small>2026 · Companion concept</small> ↗</span></a>
+    <a href="portfolio-showcase.html#squad/3"><img src="portfolio-imgs/squad/vehicle-preview.png" alt="SQUAD vehicle cosmetic concept with a tank preview"><span>Vehicle preview ↗</span></a>
+    <a href="portfolio-showcase.html#squad/4"><img src="portfolio-imgs/squad/equip-confirmation.png" alt="SQUAD equipment confirmation concept"><span>Equipment confirmation ↗</span></a>
+  </div>
+</section>
+<section class="hub-feature" aria-labelledby="vanguard-feature-title">
+  <div class="hub-feature-copy">
+    <p class="eyebrow">CONCEPT STUDY · GAME UI + UX · 2026</p>
+    <h2 id="vanguard-feature-title">Before the battle.<br>Make the choice clear.</h2>
+    <p>A medieval class-selection concept, revisited as a complete preparation journey. Preserve the steel, smoke, and heraldry. Give every decision a clear role, an explicit state, and a way back.</p>
+    <p class="hub-feature-dates">One starting concept · Three new companion screens<br>AI-assisted visual exploration with a proposed UX study. Original date unconfirmed.</p>
+    <div class="hub-feature-actions"><a class="button button-primary" href="portfolio-showcase.html#vanguard/2">Explore Vanguard ↗</a><a href="portfolio-showcase.html#vanguard/flow">Read the UX walkthrough ↗</a><a href="portfolio-showcase.html#vanguard/prototype">Try the interactive concept ↗</a></div>
+  </div>
+  <div class="hub-feature-images">
+    <a href="portfolio-showcase.html#vanguard/1"><img src="portfolio-imgs/vanguard/original.png" alt="Supplied medieval Vanguard class-selection concept"><span>The starting point ↗</span></a>
+    <a href="portfolio-showcase.html#vanguard/2"><img src="portfolio-imgs/vanguard/class-selection.png" alt="Revisited Vanguard role selection with named class traits and equipped items"><span>01 / Understand your role ↗</span></a>
+    <a href="portfolio-showcase.html#vanguard/3"><img loading="lazy" src="portfolio-imgs/vanguard/loadout.png" alt="Poleaxe comparison showing preview, equipped and locked weapon states"><span>02 / Compare your loadout ↗</span></a>
+    <a href="portfolio-showcase.html#vanguard/4"><img loading="lazy" src="portfolio-imgs/vanguard/deployment.png" alt="Deployment review showing team, class, equipment and an explicit Deploy action"><span>03 / Enter with confidence ↗</span></a>
+  </div>
+</section>
 <section class="hub-feature sports-feature" aria-labelledby="sports-feature-title">
   <div class="hub-feature-copy">
-    <p class="eyebrow">NEW / SPORTS UI &amp; UX / 2026</p>
+    <p class="eyebrow">CONCEPT STUDY · SPORTS UI + UX · 2026</p>
     <h2 id="sports-feature-title">Matchday energy.<br>Clear player decisions.</h2>
     <p>Two sports. Four screens. A study in cinematic UI art and the decisions behind team preparation—from a hockey line swap to a soccer lineup that needs one more player.</p>
     <p class="hub-feature-dates">Independent AI-assisted concept study · Fictional clubs &amp; athletes<br>Inspired by AAA sports presentation. Not commissioned or endorsed by EA.</p>
@@ -120,26 +148,8 @@ window.addEventListener('hashchange',openPortfolioDeepLink);
     <a href="portfolio-showcase.html#soccer/2"><img src="portfolio-imgs/sports/soccer-squad.png" alt="Soccer squad concept showing how to fill an empty striker position"><span>Resolve an incomplete lineup ↗</span></a>
   </div>
 </section>
-<section class="hub-feature" aria-labelledby="squad-feature-title">
-  <div class="hub-feature-copy">
-    <p class="eyebrow">FEATURED / SQUAD</p>
-    <h2 id="squad-feature-title">Faction identity.<br>Every detail connected.</h2>
-    <p>Your faction, your equipment, your next decision. Explore the original customization design and three new companion concepts built around the same military visual language.</p>
-    <p class="hub-feature-dates">Original: 2022–2025 studio period<br>Companion concepts &amp; UX walkthrough: 2026</p>
-    <div class="hub-feature-actions"><a class="button button-primary" href="portfolio-showcase.html#squad/2">Explore SQUAD concepts ↗</a><a href="portfolio-showcase.html#squad/flow">Read the UX walkthrough ↗</a></div>
-  </div>
-  <div class="hub-feature-images">
-    <a class="squad-main-preview" href="portfolio-showcase.html#squad/2"><img src="portfolio-imgs/squad/faction-selection.png" alt="SQUAD companion concept: Canadian soldier, faction flags, and equipment categories"><span>Faction overview <small>2026 · Companion concept</small> ↗</span></a>
-    <a href="portfolio-showcase.html#squad/3"><img src="portfolio-imgs/squad/vehicle-preview.png" alt="SQUAD vehicle cosmetic concept with a tank preview"><span>Vehicle preview ↗</span></a>
-    <a href="portfolio-showcase.html#squad/4"><img src="portfolio-imgs/squad/equip-confirmation.png" alt="SQUAD equipment confirmation concept"><span>Equipment confirmation ↗</span></a>
-  </div>
 </section>
-<section class="hub-routes" aria-label="Choose a portfolio experience">
-<a class="route" href="portfolio-showcase.html"><div class="route-art"><img src="portfolio-imgs/multiplayer-color/character-selection.png" alt="Full-color Phoenix selection concept"><span class="route-tag">START HERE · SELECTED WORK</span></div><div class="route-body"><span class="route-number">01 / THE GUIDED SHOWCASE</span><h2>See the work.<br>Explore the thinking.</h2><p>Eleven curated collections with original screens, UX walkthroughs, playable concepts, and before-and-after visual refinements.</p><span class="route-cta">Explore selected work <span aria-hidden="true">↗</span></span></div></a>
-<a class="route" href="portfolio-archive.html?view=gallery"><div class="route-art route-grid"><img src="portfolio-imgs/mw5-starmap.png" alt="MechWarrior interface"><img src="portfolio-imgs/fantasy-cards.png" alt="Fantasy card collection"><img src="portfolio-imgs/hiphopvid-poster.jpg" alt="Hip hop motion concept"><img src="portfolio-imgs/stardust-flowchart.png" alt="Stardust UX flow"></div><div class="route-body"><span class="route-number">02 / THE PROJECT GALLERY</span><h2>Follow your curiosity.</h2><p>Scan project cards, filter by discipline, and open the work that catches your eye. A visual overview for exploring at your own pace.</p><span class="route-cta">Browse the gallery <span aria-hidden="true">↗</span></span></div></a>
-<a class="route" href="portfolio-archive.html?view=slideshow"><div class="route-art"><img src="portfolio-imgs/mw5-mechbay.png" alt="MechWarrior mech bay interface"><span class="route-tag">THE FULL COLLECTION</span></div><div class="route-body"><span class="route-number">03 / THE CINEMATIC SLIDESHOW</span><h2>Take the longer look.</h2><p>A full-screen sequence of game interfaces, motion studies, and work from the archive. Browse the full collection one screen at a time.</p><span class="route-cta">Play the slideshow <span aria-hidden="true">↗</span></span></div></a>
-</section>
-<section class="hub-topics" aria-labelledby="topics-title"><div class="hub-topics-header"><h2 id="topics-title">Looking for something specific?</h2><p>Jump straight into the guided showcase.</p></div><div class="topic-grid"><a href="portfolio-showcase.html#fintech/1"><strong>Fintech · Current ↗</strong><p>Crypto wallet, exchange, and transaction UX.</p></a><a href="portfolio-showcase.html#cyber/1"><strong>Cybersecurity · Signal ↗</strong><p>Gamified learning, practice labs, and feedback.</p></a><a href="portfolio-showcase.html#squad/1"><strong>SQUAD concepts <span aria-hidden="true">↗</span></strong><p>Military customization, faction identity, and matching 2026 companion concepts.</p></a>
+<section class="hub-topics" id="topics" aria-labelledby="topics-title"><div class="hub-topics-header"><h2 id="topics-title">Looking for something specific?</h2><p>Jump straight into the guided showcase.</p></div><div class="topic-grid"><a href="portfolio-showcase.html#fintech/1"><strong>Fintech · Current ↗</strong><p>Crypto wallet, exchange, and transaction UX.</p></a><a href="portfolio-showcase.html#cyber/1"><strong>Cybersecurity · Signal ↗</strong><p>Gamified learning, practice labs, and feedback.</p></a><a href="portfolio-showcase.html#squad/1"><strong>SQUAD concepts <span aria-hidden="true">↗</span></strong><p>Military customization, faction identity, and matching 2026 companion concepts.</p></a>
 <a href="portfolio-showcase.html#stardust/flow"><strong>UX & player journeys <span aria-hidden="true">↗</span></strong><p>Flows, decisions, recovery paths, and the structure behind the screens.</p></a>
 <a href="portfolio-showcase.html#multiplayer/1"><strong>Game UI & visual craft <span aria-hidden="true">↗</span></strong><p>2020–2021 layouts alongside their 2026 color refinements.</p></a>
 <a href="portfolio-showcase.html#motion/1"><strong>Motion & atmosphere <span aria-hidden="true">↗</span></strong><p>Menus, inventory, and worlds brought into motion.</p></a>
