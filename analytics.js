@@ -2,7 +2,7 @@
   'use strict';
   const id = 'G-91MKXS9X59';
   const key = 'remiresume.analytics-consent.v1';
-  const pages = new Set(['/remiresume/', '/remiresume/index.html', '/remiresume/portfolio.html', '/remiresume/portfolio-showcase.html', '/remiresume/portfolio-archive.html']);
+  const pages = new Set(['/remiresume/', '/remiresume/index.html', '/remiresume/portfolio.html', '/remiresume/portfolio-showcase.html', '/remiresume/portfolio-archive.html', '/remiresume/services.html']);
   if (location.hostname !== 'remiclassic.github.io' || !pages.has(location.pathname)) return;
   let choice = null;
   try { choice = localStorage.getItem(key); } catch (_) {}

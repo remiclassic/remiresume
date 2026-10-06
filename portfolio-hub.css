@@ -62,3 +62,29 @@ html{scroll-behavior:smooth}
 @media(max-width:950px){.hub-index{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.hub-index{grid-template-columns:1fr 1fr}.hub-index a:first-child{grid-column:1/-1}.hub-group-head{grid-template-columns:auto 1fr}.hub-group-head p{grid-column:1/-1;text-align:left}.hub-routes,.hub-group{margin-bottom:44px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Hub with services page: proof strip, new sections, quotes, compact browse row */
+.hub-inline-link{color:var(--green);white-space:nowrap}
+.hub-inline-link:hover{text-decoration:underline}
+.hub-proof{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:8px;margin-bottom:18px;background:var(--paper)}
+.hub-proof div{padding:18px 20px;border-left:1px solid var(--line);display:grid;gap:4px}
+.hub-proof div:first-child{border-left:0}
+.hub-proof strong{font-size:clamp(24px,2.6vw,34px);font-weight:500;letter-spacing:-.045em;line-height:1.1}
+.hub-proof span{font-size:12px;color:var(--muted);line-height:1.5}
+.hub-index{grid-template-columns:repeat(7,1fr)}
+.hub-cover img{object-fit:cover;object-position:top center}
+.hub-quotes{margin-bottom:64px}
+.hub-quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hub-quote-grid figure{margin:0;padding:22px;border:1px solid var(--line);border-radius:8px;background:var(--sage);display:flex;flex-direction:column;gap:18px}
+.hub-quote-grid blockquote{margin:0;font-size:15px;line-height:1.6;letter-spacing:-.01em}
+.hub-quote-grid figcaption{margin-top:auto;font-size:11px;color:var(--muted);line-height:1.6}
+.hub-quote-grid figcaption strong{display:block;font-size:13px;font-weight:500;color:var(--ink)}
+.hub-routes-compact{grid-template-columns:repeat(3,1fr);margin-bottom:0}
+.hub-routes-compact .route-art{display:none}
+.hub-routes-compact .route-body{padding:18px 20px}
+.hub-routes-compact .route h2{font-size:19px;margin:8px 0}
+.hub-routes-compact .route-cta{padding-top:14px}
+.hub-footer a{color:var(--green)}
+@media(max-width:1100px){.hub-index{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:950px){.hub-index{grid-template-columns:repeat(3,1fr)}.hub-quote-grid{grid-template-columns:1fr}.hub-routes-compact{grid-template-columns:1fr}.hub-routes-compact .route:first-child{display:flex;grid-column:auto}}
+@media(max-width:600px){.hub-index{grid-template-columns:1fr 1fr}.hub-index a:first-child{grid-column:auto}.hub-proof{grid-template-columns:1fr 1fr}.hub-proof div:nth-child(3){border-left:0}.hub-proof div:nth-child(n+3){border-top:1px solid var(--line)}}

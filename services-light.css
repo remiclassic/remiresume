@@ -1,0 +1,41 @@
+/* Light theme for services.html, matching the résumé palette (resume.css).
+   Loaded after the ported services stylesheets. Media wells, code, dialogs and
+   the hero reel keep the dark palette so footage and screens read as screens. */
+body.services-site {
+  --paper:#f7f6f0; --surface:#fffefa; --surface-2:#e5eadb; --ink:#252b23; --muted:#62685d; --line:#d9ddcf;
+  --accent:#45633e; --accent-2:#6c52a8; --accent-3:#a8562a;
+  color-scheme:light;
+}
+.services-site .site-header { background:#f7f6f0eb; }
+.services-site .button { color:#fff; }
+.services-site .button:hover { background:#36502f; border-color:#36502f; }
+.services-site .button.ghost { color:var(--ink); }
+.services-site .button.ghost:hover { background:transparent; }
+.services-site .nav-contact:hover { color:#fff; }
+.services-site .site-footer { background:var(--surface-2); color:var(--ink); --muted:#62685d; --line:#cdd3c3; }
+.services-site .site-footer .footer-top nav>span,.services-site .site-footer .brand-dot { color:var(--accent); }
+.services-site .site-footer a:focus-visible { outline-color:var(--accent); }
+
+/* Dark islands */
+.services-site :is(.sv-hero2,.sv-card-media,.sv-svc-media,.sv-case-media,.sv-film a,.sv-dir a,.sv-code,.cr-titles button,.cr-view,.fd-stage,.fd-view,.pf-main,.pf-thumbs,.pf-boards button,.pf-editor button,.pf-motion video,.pf-clips video,.pf-lightbox,.cp,.lab-stage) {
+  --paper:#0d110e; --surface:#141a15; --surface-2:#1b231c; --ink:#eef1e6; --muted:#9ba494; --line:#283027;
+  --accent:#c6f27a; --accent-2:#b9a5f5; --accent-3:#f3b58b;
+  color-scheme:dark;
+}
+.services-site :is(.sv-hero2,.sv-card-media,.sv-svc-media,.sv-film a,.sv-dir a,.sv-code,.pf-main,.lab-stage) { color:var(--ink); }
+.services-site .sv-hero2 { background:var(--paper); }
+.services-site :is(.sv-hero2,.cr-view,.fd-view,.pf-lightbox,.cp,.lab-stage,.sv-svc-media) .button,
+.services-site .pf-play,.services-site .cr-titles button>i,.services-site .fd-main b { color:#0c1408; }
+.services-site .sv-hero2 .button:hover { background:#dcff9c; border-color:#dcff9c; }
+.services-site .sv-hero2 .button.ghost { color:var(--ink); }
+.services-site .sv-hero2 .button.ghost:hover { background:#0d110e80; }
+.services-site .ff-filter button[aria-pressed=true] { color:#fff; }
+
+/* Soft shadows instead of the deep ones tuned for a dark page */
+.services-site .lab-stage { box-shadow:0 30px 70px -40px #1c241a99; }
+.services-site .sv-case-media img { box-shadow:0 24px 60px -24px #1c241a80; }
+.services-site .cr-titles button:is(:hover,:focus-visible) { box-shadow:0 18px 40px -18px #1c241a99,0 0 0 2px var(--accent); }
+
+/* Walkthrough links on the selected-work cards */
+.services-site .pf-walk { display:flex; flex-wrap:wrap; gap:6px 18px; margin:14px 0 0; }
+.services-site .pf-walk .pf-case-link { margin:0; }
