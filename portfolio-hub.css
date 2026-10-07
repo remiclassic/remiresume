@@ -88,3 +88,5 @@ html{scroll-behavior:smooth}
 @media(max-width:1100px){.hub-index{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:950px){.hub-index{grid-template-columns:repeat(3,1fr)}.hub-quote-grid{grid-template-columns:1fr}.hub-routes-compact{grid-template-columns:1fr}.hub-routes-compact .route:first-child{display:flex;grid-column:auto}}
 @media(max-width:600px){.hub-index{grid-template-columns:1fr 1fr}.hub-index a:first-child{grid-column:auto}.hub-proof{grid-template-columns:1fr 1fr}.hub-proof div:nth-child(3){border-left:0}.hub-proof div:nth-child(n+3){border-top:1px solid var(--line)}}
+.hub-promo{margin-bottom:18px}
+.hub-promo .hub-feature-actions button{color:inherit;font-size:12px}

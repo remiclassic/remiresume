@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Remi Couture — hire promo (frame-accurate timeline)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root { --bg:#0b0f0c; --surface:#141a15; --ink:#eef1e6; --muted:#9ba494; --line:#283027; --lime:#c6f27a; --cream:#f7f6f0; --green:#45633e; --mono:'JetBrains Mono',monospace; }
+* { box-sizing:border-box; margin:0; padding:0; }
+html,body { background:#000; overflow:hidden; }
+#stage { position:relative; width:1920px; height:1080px; overflow:hidden; background:var(--bg); color:var(--ink); font-family:'Manrope','DM Sans',sans-serif; transform-origin:0 0; }
+.scene { position:absolute; inset:0; display:none; overflow:hidden; }
+[data-in] { opacity:0; will-change:transform,opacity; }
+.fill { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.shade { position:absolute; inset:0; background:linear-gradient(180deg,rgba(11,15,12,.78),rgba(11,15,12,.42) 35%,rgba(11,15,12,.86)),linear-gradient(90deg,rgba(11,15,12,.85),rgba(11,15,12,.15) 75%); }
+.grid-bg { position:absolute; inset:0; background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size:96px 96px; opacity:.55; }
+.glow { position:absolute; width:1400px; height:1400px; border-radius:50%; background:radial-gradient(circle,rgba(198,242,122,.16),transparent 62%); }
+.eyebrow { font-family:var(--mono); font-size:24px; letter-spacing:.16em; text-transform:uppercase; color:var(--lime); font-weight:500; }
+.eyebrow i { display:inline-block; width:14px; height:14px; border-radius:50%; background:var(--lime); margin-right:18px; }
+h1,h2 { font-weight:600; letter-spacing:-.055em; line-height:.98; }
+.lime { color:var(--lime); }
+.pad { position:absolute; left:140px; right:140px; }
+.word { display:inline-block; white-space:pre; }
+
+/* 1 hook */
+#s1 h1 { font-size:150px; white-space:nowrap; }
+#s1 .pad { top:330px; }
+#s1 .eyebrow { margin-bottom:44px; }
+#mark { position:absolute; left:50%; top:50%; font-size:300px; color:var(--lime); line-height:1; margin:-150px 0 0 -110px; }
+
+/* 2 numbers */
+#s2 .nums { position:absolute; left:140px; right:140px; top:300px; display:grid; grid-template-columns:repeat(4,1fr); border-top:2px solid var(--line); border-bottom:2px solid var(--line); }
+#s2 .nums div { padding:70px 44px 76px; border-left:2px solid var(--line); }
+#s2 .nums div:first-child { border-left:0; padding-left:0; }
+#s2 strong { display:block; font-size:170px; font-weight:600; letter-spacing:-.06em; line-height:1; }
+#s2 strong b { color:var(--lime); font-weight:600; }
+#s2 .nums span { display:block; margin-top:26px; font-family:'DM Sans'; font-size:34px; line-height:1.3; color:var(--ink); }
+#s2 small { display:block; margin-top:14px; font-family:var(--mono); font-size:19px; color:var(--muted); letter-spacing:.04em; }
+#s2 .eyebrow { position:absolute; left:140px; top:190px; }
+#s2 .foot { position:absolute; left:140px; top:840px; font-size:58px; font-weight:600; letter-spacing:-.045em; }
+
+/* 3 studios */
+#s3 .row { position:absolute; left:0; white-space:nowrap; font-size:150px; font-weight:700; letter-spacing:-.055em; line-height:1; }
+#s3 .row i { font-style:normal; color:var(--lime); font-size:60px; vertical-align:middle; margin:0 46px; }
+#s3 .row.outline { color:transparent; -webkit-text-stroke:2px #7d8a76; }
+#s3 .thumbs { position:absolute; left:0; top:690px; display:flex; gap:22px; }
+#s3 .thumbs img { width:250px; height:250px; object-fit:cover; border-radius:18px; border:2px solid var(--line); }
+#s3 .eyebrow { position:absolute; left:140px; top:96px; }
+#s3 .note { position:absolute; left:140px; bottom:44px; font-family:var(--mono); font-size:18px; color:var(--muted); }
+
+/* 4 projects */
+.proj { position:absolute; inset:0; }
+.proj .copy { position:absolute; left:140px; top:300px; width:640px; }
+.proj .copy h2 { font-size:96px; margin:34px 0 36px; }
+.proj .copy p { font-family:'DM Sans'; font-size:36px; line-height:1.35; color:var(--ink); }
+.proj .copy small { display:block; margin-top:30px; font-family:var(--mono); font-size:21px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; }
+.proj .n { position:absolute; left:140px; top:120px; font-family:var(--mono); font-size:24px; color:var(--muted); letter-spacing:.14em; }
+.persp { position:absolute; left:820px; top:150px; width:1240px; height:780px; perspective:2200px; }
+.shot { position:absolute; width:1180px; aspect-ratio:16/10; border-radius:22px; overflow:hidden; border:2px solid #3a4638; box-shadow:0 60px 140px -30px #000,0 0 0 1px #0008; background:#080a08; }
+.shot img { width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+.shot.back { left:150px; top:-40px; filter:brightness(.55); }
+.shot.front { left:0; top:110px; }
+
+/* 5 builds */
+#s5 .title { position:absolute; left:140px; top:392px; font-size:230px; font-weight:700; letter-spacing:-.06em; line-height:.95; }
+.cap { position:absolute; left:140px; bottom:120px; right:140px; }
+.cap h2 { font-size:120px; margin-top:26px; }
+.cap p { margin-top:22px; font-family:'DM Sans'; font-size:38px; color:var(--ink); }
+.tag { display:inline-block; font-family:var(--mono); font-size:22px; letter-spacing:.12em; text-transform:uppercase; background:#080a08d9; color:var(--lime); padding:12px 18px; border-radius:8px; border:1px solid var(--line); }
+.frame { position:absolute; border-radius:22px; overflow:hidden; border:2px solid #3a4638; box-shadow:0 60px 140px -30px #000; background:#080a08; }
+.frame img { width:100%; height:100%; object-fit:cover; display:block; }
+.tiles { position:absolute; left:140px; right:140px; top:200px; display:grid; grid-template-columns:repeat(3,1fr); gap:30px; }
+.tiles .frame { position:relative; aspect-ratio:16/10; }
+.tiles b { position:absolute; left:18px; top:18px; }
+
+/* 6 disciplines */
+#s6 .rows { position:absolute; left:140px; right:140px; top:150px; }
+#s6 .r { display:grid; grid-template-columns:120px 1fr auto; align-items:baseline; padding:30px 0 34px; border-bottom:2px solid #3a4638; }
+#s6 .r:first-child { border-top:2px solid #3a4638; }
+#s6 .r span { font-family:var(--mono); font-size:26px; color:var(--lime); }
+#s6 .r h2 { font-size:86px; white-space:nowrap; }
+#s6 .r em { font-style:normal; font-family:'DM Sans'; font-size:27px; white-space:nowrap; color:var(--muted); }
+#s6 .chips { position:absolute; left:140px; top:900px; display:flex; gap:18px; }
+#s6 .chips b { font-family:var(--mono); font-size:26px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; padding:18px 28px; border:2px solid #56634f; border-radius:99px; background:#0b0f0ccc; }
+
+/* 7 quotes */
+#s7 { background:var(--cream); color:#252b23; }
+#s7 .q { position:absolute; left:160px; right:160px; top:210px; }
+#s7 .mark { font-size:220px; line-height:.6; color:var(--green); font-weight:700; height:120px; }
+#s7 blockquote { font-size:92px; font-weight:600; letter-spacing:-.045em; line-height:1.08; }
+#s7 blockquote u { text-decoration:none; color:var(--green); }
+#s7 figcaption { margin-top:54px; font-family:'DM Sans'; font-size:36px; font-weight:600; }
+#s7 figcaption span { display:block; margin-top:8px; font-family:var(--mono); font-size:22px; font-weight:400; color:#62685d; letter-spacing:.06em; text-transform:uppercase; }
+#s7 .count { position:absolute; left:160px; bottom:70px; font-family:var(--mono); font-size:22px; color:#62685d; letter-spacing:.1em; text-transform:uppercase; }
+
+/* 8 cta */
+#s8 .ask { position:absolute; left:140px; top:200px; font-size:84px; font-weight:600; letter-spacing:-.045em; color:var(--ink); }
+#s8 .big { position:absolute; left:132px; top:310px; font-size:290px; font-weight:700; letter-spacing:-.065em; line-height:1; color:var(--lime); }
+#s8 .card { position:absolute; left:140px; right:140px; top:720px; display:grid; grid-template-columns:1fr auto; align-items:end; border-top:2px solid #56634f; padding-top:44px; }
+#s8 .name { font-size:64px; font-weight:700; letter-spacing:-.045em; }
+#s8 .name span { color:var(--lime); }
+#s8 .role { margin-top:14px; font-family:var(--mono); font-size:24px; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; }
+#s8 .links { text-align:right; font-family:var(--mono); font-size:34px; line-height:1.7; }
+#s8 .links b { color:var(--lime); font-weight:500; }
+
+#wipe { position:absolute; top:-10%; left:0; width:130%; height:120%; background:var(--lime); transform:translateX(-140%) skewX(-12deg); z-index:50; }
+#wipe2 { position:absolute; top:-10%; left:0; width:130%; height:120%; background:#0b0f0c; transform:translateX(-140%) skewX(-12deg); z-index:49; }
+#vig { position:absolute; inset:0; z-index:40; pointer-events:none; background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.42)); }
+#bar { position:absolute; left:0; bottom:0; height:6px; background:var(--lime); z-index:45; }
+#fade { position:absolute; inset:0; background:#000; z-index:60; opacity:0; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+<section class="scene" id="s1" data-from="0" data-to="7.2">
+  <img class="fill" data-clip="reel" data-in="0.6" data-fx="fade" data-d="0.5" data-ken="1.1,1">
+  <div class="shade" data-in="0.6" data-fx="fade" data-d="0.3"></div>
+  <div id="mark" data-in="0" data-out="1.2" data-fx="spin" data-d="0.9">✳</div>
+  <div class="pad">
+    <p class="eyebrow" data-in="1.0" data-fx="left"><i></i>UI/UX design &amp; development · games, apps, sites, courses</p>
+    <h1><span data-in="1.2" data-fx="slam" data-d="0.35" class="word">Interfaces, </span><span data-in="1.8" data-fx="slam" data-d="0.35" class="word">designed </span><span data-in="2.4" data-fx="slam" data-d="0.35" class="word">and</span><br><span class="lime" data-in="3.0" data-fx="wipe" data-d="0.9">built where they run.</span></h1>
+  </div>
+</section>
+
+<section class="scene" id="s2" data-from="7.2" data-to="12">
+  <div class="grid-bg"></div><div class="glow" style="left:-500px;top:-600px"></div>
+  <p class="eyebrow" data-in="0.1" data-fx="left"><i></i>Guillaume “Remi” Couture · by the numbers</p>
+  <div class="nums">
+    <div data-in="0.2" data-fx="up"><strong><b data-count="20">0</b></strong><span>years in game UI, UX and product design</span><small>SINCE CLUB PENGUIN, 2006</small></div>
+    <div data-in="0.8" data-fx="up"><strong><b data-count="40">0</b>+</strong><span>shipped games and apps</span><small>PC · CONSOLE · MOBILE · VR</small></div>
+    <div data-in="1.4" data-fx="up"><strong><b data-count="12">0</b></strong><span>studios worked inside</span><small>FROM INDIE TO CO-DEV</small></div>
+    <div data-in="2.0" data-fx="up"><strong><b data-count="5">0</b></strong><span>runtimes, design to code</span><small>UNREAL · UNITY · GODOT · PLAYCANVAS · WEB</small></div>
+  </div>
+  <p class="foot" data-in="2.9" data-fx="wipe" data-d="0.8">UX Director. Art director. <span class="lime">Hands on the build.</span></p>
+</section>
+
+<section class="scene" id="s3" data-from="12" data-to="16.8">
+  <div class="glow" style="right:-600px;top:-300px"></div>
+  <p class="eyebrow" data-in="0.1" data-fx="left"><i></i>Studios I’ve worked inside · names my work shipped for</p>
+  <div class="row" style="top:200px" data-in="0.1" data-fx="fade" data-d="0.3" data-marquee="-230,80">Piranha Games<i>✳</i>Offworld<i>✳</i>Phoenix Labs<i>✳</i>AppLovin<i>✳</i>Sprung Studios<i>✳</i>Frima Studio<i>✳</i>Hothead Games<i>✳</i>DeNA<i>✳</i>UX Magicians<i>✳</i>Gogii Games</div>
+  <div class="row outline" style="top:420px" data-in="0.5" data-fx="fade" data-d="0.3" data-marquee="230,-1500">Riot Games<i>✳</i>Sony<i>✳</i>Tencent<i>✳</i>Disney<i>✳</i>Universal Studios<i>✳</i>Hasbro<i>✳</i>Twitch<i>✳</i>DreamWorks<i>✳</i>Nickelodeon<i>✳</i>BBC Kids</div>
+  <div class="thumbs" id="thumbs" data-in="0.9" data-fx="up" data-marquee="-260,120"></div>
+  <p class="note">Career credits from studio roles and agency client work. Names and artwork belong to their owners.</p>
+</section>
+
+<section class="scene" id="s4" data-from="16.8" data-to="26.4"><div class="grid-bg" style="opacity:.3"></div><div id="projects"></div></section>
+
+<section class="scene" id="s5" data-from="26.4" data-to="33.6">
+  <div data-in="0" data-out="2.4" data-fx="fade" data-d="0.01" style="position:absolute;inset:0">
+    <img class="fill" data-clip="norman" data-in="0" data-out="2.4" data-fx="fade" data-d="0.01" data-ken="1.12,1">
+    <div class="shade"></div>
+    <div class="cap"><b class="tag" data-in="0.15" data-out="2.4" data-fx="left">In-engine footage · my own game</b><h2 data-in="0.3" data-out="2.4" data-fx="wipe" data-d="0.7">Norman Ascension</h2><p data-in="0.7" data-out="2.4" data-fx="up">Online medieval dynasty RPG, in a WebGL engine I wrote.</p></div>
+    <div class="title" style="top:150px;font-size:110px" data-in="0.1" data-out="2.4" data-fx="slam" data-d="0.35">I design it. <span class="lime">Then I build it.</span></div>
+  </div>
+  <div data-in="2.4" data-out="4.8" data-fx="fade" data-d="0.01" style="position:absolute;inset:0">
+    <div class="grid-bg" style="opacity:.3"></div>
+    <div class="frame" style="left:700px;top:120px;width:1320px;height:825px" data-in="2.4" data-out="4.8" data-fx="right" data-d="0.7"><img data-clip="sf" data-in="2.4" data-out="4.8" data-fx="fade" data-d="0.01"></div>
+    <div class="cap" style="right:1260px;bottom:330px"><b class="tag" data-in="2.5" data-out="4.8" data-fx="left">Live product</b><h2 data-in="2.6" data-out="4.8" data-fx="wipe" data-d="0.7" style="font-size:112px">SliceForge</h2><p data-in="3.0" data-out="4.8" data-fx="up">My game UI production tool. Plus Focusrail, my Unreal Engine plugin on Fab.</p></div>
+  </div>
+  <div data-in="4.8" data-fx="fade" data-d="0.01" style="position:absolute;inset:0">
+    <div class="grid-bg" style="opacity:.3"></div>
+    <div class="tiles">
+      <div class="frame" data-in="4.8" data-fx="up"><img data-clip="nd" data-in="4.8" data-fx="fade" data-d="0.01"><b class="tag">Network Defense</b></div>
+      <div class="frame" data-in="5.0" data-fx="up"><img data-clip="mc" data-in="4.8" data-fx="fade" data-d="0.01"><b class="tag">Mission Control</b></div>
+      <div class="frame" data-in="5.2" data-fx="up"><img data-clip="soc" data-in="4.8" data-fx="fade" data-d="0.01"><b class="tag">SOC Dashboard</b></div>
+    </div>
+    <div class="cap" style="bottom:auto;top:610px"><h2 data-in="5.3" data-fx="wipe" data-d="0.7" style="font-size:104px">Training games &amp; simulations</h2><p data-in="5.7" data-fx="up">Designed and built in React and TypeScript. Playable in the browser.</p></div>
+  </div>
+</section>
+
+<section class="scene" id="s6" data-from="33.6" data-to="38.4">
+  <img class="fill" data-clip="fps" data-in="0" data-fx="fade" data-d="0.01" data-ken="1.08,1" style="filter:brightness(.42) saturate(.8)">
+  <div class="shade"></div>
+  <div class="rows">
+    <div class="r" data-in="0.1" data-fx="left"><span>01</span><h2>UX &amp; user flows</h2><em>flows · wireframes · prototypes · audits</em></div>
+    <div class="r" data-in="0.7" data-fx="left"><span>02</span><h2>UI art &amp; design systems</h2><em>look dev · components · icons</em></div>
+    <div class="r" data-in="1.3" data-fx="left"><span>03</span><h2>Motion &amp; feedback</h2><em>transitions · HUD feedback · stingers</em></div>
+    <div class="r" data-in="1.9" data-fx="left"><span>04</span><h2 class="lime">Technical UI, in your repo</h2><em>widgets · input · bindings</em></div>
+  </div>
+  <div class="chips"><b data-in="2.7" data-fx="pop" data-d="0.4">Unreal Engine</b><b data-in="2.85" data-fx="pop" data-d="0.4">Unity</b><b data-in="3.0" data-fx="pop" data-d="0.4">Godot</b><b data-in="3.15" data-fx="pop" data-d="0.4">PlayCanvas</b><b data-in="3.3" data-fx="pop" data-d="0.4">Web &amp; custom engines</b></div>
+</section>
+
+<section class="scene" id="s7" data-from="38.4" data-to="43.2">
+  <figure class="q" data-in="0" data-out="2.4" data-fx="fade" data-d="0.01">
+    <div class="mark" data-in="0.05" data-out="2.4" data-fx="pop" data-d="0.4">“</div>
+    <blockquote data-split="0.15,0.06" data-out="2.4">UI, UX, illustration and implementation Remi was a one stop shop to get stuff done. <u>Strong recommend, would hire again.</u></blockquote>
+    <figcaption data-in="1.2" data-out="2.4" data-fx="up">Keith Kawahata<span>Hired and managed Remi · AppLovin</span></figcaption>
+  </figure>
+  <figure class="q" data-in="2.4" data-fx="fade" data-d="0.01">
+    <div class="mark" data-in="2.45" data-fx="pop" data-d="0.4">“</div>
+    <blockquote data-split="2.55,0.06">Remi has a fantastic understanding of UX/UI needs in gaming. <u>Working with him on my project was … exactly what we needed.</u></blockquote>
+    <figcaption data-in="3.6" data-fx="up">Dana Dispenza<span>Client</span></figcaption>
+  </figure>
+  <p class="count">Two of eleven recommendations on LinkedIn</p>
+</section>
+
+<section class="scene" id="s8" data-from="43.2" data-to="50.4">
+  <img class="fill" data-clip="reel2" data-in="0" data-fx="fade" data-d="0.01" data-ken="1.1,1" style="filter:brightness(.34) saturate(.7)">
+  <div class="shade"></div><div class="glow" style="left:200px;top:100px"></div>
+  <p class="ask" data-in="0.2" data-fx="left">Got a project, a gig or a role?</p>
+  <div class="big" data-in="1.2" data-fx="slam" data-d="0.4">Let’s build it.</div>
+  <div class="card" data-in="2.4" data-fx="up" data-d="0.7">
+    <div><div class="name">Remi Couture <span>✳</span></div><div class="role">UX/UI Director · Technical UI · 20 years shipped</div></div>
+    <div class="links"><b>remiclassic.github.io/remiresume</b><br>linkedin.com/in/remicouture</div>
+  </div>
+</section>
+
+<div id="vig"></div><div id="bar"></div><div id="wipe2"></div><div id="wipe"></div><div id="fade"></div>
+</div>
+
+<script>
+const FPS = 30, DUR = 50.4;
+const FRAMES = new URLSearchParams(location.search).get('frames') || 'frames';
+const P = '../services-assets/media/services/';
+const $ = (s, r = document) => [...r.querySelectorAll(s)];
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const eOut = x => 1 - Math.pow(1 - x, 4), eIn = x => x * x * x, eBack = x => 1 + 2.4 * Math.pow(x - 1, 3) + 1.4 * Math.pow(x - 1, 2);
+
+// credits strip
+const credits = ['squad','valorant','nba-verizon','twitch','stardust-canvas','pokemon-vr','dauntless','mechwarrior-5','boom-boom-football','gunkings','transformers-battle-tactics','super-battle-tactics','go-go-ghost','rio','the-nut-job','fraggle-rock'];
+document.getElementById('thumbs').innerHTML = credits.map(c => `<img src="${P}credits/${c}.webp">`).join('');
+
+// project sub-scenes (2.4 s each)
+const projects = [
+  ['Piranha Games · 2016–18', 'MechWarrior 5: Mercenaries', 'Front end, UX style guide and in-engine implementation.', 'PC · Unreal Engine', 'mw5-mechbay', 'mw5-starmap'],
+  ['Phoenix Labs · 2018', 'Dauntless', 'Quest system UX, crafting, HUD and a UX workflow the studio kept using.', 'PC &amp; console · Unreal Engine', 'hunt-crafting', 'hunt-journal'],
+  ['Offworld · 2022–25', 'Squad', 'Senior UX designer for three years, from player flows to Unreal implementation.', 'PC · Unreal Engine · customisation concepts shown', 'squad-faction', 'squad-vehicle'],
+  ['UX Magicians · 2020–21', 'Valorant', 'Front-end exploration from grey-box wireframes to a coloured pass.', 'Client work · agent select, lobby, matchmaking', 'tac-lobby', 'tac-agents'],
+];
+document.getElementById('projects').innerHTML = projects.map(([studio, title, body, tag, a, b], i) => {
+  const t0 = i * 2.4, t1 = t0 + 2.4, last = i === projects.length - 1, out = last ? '' : `data-out="${t1}"`;
+  return `<div class="proj" data-in="${t0}" ${out} data-fx="fade" data-d="0.01">
+    <p class="n" data-in="${t0 + .05}" ${out} data-fx="fade">SHIPPED WORK · 0${i + 1} / 04</p>
+    <div class="copy"><p class="eyebrow" data-in="${t0 + .1}" ${out} data-fx="left"><i></i>${studio}</p><h2 data-in="${t0 + .2}" ${out} data-fx="wipe" data-d="0.7">${title}</h2><p data-in="${t0 + .5}" ${out} data-fx="up">${body}</p><small data-in="${t0 + .7}" ${out} data-fx="up">${tag}</small></div>
+    <div class="persp"><div class="shot back" data-in="${t0 + .15}" ${out} data-fx="tilt" data-d="0.9" data-depth="-260"><img src="${P}portfolio/${b}.webp"></div><div class="shot front" data-in="${t0}" ${out} data-fx="tilt" data-d="0.8" data-depth="0"><img src="${P}portfolio/${a}.webp"></div></div>
+  </div>`;
+}).join('');
+
+// word-by-word reveals
+$('[data-split]').forEach(el => {
+  const [start, step] = el.dataset.split.split(',').map(Number), out = el.dataset.out;
+  let n = 0;
+  const wrap = node => [...node.childNodes].forEach(c => {
+    if (c.nodeType === 3) {
+      const frag = document.createDocumentFragment();
+      c.textContent.split(/(\s+)/).forEach(w => {
+        if (!w.trim()) { frag.append(w); return; }
+        const s = document.createElement('span'); s.className = 'word'; s.textContent = w;
+        s.dataset.in = (start + n++ * step).toFixed(3); s.dataset.fx = 'up'; s.dataset.d = '0.45'; s.dataset.rise = '34';
+        if (out) s.dataset.out = out; frag.append(s);
+      });
+      c.replaceWith(frag);
+    } else wrap(c);
+  });
+  wrap(el);
+});
+
+// resolve scene-relative times to absolute
+const scenes = $('.scene').map(el => ({ el, from: +el.dataset.from, to: +el.dataset.to }));
+const items = [];
+scenes.forEach(sc => $('[data-in]', sc.el).forEach(el => items.push({
+  el, sc, a: sc.from + +el.dataset.in, b: el.dataset.out ? sc.from + +el.dataset.out : sc.to,
+  exit: !!el.dataset.out, fx: el.dataset.fx || 'up', d: +(el.dataset.d || .6),
+  ken: el.dataset.ken && el.dataset.ken.split(',').map(Number), mq: el.dataset.marquee && el.dataset.marquee.split(',').map(Number),
+  clip: el.dataset.clip, count: null, rise: +(el.dataset.rise || 70), depth: +(el.dataset.depth || 0),
+})));
+const counters = $('[data-count]').map(el => { const host = items.find(i => i.el.contains(el)); return { el, to: +el.dataset.count, a: host.a }; });
+const cuts = scenes.slice(1).map(s => s.from);
+const wipe = document.getElementById('wipe'), wipe2 = document.getElementById('wipe2'), bar = document.getElementById('bar'), fade = document.getElementById('fade'), vig = document.getElementById('vig');
+
+function draw(o, t, pending) {
+  const { el, a, b, d, fx } = o, s = el.style;
+  if (t < a || t >= b) { s.opacity = 0; s.visibility = 'hidden'; return; }
+  s.visibility = 'visible';
+  const p = eOut(clamp((t - a) / d)), q = o.exit ? eIn(clamp((t - (b - .3)) / .3)) : 0;
+  let tr = '', op = Math.min(1, p * 1.6) * (1 - q), clip = '', blur = 0;
+  switch (fx) {
+    case 'up': tr = `translateY(${(1 - p) * o.rise - q * 30}px)`; break;
+    case 'left': tr = `translateX(${(p - 1) * 110 - q * 60}px)`; break;
+    case 'right': tr = `translateX(${(1 - p) * 420}px)`; break;
+    case 'slam': tr = `scale(${1 + (1 - p) * 1.5})`; blur = (1 - p) * 16; break;
+    case 'pop': tr = `scale(${.5 + .5 * eBack(clamp((t - a) / d))})`; break;
+    case 'spin': tr = `rotate(${(1 - p) * -200}deg) scale(${.2 + .8 * p + q * 6})`; break;
+    case 'wipe': clip = `inset(-10% ${(1 - p) * 104}% -20% -2%)`; tr = `translateX(${(1 - p) * -40}px)`; op = 1 - q; break;
+    case 'tilt': { const life = clamp((t - a) / 2.4); tr = `translate3d(${(1 - p) * 900}px,${(1 - p) * 60}px,${o.depth}px) rotateY(${-22 + life * 7}deg) rotateX(${7 - life * 2}deg) rotateZ(${1.2 - life}deg)`; op = (1 - q); break; }
+  }
+  if (o.ken) { const life = clamp((t - a) / (b - a)); tr += ` scale(${o.ken[0] + (o.ken[1] - o.ken[0]) * life})`; }
+  if (o.mq) tr = `translateX(${o.mq[1] + o.mq[0] * (t - o.sc.from)}px) ` + tr;
+  s.opacity = op; s.transform = tr; s.clipPath = clip; s.webkitClipPath = clip;
+  if (blur || fx === 'slam') s.filter = blur > .2 ? `blur(${blur}px)` : '';
+  if (o.clip) {
+    const src = `${FRAMES}/${o.clip}/${String(Math.floor((t - a) * FPS) + 1).padStart(4, '0')}.jpg`;
+    if (el.dataset.cur !== src) { el.dataset.cur = src; el.src = src; pending.push(el.decode().catch(() => {})); }
+  }
+}
+
+window.renderAt = async t => {
+  const pending = [];
+  scenes.forEach(sc => { sc.el.style.display = t >= sc.from && t < sc.to ? 'block' : 'none'; });
+  items.forEach(o => { if (t >= o.sc.from && t < o.sc.to) draw(o, t, pending); });
+  counters.forEach(c => { c.el.textContent = Math.round(c.to * eOut(clamp((t - c.a) / 1.1))); });
+  let x = -140, x2 = -140;
+  for (const c of cuts) { const p = (t - (c - .22)) / .5; if (p > 0 && p < 1) { x = -140 + 280 * p; x2 = -140 + 280 * clamp(p * 1.25 - .02); } }
+  wipe.style.transform = `translateX(${x}%) skewX(-12deg)`; wipe2.style.transform = `translateX(${x2}%) skewX(-12deg)`;
+  bar.style.width = (t / DUR * 100) + '%';
+  vig.style.opacity = t >= 38.4 && t < 43.2 ? 0 : 1;
+  fade.style.opacity = t < .25 ? 1 - t / .25 : clamp((t - (DUR - .7)) / .6);
+  await Promise.all(pending);
+};
+window.DUR = DUR; window.FPS = FPS;
+
+// preview in a browser: plays in real time, scaled to the window
+if (!new URLSearchParams(location.search).has('render')) {
+  const fit = () => { document.getElementById('stage').style.transform = `scale(${Math.min(innerWidth / 1920, innerHeight / 1080)})`; };
+  fit(); addEventListener('resize', fit);
+  const t0 = performance.now() - (+new URLSearchParams(location.search).get('t') || 0) * 1000;
+  const loop = () => { renderAt(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(loop); };
+  document.fonts.ready.then(loop);
+}
+</script>
+</body>
+</html>
