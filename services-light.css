@@ -39,3 +39,8 @@ body.services-site {
 /* Walkthrough links on the selected-work cards */
 .services-site .pf-walk { display:flex; flex-wrap:wrap; gap:6px 18px; margin:14px 0 0; }
 .services-site .pf-walk .pf-case-link { margin:0; }
+
+/* Promo video */
+.services-site .sv-promo { margin:0 auto; max-width:1040px; }
+.services-site .sv-promo video { display:block; width:100%; aspect-ratio:16/9; background:#0b0f0c; border-radius:14px; border:1px solid var(--line); }
+.services-site .sv-promo figcaption { margin-top:12px; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }

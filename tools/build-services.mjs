@@ -31,6 +31,12 @@ const cut = (startMarker, endMarker) => {
 cut('<section class="section container" id="team">', '<section class="section container" id="services">');
 main = main.replace(/<section class="section container sv-fit" id="fit">[\s\S]*?<\/section>/, () =>
   `<section class="section container sv-fit" id="fit"> <div class="sv-fit-copy sv-reveal"><p class="eyebrow">About me</p><h2>One senior designer.<br>Design through build.</h2> <p class="big">I own the interface from the first flow to the last widget: UX, UI art, motion and the implementation in engine or in code. Twenty years across PC, console, mobile, VR and the web, as an individual contributor, a lead and a director.</p> <ul><li><strong>UX and UI design</strong><span>flows, wireframes, visual systems and motion</span></li><li><strong>Technical UI</strong><span>Unreal, Unity, Godot, PlayCanvas and web, in the project’s own repository</span></li><li><strong>Leadership</strong><span>UX Director at AppLovin, art director at Sprung Studios, instructor at Vancouver Film School</span></li></ul> <p class="fine">Also the founder of Strategic Sloth LLC, where my own tools, plugins and game are made.</p></div> <figure class="sv-founder sv-reveal"><img src="/studio-images/remi-founder.png" alt="Guillaume “Remi” Couture in his studio" loading="lazy" width="1051" height="1497"><figcaption><strong>Guillaume “Remi” Couture</strong><span>UX/UI director · technical UI · founder, Strategic Sloth</span><span>Formerly UX Director at AppLovin, Art Director at Sprung Studios, UX/UI at Piranha Games, Phoenix Labs and Offworld</span><a href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener">LinkedIn ↗</a></figcaption></figure> </section>`);
+// Promo video, placed before the About block.
+{
+  const at = main.indexOf('<section class="section container sv-fit" id="fit">');
+  if (at < 0) warn.push('NO FIT SECTION FOR PROMO');
+  else main = main.slice(0, at) + `<section class="section container" id="promo"><div class="section-heading"><div><p class="eyebrow">The short version · 50 seconds</p><h2>I design it.<br>Then I build it.</h2></div><p>Twenty years of game UI in under a minute: shipped studio work, my own game and tools, what I do, and what the people who managed the work say about it.</p></div><figure class="sv-promo sv-reveal"><video controls playsinline preload="none" poster="portfolio-media/promo/hire-promo-poster.jpg" aria-label="Remi Couture promo: twenty years of game UI in fifty seconds"><source src="portfolio-media/promo/hire-promo.mp4" type="video/mp4"><a href="portfolio-media/promo/hire-promo.mp4">Watch the promo</a></video><figcaption>50-second promo · Press play to load · Sound on</figcaption></figure></section> ` + main.slice(at);
+}
 main = main.replace(/<section class="sv-cta">[\s\S]*?<\/section>/, () =>
   `<section class="sv-cta" id="contact"><div class="container"><p class="eyebrow">Let’s build something good</p><h2>Show me the build.</h2><p>Send a screenshot, a recording or a build, with your engine or stack and your dates. You will get a straight answer on fit and scope.</p><div class="hero-actions"><button class="button" type="button" data-reveal-email aria-label="Reveal email address">Reveal email <span>↗</span></button><a class="button ghost" href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener">LinkedIn <span>↗</span></a><a class="button ghost" href="portfolio.html">The portfolio <span>→</span></a></div></div></section>`);
 main = main.replace(/<script>\s*if \(location\.pathname === '\/'\)[\s\S]*?<\/script>/, '');
@@ -193,7 +199,7 @@ const page = `<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 ${cssFiles.map(c => `<link rel="stylesheet" href="${AD}/_assets/${path.basename(c)}">`).join('\n')}
-<link rel="stylesheet" href="services-light.css?v=1">
+<link rel="stylesheet" href="services-light.css?v=2">
 <link rel="stylesheet" href="contact-reveal.css?v=1">
 <script type="module" src="${AD}/_assets/${path.basename(entry)}"></script>
 <script src="contact-reveal.js?v=1" defer></script>
