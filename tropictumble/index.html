@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico?v=sloth1" sizes="any">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg?v=sloth1">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png?v=sloth1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tropic Tumble: a playable mini game pitch — Remi Couture</title>
+<meta name="description" content="Tropic Tumble is a drag-to-match mini game designed and built end to end by Remi Couture. Play it on this page in five device sizes, then see how the same approach would work with your studio or app team.">
+<link rel="canonical" href="https://remiclassic.github.io/remiresume/tropictumble/">
+<meta name="theme-color" content="#3aa7ee">
+<meta property="og:title" content="Tropic Tumble: a playable mini game pitch">
+<meta property="og:description" content="A complete mobile mini game you can play in the browser, and how I would build one with your team.">
+<meta property="og:url" content="https://remiclassic.github.io/remiresume/tropictumble/">
+<meta property="og:image" content="https://remiclassic.github.io/remiresume/tropictumble/game/loading.webp">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="../contact-reveal.css?v=1">
+<script src="../contact-reveal.js?v=1" defer></script>
+<style>
+  @font-face { font-family: Fredoka; font-weight: 700; src: url(fredoka-700.woff2) format('woff2'); font-display: swap; }
+  :root { --ink: #16324f; --sky: #3aa7ee; --deep: #0b3a6e; --sand: #fdf3e3; --sun: #ffc21f; --leaf: #2fc13a; --pink: #ff4f8b;
+    --display: Fredoka, ui-rounded, 'Arial Rounded MT Bold', system-ui, sans-serif; --body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--body); color: var(--ink); background: var(--sand); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: var(--display); line-height: 1.08; margin: 0; }
+  p { margin: 0; }
+  a { color: inherit; }
+  .wrap { width: min(1160px, 100% - 40px); margin-inline: auto; }
+  .skip { position: absolute; left: -999px; } .skip:focus { left: 12px; top: 12px; z-index: 99; background: #fff; padding: 8px 12px; border-radius: 8px; }
+
+  /* Top bar */
+  .top { position: absolute; inset: 0 0 auto; z-index: 5; padding: 16px 0; }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .top a { color: #fff; text-decoration: none; font-weight: 700; text-shadow: 0 1px 3px #0005; }
+  .top nav { display: flex; gap: 18px; font-size: 15px; }
+  .top nav a:hover, .top .brand:hover { text-decoration: underline; }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; border-radius: 999px; border: 3px solid #0e8f22; cursor: pointer;
+    font: 700 19px/1 var(--display); color: #fff; text-decoration: none; background: linear-gradient(#8cf54e, #33cf33 60%, #25b82c);
+    box-shadow: inset 0 3px 0 #c4ff9c, inset 0 -5px 0 #1c9f28, 0 5px 10px #0003; text-shadow: 0 2px 0 #0e8f22; transition: transform .12s; }
+  .btn:hover { transform: translateY(-2px) scale(1.03); } .btn:active { transform: scale(.96); }
+  .btn.blue { border-color: #0b62c4; background: linear-gradient(#6fd0ff, #2a9bf4 60%, #1c84e0); box-shadow: inset 0 3px 0 #c9efff, inset 0 -5px 0 #1470c9, 0 5px 10px #0003; text-shadow: 0 2px 0 #0b62c4; }
+  a.btn[href^="mailto"] { font-size: 17px; }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; padding: 96px 0 64px; color: #fff;
+    background: linear-gradient(#2f95e6, #4fc0f7 46%, #7fe0f2 60%, #f8dfa8 60.2%, #fbe7bd); }
+  .hero::before { content: ''; position: absolute; inset: 0; background: url(game/background.webp) center 12% / cover no-repeat; opacity: .5; }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 40px; align-items: center; }
+  .eyebrow { display: inline-block; font: 700 14px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; padding: 8px 14px; border-radius: 999px;
+    background: #ffffff33; border: 2px solid #ffffff88; backdrop-filter: blur(4px); }
+  .logo { margin: 18px 0 10px; font-size: clamp(54px, 8vw, 104px); letter-spacing: -.01em; filter: drop-shadow(0 6px 0 #7a3b12) drop-shadow(0 10px 14px #0004); }
+  .logo span { display: block; -webkit-text-stroke: 10px #8a4a1c; paint-order: stroke fill; }
+  .logo .a { color: #ffc93a; } .logo .b { color: #5fd2ff; margin-top: -.12em; }
+  .hero h2 { font-size: clamp(24px, 3vw, 34px); text-shadow: 0 2px 0 #0b3a6e88; }
+  .lede { margin-top: 14px; font-size: 18px; max-width: 34em; font-weight: 500; text-shadow: 0 1px 2px #0b3a6eaa; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .floaty { position: absolute; width: 74px; aspect-ratio: 1; background: center / contain no-repeat; filter: drop-shadow(0 6px 6px #0003); animation: bob 5s ease-in-out infinite; pointer-events: none; }
+  @keyframes bob { 50% { transform: translateY(-14px) rotate(8deg); } }
+
+  /* Device stage */
+  .demo { display: flex; flex-direction: column; align-items: center; gap: 14px; min-width: 0; }
+  .stage { position: relative; width: 100%; height: clamp(500px, 76vh, 780px); }
+  .device { position: absolute; left: 50%; top: 50%; background: #15171c; box-shadow: 0 0 0 2px #3a3f4a inset, 0 30px 60px #0b3a6e66, 0 8px 18px #0005;
+    transition: width .35s, height .35s, border-radius .35s, padding .35s; }
+  .screen { position: relative; overflow: hidden; background: #3fa9ee; width: 100%; height: 100%; }
+  .status { position: absolute; inset: 0 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; color: #fff;
+    font: 700 14px/1 var(--body); background: #2f95e6; }
+  .status i { display: inline-block; width: 24px; height: 11px; border: 2px solid #fff; border-radius: 4px; position: relative; }
+  .status i::before { content: ''; position: absolute; inset: 1px 5px 1px 1px; background: #fff; border-radius: 1px; }
+  .cut { position: absolute; left: 50%; transform: translateX(-50%); background: #000; z-index: 2; }
+  .device iframe { position: absolute; left: 0; border: 0; transform-origin: 0 0; background: #dfeefb; }
+  .home { position: absolute; left: 50%; bottom: 14px; width: 46px; height: 46px; margin-left: -23px; border-radius: 50%; border: 3px solid #3a3f4a; }
+  .picker { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .picker button { font: 700 15px/1 var(--display); padding: 10px 16px; border-radius: 999px; border: 2px solid #ffffffaa; background: #ffffff2e; color: #fff; cursor: pointer;
+    backdrop-filter: blur(4px); transition: transform .1s, background .15s; }
+  .picker button:hover { background: #ffffff55; } .picker button:active { transform: scale(.94); }
+  .picker button[aria-pressed="true"] { background: #fff; color: var(--deep); border-color: #fff; }
+  .readout { font: 600 14px/1.3 var(--body); color: var(--deep); background: #ffffffd9; padding: 8px 14px; border-radius: 999px; text-align: center; }
+  .readout button, .readout a { font: inherit; color: #0b62c4; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+
+  /* Sections */
+  section { padding: 76px 0; }
+  .kicker { font: 700 14px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; color: #e8830c; }
+  .title { font-size: clamp(32px, 4.6vw, 52px); margin: 10px 0 14px; color: var(--deep); }
+  .sub { font-size: 18px; max-width: 42em; }
+  .grid { display: grid; gap: 18px; margin-top: 34px; }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .card { background: #fff; border-radius: 24px; padding: 24px; border: 3px solid #bfe3fb; box-shadow: 0 6px 0 #bfe3fb; }
+  .card h3 { font-size: 22px; color: var(--deep); margin-bottom: 8px; }
+  .card img { width: 62px; height: 62px; object-fit: contain; margin-bottom: 10px; filter: drop-shadow(0 4px 4px #0002); }
+  .blue { background: linear-gradient(#2f95e6, #1d79d6); color: #fff; }
+  .blue .title, .blue .kicker { color: #fff; } .blue .kicker { opacity: .85; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-top: 34px; }
+  .stat { background: #ffffff22; border: 2px solid #ffffff66; border-radius: 20px; padding: 18px; text-align: center; }
+  .stat b { display: block; font: 700 42px/1 var(--display); color: #ffe45c; text-shadow: 0 3px 0 #0b3a6e66; }
+  .stat span { font-weight: 600; font-size: 15px; }
+  .steps { counter-reset: s; display: grid; gap: 14px; margin-top: 34px; }
+  .step { counter-increment: s; display: grid; grid-template-columns: 64px 1fr; gap: 18px; align-items: start; background: #fff; border-radius: 24px; padding: 22px;
+    border: 3px solid #ffe2a8; box-shadow: 0 6px 0 #ffe2a8; }
+  .step::before { content: counter(s); display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; font: 700 30px/1 var(--display); color: #fff;
+    background: linear-gradient(#ffd84a, #ff9d1a); border: 3px solid #e8830c; text-shadow: 0 2px 0 #e8830c; }
+  .step h3 { font-size: 22px; color: var(--deep); margin-bottom: 6px; }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 34px; }
+  ul.ticks { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 10px; }
+  ul.ticks li { padding-left: 34px; position: relative; }
+  ul.ticks li::before { content: '✓'; position: absolute; left: 0; top: 1px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+    font: 700 14px/1 var(--display); color: #fff; background: var(--leaf); }
+  .final { text-align: center; background: linear-gradient(#4fc0f7, #2f95e6); color: #fff; position: relative; overflow: hidden; }
+  .final .title { color: #fff; } .final .sub { margin-inline: auto; } .final .cta { justify-content: center; }
+  .final img { width: 150px; margin-bottom: 8px; filter: drop-shadow(0 8px 8px #0003); animation: bob 4s ease-in-out infinite; }
+  footer { background: var(--deep); color: #cfe6fa; padding: 26px 0; font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: space-between; }
+  footer a { color: #fff; }
+  :focus-visible { outline: 3px solid #ffe45c; outline-offset: 3px; }
+
+  @media (max-width: 900px) {
+    .hero { padding-top: 84px; } .hero .wrap { grid-template-columns: 1fr; } .hero .copy { text-align: center; } .lede { margin-inline: auto; } .cta { justify-content: center; }
+    .floaty { display: none; } .top nav a:not(.keep) { display: none; } section { padding: 56px 0; }
+    .step { grid-template-columns: 48px 1fr; gap: 14px; } .step::before { width: 48px; height: 48px; font-size: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#play">Skip to the game</a>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html" aria-label="Remi Couture résumé">remi couture ✳</a>
+  <nav aria-label="Site"><a href="../portfolio.html">Portfolio</a><a href="../services.html">Work &amp; services</a><a class="keep" href="#contact">Let’s talk ↗</a></nav>
+</div></header>
+
+<main>
+<section class="hero" id="top">
+  <span class="floaty" style="left:40%;top:9%;width:58px;animation-delay:-2s;background-image:url(game/st-donut.webp)"></span>
+  <span class="floaty" style="left:1.5%;bottom:9%;width:64px;animation-delay:-3.4s;background-image:url(game/st-shell.webp)"></span>
+  <span class="floaty" style="left:43%;bottom:6%;width:66px;animation-delay:-1.2s;background-image:url(game/st-crab.webp)"></span>
+  <div class="wrap">
+    <div class="copy">
+      <span class="eyebrow">Playable pitch · mobile mini game</span>
+      <h1 class="logo" aria-label="Tropic Tumble"><span class="a">Tropic</span><span class="b">Tumble</span></h1>
+      <h2>A complete mini game. Play it right here.</h2>
+      <p class="lede">Tropic Tumble is a drag-to-match beach game I designed and built end to end: the rules, the interface, the game feel and the code. Pick a device, play a level, then picture your brand in it.</p>
+      <div class="cta">
+        <a class="btn" href="#play">Play now ›</a>
+        <a class="btn blue" href="#contact">Build one with me</a>
+      </div>
+    </div>
+
+    <div class="demo" id="play">
+      <div class="stage" id="stage">
+        <div class="device" id="device">
+          <div class="screen" id="screen">
+            <div class="status" id="status"><span>9:41</span><i aria-hidden="true"></i></div>
+            <div class="cut" id="cut"></div>
+            <iframe id="game" src="game/index.html" title="Tropic Tumble, playable game" allow="vibrate" loading="eager"></iframe>
+          </div>
+          <div class="home" id="home" hidden></div>
+        </div>
+      </div>
+      <div class="picker" id="picker" role="group" aria-label="Choose a device"></div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker">Made for devices</p>
+    <h2 class="title">One build, every screen</h2>
+    <p class="sub">Switch devices above and the game re-lays itself out live: the pile gets taller or wider, stickers resize, and the art stays anchored. Nothing is a screenshot. It is the same build your players would get.</p>
+    <div class="grid g3">
+      <div class="card"><img src="game/st-pan.webp" alt=""><h3>Fits what it is given</h3><p>Small phones, tall phones and tablets share one layout that measures its space and adapts, including while you are playing.</p></div>
+      <div class="card"><img src="game/st-bee.webp" alt=""><h3>Touch first</h3><p>Drag, drop and tap are built on pointer input, so it plays the same with a thumb, a stylus or a mouse, with haptic taps on phones that support them.</p></div>
+      <div class="card"><img src="game/st-coconut.webp" alt=""><h3>Light and instant</h3><p>About 3 MB including all the art, no install and no engine download. A loading screen preloads every image before the first sticker drops.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="blue">
+  <div class="wrap">
+    <p class="kicker">What is in the build</p>
+    <h2 class="title">Small game, finished systems</h2>
+    <p class="sub">A mini game only earns its place in an app when the loop is complete. Everything below is wired and working in the build above.</p>
+    <div class="stats">
+      <div class="stat"><b>17</b><span>sticker designs across 4 packs</span></div>
+      <div class="stat"><b>5</b><span>bonus types for quick, clean play</span></div>
+      <div class="stat"><b>0</b><span>engines or libraries: one hand-written file</span></div>
+      <div class="stat"><b>5</b><span>device sizes on this page</span></div>
+    </div>
+    <div class="two">
+      <div>
+        <ul class="ticks">
+          <li><strong>A physics pile.</strong> Stickers fall, stack and settle with a custom solver tuned to feel soft and readable.</li>
+          <li><strong>Drag to match.</strong> Find the twin, drop one on the other, and both fly to their pack. A wrong drop gets a wobble, not a penalty.</li>
+          <li><strong>Bonuses.</strong> Combo, Super Combo, Streak, Chain Bonus and Match Rush pay out energy or gems for skilled play.</li>
+          <li><strong>Levels and saving.</strong> Progress, pile and currencies persist between visits.</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="ticks">
+          <li><strong>An economy ready to monetise.</strong> Energy with a refill timer and a gem balance. The refill and shop buttons are the hooks where rewarded ads and purchases plug in.</li>
+          <li><strong>Game feel.</strong> Sparkle bursts, confetti, pop-in rewards, a fox that reacts when you tap it, glinting water and sand on the wind.</li>
+          <li><strong>A full interface.</strong> HUD, settings, toasts, level-complete screen and loading screen, all art-driven.</li>
+          <li><strong>Testing tools.</strong> The gear menu can add energy, finish a level or reset the save. Try it.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker">Working with your team</p>
+    <h2 class="title">How I would build yours</h2>
+    <p class="sub">This is the process Tropic Tumble followed. It is designed so your producers, artists and engineers can see and steer the game from the first day.</p>
+    <div class="steps">
+      <div class="step"><div><h3>Start from your reference</h3><p>A game you admire, a brief, or just a brand. I break the loop down into rules we can agree on before anything is drawn.</p></div></div>
+      <div class="step"><div><h3>Playable on a phone first</h3><p>You get a link the whole team can open on their own phones. Tropic Tumble had a first playable the same day it started, and every decision after that was made by playing it.</p></div></div>
+      <div class="step"><div><h3>Your art, dropped in</h3><p>Backgrounds, panels, icons and stickers here were swapped in one piece at a time without touching the game logic. Your artists keep working in their own tools.</p></div></div>
+      <div class="step"><div><h3>Feel, then polish</h3><p>Micro animations, effects and reward moments go in once the loop is fun, and each one is tested on a phone-sized screen before it stays.</p></div></div>
+      <div class="step"><div><h3>Hand-off that fits your pipeline</h3><p>A readable, commented codebase with tuning values in one place. It can ship on the web as is, be wrapped for the app stores, or serve as the spec for a Unity, Godot or Unreal build.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="wrap">
+    <p class="kicker">What I can build for you</p>
+    <h2 class="title">Mini games that fit inside your product</h2>
+    <div class="grid g3">
+      <div class="card"><img src="game/st-icecream.webp" alt=""><h3>Mini games for apps</h3><p>A daily game inside a shopping, loyalty or media app that gives people a reason to come back.</p></div>
+      <div class="card"><img src="game/st-fox.webp" alt=""><h3>Branded games</h3><p>Your characters, products and colours in a loop people already know how to play.</p></div>
+      <div class="card"><img src="game/st-pizza.webp" alt=""><h3>Prototypes for greenlight</h3><p>A playable build your team can judge on a phone, instead of a deck describing one.</p></div>
+      <div class="card"><img src="game/st-palm.webp" alt=""><h3>Playable ads</h3><p>The same light, instant web build, cut down to a thirty-second taste of your game.</p></div>
+      <div class="card"><img src="game/st-cupcake.webp" alt=""><h3>UI, UX and motion</h3><p>Interface design, animation and implementation for a game your team is already making.</p></div>
+      <div class="card"><img src="game/st-fish.webp" alt=""><h3>Extra hands for your team</h3><p>I work alongside your designers and engineers in Unreal Engine, Unity, Godot, PlayCanvas or on the web.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="contact">
+  <div class="wrap">
+    <img src="game/fox.webp" alt="">
+    <p class="kicker" style="color:#fff;opacity:.9">Let’s talk</p>
+    <h2 class="title">Want a mini game like this for your team?</h2>
+    <p class="sub">I’m Remi Couture, a product designer and tool builder with twenty years of shipped credits across games, apps and training products. Tell me what you are making and I will tell you how I would approach it.</p>
+    <div class="cta">
+      <button class="btn" type="button" data-reveal-email>Show my email</button>
+      <a class="btn blue" href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn blue" href="../services.html">Work &amp; services</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 Guillaume (Rémi) Couture. Tropic Tumble is a portfolio prototype.</span>
+  <span><a href="../index.html">Résumé</a> · <a href="../portfolio.html">Portfolio</a> · <a href="game/index.html">Open the game full screen ↗</a></span>
+</div></footer>
+
+<script>
+(() => {
+  // Each device: screen size in CSS points, corner radius, bezel, status bar height, and what interrupts the screen.
+  // "zoom" renders the game at a smaller logical size and scales it up, the way a tablet shows a phone-first game larger.
+  const DEVICES = [
+    { id: 'iphone', name: 'iPhone 15 Pro', w: 393, h: 852, r: 56, bz: 12, bar: 54, cut: 'island' },
+    { id: 'pixel',  name: 'Pixel 8',       w: 412, h: 915, r: 44, bz: 10, bar: 36, cut: 'punch' },
+    { id: 'galaxy', name: 'Galaxy S24',    w: 360, h: 780, r: 36, bz: 9,  bar: 34, cut: 'punch' },
+    { id: 'se',     name: 'iPhone SE',     w: 375, h: 667, r: 0,  bz: 14, bar: 22, cut: 'classic' },
+    { id: 'ipad',   name: 'iPad mini',     w: 744, h: 1133, r: 30, bz: 24, bar: 26, cut: 'none', zoom: 1.5 },
+  ];
+  const $ = (id) => document.getElementById(id);
+  const stage = $('stage'), device = $('device'), screen = $('screen'), game = $('game'), cut = $('cut'), status = $('status'), home = $('home');
+  let current = DEVICES[0];
+
+  function frameSize(d) {
+    const chin = d.cut === 'classic' ? 74 : 0;   // the classic phone has a forehead and a home-button chin
+    return { w: d.w + d.bz * 2, h: d.h + d.bz * 2 + chin * 2, chin };
+  }
+  function fit() {
+    const f = frameSize(current), scale = Math.min(stage.clientWidth / f.w, stage.clientHeight / f.h, 1);
+    device.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    $('readout').innerHTML = `${current.name}: ${current.w} × ${current.h} pt, shown at ${Math.round(scale * 100)}% to fit your screen. `
+      + '<button type="button" id="restart">Restart</button> · <a href="game/index.html">Full screen ↗</a>';
+    $('restart').onclick = () => { game.src = game.src; };
+  }
+  function show(d) {
+    current = d;
+    const f = frameSize(d), zoom = d.zoom || 1;
+    device.style.width = f.w + 'px'; device.style.height = f.h + 'px';
+    device.style.padding = `${d.bz + f.chin}px ${d.bz}px`;
+    device.style.borderRadius = (d.cut === 'classic' ? 48 : d.r + d.bz) + 'px';
+    screen.style.borderRadius = d.r + 'px';
+    status.style.height = d.bar + 'px';
+    status.style.alignItems = d.cut === 'island' ? 'flex-end' : 'center';
+    status.style.paddingBottom = d.cut === 'island' ? '8px' : '0';
+    // the game gets everything under the status bar, at its logical size
+    game.style.top = d.bar + 'px';
+    game.style.width = d.w / zoom + 'px'; game.style.height = (d.h - d.bar) / zoom + 'px';
+    game.style.transform = `scale(${zoom})`;
+    const cuts = { island: 'top:12px;width:112px;height:32px;border-radius:20px', punch: 'top:11px;width:14px;height:14px;border-radius:50%', classic: 'display:none', none: 'display:none' };
+    cut.style.cssText = cuts[d.cut];
+    home.hidden = d.cut !== 'classic';
+    document.querySelectorAll('#picker button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === d.id)));
+    fit();
+  }
+  $('picker').innerHTML = DEVICES.map((d) => `<button type="button" data-id="${d.id}" aria-pressed="false">${d.name}</button>`).join('');
+  $('picker').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (b) show(DEVICES.find((d) => d.id === b.dataset.id));
+  });
+  new ResizeObserver(fit).observe(stage);
+  show(current);
+})();
+</script>
+</body>
+</html>

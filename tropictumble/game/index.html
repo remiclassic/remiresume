@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#4aa8f0">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Tropic Tumble</title>
+<style>
+  @font-face { font-family: Fredoka; font-weight: 700; src: url(fredoka-700.woff2) format('woff2'); font-display: swap; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; touch-action: none; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #dfeefb; font-family: system-ui, sans-serif;
+    user-select: none; -webkit-user-select: none; overscroll-behavior: none; }
+  #app { height: 100dvh; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; background: #f7dfae url(background.webp) center / cover no-repeat; position: relative; }
+
+  #hud { display: flex; align-items: flex-start; justify-content: space-between; padding: 8px 10px 4px; position: relative; min-height: 88px; z-index: 6; }
+  /* Hanging sign: ropes run off the top edge, page name sits on the plaque. */
+  #sign { position: absolute; left: 50%; top: 0; width: 46%; aspect-ratio: 1085 / 425; transform: translateX(-50%);
+    background: url(sign.png) center / 100% 100% no-repeat; pointer-events: none; }
+  /* Gem and energy bars: art is one image each; the number, timer and + button are laid over its slots in %. */
+  #stats { width: 26.5%; display: flex; flex-direction: column; gap: 2px; }
+  .bar { position: relative; container-type: inline-size; background: center / 100% 100% no-repeat; font-weight: 800; }
+  .bar span { position: absolute; display: flex; align-items: center; justify-content: center; white-space: nowrap; }
+  .bar button { position: absolute; border: 0; padding: 0; background: none; border-radius: 50%; }
+  .bar button:active { background: #ffffff66; }
+  #gemsBar { aspect-ratio: 658 / 222; background-image: url(gems.png); color: #1d4f7a; }
+  #gems { left: 31.2%; width: 44.8%; top: 18%; height: 63%; font-size: 15cqw; }
+  #gemsBar button { left: 76.5%; width: 19%; top: 20%; height: 58%; }
+  #energyBar { aspect-ratio: 648 / 312; background-image: url(energy.png); color: #8a4b00; }
+  #energy { left: 31.6%; width: 44%; top: 22.4%; height: 32%; font-size: 15cqw; }
+  #regen { left: 42.4%; width: 36.3%; top: 73%; height: 18.3%; font-size: 9.5cqw; }
+  #energyBar button { left: 75.5%; width: 19%; top: 20%; height: 40%; }
+  #gear { width: 40px; height: 40px; border: 0; border-radius: 12px; padding: 5px; background: linear-gradient(#5cc6ff, #1e8ff0);
+    box-shadow: inset 0 2px 1px #ffffff99, inset 0 -3px 1px #0b6dd0, 0 2px 4px #0005; }
+  #gear svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 1.5px 0 #0b6dd088); pointer-events: none; }
+  .pill { background: #ffffffd9; border-radius: 999px; padding: 4px 10px; font-weight: 700; color: #1d4f7a; font-size: 14px; }
+  #pageName { position: absolute; left: 0; right: 0; top: 58%; transform: translateY(-50%); text-align: center; font-weight: 800; color: #6b3a12;
+    font-size: 15px; text-shadow: 0 1px 0 #ffffff80; }
+
+  /* Settings menu, 9-sliced. In menu-panel.webp (1448x1086) the inner corner curves end 260px in from the sides and
+     420/400px from top/bottom, so the slices sit past them: corners never stretch, only the flat edges and centre do.
+     Drawn at 0.15 scale. The slices include the image's transparent margin, so rows are pulled back out over the cream. */
+  #cheats { display: none; position: absolute; top: 26px; left: 2px; width: 66%; z-index: 20; flex-direction: column; gap: 4px;
+    border-style: solid; border-width: 63px 39px 60px; border-image: url(menu-panel.webp) 420 260 400 260 fill / 63px 39px 60px stretch;
+    filter: drop-shadow(0 6px 10px #0005); }
+  #cheats.open { display: flex; }
+  #cheats button { width: calc(100% + 34px); margin: 0 -17px; aspect-ratio: 5.06; border: 0; padding: 0 17% 0 9%;
+    background: url(menu-row.webp) center / 114.8% auto no-repeat;
+    font: 700 15px/1 Fredoka, system-ui, sans-serif; color: #2a66a8; text-align: left; white-space: nowrap; }
+  #cheats button:first-child { margin-top: -21px; }
+  #cheats button:last-child { margin-bottom: -18px; }
+  #cheats button:active { background-image: url(menu-row-blue.webp); color: #fff; }
+
+  /* The pile: every sticker is a loose body that falls and stacks. */
+  #pile { flex: 1; position: relative; min-height: 0; clip-path: inset(-400px 0 -40px 0); }  /* no clipping at the floor line or the top; only the side walls clip */
+  .st { position: absolute; left: 0; top: 0; width: var(--d); height: var(--d); margin: calc(var(--d) / -2) 0 0 calc(var(--d) / -2);
+    font-size: calc(var(--d) * .8); line-height: var(--d); text-align: center; pointer-events: none; will-change: transform; }
+  .st.t0 { filter: grayscale(1) contrast(.55) brightness(1.45) drop-shadow(0 0 1px #000) drop-shadow(0 0 1px #000); }
+  .st.t1 { filter: brightness(0); }
+  .st.t2 { filter: drop-shadow(0 2px 2px #0006); }
+  .st.held { z-index: 10; }
+  .st > span { display: block; width: 100%; height: 100%; background: center / contain no-repeat; }
+  .st.pop > span { animation: pop .35s ease-out; }
+  .st.held > span { transform: scale(1.2); }
+  @keyframes pop { 0% { transform: scale(1.8); } }
+  .fly { position: fixed; z-index: 30; pointer-events: none; transform: translate(-50%, -50%); background: center / contain no-repeat; }
+
+  /* Pack panel: the art is one image; buttons, counters and the progress bar are laid over its slots in %. */
+  #tray { position: relative; flex: none; margin: 12px 8px calc(8px + env(safe-area-inset-bottom));  /* the pile's floor sits a gap above the fox's ears, so no sticker goes behind the panel */
+    aspect-ratio: 2000 / 935; background: url(panel.webp) center / 100% 100% no-repeat;
+    container-type: inline-size; z-index: 5; }
+  .pack { position: absolute; top: 51.8%; height: 41.5%; width: 21.65%; border: 0; padding: 0; background: none; border-radius: 22% / 24%; }
+  .pack span.e { position: absolute; left: 8%; right: 8%; top: 3%; height: 72%; background: center / contain no-repeat; }
+  .pack span.n { position: absolute; left: 0; right: 0; top: 75%; height: 20%; display: flex; align-items: center; justify-content: center;
+    font-size: 3.4cqw; font-weight: 800; color: #3b3350; }
+  .pack:active { transform: scale(.94); }
+  .pack.bump { animation: bump .3s ease-out; }
+  .pack.done span.e { opacity: .35; }
+  .pack.done span.n { top: 60%; height: 38%; }
+  .pack.done span.n svg { height: 100%; filter: drop-shadow(0 1px 1px #0004); }
+  .pack.done.bump span.n svg { animation: checkIn .4s cubic-bezier(.3, 1.6, .5, 1); }
+  @keyframes checkIn { 0% { transform: scale(0) rotate(-40deg); } }
+  #bar { position: absolute; left: 33.35%; top: 36.9%; width: 36.65%; height: 9.1%; border-radius: 99px; overflow: hidden; }
+  #bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(#ffe45c, #ffb300); transition: width .3s; }
+  #total { position: absolute; left: 72.6%; top: 36.9%; width: 10.8%; height: 9.1%; display: flex; align-items: center; justify-content: center;
+    font-size: 3.2cqw; font-weight: 800; color: #fff; }
+  @keyframes bump { 0% { transform: scale(1.15); } }
+
+  #toast { position: absolute; left: 50%; top: 42%; transform: translateX(-50%); background: #1d4f7aee; color: #fff; padding: 8px 14px;
+    border-radius: 999px; font-size: 14px; font-weight: 600; opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 25; white-space: nowrap; }
+  #toast.show { opacity: 1; }
+  /* Art toast: the message is drawn in the image, so the text is hidden. */
+  #toast.art { width: 90%; aspect-ratio: 2000 / 667; padding: 0; border-radius: 0; color: transparent;
+    background: center / contain no-repeat; }
+  /* Level-complete screen. Each image has transparent padding, so background-size zooms to its artwork. */
+  #win { display: none; position: absolute; inset: 0; z-index: 40; background: #0b2a4a70; backdrop-filter: blur(3px);
+    align-items: center; justify-content: center; }
+  #win.open { display: flex; }
+  #winBox { position: relative; width: 84%; animation: winIn .45s cubic-bezier(.2, 1.5, .4, 1); }
+  #winBox .sparkles { position: absolute; left: 19%; bottom: calc(100% - 14px); width: 62%; aspect-ratio: 1; pointer-events: none;
+    background: url(win-sparkles.webp) center / contain no-repeat; animation: twinkle 1.6s ease-in-out infinite alternate; }
+  #winCard { position: relative; container-type: inline-size; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 46px 10px 18px;
+    background: #fdf3e3; border: 6px solid #8fd2fb; border-radius: 30px;
+    box-shadow: 0 0 0 3px #3aa2ea, inset 0 0 0 3px #ffffff, 0 12px 30px #0007; }
+  #winCard .popper { position: absolute; top: -50px; left: 0; right: 0; text-align: center; font-size: 72px; line-height: 1; }
+  /* Title and button are drawn as text (the supplied art has "Page" baked in). */
+  #winCard .title { position: relative; z-index: 0; font: 700 12.6cqw/1.25 Fredoka, system-ui, sans-serif; white-space: nowrap; transform: rotate(-2deg); }
+  #winCard .title::before { content: attr(data-t); position: absolute; inset: 0; z-index: -1; color: #b5430b;
+    -webkit-text-stroke: 2.6cqw #b5430b; filter: drop-shadow(0 .6cqw 0 #7a2c05); }
+  #winCard .title span { background: linear-gradient(#fff48a 25%, #ffcf26 55%, #ff9d1a 85%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  #winCard .rewards { width: 88%; aspect-ratio: 4.02; background: url(win-pill.webp) center / 110% auto no-repeat;
+    display: flex; align-items: center; justify-content: space-evenly; padding: 0 4%; }
+  #winCard .rewards i { width: 39%; aspect-ratio: 2.2; background: center / 130% auto no-repeat; }
+  #next { width: 80%; padding: 3.6cqw 0; border: .9cqw solid #0e8f22; border-radius: 999px; background: linear-gradient(#8cf54e, #33cf33 60%, #25b82c);
+    box-shadow: inset 0 1cqw 0 #c4ff9c, inset 0 -1.6cqw 0 #1c9f28, 0 1.4cqw 2cqw #0005;
+    font: 700 8.2cqw/1 Fredoka, system-ui, sans-serif; color: #fff; -webkit-text-stroke: 1.8cqw #0e8f22; paint-order: stroke fill; }
+  #next:active { transform: scale(.95); }
+  @keyframes winIn { 0% { transform: scale(.4); opacity: 0; } }
+  @keyframes twinkle { 0% { opacity: .55; transform: scale(.94) rotate(-3deg); } 100% { opacity: 1; transform: scale(1.04) rotate(3deg); } }
+
+  /* Loading screen: covers the game until every image is in, then fades away. */
+  #loading { position: absolute; inset: 0; z-index: 100; background: #2f9be0 url(loading.webp) center / cover no-repeat;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 8px; padding-bottom: calc(7% + env(safe-area-inset-bottom));
+    transition: opacity .45s, transform .45s; }
+  #loading.done { opacity: 0; transform: scale(1.06); pointer-events: none; }
+  #loadTrack { width: 64%; height: 20px; border-radius: 99px; background: #0b3a6ecc; border: 3px solid #fff; box-shadow: 0 3px 8px #0006; overflow: hidden; }
+  #loadFill { width: 0; height: 100%; border-radius: 99px; background: linear-gradient(#ffe95c, #ffb300); box-shadow: inset 0 2px 0 #fff8; transition: width .25s; }
+  #loadText { font: 700 18px/1 Fredoka, system-ui, sans-serif; color: #fff; -webkit-text-stroke: 4px #0b3a6e; paint-order: stroke fill; }
+
+  /* ---- Micro animations and effects ---- */
+  #gear { transition: transform .35s cubic-bezier(.3, 1.6, .5, 1); }
+  #gear.on { transform: rotate(90deg); }
+  #gear:active { transform: scale(.88); }
+  #gear.on:active { transform: rotate(90deg) scale(.88); }
+  #cheats.open { animation: menuIn .22s cubic-bezier(.2, 1.4, .4, 1); transform-origin: 10% 8%; }
+  #cheats.open button { animation: rowIn .28s both; }
+  #cheats.open button:nth-child(2) { animation-delay: .05s; }
+  #cheats.open button:nth-child(3) { animation-delay: .1s; }
+  #sign { animation: sway 4.5s ease-in-out infinite; transform-origin: 50% 0; }
+  .bar { transition: transform .1s; }
+  .bar:active { transform: scale(.92); }
+  .bar.boing { animation: boing .45s cubic-bezier(.3, 1.5, .5, 1); }
+  .popnum { animation: numPop .3s ease-out; }
+  .st > span { transition: transform .12s; }
+  .st.shake > span { animation: shake .32s; }
+  .pack span.e { transition: transform .1s; }
+  .pack:active span.e { transform: scale(1.12) rotate(-6deg); }
+  #bar i { position: relative; overflow: hidden; }
+  #bar i::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 35%, #ffffffb0 50%, transparent 65%);
+    transform: translateX(-100%); animation: shine 2.8s ease-in-out infinite; }
+  #toast.show { animation: toastIn .3s cubic-bezier(.2, 1.5, .4, 1); }
+  #win { overflow: hidden; }
+  #winCard .popper { animation: popper 1.2s ease-in-out infinite alternate; }
+  #next { animation: pulse 1.1s ease-in-out infinite alternate; }
+  .spark { position: fixed; z-index: 31; pointer-events: none;
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); }
+  .float { position: fixed; z-index: 32; pointer-events: none; transform: translate(-50%, -50%); white-space: nowrap;
+    font: 700 24px/1 Fredoka, system-ui, sans-serif; color: #fff; -webkit-text-stroke: 5px #e8830c; paint-order: stroke fill; }
+  .confetti { position: absolute; top: -20px; width: 9px; height: 14px; border-radius: 2px; pointer-events: none; }
+  /* Fox: its own cut-out layered exactly over the fox in panel.webp. Animations only ever scale it up, so the one underneath never shows. */
+  #trayInner { display: contents; }
+  #fox { position: absolute; left: 7.5%; top: 0; width: 27%; height: 45.99%; z-index: 1; background: url(fox.webp) center / 100% 100% no-repeat;
+    transform-origin: 50% 100%; animation: breathe 3.2s ease-in-out infinite; }
+  #fox.hop { animation: foxHop .65s cubic-bezier(.3, 1.4, .5, 1); }
+  .float.heart { color: #ff5c8a; -webkit-text-stroke: 4px #fff; font-size: 24px; }
+  @keyframes breathe { 50% { transform: scale(1.02, 1.045); } }
+  @keyframes foxHop { 0% { transform: scale(1); } 18% { transform: scale(1.18, 1.02); } 45% { transform: scale(1.05, 1.26) rotate(-3deg); }
+    70% { transform: scale(1.15, 1.05) rotate(2.5deg); } 100% { transform: scale(1); } }
+
+  /* Bonus callouts sit in the panel's bump above the progress bar; the blue paw plate fills that spot when nothing is showing. */
+  #idlePlate { position: absolute; left: 35.7%; top: 15.2%; width: 33.6%; aspect-ratio: 3.51; pointer-events: none;
+    background: url(call-idle.webp) center / 100% 100% no-repeat; transition: opacity .2s, transform .25s cubic-bezier(.3, 1.6, .5, 1); }
+  #tray.calling #idlePlate { opacity: 0; transform: scale(.7); }
+  #callout { position: absolute; left: 52.5%; top: 25%; width: 80%; aspect-ratio: 4.9; z-index: 3; pointer-events: none; opacity: 0;
+    transform: translate(-50%, -50%) scale(0); background: center / contain no-repeat; filter: drop-shadow(0 3px 4px #0005); }
+  #callout.show { animation: callIn 1.6s both; }
+  @keyframes callIn { 0% { transform: translate(-50%, -50%) scale(0) rotate(-8deg); opacity: 0; }
+    12% { transform: translate(-50%, -64%) scale(1.18) rotate(2deg); opacity: 1; } 20% { transform: translate(-50%, -60%) scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: translate(-50%, -60%) scale(1.04) rotate(-1deg); opacity: 1; } 82% { transform: translate(-50%, -60%) scale(1) rotate(0deg); opacity: 1; }
+    100% { transform: translate(-50%, -95%) scale(.85); opacity: 0; } }
+
+  /* Ambient background life: positions are computed in JS from where things sit in background.webp. */
+  #fxBg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+  #water { position: absolute; left: 0; right: 0; overflow: hidden; }
+  #water::before { content: ''; position: absolute; inset: 0 -70px; mix-blend-mode: soft-light;
+    background: repeating-linear-gradient(95deg, transparent 0 22px, #ffffff66 26px 30px, transparent 34px 60px);
+    -webkit-mask-image: linear-gradient(transparent, #000 30%, #000 70%, transparent); mask-image: linear-gradient(transparent, #000 30%, #000 70%, transparent);
+    animation: shimmer 5s linear infinite; }
+  .glint { position: absolute; height: 2.5px; border-radius: 50%; background: #fff; box-shadow: 0 0 4px #fff; animation: glint ease-in-out infinite; }
+  .tw { position: absolute; background: radial-gradient(#fff 25%, #fff3a8 55%, #ffd95a); animation: twinkle ease-in-out infinite;
+    clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); }
+  .tw.w { background: #fff; }
+  .gust { position: absolute; left: 0; height: 3px; border-radius: 99px; filter: blur(.5px);
+    background: linear-gradient(90deg, transparent, #fff6dc 35%, #fffaf0 60%, transparent); box-shadow: 16px 7px 0 -1px #fff3d680, -10px -6px 0 -1px #fff3d655; }
+  .grain { position: absolute; left: 0; width: 3px; height: 3px; border-radius: 50%; background: #fff1cf; }
+  .grain.d { background: #e3bd82; }
+  @keyframes shimmer { 100% { transform: translateX(60.2px); } }
+  @keyframes glint { 0%, 100% { opacity: 0; transform: translate(-50%, -50%) scaleX(.3); } 50% { opacity: .95; transform: translate(-50%, -50%) scaleX(1); } }
+  @keyframes twinkle { 0%, 100% { transform: translate(-50%, -50%) scale(.45) rotate(0deg); opacity: .35; }
+    50% { transform: translate(-50%, -50%) scale(1.25) rotate(25deg); opacity: 1; } }
+  @keyframes boing { 0% { transform: scale(.88); } 45% { transform: scale(1.1) rotate(-2.5deg); } 75% { transform: scale(.98) rotate(1deg); } }
+  @keyframes menuIn { 0% { transform: scale(.6); opacity: 0; } }
+  @keyframes rowIn { 0% { transform: translateX(-16px); opacity: 0; } }
+  @keyframes sway { 0%, 100% { transform: translateX(-50%) rotate(-1.6deg); } 50% { transform: translateX(-50%) rotate(1.6deg); } }
+  @keyframes numPop { 0% { transform: scale(1.5); } }
+  @keyframes shake { 20% { transform: translateX(-6px) rotate(-10deg); } 50% { transform: translateX(6px) rotate(10deg); } 80% { transform: translateX(-3px) rotate(-5deg); } }
+  @keyframes shine { 0%, 55% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+  @keyframes toastIn { 0% { transform: translateX(-50%) scale(.6); } }
+  @keyframes popper { 0% { transform: rotate(-8deg) scale(1); } 100% { transform: rotate(8deg) scale(1.1); } }
+  @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+  @media (prefers-reduced-motion: reduce) { #fox, #water::before, .glint, .tw, #sign, #bar i::after, #next, #winCard .popper { animation: none; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="loading"><div id="loadText">Loading…</div><div id="loadTrack"><div id="loadFill"></div></div></div>
+  <div id="fxBg"></div>
+  <div id="hud">
+    <button id="gear" aria-label="Settings"><svg viewBox="0 0 100 100"><g fill="#fff"><circle cx="50" cy="50" r="27"/>
+      <rect id="tooth" x="39" y="12" width="22" height="24" rx="7"/><use href="#tooth" transform="rotate(60 50 50)"/><use href="#tooth" transform="rotate(120 50 50)"/>
+      <use href="#tooth" transform="rotate(180 50 50)"/><use href="#tooth" transform="rotate(240 50 50)"/><use href="#tooth" transform="rotate(300 50 50)"/></g>
+      <circle cx="50" cy="50" r="11" fill="#2a9bf4"/></svg></button>
+    <div id="sign"><div id="pageName"></div></div>
+    <div id="stats">
+      <div class="bar" id="gemsBar"><span id="gems"></span><button data-plus="gems" aria-label="Get gems"></button></div>
+      <div class="bar" id="energyBar"><span id="energy"></span><span id="regen"></span><button data-plus="energy" aria-label="Get energy"></button></div>
+    </div>
+  </div>
+  <div id="cheats">
+    <button data-cheat="energy">⚡ +50 energy</button>
+    <button data-cheat="fill">🏁 Complete level</button>
+    <button data-cheat="reset">🗑️ Reset save</button>
+  </div>
+  <div id="pile"></div>
+  <div id="tray"><div id="trayInner"></div><div id="fox"></div><div id="idlePlate"></div><div id="callout"></div></div>
+  <div id="toast"></div>
+  <div id="win">
+    <div id="winBox">
+      <div class="sparkles"></div>
+      <div id="winCard">
+        <div class="popper">🎉</div>
+        <div class="title" role="heading" data-t="Level complete!"><span>Level complete!</span></div>
+        <div class="rewards"><i style="background-image:url(win-gems.webp)"></i><i style="background-image:url(win-energy.webp)"></i></div>
+        <button id="next">Next level ›</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// ---- Tuning ----
+const PACKS = [
+  { name: 'Foods',   icon: 'pack-foods.webp',   e: ['icecream', 'cupcake', 'donut', 'pizza', 'hotdog'] },
+  { name: 'Animals', icon: 'pack-animals.webp', e: ['fox', 'bee', 'fish', 'crab'] },
+  { name: 'Kitchen', icon: 'pack-kitchen.webp', e: ['pan', 'pancakes', 'cheese', 'pretzel'] },
+  { name: 'Beach',   icon: 'pack-beach.webp',   e: ['watermelon', 'coconut', 'shell', 'palm'] },
+];
+// Every sticker is full colour (tier 2): two identical ones match and fly to their pack.
+const TARGET = 12;                   // stickers to collect per pack, per page
+const START_PAIRS = 24;              // free stickers in the pile at the start of a page (x2)
+const MAX_ENERGY = 100, REGEN_MS = 20000;
+const GRAVITY = 0.45, DAMPING = 0.985, ITERATIONS = 6, OVERLAP = 0.94;
+const art = (b) => `url(st-${PACKS[b.c].e[b.k]}.webp)`;
+// Finished-pack badge: glossy green button with a white tick, drawn to match the supplied checkmark art.
+const CHECK = '<svg viewBox="0 0 100 100"><defs><radialGradient id="ckg" cx="35%" cy="25%" r="80%"><stop offset="0" stop-color="#9dff4a"/>'
+  + '<stop offset=".55" stop-color="#3fd83a"/><stop offset="1" stop-color="#1fb648"/></radialGradient></defs>'
+  + '<circle cx="50" cy="50" r="46" fill="url(#ckg)" stroke="#149a3c" stroke-width="4"/>'
+  + '<ellipse cx="33" cy="24" rx="16" ry="6" fill="#fff" opacity=".55" transform="rotate(-28 33 24)"/>'
+  + '<path d="M30 53 L45 68 L72 38" fill="none" stroke="#0f9a35" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>'
+  + '<path d="M30 53 L45 68 L72 38" fill="none" stroke="#fff" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const PACK_LEFT = [4.75, 27.65, 50.5, 73.4];   // left edge of each card slot in panel.webp, in %
+const SAVE_KEY = 'stickermerge.v3';
+
+// ---- State ----
+const $ = (id) => document.getElementById(id);
+const pile = $('pile');
+let W = 0, H = 0, R = 26, nextId = 1;
+const els = new Map();               // body id -> DOM element
+const fresh = () => ({ page: 1, gems: 0, energy: MAX_ENERGY, energyTs: Date.now(), counts: PACKS.map(() => 0), bodies: null });
+let state = load();
+let bodies = [];
+
+function load() {
+  try {
+    const s = JSON.parse(localStorage.getItem(SAVE_KEY));
+    if (s && Array.isArray(s.counts) && s.counts.length === PACKS.length) return s;
+  } catch {}
+  return fresh();
+}
+function save() {
+  state.bodies = bodies.map(({ c, k, t, x, y, rot }) => ({ c, k, t, x: Math.round(x), y: Math.round(y), rot: Math.round(rot) }));
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch {}
+}
+
+const sameKind = (a, b) => a.c === b.c && a.k === b.k && a.t === b.t;
+const packDone = (c) => state.counts[c] >= TARGET;
+const capacity = () => Math.floor(W * H * 0.62 / (Math.PI * R * R));
+
+function measure() {
+  W = pile.clientWidth; H = pile.clientHeight;
+  R = Math.max(20, Math.min(W / 13.5, 34));
+  pile.style.setProperty('--d', 2 * R + 'px');
+  layoutBg();
+}
+
+// ---- Bodies ----
+function addBody(c, k, t, x, y, rot) {
+  const b = { id: nextId++, c, k, t, x, y, px: x, py: y, rot: rot ?? (Math.random() - 0.5) * 60 };
+  const el = document.createElement('div');
+  el.innerHTML = `<span style="background-image:${art(b)}"></span>`;
+  pile.appendChild(el); els.set(b.id, el);
+  bodies.push(b); setTier(b);
+  return b;
+}
+function setTier(b, pop) { els.get(b.id).className = 'st t' + b.t + (pop ? ' pop' : ''); }
+function removeBody(b) { els.get(b.id)?.remove(); els.delete(b.id); bodies = bodies.filter((o) => o !== b); }
+function clearBodies() { bodies.forEach((b) => els.get(b.id)?.remove()); els.clear(); bodies = []; }
+// New stickers drop in from above the top edge.
+function dropIn(c, k, t, delay = 0) { return addBody(c, k, t, R + Math.random() * (W - 2 * R), -R - delay * R * 2.2 - Math.random() * R); }
+function randomTier() { return 2; }
+
+function seedPile() {
+  clearBodies();
+  for (let i = 0; i < START_PAIRS; i++) {
+    const c = i % PACKS.length, k = Math.floor(Math.random() * PACKS[c].e.length), t = randomTier();
+    dropIn(c, k, t, i * 0.5); dropIn(c, k, t, i * 0.5 + 0.25);   // always in pairs, so there is always a move
+  }
+}
+
+// ---- Physics: circles, gravity, walls. Fixed 60 Hz step so it plays the same on any screen. ----
+function step() {
+  const held = drag?.b;
+  for (const b of bodies) {
+    if (b === held) continue;
+    let vx = (b.x - b.px) * DAMPING, vy = (b.y - b.py) * DAMPING + GRAVITY;
+    const max = R * 0.8, sp = Math.hypot(vx, vy);
+    if (sp > max) { vx *= max / sp; vy *= max / sp; }
+    b.px = b.x; b.py = b.y; b.x += vx; b.y += vy;
+    if (Math.abs(vx) > 0.25) b.rot += vx * 1.2;
+  }
+  const min = 2 * R * OVERLAP;
+  for (let it = 0; it < ITERATIONS; it++) {
+    for (let i = 0; i < bodies.length; i++) {
+      const a = bodies[i];
+      if (a !== held) for (let j = i + 1; j < bodies.length; j++) {
+        const b = bodies[j];
+        if (b === held) continue;
+        let dx = b.x - a.x;
+        // Perfectly stacked circles balance forever; lean the upper one toward the middle so columns topple.
+        if (Math.abs(dx) < 1) { const up = a.y < b.y ? a : b, s = up.x > W / 2 ? -1 : 1; dx = up === b ? s : -s; }
+        const dy = b.y - a.y, d2 = dx * dx + dy * dy;
+        if (d2 >= min * min) continue;
+        const d = Math.sqrt(d2) || 0.01, push = (min - d) / 2, nx = dx / d, ny = dy / d;
+        a.x -= nx * push; a.y -= ny * push; b.x += nx * push; b.y += ny * push;
+      }
+      if (a === held) continue;
+      if (a.x < R) a.x = R; else if (a.x > W - R) a.x = W - R;
+      if (a.y > H - R) { a.y = H - R; a.px = a.x - (a.x - a.px) * 0.7; }   // floor friction
+    }
+  }
+}
+let last = performance.now(), acc = 0;
+function frame(now) {
+  acc += Math.min(100, now - last); last = now;
+  while (acc >= 1000 / 60) { step(); acc -= 1000 / 60; }
+  for (const b of bodies) els.get(b.id).style.transform = `translate(${b.x}px, ${b.y}px) rotate(${b.rot}deg)`;
+  requestAnimationFrame(frame);
+}
+
+// ---- Energy + HUD ----
+function tickEnergy() {
+  const now = Date.now();
+  if (state.energy >= MAX_ENERGY) state.energyTs = now;
+  else while (state.energy < MAX_ENERGY && now - state.energyTs >= REGEN_MS) { state.energy++; state.energyTs += REGEN_MS; }
+  setNum('energy', state.energy);
+  const left = Math.ceil((REGEN_MS - (now - state.energyTs)) / 1000);
+  $('regen').textContent = state.energy >= MAX_ENERGY ? 'FULL' : Math.floor(left / 60) + ':' + String(left % 60).padStart(2, '0');
+}
+function renderHud(bump) {
+  $('pageName').textContent = 'Level ' + state.page;
+  setNum('gems', state.gems);
+  tickEnergy();
+  const got = state.counts.reduce((a, n) => a + Math.min(n, TARGET), 0), all = TARGET * PACKS.length;
+  $('trayInner').innerHTML = PACKS.map((p, c) =>
+    `<button class="pack${packDone(c) ? ' done' : ''}${bump === c ? ' bump' : ''}" data-pack="${c}" style="left:${PACK_LEFT[c]}%" aria-label="${p.name}"><span class="e" style="background-image:url(${p.icon})"></span><span class="n">${packDone(c) ? CHECK : Math.min(state.counts[c], TARGET) + '/' + TARGET}</span></button>`).join('')
+    + `<div id="bar"><i style="width:${got / all * 100}%"></i></div><div id="total">${got}/${all}</div>`;
+}
+let toastTimer;
+function toast(msg, art) {
+  $('toast').textContent = msg; $('toast').classList.toggle('art', !!art); $('toast').style.backgroundImage = art ? `url(${art})` : '';
+  $('toast').classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => $('toast').classList.remove('show'), 1400);
+}
+
+// ---- Effects ----
+const FX_COLORS = ['#ffd84a', '#ffffff', '#ff7ab8', '#6fd3ff', '#8cf54e', '#ffa53a'];
+const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+// Restart a one-shot CSS animation class on an element.
+function fx(el, cls, ms = 400) {
+  if (!el) return;
+  el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls);
+  setTimeout(() => el.classList.remove(cls), ms);
+}
+function setNum(id, v) {
+  const el = $(id), first = el.textContent === '';
+  if (el.textContent === String(v)) return;
+  el.textContent = v; if (!first) fx(el, 'popnum');
+}
+// Star sparkles flying out from a screen point.
+function burst(x, y, n = 10) {
+  for (let i = 0; i < n; i++) {
+    const p = document.createElement('div'), size = 8 + Math.random() * 12;
+    const ang = Math.random() * Math.PI * 2, dist = 28 + Math.random() * 46, ms = 420 + Math.random() * 320;
+    p.className = 'spark'; p.style.cssText = `left:${x}px;top:${y}px;width:${size}px;height:${size}px;background:${pick(FX_COLORS)}`;
+    document.body.appendChild(p);
+    p.animate([{ transform: 'translate(-50%, -50%) scale(1.2) rotate(0deg)', opacity: 1 },
+      { transform: `translate(calc(-50% + ${Math.cos(ang) * dist}px), calc(-50% + ${Math.sin(ang) * dist}px)) scale(0) rotate(180deg)`, opacity: 0.2 }],
+      { duration: ms, easing: 'cubic-bezier(.1, .7, .3, 1)' });
+    setTimeout(() => p.remove(), ms);
+  }
+}
+function floatText(x, y, text) {
+  const f = document.createElement('div');
+  f.className = 'float'; f.textContent = text; f.style.left = x + 'px'; f.style.top = y + 'px';
+  document.body.appendChild(f);
+  f.animate([{ transform: 'translate(-50%, -50%) scale(.4)', opacity: 0 }, { transform: 'translate(-50%, -90%) scale(1.15)', opacity: 1, offset: 0.25 },
+    { transform: 'translate(-50%, -260%) scale(1)', opacity: 0 }], { duration: 800, easing: 'ease-out' });
+  setTimeout(() => f.remove(), 800);
+}
+function confetti(n = 60) {
+  const box = $('win');
+  for (let i = 0; i < n; i++) {
+    const c = document.createElement('div'), ms = 1800 + Math.random() * 1800, delay = Math.random() * 900;
+    c.className = 'confetti'; c.style.left = Math.random() * 100 + '%'; c.style.background = pick(FX_COLORS);
+    box.appendChild(c);
+    c.animate([{ transform: 'translate(0, 0) rotate(0deg)' },
+      { transform: `translate(${(Math.random() - 0.5) * 120}px, ${box.clientHeight + 40}px) rotate(${(Math.random() - 0.5) * 1400}deg)` }],
+      { duration: ms, delay, easing: 'cubic-bezier(.3, .2, .6, 1)', fill: 'backwards' });
+    setTimeout(() => c.remove(), ms + delay);
+  }
+}
+
+// ---- Ambient background: water glints, twinkling stars, sand in the wind ----
+const BG_W = 941, BG_H = 1672;                       // background.webp size; everything below is in its pixels
+const BG_STARS = [[155, 428, 46], [200, 485, 26], [885, 565, 40], [852, 607, 22], [47, 780, 40], [58, 835, 22], [893, 1012, 40], [858, 985, 20]];
+const BG_WATER = [225, 365], BG_SAND = [430, 1300];  // top/bottom of the sea band and of the open sand
+let sandZone = [0, 0];
+const rnd = (a, b) => a + Math.random() * (b - a);
+function layoutBg() {
+  // Same maths as "background-size: cover", so overlays land on the painted stars and sea at any screen size.
+  const w = $('app').clientWidth, h = $('app').clientHeight, k = Math.max(w / BG_W, h / BG_H);
+  const ox = (w - BG_W * k) / 2, oy = (h - BG_H * k) / 2;
+  const timing = (a, b) => `animation-duration:${rnd(a, b)}s;animation-delay:${-rnd(0, 3)}s`;
+  let html = '';
+  for (const [x, y, size] of BG_STARS) {
+    html += `<i class="tw" style="left:${ox + x * k}px;top:${oy + y * k}px;width:${size * k * 1.3}px;height:${size * k * 1.3}px;${timing(1.6, 3.4)}"></i>`;
+  }
+  html += `<div id="water" style="top:${oy + BG_WATER[0] * k}px;height:${(BG_WATER[1] - BG_WATER[0]) * k}px">`;
+  for (let i = 0; i < 18; i++) {
+    const depth = Math.random();                     // 0 = horizon (small glints), 1 = shoreline (bigger)
+    html += `<i class="glint" style="left:${rnd(4, 96)}%;top:${depth * 100}%;width:${6 + depth * 14}px;${timing(1.4, 3.6)}"></i>`;
+  }
+  for (let i = 0; i < 5; i++) {
+    const size = rnd(7, 14);
+    html += `<i class="tw w" style="left:${rnd(8, 92)}%;top:${rnd(15, 90)}%;width:${size}px;height:${size}px;${timing(1.2, 2.8)}"></i>`;
+  }
+  $('fxBg').innerHTML = html + '</div>';
+  sandZone = [oy + BG_SAND[0] * k, oy + BG_SAND[1] * k];
+}
+// One gust: a soft wisp of sand with a few grains tumbling along with it, left to right.
+function sandGust() {
+  if (document.hidden || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const box = $('fxBg'), w = box.clientWidth, y = rnd(sandZone[0], sandZone[1]), lift = rnd(-22, 22);
+  const send = (el, len, ms, delay, dy) => {
+    box.appendChild(el);
+    el.animate([{ transform: `translate(${-len}px, ${dy}px)`, opacity: 0 }, { opacity: 0.8, offset: 0.25 },
+      { transform: `translate(${w * 0.55}px, ${dy + lift * 0.4}px)`, opacity: 0.65, offset: 0.6 },
+      { transform: `translate(${w + len}px, ${dy + lift}px)`, opacity: 0 }], { duration: ms, delay, easing: 'ease-in-out', fill: 'backwards' });
+    setTimeout(() => el.remove(), ms + delay);
+  };
+  const wisp = document.createElement('i'), len = rnd(50, 140), ms = rnd(2600, 4400);
+  wisp.className = 'gust'; wisp.style.top = y + 'px'; wisp.style.width = len + 'px';
+  send(wisp, len, ms, 0, 0);
+  for (let i = 0, n = 3 + Math.floor(Math.random() * 3); i < n; i++) {
+    const g = document.createElement('i');
+    g.className = 'grain' + (Math.random() < 0.5 ? ' d' : ''); g.style.top = y + 'px';
+    send(g, 6, ms * rnd(0.8, 1.1), rnd(0, 500), rnd(-12, 12));
+  }
+}
+setInterval(sandGust, 850);
+
+// Fox: tap for a happy hop and a few hearts.
+function hearts(x, y) {
+  for (let i = 0; i < 4; i++) {
+    const f = document.createElement('div'), ms = rnd(750, 1050), dx = rnd(-34, 34);
+    f.className = 'float heart'; f.textContent = '\u2665'; f.style.left = x + 'px'; f.style.top = y + 'px';
+    document.body.appendChild(f);
+    f.animate([{ transform: 'translate(-50%, -50%) scale(.3)', opacity: 0 }, { opacity: 1, offset: 0.2 },
+      { transform: `translate(calc(-50% + ${dx}px), -${rnd(70, 120)}px) scale(${rnd(0.9, 1.4)}) rotate(${dx / 2}deg)`, opacity: 0 }],
+      { duration: ms, delay: i * 70, easing: 'ease-out', fill: 'backwards' });
+    setTimeout(() => f.remove(), ms + i * 70);
+  }
+}
+$('fox').addEventListener('click', () => {
+  const r = $('fox').getBoundingClientRect();
+  fx($('fox'), 'hop', 650); hearts(r.left + r.width / 2, r.top + r.height * 0.25); navigator.vibrate?.(20);
+});
+
+// ---- Bonuses: reward quick, clean and same-pack matching ----
+const COMBO_MS = 3500;               // a match this soon after the last one continues the combo
+const RUSH_MS = 10000, RUSH_N = 5;   // Match Rush: this many matches inside this window
+const BONUSES = {
+  super:  { img: 'call-super.webp',  gems: 5 },    // 6 quick matches in a row (and every 3 more)
+  combo:  { img: 'call-combo.webp',  energy: 3 },  // 3 quick matches in a row
+  rush:   { img: 'call-rush.webp',   energy: 5 },  // 5 matches in 10 seconds
+  chain:  { img: 'call-chain.webp',  gems: 3 },    // 3 matches in a row from the same pack
+  streak: { img: 'call-streak.webp', energy: 2 },  // 3 matches in a row without a wrong drop
+};
+const run = { combo: 0, lastAt: 0, streak: 0, chain: 0, chainPack: -1, times: [] };
+const callQueue = [];
+let calling = false;
+
+function onMatch(c) {
+  const now = performance.now(), hits = [];
+  run.combo = now - run.lastAt < COMBO_MS ? run.combo + 1 : 1; run.lastAt = now;
+  run.streak++;
+  run.chain = c === run.chainPack ? run.chain + 1 : 1; run.chainPack = c;
+  run.times = run.times.filter((t) => now - t < RUSH_MS); run.times.push(now);
+  if (run.combo >= 6 && run.combo % 3 === 0) hits.push('super'); else if (run.combo === 3) hits.push('combo');
+  if (run.times.length >= RUSH_N) { hits.push('rush'); run.times = []; }
+  if (run.chain === 3) hits.push('chain');
+  if (run.streak === 3 && !hits.length) hits.push('streak');   // the quiet one: only when nothing bigger fired
+  for (const h of hits) if (callQueue.length < 2) callQueue.push(h);
+  if (!calling) nextCall();
+}
+function onMiss() { run.streak = 0; run.combo = 0; }
+
+function nextCall() {
+  const key = callQueue.shift(), tray = $('tray'), el = $('callout');
+  if (!key) { calling = false; tray.classList.remove('calling'); return; }
+  const b = BONUSES[key];
+  calling = true; tray.classList.add('calling');
+  el.style.backgroundImage = `url(${b.img})`; fx(el, 'show', 1600);
+  // pay the bonus where the player is looking
+  const r = el.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top - 6;
+  if (b.energy) { state.energy = Math.min(MAX_ENERGY, state.energy + b.energy); tickEnergy(); }
+  if (b.gems) { state.gems += b.gems; setNum('gems', state.gems); }
+  setTimeout(() => { burst(x, y + r.height / 2, 12); floatText(x, y, b.energy ? `+${b.energy} energy` : `+${b.gems} gems`); }, 250);
+  navigator.vibrate?.([20, 40, 20]); save();
+  setTimeout(nextCall, 1600);
+}
+
+// ---- Actions ----
+function spawn(c) {
+  if (packDone(c)) return toast(PACKS[c].name + ' is finished');
+  if (bodies.length >= capacity()) return toast('Too full: match some stickers first');
+  if (state.energy < 1) return toast('Out of energy');
+  state.energy--;
+  // Finish an unpaired sticker of this pack if there is one, so every drop can be matched.
+  const odd = PACKS[c].e.map((_, k) => k).filter((k) => bodies.filter((b) => b.c === c && b.k === k).length % 2);
+  const nb = dropIn(c, odd.length ? odd[Math.floor(Math.random() * odd.length)] : Math.floor(Math.random() * PACKS[c].e.length), randomTier());
+  burst(pile.getBoundingClientRect().left + nb.x, pile.getBoundingClientRect().top + 8, 4);
+  tickEnergy(); save();
+}
+
+// Nearest identical sticker close enough to the held one to merge with.
+function mergeTarget(a) {
+  let best = null, bestD = R * 2.2;
+  for (const b of bodies) {
+    if (b === a || !sameKind(a, b)) continue;
+    const d = Math.hypot(b.x - a.x, b.y - a.y);
+    if (d < bestD) { bestD = d; best = b; }
+  }
+  return best;
+}
+
+function merge(a, b) {
+  navigator.vibrate?.(15);
+  if (a.t < 2) {                     // outline -> silhouette -> colour
+    removeBody(a); b.t++; setTier(b, true);
+    return save();
+  }
+  // Two colour stickers: both fly down into their pack.
+  const pr = pile.getBoundingClientRect(), mx = pr.left + (a.x + b.x) / 2, my = pr.top + (a.y + b.y) / 2;
+  burst(mx, my, 14); floatText(mx, my - R, '+1');
+  const c = a.c;
+  flyToPack(a); flyToPack(b); removeBody(a); removeBody(b);
+  state.counts[c]++; onMatch(c);
+  if (packDone(c)) bodies.filter((o) => o.c === c).forEach((o) => { flyToPack(o); removeBody(o); });
+  renderHud(c); save();
+  if (state.counts.every((n) => n >= TARGET)) setTimeout(win, 600);
+}
+
+function flyToPack(b) {
+  const from = pile.getBoundingClientRect(), to = document.querySelector(`[data-pack="${b.c}"]`).getBoundingClientRect();
+  const f = document.createElement('div');
+  f.className = 'fly'; f.style.backgroundImage = art(b); f.style.width = f.style.height = R * 2 + 'px';
+  const x0 = from.left + b.x, y0 = from.top + b.y, x1 = to.left + to.width / 2, y1 = to.top + to.height / 2;
+  f.style.left = x0 + 'px'; f.style.top = y0 + 'px';
+  document.body.appendChild(f);
+  f.animate([{ left: x0 + 'px', top: y0 + 'px', opacity: 1, transform: 'translate(-50%, -50%) scale(1.3) rotate(0deg)' }, { left: x1 + 'px', top: y1 + 'px', opacity: 0.8, transform: 'translate(-50%, -50%) scale(.45) rotate(360deg)' }],
+    { duration: 380, easing: 'ease-in' });
+  setTimeout(() => { f.remove(); burst(x1, y1, 5); }, 380);
+}
+
+function win() {
+  if ($('win').classList.contains('open')) return;
+  state.gems += 50; state.energy = Math.min(MAX_ENERGY, state.energy + 20);
+  renderHud(); save(); $('win').classList.add('open'); confetti();
+}
+$('next').onclick = () => {
+  state.page++; state.counts = PACKS.map(() => 0);
+  seedPile(); $('win').classList.remove('open'); renderHud(); save();
+};
+
+// ---- Input: tap a pack to drop stickers, drag a sticker onto an identical one ----
+$('tray').addEventListener('click', (e) => { const b = e.target.closest('[data-pack]'); if (b) spawn(+b.dataset.pack); });
+
+let drag = null;
+function local(e) { const r = pile.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+pile.addEventListener('pointerdown', (e) => {
+  if (drag) return;
+  const p = local(e);
+  let hit = null, hitD = R * 1.25;
+  for (const b of bodies) { const d = Math.hypot(b.x - p.x, b.y - p.y); if (d < hitD) { hitD = d; hit = b; } }
+  if (!hit) return;
+  e.preventDefault();
+  try { pile.setPointerCapture(e.pointerId); } catch {}
+  drag = { b: hit, id: e.pointerId, ox: hit.x - p.x, oy: hit.y - p.y, x0: hit.x, y0: hit.y };
+  els.get(hit.id).classList.add('held');
+});
+pile.addEventListener('pointermove', (e) => {
+  if (!drag || e.pointerId !== drag.id) return;
+  const p = local(e), b = drag.b;
+  b.x = b.px = Math.max(R, Math.min(W - R, p.x + drag.ox));
+  b.y = b.py = Math.max(R, Math.min(H - R, p.y + drag.oy));
+});
+function endDrag(e) {
+  if (!drag || e.pointerId !== drag.id) return;
+  // A match needs a real drag: a tap on a sticker that happens to touch its twin does nothing.
+  const b = drag.b, dragged = Math.hypot(b.x - drag.x0, b.y - drag.y0) > R * 0.5;
+  const t = e.type === 'pointerup' && dragged ? mergeTarget(b) : null;
+  els.get(b.id)?.classList.remove('held');
+  drag = null;
+  try { pile.releasePointerCapture(e.pointerId); } catch {}
+  if (t) return merge(b, t);
+  // Dropped on a different sticker: a little "nope" wobble before it falls back into the pile.
+  if (e.type === 'pointerup' && dragged && bodies.some((o) => o !== b && Math.hypot(o.x - b.x, o.y - b.y) < R * 1.5)) { fx(els.get(b.id), 'shake'); onMiss(); }
+  save();
+}
+pile.addEventListener('pointerup', endDrag);
+pile.addEventListener('pointercancel', endDrag);
+
+// + buttons: energy stands in for a rewarded ad, gems for the shop.
+$('stats').addEventListener('click', (e) => {
+  // The whole bar is the button: it squashes under the finger, bounces back and throws a few sparkles from its +.
+  const bar = e.target.closest('.bar');
+  if (!bar) return;
+  const k = bar.id === 'energyBar' ? 'energy' : 'gems', plus = bar.querySelector('button').getBoundingClientRect();
+  fx(bar, 'boing', 450); burst(plus.left + plus.width / 2, plus.top + plus.height / 2, 5);
+  if (k === 'energy') {
+    if (state.energy >= MAX_ENERGY) return toast('Energy is full!', 'toast-energy-full.webp');
+    state.energy = Math.min(MAX_ENERGY, state.energy + 25); tickEnergy(); save(); toast('+25 energy', 'toast-energy-25.webp');
+  }
+  if (k === 'gems') toast('Shop coming soon', 'toast-shop-soon.webp');
+});
+
+// ---- Cheats ----
+function setMenu(open) { $('cheats').classList.toggle('open', open); $('gear').classList.toggle('on', open); }
+$('gear').onclick = () => setMenu(!$('cheats').classList.contains('open'));
+document.addEventListener('pointerdown', (e) => {
+  if ($('cheats').classList.contains('open') && !e.target.closest('#cheats, #gear')) setMenu(false);
+}, true);
+$('cheats').addEventListener('click', (e) => {
+  const k = e.target.closest('[data-cheat]')?.dataset.cheat;
+  if (!k) return;
+  setMenu(false);
+  if (k === 'energy') state.energy = Math.min(MAX_ENERGY, state.energy + 50);
+  if (k === 'fill') { state.counts = PACKS.map(() => TARGET); clearBodies(); return win(); }
+  if (k === 'reset') { state = fresh(); seedPile(); }
+  renderHud(); save();
+});
+
+// ---- Boot ----
+renderHud();                         // tray first, so the pile is measured at its real height
+measure();
+new ResizeObserver(measure).observe(pile);
+// Reopened on a finished level (closed before tapping Next): go straight back to the completed screen, rewards already paid.
+const finished = state.counts.every((n) => n >= TARGET);
+if (finished) $('win').classList.add('open');
+else if (state.bodies?.length) state.bodies.filter((b) => PACKS[b.c]?.e[b.k]).forEach((b) => addBody(b.c, b.k, b.t, b.x, b.y, b.rot)); else seedPile();
+setInterval(() => { tickEnergy(); save(); }, 1000);
+
+// Preload every image behind the loading screen (a failed one still counts, so loading can never hang),
+// keep the screen up for at least a moment, then start the pile.
+const ASSETS = ['background.webp', 'panel.webp', 'fox.webp', 'sign.png', 'gems.png', 'energy.png', 'menu-panel.webp', 'menu-row.webp', 'menu-row-blue.webp',
+  'toast-energy-full.webp', 'toast-energy-25.webp', 'toast-shop-soon.webp', 'win-pill.webp', 'win-gems.webp', 'win-energy.webp', 'win-sparkles.webp', 'call-idle.webp', ...Object.values(BONUSES).map((b) => b.img),
+  ...PACKS.flatMap((p) => [p.icon, ...p.e.map((n) => `st-${n}.webp`)])];
+const MIN_LOAD_MS = 1500, bootAt = performance.now();
+let loaded = 0;
+function assetDone() {
+  loaded++;
+  $('loadFill').style.width = loaded / ASSETS.length * 100 + '%';
+  if (loaded < ASSETS.length) return;
+  setTimeout(() => {
+    $('loading').classList.add('done');
+    setTimeout(() => $('loading').remove(), 500);
+    last = performance.now(); requestAnimationFrame(frame);
+  }, Math.max(300, MIN_LOAD_MS - (performance.now() - bootAt)));
+}
+for (const src of ASSETS) { const img = new Image(); img.onload = img.onerror = assetDone; img.src = src; }
+</script>
+</body>
+</html>
