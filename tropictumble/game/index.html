@@ -559,7 +559,8 @@ const worldOf = (n) => Math.floor((n - 1) / 5) % 8 + 1;   // the map's eight isl
 const ALBUM_TIERS = [10, 30, 75], TIER_NAMES = ['Bronze', 'Silver', 'Gold'], TIER_REWARD = [50, 100, 200], TIER_COLOR = ['#c98a4b', '#aeb9c7', '#f2b705'];
 const CHEST_EVERY = 10, CHEST_GEMS = 30;   // a star chest for every ten stars earned
 // Test tools (add energy, finish level, reset) only appear on a developer's machine or with ?debug in the address.
-const DEBUG = /[?&]debug\b/.test(location.search) || location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|192\.168\.)/.test(location.hostname);
+const IN_APP = !!window.Capacitor?.isNativePlatform?.();
+const DEBUG = /[?&]debug\b/.test(location.search) || (!IN_APP && (location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|192\.168\.)/.test(location.hostname)));
 const ALBUM_GOAL = 10, ALBUM_REWARD = 50, BOOST_COST = 40, CONTINUE_COST = 60, RETRY_COST = 5, DANGER_S = 3.5;
 const WIN_GEMS = 50, WIN_ENERGY = 20, REPLAY_GEMS = 10, AD_ENERGY = 25;
 const MAX_ENERGY = 100, REGEN_MS = 20000;
@@ -578,7 +579,20 @@ const SAVE_KEY = 'stickermerge.v3';
 // ---- Native shell ----
 // Inside the Capacitor app these reach the phone's own features; in a browser every one of them quietly falls back.
 // None of this has run on a device yet.
-const native = window.Capacitor?.isNativePlatform?.() ? window.Capacitor.Plugins : null;
+const plugin = (name) => { try { return window.Capacitor.registerPlugin?.(name) || window.Capacitor.Plugins[name]; } catch { return window.Capacitor.Plugins?.[name]; } };
+const native = IN_APP ? { Haptics: plugin('Haptics'), Preferences: plugin('Preferences'), App: plugin('App'), AdMob: plugin('AdMob'), Purchases: plugin('Purchases') } : null;
+
+// ---- Live services ----
+// Everything that has to be filled in from the AdMob, RevenueCat and Play Console accounts lives here.
+const CONFIG = {
+  // The real AdMob ad units for Tropic Tumble (the App ID is in AndroidManifest.xml). Set testAds to true to get Google's harmless
+  // test ads while developing: tapping your own real ads can get the AdMob account suspended.
+  admob: { rewarded: 'ca-app-pub-9517936422349403/1814093703', interstitial: 'ca-app-pub-9517936422349403/3659684538', testAds: false },
+  // RevenueCat public Android key ("goog_..."). While this is empty the shop stays in pretend mode, even in the app.
+  revenuecatAndroidKey: 'goog_xuOxQDyWjpVRLYvjSinimkMwAPE',
+  // Product IDs to create in Play Console, matching the shop's items.
+  productIds: { starter: 'starter_pack', gems1: 'gems_100', gems2: 'gems_300', gems3: 'gems_700', gems4: 'gems_1600', noads: 'remove_ads' },
+};
 function buzz(ms = 15) {
   const n = Array.isArray(ms) ? 40 : ms;
   if (native?.Haptics) native.Haptics.impact({ style: n > 60 ? 'HEAVY' : n > 18 ? 'MEDIUM' : 'LIGHT' }).catch(() => {});
@@ -1204,16 +1218,57 @@ const ads = {
       box.onclick = (e) => { if (e.target.closest('[data-skip]')) finish(false); };
     });
   },
-  rewarded() { return this.play('rewarded', 5); },
+  rewarded() { return native?.AdMob ? realAd('rewarded') : this.play('rewarded', 5); },
   // A forced ad between levels: never for players who bought Remove ads, never before level 5, and only after every second level.
-  interstitial() { return state.noAds || state.page < 5 || state.page % 2 ? Promise.resolve(false) : this.play('interstitial', 4); },
+  interstitial() { return state.noAds || state.page < 5 || state.page % 2 ? Promise.resolve(false) : (native?.AdMob ? realAd('interstitial') : this.play('interstitial', 4)); },
 };
+// Real ads, in the installed app. The first call starts the ad SDK and asks for consent where the law requires it.
+let adsStarted = null, adShowing = false;
+function startAds() {
+  adsStarted ||= (async () => {
+    const A = native.AdMob;
+    await A.initialize({ initializeForTesting: CONFIG.admob.testAds });
+    try { const info = await A.requestConsentInfo(); if (info.isConsentFormAvailable && info.status === 'REQUIRED') await A.showConsentForm(); } catch {}
+  })();
+  return adsStarted;
+}
+// Resolves true only if a rewarded ad was watched to the end (or an interstitial was shown). Any failure resolves false, so the game can never get stuck.
+function realAd(kind) {
+  const A = native.AdMob, rewarded = kind === 'rewarded';
+  return new Promise((done) => {
+    const handles = []; let earned = false, finished = false;
+    const finish = (ok) => {
+      if (finished) return; finished = true; adShowing = false; clearTimeout(giveUp);
+      handles.forEach((h) => Promise.resolve(h).then((x) => x?.remove?.()).catch(() => {}));
+      if (ac && musicTimer) musicOut.gain.setTargetAtTime(0.8 * state.musVol, ac.currentTime, 0.3);
+      track('ad', { kind, watched: ok, real: true }); done(ok);
+    };
+    const on = (name, fn) => { try { handles.push(A.addListener(name, fn)); } catch {} };
+    const giveUp = setTimeout(() => { if (rewarded) toast('No ad available right now', BLANK); finish(false); }, 15000);   // nothing loaded in time
+    adShowing = true;
+    if (rewarded) {
+      on('onRewardedVideoAdReward', () => { earned = true; });
+      on('onRewardedVideoAdDismissed', () => finish(earned));
+      on('onRewardedVideoAdFailedToShow', () => finish(false));
+      on('onRewardedVideoAdShowed', () => clearTimeout(giveUp));
+    } else {
+      on('interstitialAdDismissed', () => finish(true));
+      on('interstitialAdFailedToShow', () => finish(false));
+      on('interstitialAdShowed', () => clearTimeout(giveUp));
+    }
+    startAds().then(async () => {
+      const opts = { adId: CONFIG.admob[kind], isTesting: CONFIG.admob.testAds };
+      if (rewarded) { await A.prepareRewardVideoAd(opts); if (ac) musicOut.gain.setTargetAtTime(0.0001, ac.currentTime, 0.1); A.showRewardVideoAd().catch(() => {}); }
+      else { await A.prepareInterstitial(opts); if (ac) musicOut.gain.setTargetAtTime(0.0001, ac.currentTime, 0.1); A.showInterstitial().catch(() => {}); }
+    }).catch(() => { if (rewarded && !finished) toast('No ad available right now', BLANK); finish(false); });
+  });
+}
 
 // ---- Pressure: the tide keeps dropping pairs, and the level is lost if the pile stays above the line ----
 let tideT = 0, dangerT = 0, ending = false;
 const dangerY = () => R * 2.2;
 const paused = () => !TIDE_S || ending || state.tut < 1 || $('win').classList.contains('open') || $('modal').classList.contains('open')
-  || $('cheats').classList.contains('open') || $('ad').classList.contains('open') || $('map').classList.contains('open');
+  || $('cheats').classList.contains('open') || $('ad').classList.contains('open') || $('map').classList.contains('open') || adShowing;
 function pressure(dt) {
   if (paused()) return;
   if (GOAL === 'storm') {              // the storm clock only runs while the game does
@@ -1507,11 +1562,33 @@ const PRODUCTS = [
 ];
 // The one place that talks to a payment system. Today it only pretends: it waits a moment and says yes.
 // On the stores, buy() becomes the real purchase call and resolves true only when the store confirms payment.
+const LIVE_SHOP = !!(native?.Purchases && CONFIG.revenuecatAndroidKey);
+let shopStarted = null;
+const liveProducts = {};             // shop item id -> the store's product (with its price in the player's currency)
+function startShop() {
+  shopStarted ||= (async () => {
+    const P = native.Purchases;
+    await P.configure({ apiKey: CONFIG.revenuecatAndroidKey });
+    const ids = Object.values(CONFIG.productIds), { products } = await P.getProducts({ productIdentifiers: ids, type: 'NON_SUBSCRIPTION' });
+    for (const [item, pid] of Object.entries(CONFIG.productIds)) {
+      const found = products.find((x) => x.identifier === pid);
+      if (found) { liveProducts[item] = found; const mine = PRODUCTS.find((x) => x.id === item); if (mine) mine.price = found.priceString; }
+    }
+  })();
+  return shopStarted;
+}
 const store = {
-  testMode: true,
-  buy: (product) => new Promise((done) => setTimeout(() => done(true), 700)),
+  testMode: !LIVE_SHOP,
+  // Resolves true only when the store confirms the payment. Cancelling or any error resolves false and grants nothing.
+  buy: (product) => !LIVE_SHOP ? new Promise((done) => setTimeout(() => done(true), 700))
+    : startShop().then(() => native.Purchases.purchaseStoreProduct({ product: liveProducts[product.id] })).then(() => true)
+      .catch((e) => { if (!e?.userCancelled && e?.code !== '1') toast('Purchase did not go through', BLANK); return false; }),
   // Apple requires a way to get one-time purchases back on a new phone. Pretend version: report what this save already owns.
-  restore: () => new Promise((done) => setTimeout(() => done(PRODUCTS.filter((p) => p.once && state.purchases[p.id])), 500)),
+  restore: () => !LIVE_SHOP ? new Promise((done) => setTimeout(() => done(PRODUCTS.filter((p) => p.once && state.purchases[p.id])), 500))
+    : startShop().then(() => native.Purchases.restorePurchases()).then(({ customerInfo }) => {
+      const owned = new Set(customerInfo.allPurchasedProductIdentifiers || []);
+      return PRODUCTS.filter((p) => p.once && owned.has(CONFIG.productIds[p.id]));
+    }).catch(() => []),
 };
 function grant(p) {
   if (p.gems) state.gems += p.gems;
@@ -1531,12 +1608,16 @@ function shopView() {
     <div class="packs">${PRODUCTS.slice(1, 5).map((p, i) => `<div class="pk">${p.tag ? `<em>${p.tag}</em>` : ''}<div class="gems g${i}">${GEM}</div><b>${p.name}</b>${buy(p)}</div>`).join('')}</div>
     ${wide(noads, 'plain')}<button data-act="restore" class="linkbtn">Restore purchases</button><button data-act="close" class="alt">Close</button>`;
 }
-function openShop() { openModal(shopView(), shopAct); }
+function openShop() {
+  openModal(shopView(), shopAct);
+  if (LIVE_SHOP && !Object.keys(liveProducts).length) startShop().then(() => { if ($('mcard').querySelector('.packs')) openModal(shopView(), shopAct); }).catch(() => {});
+}
 function shopAct(act) {
   if (act === 'close') return closeModal();
   if (act === 'back') return openShop();
   if (act === 'restore') return store.restore().then((owned) => {
     if (owned.some((p) => p.noAds)) state.noAds = true;
+    for (const p of owned) state.purchases[p.id] ||= 1;
     save(); toast(owned.length ? 'Purchases restored' : 'Nothing to restore', BLANK);
   });
   const [verb, id] = act.split(':'), p = PRODUCTS.find((x) => x.id === id);
