@@ -249,6 +249,37 @@
   #cheats .dev { display: none; }
   #app.debug #cheats .dev { display: block; }
 
+  /* World effects: each painted world gets its own moving details. Fixed pieces are laid out from the painting's pixel
+     positions; drifting pieces (.fxm) are spawned on a timer and remove themselves. */
+  .fxm { position: absolute; pointer-events: none; }
+  .puff { border-radius: 50%; filter: blur(6px); }
+  .leaf { width: 14px; height: 9px; background: #5fc24a; border-radius: 0 100% 0 100%; box-shadow: inset -2px -1px 0 #3d9a2e; }
+  .ring { border: 2px solid #ffffffd0; border-radius: 50%; }
+  .ember { width: 5px; height: 5px; border-radius: 50%; background: #ffc15a; box-shadow: 0 0 6px 2px #ff6a00; }
+  .firefly { width: 6px; height: 6px; border-radius: 50%; background: #fff7a8; box-shadow: 0 0 9px 4px #ffe45caa; }
+  .bubble { border: 1.5px solid #ffffffd8; border-radius: 50%; background: radial-gradient(circle at 30% 28%, #ffffffd0 0 12%, #ffffff26 30%, transparent 62%); }
+  .gull { width: 26px; height: 12px; }
+  .gull svg { display: block; width: 100%; height: 100%; fill: none; stroke: #3b4b66; stroke-width: 2.4; stroke-linecap: round; transform-origin: 50% 70%;
+    animation: flap .45s ease-in-out infinite alternate; }
+  .twk { position: absolute; background: radial-gradient(#fff 25%, #fff3a8 55%, #ffd95a); animation: twinkle ease-in-out infinite;
+    clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); }
+  .twk.w { background: #fff; }
+  .band { position: absolute; left: 0; right: 0; overflow: hidden; }
+  .fall { position: absolute; mix-blend-mode: soft-light; opacity: .85; filter: blur(1px);
+    background: repeating-linear-gradient(#ffffff00 0 6px, #ffffffc0 8px 11px, #ffffff00 14px 22px) 0 0 / 100% 22px; animation: fallDown .55s linear infinite; }
+  .caustic { position: absolute; inset: 0; mix-blend-mode: soft-light; opacity: .75; animation: causticDrift 9s linear infinite;
+    background: radial-gradient(ellipse 60px 34px at 30% 30%, #ffffffb0, transparent 70%) 0 0 / 180px 120px,
+      radial-gradient(ellipse 50px 30px at 70% 60%, #ffffff90, transparent 70%) 40px 60px / 220px 150px; }
+  .glow { position: absolute; border-radius: 50%; transform: translate(-50%, -50%); animation: glowPulse 3.4s ease-in-out infinite alternate; }
+  .rays { position: absolute; inset: 0; mix-blend-mode: soft-light; animation: raySway 7s ease-in-out infinite alternate;
+    background: repeating-linear-gradient(115deg, transparent 0 60px, #fffbd266 80px 110px, transparent 130px 220px);
+    -webkit-mask-image: linear-gradient(#000, transparent 78%); mask-image: linear-gradient(#000, transparent 78%); }
+  @keyframes flap { to { transform: scaleY(.3); } }
+  @keyframes fallDown { to { background-position-y: 22px; } }
+  @keyframes causticDrift { to { background-position: 180px 120px, -180px 210px; } }
+  @keyframes glowPulse { from { opacity: .45; transform: translate(-50%, -50%) scale(.9); } to { opacity: .95; transform: translate(-50%, -50%) scale(1.12); } }
+  @keyframes raySway { from { opacity: .35; transform: translateX(-12px); } to { opacity: .85; transform: translateX(12px); } }
+
   /* Shop */
   .testmode { font: 700 12px/1.3 system-ui, sans-serif; color: #8a4b00; background: #ffe9a8; border: 2px dashed #e8a200; border-radius: 10px; padding: 6px 10px; }
   .balance { display: flex; align-items: center; gap: 6px; font: 700 22px/1 Fredoka, system-ui, sans-serif; color: #0b3a6e; }
@@ -367,7 +398,7 @@
   @keyframes toastIn { 0% { transform: translateX(-50%) scale(.6); } }
   @keyframes popper { 0% { transform: rotate(-8deg) scale(1); } 100% { transform: rotate(8deg) scale(1.1); } }
   @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
-  @media (prefers-reduced-motion: reduce) { #fox, #water::before, .glint, .tw, #sign, #bar i::after, #next, #winCard .popper { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .fall, .caustic, .glow, .rays, .twk, #fox, #water::before, .glint, .tw, #sign, #bar i::after, #next, #winCard .popper { animation: none; } }
 </style>
 </head>
 <body>
@@ -719,10 +750,47 @@ const BG_STARS = [[155, 428, 46], [200, 485, 26], [885, 565, 40], [852, 607, 22]
 const BG_WATER = [225, 365], BG_SAND = [430, 1300];  // top/bottom of the sea band and of the open sand
 let sandZone = [0, 0];
 const rnd = (a, b) => a + Math.random() * (b - a);
+// Everything below places effects by where things sit in the world's painting (all eight are 941 x 1672, like the beach).
+let bgMap = { k: 1, ox: 0, oy: 0 };
+const bx = (x) => bgMap.ox + x * bgMap.k, by = (y) => bgMap.oy + y * bgMap.k;
+function worldStatic(w) {
+  const k = bgMap.k, delay = () => `animation-delay:${-rnd(0, 4)}s`;
+  const box = (cls, x0, y0, x1, y1) => `<i class="${cls}" style="left:${bx(x0)}px;top:${by(y0)}px;width:${(x1 - x0) * k}px;height:${(y1 - y0) * k}px"></i>`;
+  const glow = (x, y, r, color) => `<i class="glow" style="left:${bx(x)}px;top:${by(y)}px;width:${2 * r * k}px;height:${2 * r * k}px;background:radial-gradient(${color}, transparent 70%);${delay()}"></i>`;
+  const twk = (x, y, size, white) => `<i class="twk${white ? ' w' : ''}" style="left:${bx(x)}px;top:${by(y)}px;width:${size * k}px;height:${size * k}px;animation-duration:${rnd(1.4, 3.2)}s;${delay()}"></i>`;
+  // a strip of water with glints flickering on it
+  const band = (y0, y1, n, color = '#fff') => {
+    let out = `<div class="band" style="top:${by(y0)}px;height:${(y1 - y0) * k}px">`;
+    for (let i = 0; i < n; i++) {
+      const depth = Math.random();
+      out += `<i class="glint" style="left:${rnd(4, 96)}%;top:${depth * 100}%;width:${6 + depth * 14}px;background:${color};box-shadow:0 0 4px ${color};animation-duration:${rnd(1.4, 3.6)}s;${delay()}"></i>`;
+    }
+    return out + '</div>';
+  };
+  switch (w) {
+    case 1: return box('fall', 592, 85, 732, 290) + box('fall', 412, 190, 482, 300) + box('fall', 240, 180, 292, 268) + box('fall', 762, 135, 790, 250) + band(320, 400, 8);   // falling water
+    case 2: return '<i class="caustic"></i>' + band(215, 430, 14);                                                                                                           // light on the lagoon bed
+    case 3: return glow(355, 195, 150, '#fff4a0d0') + band(225, 365, 16, '#ffe9a0') + band(1380, 1672, 10, '#ffe9a0');                                                       // setting sun, golden water
+    case 4: return glow(690, 125, 70, '#ff8a2ad0') + glow(850, 265, 60, '#ff8a2ab0') + glow(165, 215, 50, '#ff8a2a90') + band(225, 360, 10);                                 // glowing lava
+    case 5: return '<i class="rays"></i>' + band(200, 330, 8) + band(1300, 1672, 10);                                                                                        // sunbeams through the trees
+    case 6: return [[60, 300, 34], [105, 330, 22], [178, 405, 24], [862, 690, 26], [75, 903, 22], [895, 1150, 24], [793, 1215, 22]].map(([x, y, sz]) => twk(x, y, sz)).join('')
+      + band(225, 365, 12);                                                                                                                                                  // glinting treasure
+    case 7: return Array.from({ length: 22 }, () => twk(rnd(10, 930), rnd(15, 190), rnd(8, 18), true)).join('') + glow(295, 90, 110, '#fff6c8b0')
+      + glow(862, 415, 55, '#7fd6ffb0') + glow(60, 1120, 55, '#7fd6ffb0') + band(225, 365, 14, '#9fe8ff') + band(1370, 1672, 12, '#9fe8ff');                                 // stars, moon, glowing sea
+    case 8: return band(225, 385, 14) + band(1390, 1672, 8);                                                                                                                 // sunlit reef water
+  }
+  return '';
+}
 function layoutBg() {
   // Same maths as "background-size: cover", so overlays land on the painted stars and sea at any screen size.
   const w = $('app').clientWidth, h = $('app').clientHeight, k = Math.max(w / BG_W, h / BG_H);
   const ox = (w - BG_W * k) / 2, oy = (h - BG_H * k) / 2;
+  bgMap = { k, ox, oy };
+  if ($('app').classList.contains('artworld')) {     // a painted world: its own fixed effects instead of the beach's
+    $('fxBg').innerHTML = worldStatic(+$('app').dataset.world);
+    sandZone = [oy + BG_SAND[0] * k, oy + BG_SAND[1] * k];
+    return;
+  }
   const timing = (a, b) => `animation-duration:${rnd(a, b)}s;animation-delay:${-rnd(0, 3)}s`;
   let html = '';
   for (const [x, y, size] of BG_STARS) {
@@ -760,7 +828,73 @@ function sandGust() {
     send(g, 6, ms * rnd(0.8, 1.1), rnd(0, 500), rnd(-12, 12));
   }
 }
-setInterval(sandGust, 850);
+// One drifting piece: placed at a screen point, animated, then removed.
+function mote(cls, x, y, css, frames, ms, easing = 'ease-out') {
+  const el = document.createElement('i');
+  el.className = 'fxm ' + cls; el.style.cssText = `left:${x}px;top:${y}px;${css}`;
+  $('fxBg').appendChild(el);
+  el.animate(frames, { duration: ms, easing, fill: 'both' });
+  setTimeout(() => el.remove(), ms);
+  return el;
+}
+const at = (dx, dy, scale = 1, turn = 0) => `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(${scale}) rotate(${turn}deg)`;
+const sized = (px, extra = '') => `width:${px}px;height:${px}px;${extra}`;
+function risingPuff(x, y, size, color, rise, drift, ms, peak = 0.7) {
+  mote('puff', x, y, sized(size, 'background:' + color), [{ transform: at(0, 0, 0.5), opacity: 0 }, { opacity: peak, offset: 0.3 }, { transform: at(drift, -rise, 1.6), opacity: 0 }], ms);
+}
+function ripple(x, y) {
+  mote('ring', x, y, sized(rnd(26, 60)), [{ transform: 'translate(-50%, -50%) scale(.2, .1)', opacity: 0.9 }, { transform: 'translate(-50%, -50%) scale(1.5, .75)', opacity: 0 }], 2400);
+}
+// What drifts through each world, called about once a second with a running count.
+const WORLD_FX = {
+  1(n, W, H) {     // Waterfall Cove: mist at the foot of the falls, the odd leaf tumbling down
+    const [x, y] = pick([[660, 292], [447, 302], [266, 270], [776, 252]]);
+    risingPuff(bx(x + rnd(-30, 30)), by(y), rnd(36, 64), '#fff', rnd(18, 36), rnd(-10, 10), rnd(2200, 3400));
+    if (n % 4 === 0) mote('leaf', rnd(0, W), -10, '', [{ transform: at(0, 0, 1, 0), opacity: 1 }, { transform: at(rnd(-60, 60), H * 0.5, 1, rnd(200, 500)), opacity: 1, offset: 0.6 },
+      { transform: at(rnd(-90, 90), H * 0.85, 1, rnd(400, 800)), opacity: 0 }], rnd(7000, 10000), 'linear');
+  },
+  2(n, W, H) {     // Crystal Lagoon: ripples spreading on the surface
+    ripple(rnd(20, W - 20), rnd(by(260), H - 40));
+  },
+  3(n, W, H) {     // Sunset Shore: warm motes of light drifting up
+    risingPuff(rnd(0, W), rnd(by(380), by(1500)), rnd(8, 18), '#fff3b0;filter:blur(2px)', rnd(60, 120), rnd(-20, 20), rnd(5000, 7000), 0.6);
+  },
+  4(n) {           // Volcano Bay: embers off the lava, smoke from the crater, steam from the hot spring
+    const [x, y] = pick([[690, 110], [700, 150], [850, 260], [150, 200]]);
+    mote('ember', bx(x + rnd(-12, 12)), by(y), '', [{ transform: at(0, 0, 1), opacity: 1 }, { transform: at(rnd(-25, 25), -rnd(50, 110), 0.3), opacity: 0 }], rnd(1600, 2800));
+    if (n % 3 === 0) risingPuff(bx(712), by(78), rnd(40, 70), '#d8d8e0', rnd(50, 80), rnd(20, 40), 5000, 0.6);
+    if (n % 4 === 0) risingPuff(bx(118 + rnd(-10, 10)), by(285), rnd(26, 44), '#fff', rnd(30, 50), rnd(-8, 8), 3200, 0.6);
+  },
+  5(n, W, H) {     // Mangrove Creek: pollen in the sunbeams, ripples in the shallows
+    risingPuff(rnd(0, W), rnd(by(300), by(1300)), rnd(4, 7), '#fffde0;filter:blur(.5px)', rnd(20, 60), rnd(30, 70), rnd(6000, 8000), 0.85);
+    if (n % 2 === 0) ripple(rnd(20, W - 20), Math.random() < 0.6 ? rnd(by(1320), by(1650)) : rnd(by(230), by(400)));
+  },
+  6(n, W) {        // Pirate Cove: gulls crossing the sky
+    if (n % 7 !== 0) return;
+    const y = by(rnd(40, 190)), bob = rnd(-14, 14);
+    mote('gull', -30, y, '', [{ transform: at(0, 0, rnd(0.8, 1.2)) }, { transform: at(W * 0.5, bob), offset: 0.5 }, { transform: at(W + 60, -bob) }], rnd(9000, 12000), 'linear')
+      .innerHTML = '<svg viewBox="0 0 26 12"><path d="M1 8 Q7 0 13 8 Q19 0 25 8"/></svg>';
+  },
+  7(n, W) {        // Moonlit Bay: fireflies wandering
+    const x = rnd(10, W - 10), y = rnd(by(380), by(1300)), hop = () => at(rnd(-45, 45), rnd(-45, 45));
+    mote('firefly', x, y, '', [{ transform: at(0, 0), opacity: 0 }, { transform: hop(), opacity: 1, offset: 0.25 }, { transform: hop(), opacity: 0.3, offset: 0.5 },
+      { transform: hop(), opacity: 1, offset: 0.75 }, { transform: hop(), opacity: 0 }], rnd(4500, 6500), 'ease-in-out');
+  },
+  8(n, W) {        // Coral Reef: bubbles rising from the shallows
+    const drift = rnd(-18, 18);
+    mote('bubble', rnd(10, W - 10), by(rnd(1390, 1650)), sized(rnd(8, 20)), [{ transform: at(0, 0, 0.6), opacity: 0 }, { transform: at(drift, -rnd(40, 70), 1), opacity: 0.95, offset: 0.3 },
+      { transform: at(-drift, -rnd(130, 220), 1.1), opacity: 0 }], rnd(3000, 4500));
+  },
+};
+let fxTick = 0;
+function ambient() {
+  if (document.hidden || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const app = $('app'), box = $('fxBg'), w = app.classList.contains('artworld') ? +app.dataset.world : 0;
+  fxTick++;
+  if (w === 0 || (w !== 2 && w !== 5 && fxTick % 2 === 0)) sandGust();   // dry sand only: none on the lagoon or the mangrove mud, lighter elsewhere
+  if (w && box.childElementCount < 110) WORLD_FX[w]?.(fxTick, box.clientWidth, box.clientHeight);
+}
+setInterval(ambient, 850);
 
 // Fox: tap for a happy hop and a few hearts.
 function hearts(x, y) {
@@ -940,9 +1074,10 @@ function setWorld(n) {
   const app = $('app'), w = worldOf(n);
   app.dataset.world = w; app.dataset.tint = WORLD_TINT[w];
   app.classList.remove('artworld'); app.style.backgroundImage = '';
+  if (W) layoutBg();
   if (!w) return;
   const src = `world-${w}.webp`, img = new Image();        // use the world's own painting if it has been added
-  img.onload = () => { if (worldOf(state.page) === w) { app.style.backgroundImage = `url(${src})`; app.classList.add('artworld'); } };
+  img.onload = () => { if (worldOf(state.page) === w) { app.style.backgroundImage = `url(${src})`; app.classList.add('artworld'); layoutBg(); } };
   img.src = src;
 }
 
