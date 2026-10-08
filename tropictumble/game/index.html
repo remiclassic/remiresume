@@ -123,11 +123,8 @@
 
   /* ---- Game systems: tools, score, danger line, ice, tutorial, modals ---- */
   #tools { position: absolute; left: 8px; top: 58px; z-index: 7; display: flex; flex-direction: column; gap: 7px; }
-  #tools button { position: relative; width: 42px; height: 42px; border-radius: 50%; border: 2.5px solid var(--b); padding: 8px;
-    background: linear-gradient(var(--a), var(--c)); box-shadow: inset 0 2px 1px #ffffff99, inset 0 -3px 1px #0002, 0 2px 4px #0005; transition: transform .1s; }
+  #tools button { position: relative; width: 46px; height: 46px; border: 0; padding: 0; background: center / contain no-repeat; filter: drop-shadow(0 2px 3px #0006); transition: transform .1s; }
   #tools button:active { transform: scale(.86); }
-  #tools svg { display: block; width: 100%; height: 100%; fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round;
-    filter: drop-shadow(0 1px 0 #0004); pointer-events: none; }
   #tools em { position: absolute; right: -5px; bottom: -4px; min-width: 19px; height: 19px; padding: 0 4px; border-radius: 99px; background: #fff; color: #16324f;
     font: 700 12px/19px Fredoka, system-ui, sans-serif; box-shadow: 0 1px 2px #0005; pointer-events: none; }
   #tools em.cost { background: #2a9bf4; color: #fff; }
@@ -202,8 +199,9 @@
   #mcard .lv { min-width: 0; padding: 9px 0 7px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 20px; }
   .lv span { display: flex; gap: 1px; }
   .lv i { display: block; width: 13px; }
-  .lv i svg { display: block; fill: #ffffff66; stroke: none; }
-  .lv i.on svg { fill: #ffe45c; }
+  .lv i { aspect-ratio: 220 / 208; background: url(star.webp) center / contain no-repeat; filter: grayscale(1) brightness(1.6) opacity(.5); }
+  .lv i.on { filter: none; }
+  .lv i svg { display: none; }
   #mcard .lv.cur { outline: 3px solid #ffb300; outline-offset: 2px; }
   #mcard .lv.locked { background: #cfd8e3; border-color: #aab6c5; box-shadow: none; opacity: .7; }
 
@@ -243,7 +241,8 @@
   .astk span { position: relative; }
   .astk u { position: absolute; right: 2px; bottom: 2px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 2px #0005; }
   .help { width: 100%; margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; text-align: left; }
-  .help li { background: #fff; border: 2px solid #bfe3fb; border-radius: 14px; padding: 8px 12px; }
+  .help li { background: #fff; border: 2px solid #bfe3fb; border-radius: 14px; padding: 6px 11px; font-size: 14px; line-height: 1.35; }
+  .help { gap: 6px !important; }
   .help b { color: #0b3a6e; }
   /* Test tools only show in debug builds. */
   #cheats .dev { display: none; }
@@ -280,6 +279,68 @@
   @keyframes glowPulse { from { opacity: .45; transform: translate(-50%, -50%) scale(.9); } to { opacity: .95; transform: translate(-50%, -50%) scale(1.12); } }
   @keyframes raySway { from { opacity: .35; transform: translateX(-12px); } to { opacity: .85; transform: translateX(12px); } }
 
+  /* Campaign map: every level is a node on a path across the islands of map.webp. The stage keeps the painting's shape
+     and everything on it is placed in % of the painting, so nodes stay on their islands at any screen size. */
+  #map { display: none; position: absolute; inset: 0; z-index: 44; overflow: hidden; background: linear-gradient(#4aa9ef, #36a3ec 55%, #2f9fe9); }
+  #map.open { display: block; animation: mapIn .3s ease-out; }
+  #mapStage { position: absolute; left: 0; top: 0; container-type: inline-size; background: url(map.webp) center / 100% 100% no-repeat; will-change: transform; cursor: grab; }
+  #map.dragging #mapStage { cursor: grabbing; }
+  #mapStage svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .mnode { position: absolute; width: 7.6cqw; aspect-ratio: 1; transform: translate(-50%, -50%); border: 0; padding: 0; background: url(map-node.webp) center / contain no-repeat;
+    font: 700 2.9cqw/1 Fredoka, system-ui, sans-serif; color: #fff; -webkit-text-stroke: .8cqw #0b3a6e; paint-order: stroke fill; }
+  .mnode.done { width: 8.4cqw; background-image: url(map-star.webp); -webkit-text-stroke-color: #8a4a00; padding-bottom: 1.2cqw; }
+  .mnode.crown { width: 11cqw; background-image: url(map-crown.webp); color: transparent; -webkit-text-stroke: 0; }
+  .mnode.locked { filter: grayscale(.85) brightness(.92); opacity: .85; font-size: 2.6cqw; }
+  .mnode.cur { animation: nodePulse .8s ease-in-out infinite alternate; z-index: 2; }
+  .mnode:active { filter: brightness(1.15); }
+  .mnode em { position: absolute; left: 50%; top: 94%; transform: translateX(-50%); display: flex; gap: .2cqw; }
+  .mnode em i { width: 2.4cqw; aspect-ratio: 220 / 208; background: url(star.webp) center / contain no-repeat; filter: grayscale(1) brightness(1.5) opacity(.75); }
+  .mnode em i.on { filter: drop-shadow(0 .2cqw .15cqw #0006); }
+  .mfox { position: absolute; width: 9cqw; aspect-ratio: 540 / 430; transform: translate(-50%, -128%); background: url(fox.webp) center / contain no-repeat; pointer-events: none; z-index: 3;
+    filter: drop-shadow(0 .6cqw .5cqw #0005); animation: foxBob 1.1s ease-in-out infinite alternate; }
+  .mlock { position: absolute; width: 7.4cqw; aspect-ratio: 1; transform: translate(-50%, -50%); background: url(map-lock.webp) center / contain no-repeat; pointer-events: none; }
+  .mlabel { position: absolute; width: 31cqw; aspect-ratio: 560 / 170; transform: translate(-50%, -50%); background: url(map-banner.webp) center / contain no-repeat; pointer-events: none;
+    display: grid; place-items: center; padding: 0 5.2cqw 1cqw; white-space: nowrap; font: 700 2.6cqw/1 Fredoka, system-ui, sans-serif; color: #fff6e0;
+    -webkit-text-stroke: .75cqw #6b3410; paint-order: stroke fill; }
+  .mlabel.locked { filter: grayscale(.5) brightness(.95); }
+  #mapBack { position: absolute; left: 10px; top: calc(10px + env(safe-area-inset-top)); width: 50px; height: 46px; border: 0; background: url(map-back.webp) center / contain no-repeat; z-index: 4; }
+  #mapBack:active, #mapChest:active { transform: scale(.9); }
+  #mapLogo { position: absolute; left: 50%; top: calc(4px + env(safe-area-inset-top)); width: min(44%, 176px); aspect-ratio: 640 / 358; transform: translateX(-50%);
+    background: url(map-logo.webp) center / contain no-repeat; pointer-events: none; z-index: 3; filter: drop-shadow(0 3px 4px #0004); }
+  /* Star total, top right: the pill art has the star painted on its left, so the number sits in the open blue area to its right. */
+  #mapStars { position: absolute; right: 8px; top: calc(12px + env(safe-area-inset-top)); z-index: 4; width: 100px; height: 36px; background: url(map-stars.webp) center / 100% 100% no-repeat;
+    display: grid; place-items: center; padding: 2px 10px 0 42px; font: 700 16px/1 Fredoka, system-ui, sans-serif; color: #fff; -webkit-text-stroke: 4px #0b3a8e; paint-order: stroke fill;
+    filter: drop-shadow(0 3px 3px #0004); }
+  /* Star chest: a bar under it fills as stars are earned. When full the chest glows, hops and shows a badge; tapping opens a reward card. */
+  #mapChest { position: absolute; right: 10px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 4; width: 108px; border: 0; padding: 0; background: none;
+    display: flex; flex-direction: column; align-items: center; }
+  #mapChest .cimg { position: relative; width: 66px; aspect-ratio: 220 / 209; background: url(map-chest.webp) center / contain no-repeat; filter: drop-shadow(0 4px 4px #0005); }
+  /* The holder art has the star painted on its left; the count sits in the open blue area beside it. */
+  #mapChest .cbar { position: relative; width: 108px; height: 29px; margin-top: -5px; background: url(map-chest-bar.webp) center / 100% 100% no-repeat; filter: drop-shadow(0 3px 3px #0005); }
+  #mapChest .cbar u { position: absolute; inset: 0; display: grid; place-items: center; padding: 1px 8px 0 34px; text-decoration: none; white-space: nowrap;
+    font: 700 13px/1 Fredoka, system-ui, sans-serif; color: #fff; -webkit-text-stroke: 3.5px #0b3a8e; paint-order: stroke fill; }
+  #mapChest.ready .cimg { animation: chestHop .5s ease-in-out infinite alternate; filter: drop-shadow(0 0 8px #ffe45c) drop-shadow(0 0 3px #fff) drop-shadow(0 4px 4px #0005); }
+  #mapChest.ready .cimg::after { content: '!'; position: absolute; right: -4px; top: -6px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+    background: #ff3b5c; border: 2px solid #fff; font: 700 14px/1 Fredoka, system-ui, sans-serif; color: #fff; }
+  #mapChest.ready .cbar u { color: #ffe45c; }
+  .chestBig { width: 130px; aspect-ratio: 220 / 209; background: url(map-chest.webp) center / contain no-repeat; filter: drop-shadow(0 0 14px #ffe45c); animation: chestHop .5s ease-in-out infinite alternate; }
+  .loot { display: flex; gap: 10px; }
+  .loot div { min-width: 96px; padding: 10px 12px; border-radius: 16px; background: #fff; border: 2px solid #bfe3fb; font: 700 17px/1.2 Fredoka, system-ui, sans-serif; color: #0b3a6e; }
+  .loot img { display: block; height: 30px; margin: 0 auto 4px; }
+  .loot span { display: block; font-size: 26px; line-height: 30px; margin-bottom: 4px; }
+  #mapAll { position: absolute; left: 10px; bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 4; padding: 8px 14px; border-radius: 99px; background: #0b3a6ee6; border: 2px solid #fff;
+    font: 700 13px/1 Fredoka, system-ui, sans-serif; color: #fff; }
+  .lsheet { display: flex; gap: 6px; }
+  .lsheet i { display: block; width: 34px; }
+  @keyframes mapIn { from { opacity: 0; transform: scale(1.06); } }
+  @keyframes nodePulse { to { transform: translate(-50%, -50%) scale(1.14); } }
+  @keyframes foxBob { to { transform: translate(-50%, -140%); } }
+  @keyframes chestHop { to { transform: translateY(-5px) rotate(-4deg); } }
+
+  /* Earned stars use the painted star; unearned ones are the same star, greyed out. */
+  #winStars span, .lsheet i { aspect-ratio: 220 / 208; background: url(star.webp) center / contain no-repeat; filter: grayscale(1) brightness(1.2) opacity(.4); }
+  #winStars span.on, .lsheet i.on { filter: drop-shadow(0 2px 2px #b5430b66); }
+
   /* Shop */
   .testmode { font: 700 12px/1.3 system-ui, sans-serif; color: #8a4b00; background: #ffe9a8; border: 2px dashed #e8a200; border-radius: 10px; padding: 6px 10px; }
   .balance { display: flex; align-items: center; gap: 6px; font: 700 22px/1 Fredoka, system-ui, sans-serif; color: #0b3a6e; }
@@ -288,6 +349,8 @@
     background: linear-gradient(#fff6c9, #ffe07a); border: 3px solid #ffb300; box-shadow: 0 4px 0 #e89a00; }
   .offer.plain { background: #fff; border-color: #bfe3fb; box-shadow: 0 4px 0 #bfe3fb; }
   .offer b { display: block; font: 700 18px/1.1 Fredoka, system-ui, sans-serif; color: #0b3a6e; }
+  .bi { display: inline-block; height: 1.7em; width: auto; vertical-align: middle; margin: -3px 1px 0; }
+  .help .bi { height: 1.9em; }
   .offer small { display: block; font: 600 12px/1.3 system-ui, sans-serif; color: #4b6580; margin-top: 3px; }
   .packs { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 10px; margin-top: 4px; }
   .pk { position: relative; display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 12px 8px 9px; background: #fff; border: 2px solid #bfe3fb; border-radius: 18px; }
@@ -300,8 +363,6 @@
   .owned { flex: none; font: 700 14px/1 Fredoka, system-ui, sans-serif; color: #149a3c; }
   #winStars { display: flex; gap: 6px; margin-top: -4px; }
   #winStars span { width: 15cqw; animation: starIn .45s cubic-bezier(.3, 1.7, .5, 1) both; }
-  #winStars svg { display: block; fill: #e3dccd; stroke: #c5bba8; }
-  #winStars .on svg { fill: #ffd23a; stroke: #e8830c; filter: drop-shadow(0 2px 0 #b5430b); }
   #winScore { font: 700 5.2cqw/1.1 Fredoka, system-ui, sans-serif; color: #2a66a8; }
   @keyframes starIn { 0% { transform: scale(0) rotate(-40deg); } }
 
@@ -432,6 +493,7 @@
   <div id="tip"></div>
   <div id="hand"><svg viewBox="0 0 64 64"><path d="M26 6c4 0 6 3 6 6v16l14 3c5 1 8 5 7 10l-2 11c-1 5-5 8-10 8H31c-4 0-7-2-9-5L10 38c-2-3-1-6 1-8 3-2 6-1 8 1l1 2V12c0-3 2-6 6-6z" fill="#fff" stroke="#16324f" stroke-width="3" stroke-linejoin="round"/></svg></div>
   <div id="modal"><div id="mcard"></div></div>
+  <div id="map"></div>
   <div id="ad"><div id="adBox"></div></div>
   <div id="win">
     <div id="winBox">
@@ -493,7 +555,7 @@ const kindsOf = (c) => Math.min(PACKS[c].e.length, KINDS);
 // until then each falls back to the original beach re-lit with a colour tint.
 const WORLDS = ['Beach Day', 'Waterfall Cove', 'Crystal Lagoon', 'Sunset Shore', 'Volcano Bay', 'Mangrove Creek', 'Pirate Cove', 'Moonlit Bay', 'Coral Reef'];
 const WORLD_TINT = [0, 0, 3, 1, 0, 3, 0, 2, 0];   // fallback lighting per world: 0 daylight, 1 sunset, 2 night, 3 soft pink
-const worldOf = (n) => Math.floor((n - 1) / 5) % WORLDS.length;
+const worldOf = (n) => Math.floor((n - 1) / 5) % 8 + 1;   // the map's eight islands, in order, then round again
 const ALBUM_TIERS = [10, 30, 75], TIER_NAMES = ['Bronze', 'Silver', 'Gold'], TIER_REWARD = [50, 100, 200], TIER_COLOR = ['#c98a4b', '#aeb9c7', '#f2b705'];
 const CHEST_EVERY = 10, CHEST_GEMS = 30;   // a star chest for every ten stars earned
 // Test tools (add energy, finish level, reset) only appear on a developer's machine or with ?debug in the address.
@@ -1097,7 +1159,8 @@ function openHelp() {
     <li><b>Packs.</b> Tap a pack to drop a pair of that kind. It costs 1 energy.</li>
     <li><b>The line.</b> New stickers keep dropping in. If the pile rests above the dashed line, the level is lost.</li>
     <li><b>Ice.</b> Frozen stickers melt when you make a match beside them. Thick ice takes two.</li>
-    <li><b>Boosters.</b> Hint shows a pair, Shuffle tosses the pile, Magnet makes a match for you.</li>
+    <li><b>Boosters.</b> ${BI('hint')} Hint shows a pair. ${BI('shuffle')} Shuffle tosses the pile. ${BI('magnet')} Magnet makes a match for you.</li>
+    <li><b>Album.</b> ${BI('album')} Every sticker you match is collected here, with gems for filling a page.</li>
     <li><b>Goals.</b> Fill the packs, melt the ice, reach a score or outlast a storm. The bar at the bottom shows how close you are.</li>
     <li><b>Stars.</b> The more points per match, the more stars. Tap the wooden sign to replay any level.</li>
   </ul><button data-act="close" class="alt">Close</button>`, closeModal);
@@ -1150,7 +1213,7 @@ const ads = {
 let tideT = 0, dangerT = 0, ending = false;
 const dangerY = () => R * 2.2;
 const paused = () => !TIDE_S || ending || state.tut < 1 || $('win').classList.contains('open') || $('modal').classList.contains('open')
-  || $('cheats').classList.contains('open') || $('ad').classList.contains('open');
+  || $('cheats').classList.contains('open') || $('ad').classList.contains('open') || $('map').classList.contains('open');
 function pressure(dt) {
   if (paused()) return;
   if (GOAL === 'storm') {              // the storm clock only runs while the game does
@@ -1179,7 +1242,7 @@ let adContinueUsed = false;
 function sweepTop() {                // clear the top half of the pile and carry on
   const pr = pile.getBoundingClientRect();
   bodies.filter((b) => b.y < H * 0.55).forEach((b) => { burst(pr.left + b.x, pr.top + b.y, 3); removeBody(b); });
-  closeModal(); renderHud(); save();
+  closeModal(); renderHud(); save(); checkGoal();
 }
 function fail() {
   dangerT = 0; pile.classList.remove('danger'); pile.style.setProperty('--danger', 0); SND.fail(); buzz(120);
@@ -1225,7 +1288,7 @@ function startLevel() {
 const STAR = '<svg viewBox="0 0 100 100"><path d="M50 6 62 36 94 38 69 59 77 91 50 73 23 91 31 59 6 38 38 36Z" stroke-linejoin="round" stroke-width="7"/></svg>';
 let winGems = 0;                     // what this win paid in gems, so an ad can pay it again
 function renderWin(stars, boosters, first) {
-  $('winStars').innerHTML = [1, 2, 3].map((i) => `<span class="${i <= stars ? 'on' : ''}" style="animation-delay:${i * 0.18}s">${STAR}</span>`).join('');
+  $('winStars').innerHTML = [1, 2, 3].map((i) => `<span class="${i <= stars ? 'on' : ''}" style="animation-delay:${i * 0.18}s"></span>`).join('');
   $('winScore').textContent = 'Score ' + state.score.toLocaleString() + (boosters ? ` · +${boosters} booster${boosters > 1 ? 's' : ''}` : '')
     + (first ? '' : ` · replay +${REPLAY_GEMS} gems`);
   document.querySelector('#winCard .rewards').style.display = first ? '' : 'none';   // the +50 / +20 art is for a first clear only
@@ -1238,7 +1301,7 @@ $('winAd').onclick = () => ads.rewarded().then((ok) => {
 });
 
 // ---- Level select: tap the wooden sign ----
-function openLevels() {
+function openLevelGrid() {
   const cells = [], total = Object.values(state.stars).reduce((a, n) => a + n, 0), next = (state.chests + 1) * CHEST_EVERY;
   for (let n = 1; n <= state.maxPage + 3; n++) {
     if ((n - 1) % 5 === 0) cells.push(`<h4>${WORLDS[worldOf(n)]}</h4>`);
@@ -1249,32 +1312,150 @@ function openLevels() {
   const chest = total >= next ? `<span>★ ${total} stars: a chest is ready!</span><button data-act="chest">Open</button>` : `<span>★ ${total} stars · next chest at ${next}</span>`;
   openModal(`<div class="mtitle">Levels</div><div class="chest">${chest}</div><div class="levels">${cells.join('')}</div><button data-act="close" class="alt">Close</button>`, (act) => {
     if (act === 'chest') {             // every ten stars: gems and a booster
-      const key = pick(Object.keys(state.boosters));
-      state.chests++; state.gems += CHEST_GEMS; state.boosters[key]++;
-      SND.bonus(); renderHud(); renderTools(); save(); toast(`+${CHEST_GEMS} gems and a ${key}`, GIFT); return openLevels();
+      return claimChest(openLevelGrid);
     }
     closeModal();
     if (act !== 'close') { state.page = +act.split(':')[1]; startLevel(); }
   });
   $('mcard').querySelector('.cur')?.scrollIntoView({ block: 'center' });
 }
+const starTotal = () => Object.values(state.stars).reduce((a, n) => a + n, 0);
+const chestsReady = () => Math.max(0, Math.floor(starTotal() / CHEST_EVERY) - state.chests);
+// Open one star chest: pay it out, then show what was inside. If more are waiting, the card offers the next one.
+function claimChest(after) {
+  if (!chestsReady()) return;
+  const key = pick(Object.keys(state.boosters));
+  state.chests++; state.gems += CHEST_GEMS; state.boosters[key]++;
+  SND.win(); renderHud(); renderTools(); save(); track('chest', { n: state.chests });
+  const more = chestsReady();
+  openModal(`<div class="mtitle">Star chest!</div><div class="chestBig"></div><p>A reward for reaching <b>${state.chests * CHEST_EVERY} stars</b>.</p>
+    <div class="loot"><div><img src="gem.webp" alt="">+${CHEST_GEMS} gems</div><div><img src="tool-${key}.webp" alt="">+1 ${key[0].toUpperCase() + key.slice(1)}</div></div>
+    ${more ? `<p>${more} more ${more > 1 ? 'chests are' : 'chest is'} ready.</p>` : ''}
+    <button data-act="${more ? 'next' : 'ok'}">${more ? 'Open the next chest' : 'Collect'}</button>${more ? '<button data-act="ok" class="alt">Later</button>' : ''}`, (act) => {
+    closeModal(); after?.();
+    if (act === 'next') claimChest(after);
+  });
+  const r = $('mcard').getBoundingClientRect(); burst(r.left + r.width / 2, r.top + 110, 18);
+}
+
+// ---- Campaign map ----
+// Positions are in the pixels of map.webp (941 x 1672). Five level nodes per island, in play order, then each island's name plank.
+const MAP_W = 941, MAP_H = 1672, MAP_LEVELS = 40;
+const MAP_NODES = [
+  [130, 410], [198, 388], [266, 404], [332, 380], [398, 362],          // 1 Waterfall Cove
+  [468, 392], [535, 412], [605, 430], [672, 440], [735, 462],          // 2 Crystal Lagoon
+  [840, 712], [770, 690], [705, 662], [640, 645], [572, 628],          // 3 Sunset Shore
+  [455, 668], [392, 700], [325, 722], [258, 745], [180, 782],          // 4 Volcano Bay
+  [440, 912], [512, 925], [585, 908], [660, 925], [740, 960],          // 5 Mangrove Creek
+  [405, 1010], [345, 1075], [270, 1100], [195, 1082], [118, 1100],     // 6 Pirate Cove
+  [468, 1172], [545, 1205], [622, 1238], [702, 1262], [782, 1300],     // 7 Moonlit Bay
+  [745, 1398], [672, 1425], [598, 1436], [525, 1408], [452, 1372],     // 8 Coral Reef
+];
+const MAP_LABELS = [[195, 318], [690, 278], [770, 560], [205, 620], [633, 800], [225, 958], [770, 1140], [600, 1318]];
+let mapReady = false;                // the map screen is used once map.webp is there to show; until then the plain level list is
+{ const img = new Image(); img.onload = () => { mapReady = true; }; img.src = 'map.webp'; }
+const MAP_ZOOM = 1.3, mapPan = { x: 0, y: 0, w: 0, h: 0 };
+function openMap(keepPan) {
+  const map = $('map'); map.classList.add('open');
+  // The painting always covers the screen, zoomed in a little further so there is room to pan around it.
+  const k = Math.max(map.clientWidth / MAP_W, map.clientHeight / MAP_H) * MAP_ZOOM;
+  mapPan.w = MAP_W * k; mapPan.h = MAP_H * k;
+  if (!keepPan) {                      // open centred on the level being played
+    const [cx, cy] = MAP_NODES[Math.min(state.page, MAP_LEVELS) - 1];
+    mapPan.x = map.clientWidth / 2 - cx * k; mapPan.y = map.clientHeight / 2 - cy * k;
+  }
+  const pos = ([x, y]) => `left:${x / MAP_W * 100}%;top:${y / MAP_H * 100}%`;
+  const total = starTotal(), next = (state.chests + 1) * CHEST_EVERY, ready = chestsReady() > 0;
+  const nodes = MAP_NODES.map((p, i) => {
+    const n = i + 1, got = state.stars[n] || 0, open = n <= state.maxPage;
+    const cls = (n === MAP_LEVELS ? ' crown' : got ? ' done' : '') + (open ? '' : ' locked') + (n === state.page ? ' cur' : '');
+    return `<button class="mnode${cls}" data-n="${n}" style="${pos(p)}" aria-label="Level ${n}">${n}${got ? `<em>${[1, 2, 3].map((j) => `<i class="${j <= got ? 'on' : ''}"></i>`).join('')}</em>` : ''}</button>`;
+  }).join('');
+  // a stone lock sits on the path into each island that is still closed
+  const locks = [1, 2, 3, 4, 5, 6, 7].filter((w) => state.maxPage < w * 5 + 1).map((w) => {
+    const a = MAP_NODES[w * 5 - 1], b = MAP_NODES[w * 5];
+    return `<i class="mlock" style="${pos([(a[0] + b[0]) / 2, (a[1] + b[1]) / 2])}"></i>`;
+  }).join('');
+  const labels = MAP_LABELS.map((p, w) => `<div class="mlabel${state.maxPage < w * 5 + 1 ? ' locked' : ''}" style="${pos(p)}">${w + 1}. ${WORLDS[w + 1]}</div>`).join('');
+  const fox = state.page <= MAP_LEVELS ? `<i class="mfox" style="${pos(MAP_NODES[state.page - 1])}"></i>` : '';
+  map.innerHTML = `<div id="mapStage" style="width:${MAP_W * k}px;height:${MAP_H * k}px">
+      <svg viewBox="0 0 ${MAP_W} ${MAP_H}"><polyline points="${MAP_NODES.map((p) => p.join(',')).join(' ')}" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"
+        stroke-linejoin="round" stroke-dasharray="1 20" opacity=".9"/></svg>${labels}${locks}${nodes}${fox}</div>
+    <button id="mapBack" data-map="close" aria-label="Back to the game"></button><div id="mapLogo"></div><div id="mapStars" aria-label="Stars earned">${total}</div>
+    ${state.maxPage > MAP_LEVELS ? '<button id="mapAll" data-map="all">All levels</button>' : ''}
+    <button id="mapChest" data-map="chest" class="${ready ? 'ready' : ''}" aria-label="Star chest"><i class="cimg"></i>
+      <span class="cbar"><u>${ready ? 'Open!' : `${total} / ${next}`}</u></span></button>`;
+  placeMap();
+}
+// Keep the painting covering the screen: it can be dragged, but never far enough to show a gap.
+function placeMap() {
+  const map = $('map'), stage = $('mapStage'); if (!stage) return;
+  mapPan.x = Math.min(0, Math.max(map.clientWidth - mapPan.w, mapPan.x));
+  mapPan.y = Math.min(0, Math.max(map.clientHeight - mapPan.h, mapPan.y));
+  stage.style.transform = `translate(${mapPan.x}px, ${mapPan.y}px)`;
+}
+// Drag to pan. A press that moves is a drag, and the tap that would follow it is swallowed so no level opens by accident.
+let mapDrag = null, mapDragged = false;
+$('map').addEventListener('pointerdown', (e) => {
+  if (e.target.closest('#mapBack, #mapChest, #mapAll, #mapStars')) return;
+  mapDrag = { id: e.pointerId, x: e.clientX, y: e.clientY, px: mapPan.x, py: mapPan.y, moved: false }; mapDragged = false;
+});
+$('map').addEventListener('pointermove', (e) => {
+  if (!mapDrag || e.pointerId !== mapDrag.id) return;
+  const dx = e.clientX - mapDrag.x, dy = e.clientY - mapDrag.y;
+  if (!mapDrag.moved && Math.hypot(dx, dy) < 7) return;
+  if (!mapDrag.moved) { mapDrag.moved = true; $('map').classList.add('dragging'); try { $('map').setPointerCapture(e.pointerId); } catch {} }
+  mapPan.x = mapDrag.px + dx; mapPan.y = mapDrag.py + dy; placeMap();
+});
+const endMapDrag = (e) => {
+  if (!mapDrag || e.pointerId !== mapDrag.id) return;
+  mapDragged = mapDrag.moved; mapDrag = null; $('map').classList.remove('dragging');
+  setTimeout(() => { mapDragged = false; }, 60);
+};
+$('map').addEventListener('pointerup', endMapDrag);
+$('map').addEventListener('pointercancel', endMapDrag);
+new ResizeObserver(() => { if ($('map').classList.contains('open')) openMap(true); }).observe($('map'));
+function closeMap() { $('map').classList.remove('open'); }
+const goalText = (n) => { const L = levelCfg(n); return { ice: 'Melt all the ice', score: `Score ${L.goalN.toLocaleString()} points`, storm: `Survive the storm for ${L.goalN} seconds`, collect: 'Fill every pack' }[L.goal]; };
+// Tapping a level shows what it asks for, with a Play button.
+function openLevelSheet(n) {
+  const got = state.stars[n] || 0;
+  openModal(`<div class="mtitle">Level ${n}</div><p><b>${WORLDS[worldOf(n)]}</b></p>
+    <div class="lsheet">${[1, 2, 3].map((i) => `<i class="${i <= got ? 'on' : ''}"></i>`).join('')}</div>
+    <div class="mreward">${goalText(n)}</div>${n === state.page && !state.done ? '<p>You are playing this level. Play restarts it.</p>' : ''}
+    <button data-act="play">${got ? 'Play again' : 'Play'}</button><button data-act="close" class="alt">Back to map</button>`, (act) => {
+    closeModal();
+    if (act === 'play') { closeMap(); $('win').classList.remove('open'); state.page = n; startLevel(); }
+  });
+}
+$('map').addEventListener('click', (e) => {
+  if (mapDragged) return;
+  const node = e.target.closest('.mnode'), act = e.target.closest('[data-map]')?.dataset.map;
+  if (node) {
+    const n = +node.dataset.n; SND.click();
+    return n <= state.maxPage ? openLevelSheet(n) : toast(`Finish level ${state.maxPage} first`, BLANK);
+  }
+  if (act === 'close') { SND.click(); closeMap(); }
+  if (act === 'all') { closeMap(); openLevelGrid(); }
+  if (act === 'chest') {
+    if (chestsReady()) claimChest(() => openMap(true));
+    else toast(`${(state.chests + 1) * CHEST_EVERY - starTotal()} more stars to open`, BLANK);
+  }
+});
+function openLevels() { if (mapReady) openMap(); else openLevelGrid(); }
 $('sign').addEventListener('click', () => { SND.click(); openLevels(); });
 
 // ---- Boosters and album buttons ----
 const TOOLS = [
-  { key: 'hint', label: 'Hint: show a matching pair', a: '#ffe45c', c: '#ffa51f', b: '#d97a00',
-    icon: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .9 1.6h5.2c.1-.6.4-1.2.9-1.6A6 6 0 0 0 12 3z"/>' },
-  { key: 'shuffle', label: 'Shuffle: toss the pile', a: '#c9a6ff', c: '#8a55e8', b: '#5e2fc0',
-    icon: '<path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>' },
-  { key: 'magnet', label: 'Magnet: match a pair for you', a: '#ff9aa9', c: '#f0375f', b: '#b3123a',
-    icon: '<path d="M6 3v9a6 6 0 0 0 12 0V3h-4v9a2 2 0 0 1-4 0V3z"/><path d="M6 7h4M14 7h4"/>' },
-  { key: 'album', label: 'Sticker album', a: '#8ff0d2', c: '#1fb893', b: '#0c8266',
-    icon: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>' },
+  { key: 'hint', label: 'Hint: show a matching pair' },
+  { key: 'shuffle', label: 'Shuffle: toss the pile' },
+  { key: 'magnet', label: 'Magnet: match a pair for you' },
+  { key: 'album', label: 'Sticker album' },
 ];
 function renderTools() {
   $('tools').innerHTML = TOOLS.map((t) => {
     const n = state.boosters[t.key], badge = t.key === 'album' ? '' : n > 0 ? `<em>${n}</em>` : `<em class="cost">${BOOST_COST}</em>`;
-    return `<button data-tool="${t.key}" aria-label="${t.label}" style="--a:${t.a};--c:${t.c};--b:${t.b}"><svg viewBox="0 0 24 24">${t.icon}</svg>${badge}</button>`;
+    return `<button data-tool="${t.key}" aria-label="${t.label}" style="background-image:url(tool-${t.key}.webp)">${badge}</button>`;
   }).join('');
 }
 $('tools').addEventListener('click', (e) => {
@@ -1315,8 +1496,9 @@ function openAlbum() {
 
 // ---- Shop ----
 // What is for sale. Gems are the only thing sold for money; boosters and continues are bought with gems.
+const BI = (key) => `<img class="bi" src="tool-${key}.webp" alt="${key}">`;   // a booster's button art, inline in text
 const PRODUCTS = [
-  { id: 'starter', name: 'Starter pack', price: '$2.99', once: true, gems: 250, boosters: 3, noAds: true, blurb: '250 gems · 3 of each booster · no ads' },
+  { id: 'starter', name: 'Starter pack', price: '$2.99', once: true, gems: 250, boosters: 3, noAds: true, blurb: `250 gems · no ads<br><span style="white-space:nowrap">3 each of ${BI('hint')}${BI('shuffle')}${BI('magnet')}</span>` },
   { id: 'gems1', name: '100 gems', price: '$1.99', gems: 100 },
   { id: 'gems2', name: '300 gems', price: '$4.99', gems: 300, tag: '+20% value' },
   { id: 'gems3', name: '700 gems', price: '$9.99', gems: 700, tag: '+40% value' },
@@ -1400,7 +1582,7 @@ function tutorial() {
     showTip('Drag a sticker onto its twin', 0, 'tip-drag.webp');
     const demo = () => {
       const pair = findPair();
-      if (!pair || state.tut !== 0 || drag) return;
+      if (!pair || state.tut !== 0 || drag || $('map').classList.contains('open') || $('modal').classList.contains('open')) return;
       const r = pile.getBoundingClientRect(), at = (b) => ({ left: r.left + b.x + 'px', top: r.top + b.y + 'px' });
       $('hand').animate([{ ...at(pair[0]), opacity: 0, transform: 'scale(1.25)' }, { ...at(pair[0]), opacity: 1, transform: 'scale(1)', offset: 0.18 },
         { ...at(pair[1]), opacity: 1, transform: 'scale(1)', offset: 0.8 }, { ...at(pair[1]), opacity: 0, transform: 'scale(1.1)' }], { duration: 1900, easing: 'ease-in-out' });
@@ -1585,6 +1767,7 @@ native?.App?.addListener('backButton', () => {
   if ($('ad').classList.contains('open')) return;
   if ($('cheats').classList.contains('open')) setMenu(false);
   else if ($('modal').classList.contains('open')) closeModal();
+  else if ($('map').classList.contains('open')) closeMap();
   else if (!$('win').classList.contains('open')) openPause();
 });
 renderHud();                         // tray first, so the pile is measured at its real height
@@ -1597,12 +1780,17 @@ renderTools(); renderSound(); pile.classList.toggle('tide', TIDE_S > 0);
 if (finished) { renderWin(state.stars[state.page] || 1, 0, true); $('win').classList.add('open'); }
 else if (state.bodies?.length) { state.bodies.filter((b) => PACKS[b.c]?.e[b.k]).forEach((b) => addBody(b.c, b.k, b.t, b.x, b.y, b.rot, b.ice)); tutorial(); }
 else startLevel();
-setInterval(() => { tickEnergy(); save(); }, 1000);
+setInterval(() => {
+  tickEnergy(); save();
+  // safety net: if the goal is already met and nothing is on top of the game, finish the level
+  if (bodies.length && !$('win').classList.contains('open') && !$('modal').classList.contains('open') && !$('ad').classList.contains('open')) checkGoal();
+}, 1000);
 
 // Preload every image behind the loading screen (a failed one still counts, so loading can never hang),
 // keep the screen up for at least a moment, then start the pile.
 const ASSETS = ['background.webp', 'panel.webp', 'fox.webp', 'sign.png', 'gems.png', 'energy.png', 'menu-panel.webp', 'menu-row.webp', 'menu-row-blue.webp',
-  'toast-energy-full.webp', 'toast-energy-25.webp', 'toast-no-space.webp', 'toast-out-of-energy.webp', 'toast-no-energy.webp', 'toast-no-gems.webp', 'toast-fresh-wave.webp', 'toast-frozen.webp', 'toast-no-pair.webp', 'tip-drag.webp', 'toast-blank.webp', 'toast-gift.webp', 'gem.webp', 'win-pill.webp', 'win-gems.webp', 'win-energy.webp', 'win-sparkles.webp', 'call-idle.webp', ...Object.values(BONUSES).map((b) => b.img),
+  'toast-energy-full.webp', 'toast-energy-25.webp', 'toast-no-space.webp', 'toast-out-of-energy.webp', 'toast-no-energy.webp', 'toast-no-gems.webp', 'toast-fresh-wave.webp', 'toast-frozen.webp', 'toast-no-pair.webp', 'tip-drag.webp', 'tool-hint.webp', 'tool-shuffle.webp', 'tool-magnet.webp', 'tool-album.webp', 'star.webp', 'map-stars.webp', 'map-chest-bar.webp', 'map.webp', 'map-node.webp', 'map-star.webp', 'map-crown.webp', 'map-lock.webp', 'map-banner.webp', 'map-logo.webp', 'map-back.webp', 'map-chest.webp',
+  `world-${worldOf(state.page)}.webp`, 'toast-blank.webp', 'toast-gift.webp', 'gem.webp', 'win-pill.webp', 'win-gems.webp', 'win-energy.webp', 'win-sparkles.webp', 'call-idle.webp', ...Object.values(BONUSES).map((b) => b.img),
   ...PACKS.flatMap((p) => [p.icon, ...p.e.map((n) => `st-${n}.webp`)])];
 const MIN_LOAD_MS = 1500, bootAt = performance.now();
 let loaded = 0;
