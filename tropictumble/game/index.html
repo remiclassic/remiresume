@@ -6,13 +6,15 @@
 <meta name="theme-color" content="#4aa8f0">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>Tropic Tumble</title>
 <style>
   @font-face { font-family: Fredoka; font-weight: 700; src: url(fredoka-700.woff2) format('woff2'); font-display: swap; }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; touch-action: none; }
   html, body { margin: 0; height: 100%; overflow: hidden; background: #dfeefb; font-family: system-ui, sans-serif;
     user-select: none; -webkit-user-select: none; overscroll-behavior: none; }
-  #app { height: 100dvh; max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; background: #f7dfae url(background.webp) center / cover no-repeat; position: relative; }
+  #app { height: calc(100dvh - env(safe-area-inset-top)); max-width: 480px; margin: env(safe-area-inset-top) auto 0; display: flex; flex-direction: column; background: #f7dfae url(background.webp) center / cover no-repeat; position: relative; }
 
   #hud { display: flex; align-items: flex-start; justify-content: space-between; padding: 8px 10px 4px; position: relative; min-height: 88px; z-index: 6; }
   /* Hanging sign: ropes run off the top edge, page name sits on the plaque. */
@@ -31,9 +33,9 @@
   #energy { left: 31.6%; width: 44%; top: 22.4%; height: 32%; font-size: 15cqw; }
   #regen { left: 42.4%; width: 36.3%; top: 73%; height: 18.3%; font-size: 9.5cqw; }
   #energyBar button { left: 75.5%; width: 19%; top: 20%; height: 40%; }
-  #gear { width: 40px; height: 40px; border: 0; border-radius: 12px; padding: 5px; background: linear-gradient(#5cc6ff, #1e8ff0);
+  #gear, #pauseBtn { width: 40px; height: 40px; border: 0; border-radius: 12px; padding: 5px; background: linear-gradient(#5cc6ff, #1e8ff0);
     box-shadow: inset 0 2px 1px #ffffff99, inset 0 -3px 1px #0b6dd0, 0 2px 4px #0005; }
-  #gear svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 1.5px 0 #0b6dd088); pointer-events: none; }
+  #gear svg, #pauseBtn svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 1.5px 0 #0b6dd088); pointer-events: none; }
   .pill { background: #ffffffd9; border-radius: 999px; padding: 4px 10px; font-weight: 700; color: #1d4f7a; font-size: 14px; }
   #pageName { position: absolute; left: 0; right: 0; top: 58%; transform: translateY(-50%); text-align: center; font-weight: 800; color: #6b3a12;
     font-size: 15px; text-shadow: 0 1px 0 #ffffff80; }
@@ -221,6 +223,32 @@
   #winAd[hidden] { display: none; }
   @keyframes spin { 100% { transform: rotate(360deg); } }
 
+  #pauseBtn { position: absolute; left: 56px; top: 8px; transition: transform .1s; }
+  #pauseBtn:active { transform: scale(.88); }
+
+  /* Worlds: every five levels the scene changes. With its own painting (#app.artworld) the tint and the beach-specific sparkle are switched off;
+     without one, the original beach is re-lit by a tint that sits over the background and under everything else. */
+  #app.artworld #fxBg::before { opacity: 0 !important; }
+  #app.artworld #water, #app.artworld #fxBg > .tw { display: none; }
+  #fxBg::before { content: ''; position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; opacity: 0; transition: opacity 1s; }
+  #app[data-tint="1"] #fxBg::before { background: linear-gradient(#ff9a5a, #ffb37a 45%, #ffd7a8); opacity: .78; }
+  #app[data-tint="2"] #fxBg::before { background: linear-gradient(#27337a, #3c4a9a 50%, #6a78c0); opacity: .86; }
+  #app[data-tint="3"] #fxBg::before { background: linear-gradient(#ffb3d1, #ffd9c2 50%, #fff3d6); opacity: .8; }
+  .levels h4 { grid-column: 1 / -1; margin: 6px 0 0; text-align: left; font: 700 15px/1 Fredoka, system-ui, sans-serif; color: #0b3a6e; }
+  .chest { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; border-radius: 14px; background: #fff6c9;
+    border: 2px solid #ffb300; font: 700 14px/1.2 Fredoka, system-ui, sans-serif; color: #8a4b00; text-align: left; }
+  #mcard .chest button, #mcard .small { min-width: 0; padding: 7px 12px; font-size: 13px; -webkit-text-stroke-width: 3px; }
+  #mcard .linkbtn { min-width: 0; padding: 2px; border: 0; background: none; box-shadow: none; -webkit-text-stroke: 0; font: 600 13px/1 system-ui, sans-serif;
+    color: #2a66a8; text-decoration: underline; }
+  .astk span { position: relative; }
+  .astk u { position: absolute; right: 2px; bottom: 2px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 2px #0005; }
+  .help { width: 100%; margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; text-align: left; }
+  .help li { background: #fff; border: 2px solid #bfe3fb; border-radius: 14px; padding: 8px 12px; }
+  .help b { color: #0b3a6e; }
+  /* Test tools only show in debug builds. */
+  #cheats .dev { display: none; }
+  #app.debug #cheats .dev { display: block; }
+
   /* Shop */
   .testmode { font: 700 12px/1.3 system-ui, sans-serif; color: #8a4b00; background: #ffe9a8; border: 2px dashed #e8a200; border-radius: 10px; padding: 6px 10px; }
   .balance { display: flex; align-items: center; gap: 6px; font: 700 22px/1 Fredoka, system-ui, sans-serif; color: #0b3a6e; }
@@ -266,6 +294,7 @@
   #cheats.open button:nth-child(3) { animation-delay: .1s; }
   #cheats.open button:nth-child(4) { animation-delay: .15s; }
   #cheats.open button:nth-child(5) { animation-delay: .2s; }
+  #cheats.open button:nth-child(6) { animation-delay: .25s; }
   #sign { animation: sway 4.5s ease-in-out infinite; transform-origin: 50% 0; }
   .bar { transition: transform .1s; }
   .bar:active { transform: scale(.92); }
@@ -350,6 +379,7 @@
       <rect id="tooth" x="39" y="12" width="22" height="24" rx="7"/><use href="#tooth" transform="rotate(60 50 50)"/><use href="#tooth" transform="rotate(120 50 50)"/>
       <use href="#tooth" transform="rotate(180 50 50)"/><use href="#tooth" transform="rotate(240 50 50)"/><use href="#tooth" transform="rotate(300 50 50)"/></g>
       <circle cx="50" cy="50" r="11" fill="#2a9bf4"/></svg></button>
+    <button id="pauseBtn" aria-label="Pause"><svg viewBox="0 0 100 100"><rect x="26" y="22" width="18" height="56" rx="7" fill="#fff"/><rect x="56" y="22" width="18" height="56" rx="7" fill="#fff"/></svg></button>
     <div id="sign"><div id="pageName"></div><div id="score"></div></div>
     <div id="stats">
       <div class="bar" id="gemsBar"><span id="gems"></span><button data-plus="gems" aria-label="Get gems"></button></div>
@@ -357,11 +387,12 @@
     </div>
   </div>
   <div id="cheats">
-    <button data-cheat="energy">⚡ +50 energy</button>
-    <button data-cheat="fill">🏁 Complete level</button>
-    <button data-cheat="reset">🗑️ Reset save</button>
     <button data-cheat="sound" id="soundRow"></button>
     <button data-cheat="music" id="musicRow"></button>
+    <button data-cheat="help">❓ How to play</button>
+    <button data-cheat="energy" class="dev">⚡ +50 energy</button>
+    <button data-cheat="fill" class="dev">🏁 Complete level</button>
+    <button data-cheat="reset" class="dev">🗑️ Reset save</button>
   </div>
   <div id="tools"></div>
   <div id="pile"><div id="dangerLine"></div></div>
@@ -402,21 +433,40 @@ let KINDS = 5;                       // sticker designs per pack in play
 let TIDE_S = 0;                      // seconds between new pairs dropping in (0 = no tide)
 let ICE_N = 0;                       // frozen stickers in the starting pile
 let THICK_N = 0;                     // of those, how many are double-frozen
+let GOAL = 'collect', GOAL_N = 0;    // what wins the level: fill the packs, melt the ice, reach a score, or outlast a storm
 // Level curve: each level turns the dials a little further.
 function levelCfg(n) {
   // Levels 1-9 introduce things one at a time. From 10 on the pile grows, the tide quickens and thick ice appears,
-  // so the climb never flattens out (it tops out around level 21).
-  return {
+  // so the climb never flattens out (it tops out around level 26).
+  const L = {
     kinds: n < 3 ? 3 : n < 5 ? 4 : 5,
     target: Math.min(12, 4 + 2 * n),
     pairs: n < 10 ? Math.min(18, 10 + 2 * n) : Math.min(22, 18 + Math.floor((n - 9) / 2)),
-    tide: n < 2 ? 0 : n <= 9 ? 6.5 - 0.5 * n : Math.max(1.4, 2 - (n - 9) * 0.05),
+    tide: n < 2 ? 0 : n <= 9 ? 6.2 - 0.4 * n : Math.max(1.6, 2.6 - (n - 9) * 0.06),   // tuned with tools/sim.mjs
     ice: n < 3 ? 0 : n <= 6 ? (n - 2) * 2 : Math.min(14, 8 + Math.floor((n - 6) / 2)),
     thick: n < 10 ? 0 : Math.min(6, n - 9),
+    goal: 'collect', goalN: 0,
   };
+  // From level 6 the goal rotates: melt the ice, reach a score, outlast a storm, then back to filling the packs.
+  if (n >= 6) L.goal = ['ice', 'score', 'storm', 'collect'][(n - 6) % 4];
+  if (L.goal === 'ice') L.ice = Math.max(L.ice, 8);
+  if (L.goal === 'score') L.goalN = 5000 + 300 * n;
+  if (L.goal === 'storm') { L.goalN = 45 + Math.min(30, n); L.tide = Math.max(1.3, L.tide * 0.8); }
+  return L;
 }
-function applyLevel() { const L = levelCfg(state.page); KINDS = L.kinds; TARGET = L.target; START_PAIRS = L.pairs; TIDE_S = L.tide; ICE_N = L.ice; THICK_N = L.thick; }
+function applyLevel() { const L = levelCfg(state.page); KINDS = L.kinds; TARGET = L.target; START_PAIRS = L.pairs; TIDE_S = L.tide; ICE_N = L.ice; THICK_N = L.thick;
+  GOAL = L.goal; GOAL_N = L.goalN; if (GOAL !== 'collect') TARGET = Infinity;   // outside collect levels the packs never finish
+}
 const kindsOf = (c) => Math.min(PACKS[c].e.length, KINDS);
+// World 0 is the original beach (background.webp). Worlds 1-8 use world-1.webp ... world-8.webp when those files exist;
+// until then each falls back to the original beach re-lit with a colour tint.
+const WORLDS = ['Beach Day', 'Waterfall Cove', 'Crystal Lagoon', 'Sunset Shore', 'Volcano Bay', 'Mangrove Creek', 'Pirate Cove', 'Moonlit Bay', 'Coral Reef'];
+const WORLD_TINT = [0, 0, 3, 1, 0, 3, 0, 2, 0];   // fallback lighting per world: 0 daylight, 1 sunset, 2 night, 3 soft pink
+const worldOf = (n) => Math.floor((n - 1) / 5) % WORLDS.length;
+const ALBUM_TIERS = [10, 30, 75], TIER_NAMES = ['Bronze', 'Silver', 'Gold'], TIER_REWARD = [50, 100, 200], TIER_COLOR = ['#c98a4b', '#aeb9c7', '#f2b705'];
+const CHEST_EVERY = 10, CHEST_GEMS = 30;   // a star chest for every ten stars earned
+// Test tools (add energy, finish level, reset) only appear on a developer's machine or with ?debug in the address.
+const DEBUG = /[?&]debug\b/.test(location.search) || location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|192\.168\.)/.test(location.hostname);
 const ALBUM_GOAL = 10, ALBUM_REWARD = 50, BOOST_COST = 40, CONTINUE_COST = 60, RETRY_COST = 5, DANGER_S = 3.5;
 const WIN_GEMS = 50, WIN_ENERGY = 20, REPLAY_GEMS = 10, AD_ENERGY = 25;
 const MAX_ENERGY = 100, REGEN_MS = 20000;
@@ -432,6 +482,16 @@ const CHECK = '<svg viewBox="0 0 100 100"><defs><radialGradient id="ckg" cx="35%
 const PACK_LEFT = [4.75, 27.65, 50.5, 73.4];   // left edge of each card slot in panel.webp, in %
 const SAVE_KEY = 'stickermerge.v3';
 
+// ---- Native shell ----
+// Inside the Capacitor app these reach the phone's own features; in a browser every one of them quietly falls back.
+// None of this has run on a device yet.
+const native = window.Capacitor?.isNativePlatform?.() ? window.Capacitor.Plugins : null;
+function buzz(ms = 15) {
+  const n = Array.isArray(ms) ? 40 : ms;
+  if (native?.Haptics) native.Haptics.impact({ style: n > 60 ? 'HEAVY' : n > 18 ? 'MEDIUM' : 'LIGHT' }).catch(() => {});
+  else navigator.vibrate?.(ms);
+}
+
 // ---- State ----
 const $ = (id) => document.getElementById(id);
 const pile = $('pile');
@@ -439,7 +499,7 @@ let W = 0, H = 0, R = 26, nextId = 1;
 const els = new Map();               // body id -> DOM element
 const fresh = () => ({ page: 1, gems: 0, energy: MAX_ENERGY, energyTs: Date.now(), counts: PACKS.map(() => 0), bodies: null,
   score: 0, stars: {}, album: PACKS.map((p) => p.e.map(() => 0)), albumClaimed: PACKS.map(() => false),
-  boosters: { hint: 3, shuffle: 3, magnet: 3 }, tut: 0, daily: { last: '', streak: 0 }, sound: true, music: true, noAds: false, purchases: {}, starterShown: false, maxPage: 1 });
+  boosters: { hint: 3, shuffle: 3, magnet: 3 }, tut: 0, daily: { last: '', streak: 0 }, sfxVol: 1, musVol: 1, tips: {}, chests: 0, matches: 0, storm: 0, iceAll: 0, done: false, noAds: false, purchases: {}, starterShown: false, maxPage: 1 });
 let state = load();
 applyLevel();
 let bodies = [];
@@ -447,14 +507,23 @@ let bodies = [];
 function load() {
   try {
     const s = JSON.parse(localStorage.getItem(SAVE_KEY));
-    if (s && Array.isArray(s.counts) && s.counts.length === PACKS.length) { const st = Object.assign(fresh(), s); st.maxPage = Math.max(st.maxPage, st.page); return st; }   // older saves gain the new fields
+    if (s && Array.isArray(s.counts) && s.counts.length === PACKS.length) {
+      const st = Object.assign(fresh(), s); st.maxPage = Math.max(st.maxPage, st.page);
+      if (s.sound === false) st.sfxVol = 0; if (s.music === false) st.musVol = 0;       // on/off switches became volume levels
+      st.albumClaimed = st.albumClaimed.map((v) => v === true ? 1 : v | 0);              // one reward per page became three tiers
+      if (!s.tips) st.bodies = null;   // a level saved before goals existed restarts cleanly under the new rules
+      return st;
+    }   // older saves gain the new fields
   } catch {}
   return fresh();
 }
 function save() {
   state.bodies = bodies.map(({ c, k, t, x, y, rot, ice }) => ({ c, k, t, x: Math.round(x), y: Math.round(y), rot: Math.round(rot), ice: ice | 0 }));
-  try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch {}
+  const json = JSON.stringify(state);
+  try { localStorage.setItem(SAVE_KEY, json); } catch {}
+  if (native?.Preferences && json !== lastNativeSave) { lastNativeSave = json; native.Preferences.set({ key: SAVE_KEY, value: json }).catch(() => {}); }   // survives iOS clearing web storage
 }
+let lastNativeSave = '';
 
 const sameKind = (a, b) => a.c === b.c && a.k === b.k && a.t === b.t;
 const packDone = (c) => state.counts[c] >= TARGET;
@@ -504,7 +573,7 @@ function findPair() {
   return null;
 }
 function thaw(o) {
-  o.ice--; setTier(o, !o.ice);
+  o.ice--; setTier(o, !o.ice); renderGoal();
   const pr = pile.getBoundingClientRect(); burst(pr.left + o.x, pr.top + o.y, 8); SND.thaw();
 }
 // No move left: top the pile up, and if everything that could match is frozen, melt it.
@@ -563,10 +632,29 @@ function renderHud(bump) {
   $('pageName').textContent = 'Level ' + state.page;
   setNum('gems', state.gems); setNum('score', state.score.toLocaleString());
   tickEnergy();
-  const got = state.counts.reduce((a, n) => a + Math.min(n, TARGET), 0), all = TARGET * PACKS.length;
   $('trayInner').innerHTML = PACKS.map((p, c) =>
-    `<button class="pack${packDone(c) ? ' done' : ''}${bump === c ? ' bump' : ''}" data-pack="${c}" style="left:${PACK_LEFT[c]}%" aria-label="${p.name}"><span class="e" style="background-image:url(${p.icon})"></span><span class="n">${packDone(c) ? CHECK : Math.min(state.counts[c], TARGET) + '/' + TARGET}</span></button>`).join('')
-    + `<div id="bar"><i style="width:${got / all * 100}%"></i></div><div id="total">${got}/${all}</div>`;
+    `<button class="pack${packDone(c) ? ' done' : ''}${bump === c ? ' bump' : ''}" data-pack="${c}" style="left:${PACK_LEFT[c]}%" aria-label="${p.name}"><span class="e" style="background-image:url(${p.icon})"></span><span class="n">${packDone(c) ? CHECK : isFinite(TARGET) ? Math.min(state.counts[c], TARGET) + '/' + TARGET : state.counts[c]}</span></button>`).join('')
+    + '<div id="bar"><i></i></div><div id="total"></div>';
+  renderGoal();
+}
+// How far along the level's goal is: [0..1, short label for the slot beside the bar].
+function goalProgress() {
+  if (GOAL === 'ice') { const all = Math.max(state.iceAll, 1), left = bodies.filter((b) => b.ice).length; return [1 - left / all, `${Math.max(0, all - left)}/${all}`]; }
+  if (GOAL === 'score') { const f = Math.min(1, state.score / GOAL_N); return [f, Math.floor(f * 100) + '%']; }
+  if (GOAL === 'storm') { const sec = Math.max(0, Math.ceil(state.storm)); return [1 - state.storm / GOAL_N, Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0')]; }
+  const got = state.counts.reduce((a, n) => a + Math.min(n, TARGET), 0), all = TARGET * PACKS.length;
+  return [got / all, `${got}/${all}`];
+}
+function renderGoal() {
+  const fill = document.querySelector('#bar i'); if (!fill) return;
+  const [f, label] = goalProgress();
+  fill.style.width = Math.max(0, Math.min(1, f)) * 100 + '%'; $('total').textContent = label;
+}
+const goalMet = () => GOAL === 'ice' ? !bodies.some((b) => b.ice) : GOAL === 'score' ? state.score >= GOAL_N : GOAL === 'storm' ? state.storm <= 0
+  : state.counts.every((n) => n >= TARGET);
+function checkGoal() {
+  if (ending || !goalMet()) return false;
+  ending = true; setTimeout(win, 600); return true;
 }
 const GIFT = 'toast-gift.webp';     // same idea with a present on it, for things the player just received
 const BLANK = 'toast-blank.webp';   // banner with an empty bar: the message is drawn on it as text
@@ -688,7 +776,7 @@ function hearts(x, y) {
 }
 $('fox').addEventListener('click', () => {
   const r = $('fox').getBoundingClientRect();
-  fx($('fox'), 'hop', 650); SND.fox(); hearts(r.left + r.width / 2, r.top + r.height * 0.25); navigator.vibrate?.(20);
+  fx($('fox'), 'hop', 650); SND.fox(); hearts(r.left + r.width / 2, r.top + r.height * 0.25); buzz(20);
 });
 
 // ---- Bonuses: reward quick, clean and same-pack matching ----
@@ -732,7 +820,7 @@ function nextCall() {
   if (b.energy) { state.energy = Math.min(MAX_ENERGY, state.energy + b.energy); tickEnergy(); }
   if (b.gems) { state.gems += b.gems; setNum('gems', state.gems); }
   setTimeout(() => { burst(x, y + r.height / 2, 12); floatText(x, y, b.energy ? `+${b.energy} energy` : `+${b.gems} gems`); }, 250);
-  navigator.vibrate?.([20, 40, 20]); save();
+  buzz([20, 40, 20]); save();
   setTimeout(nextCall, 1600);
 }
 
@@ -741,7 +829,7 @@ let ac = null, sfxOut = null, musicOut = null, noiseBuf = null, ocean = null, mu
 function audio() {
   if (ac) return ac;
   try { ac = new (window.AudioContext || window.webkitAudioContext)(); } catch { return null; }
-  sfxOut = ac.createGain(); sfxOut.gain.value = 0.9; sfxOut.connect(ac.destination);
+  sfxOut = ac.createGain(); sfxOut.gain.value = 0.9 * state.sfxVol; sfxOut.connect(ac.destination);
   musicOut = ac.createGain(); musicOut.gain.value = 0; musicOut.connect(ac.destination);
   noiseBuf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate);
   const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
@@ -770,7 +858,7 @@ function marimba(out, midi, t, vol, dur = 0.34) { voice(out, hz(midi), t, dur, v
 function pan(out, midi, t, vol, dur = 0.5) { voice(out, hz(midi), t, dur, vol, 'triangle'); voice(out, hz(midi) * 2.01, t, dur * 0.6, vol * 0.4); }
 
 function sfx(play) {
-  if (!state.sound) return;
+  if (!state.sfxVol) return;
   const a = audio(); if (!a) return;
   if (a.state === 'suspended') a.resume();
   try { play(a.currentTime); } catch {}
@@ -811,10 +899,10 @@ function musicTick() {
   while (stepAt < ac.currentTime + 0.35) { scheduleStep(songStep++, stepAt); stepAt += STEP_S; }
 }
 function startMusic() {
-  if (musicTimer || !state.music) return;
+  if (musicTimer || !state.musVol) return;
   const a = audio(); if (!a) return;
   if (a.state === 'suspended') a.resume();
-  musicOut.gain.setTargetAtTime(0.8, a.currentTime, 0.8);
+  musicOut.gain.setTargetAtTime(0.8 * state.musVol, a.currentTime, 0.8);
   // ocean: low-passed noise that swells and fades like slow waves
   ocean = a.createBufferSource(); ocean.buffer = noiseBuf; ocean.loop = true;
   const lp = a.createBiquadFilter(), level = a.createGain(), swell = a.createOscillator(), depth = a.createGain();
@@ -831,13 +919,68 @@ function stopMusic() {
 }
 // Browsers only allow sound after a touch, so the music starts on the first one. It stops with the tab.
 document.addEventListener('pointerdown', startMusic, true);
-document.addEventListener('visibilitychange', () => { if (!ac) return; if (document.hidden) ac.suspend(); else if (state.music || state.sound) ac.resume(); });
+document.addEventListener('visibilitychange', () => { if (!ac) return; if (document.hidden) ac.suspend(); else if (state.musVol || state.sfxVol) ac.resume(); });
 
 // ---- Modals: daily reward, album, level failed ----
 let modalAct = null;
 function openModal(html, onAct) { $('mcard').innerHTML = html; modalAct = onAct; $('modal').classList.add('open'); }
 function closeModal() { $('modal').classList.remove('open'); modalAct = null; }
 $('modal').addEventListener('click', (e) => { const b = e.target.closest('[data-act]'); if (b && modalAct) { SND.click(); modalAct(b.dataset.act); } });
+
+// ---- Analytics ----
+// The one place events leave the game. Today they only collect in memory for inspection (type analytics.events in the console).
+// On the stores, log() becomes the call to the analytics service.
+const analytics = {
+  testMode: true, events: [],
+  log(name, data = {}) { this.events.push({ name, level: state.page, ...data, at: Date.now() }); if (this.events.length > 300) this.events.shift(); },
+};
+const track = (name, data) => analytics.log(name, data);
+
+function setWorld(n) {
+  const app = $('app'), w = worldOf(n);
+  app.dataset.world = w; app.dataset.tint = WORLD_TINT[w];
+  app.classList.remove('artworld'); app.style.backgroundImage = '';
+  if (!w) return;
+  const src = `world-${w}.webp`, img = new Image();        // use the world's own painting if it has been added
+  img.onload = () => { if (worldOf(state.page) === w) { app.style.backgroundImage = `url(${src})`; app.classList.add('artworld'); } };
+  img.src = src;
+}
+
+// ---- Teaching: one-time tips, queued so they never talk over each other, plus a help screen ----
+const tipQueue = [];
+let tipBusy = false;
+function queueTip(text, ms = 4200) { tipQueue.push([text, ms]); if (!tipBusy) nextTip(); }
+function nextTip() {
+  const t = tipQueue.shift();
+  if (!t) { tipBusy = false; return; }
+  tipBusy = true; showTip(t[0], t[1], BLANK); setTimeout(nextTip, t[1] + 350);
+}
+const once = (key) => state.tips[key] ? false : (state.tips[key] = 1);   // true the first time only
+function openHelp() {
+  openModal(`<div class="mtitle">How to play</div><ul class="help">
+    <li><b>Match.</b> Drag a sticker onto its twin. Quick matches in a row build combos worth up to five times the points.</li>
+    <li><b>Packs.</b> Tap a pack to drop a pair of that kind. It costs 1 energy.</li>
+    <li><b>The line.</b> New stickers keep dropping in. If the pile rests above the dashed line, the level is lost.</li>
+    <li><b>Ice.</b> Frozen stickers melt when you make a match beside them. Thick ice takes two.</li>
+    <li><b>Boosters.</b> Hint shows a pair, Shuffle tosses the pile, Magnet makes a match for you.</li>
+    <li><b>Goals.</b> Fill the packs, melt the ice, reach a score or outlast a storm. The bar at the bottom shows how close you are.</li>
+    <li><b>Stars.</b> The more points per match, the more stars. Tap the wooden sign to replay any level.</li>
+  </ul><button data-act="close" class="alt">Close</button>`, closeModal);
+}
+function openPause() {
+  openModal('<div class="mtitle">Paused</div><button data-act="resume">Resume</button><button data-act="restart" class="alt">Restart level</button>'
+    + '<button data-act="levels" class="alt">Levels</button><button data-act="help" class="alt">How to play</button>', (act) => {
+    closeModal();
+    if (act === 'restart') startLevel(); else if (act === 'levels') openLevels(); else if (act === 'help') openHelp();
+  });
+}
+$('pauseBtn').onclick = () => { SND.click(); openPause(); };
+// Nudge toward the boosters the first time a player goes a long while without a match.
+setInterval(() => {
+  if (state.tut < 2 || state.tips.boost || tipBusy || !run.lastAt || performance.now() - run.lastAt < 12000) return;
+  if ($('win').classList.contains('open') || $('modal').classList.contains('open') || bodies.length < 8) return;
+  once('boost'); queueTip('Stuck? Try a booster on the left'); save();
+}, 2000);
 
 // ---- Ads ----
 // The one place that talks to an ad network. Today it shows a pretend ad: a labelled countdown on a dark screen.
@@ -854,8 +997,8 @@ const ads = {
       };
       const finish = (watched) => {
         clearInterval(timer); $('ad').classList.remove('open'); box.onclick = null;
-        if (ac && musicTimer) musicOut.gain.setTargetAtTime(0.8, ac.currentTime, 0.3);
-        done(watched);
+        if (ac && musicTimer) musicOut.gain.setTargetAtTime(0.8 * state.musVol, ac.currentTime, 0.3);
+        track('ad', { kind, watched }); done(watched);
       };
       $('ad').classList.add('open'); draw();
       if (ac) musicOut.gain.setTargetAtTime(0.0001, ac.currentTime, 0.1);   // the game goes quiet under an ad
@@ -875,6 +1018,11 @@ const paused = () => !TIDE_S || ending || state.tut < 1 || $('win').classList.co
   || $('cheats').classList.contains('open') || $('ad').classList.contains('open');
 function pressure(dt) {
   if (paused()) return;
+  if (GOAL === 'storm') {              // the storm clock only runs while the game does
+    const before = Math.ceil(state.storm); state.storm -= dt;
+    if (Math.ceil(state.storm) !== before) renderGoal();
+    if (checkGoal()) return;
+  }
   tideT += dt;
   if (tideT >= TIDE_S) { tideT = 0; tideDrop(); }
   // "above the line" only counts for stickers that have come to rest, not ones falling through
@@ -890,7 +1038,7 @@ function tideDrop() {
   if (!open.length || bodies.length > capacity() * 1.3) return;
   const c = pick(open), k = Math.floor(Math.random() * kindsOf(c));
   dropIn(c, k, 2); dropIn(c, k, 2, 0.5); SND.drop();
-  if (state.tut < 3) { state.tut = 3; showTip('Match fast: keep the pile under the line!', 5000, BLANK); }
+  if (state.tut < 3) { state.tut = 3; queueTip('Match fast: keep the pile under the line!', 5000); }
 }
 let adContinueUsed = false;
 function sweepTop() {                // clear the top half of the pile and carry on
@@ -899,7 +1047,8 @@ function sweepTop() {                // clear the top half of the pile and carry
   closeModal(); renderHud(); save();
 }
 function fail() {
-  dangerT = 0; pile.classList.remove('danger'); pile.style.setProperty('--danger', 0); SND.fail(); navigator.vibrate?.(120);
+  dangerT = 0; pile.classList.remove('danger'); pile.style.setProperty('--danger', 0); SND.fail(); buzz(120);
+  track('level_fail', { score: state.score });
   openModal(`<div class="mtitle bad">Pile overflowed!</div><p>The stickers stayed above the line too long.</p>
     ${adContinueUsed ? '' : '<button data-act="ad">Keep going · watch ad</button>'}
     <button data-act="continue"${adContinueUsed ? '' : ' class="alt"'}>Keep going · ${CONTINUE_COST} gems</button>
@@ -917,13 +1066,25 @@ function fail() {
 // ---- Levels ----
 function startLevel() {
   applyLevel();
-  state.counts = PACKS.map(() => 0); state.score = 0; ending = false; tideT = 0; dangerT = 0;
+  state.counts = PACKS.map(() => 0); state.score = 0; state.matches = 0; state.storm = GOAL_N; state.done = false; ending = false; tideT = 0; dangerT = 0;
+  setWorld(state.page);
   Object.assign(run, { combo: 0, lastAt: 0, streak: 0, chain: 0, chainPack: -1, times: [] });
   seedPile();
   [...bodies].sort(() => Math.random() - 0.5).slice(0, ICE_N).forEach((b, i) => { b.ice = i < THICK_N ? 2 : 1; setTier(b); });
-  adContinueUsed = false;
+  adContinueUsed = false; state.iceAll = bodies.filter((b) => b.ice).length;
   pile.classList.toggle('tide', TIDE_S > 0); pile.classList.remove('danger'); pile.style.setProperty('--danger', 0);
   renderHud(); renderTools(); save(); tutorial();
+  track('level_start', { goal: GOAL });
+  tipQueue.length = 0;               // tips still waiting from the last level no longer apply
+  if (state.tut > 0) {               // say what this level wants, then anything new it introduces
+    if ((state.page - 1) % 5 === 0 && state.page > 1 && once('world' + worldOf(state.page))) queueTip('New world: ' + WORLDS[worldOf(state.page)]);
+    const goal = { ice: 'Goal: melt all the ice', score: `Goal: score ${GOAL_N.toLocaleString()} points`, storm: `Storm! Survive ${GOAL_N} seconds`,
+      collect: state.page >= 6 ? 'Goal: fill every pack' : '' }[GOAL];
+    if (goal) queueTip(goal);
+    if (ICE_N && once('ice')) queueTip('Ice! Match beside a frozen sticker to melt it');
+    if (THICK_N && once('thick')) queueTip('Thick ice needs two matches beside it');
+    if (state.page === 2 && once('sign')) { queueTip('Quick combos earn more stars'); queueTip('Tap the wooden sign to replay levels'); }
+  }
   if (state.page >= 5 && !state.purchases.starter && !state.starterShown) { state.starterShown = true; save(); setTimeout(openShop, 1400); }
 }
 const STAR = '<svg viewBox="0 0 100 100"><path d="M50 6 62 36 94 38 69 59 77 91 50 73 23 91 31 59 6 38 38 36Z" stroke-linejoin="round" stroke-width="7"/></svg>';
@@ -943,13 +1104,20 @@ $('winAd').onclick = () => ads.rewarded().then((ok) => {
 
 // ---- Level select: tap the wooden sign ----
 function openLevels() {
-  const cells = [];
+  const cells = [], total = Object.values(state.stars).reduce((a, n) => a + n, 0), next = (state.chests + 1) * CHEST_EVERY;
   for (let n = 1; n <= state.maxPage + 3; n++) {
+    if ((n - 1) % 5 === 0) cells.push(`<h4>${WORLDS[worldOf(n)]}</h4>`);
     const open = n <= state.maxPage, got = state.stars[n] || 0;
     const stars = [1, 2, 3].map((i) => `<i class="${i <= got ? 'on' : ''}">${STAR}</i>`).join('');
     cells.push(`<button class="lv${open ? '' : ' locked'}${n === state.page ? ' cur' : ''}" ${open ? `data-act="go:${n}"` : 'disabled'}><b>${open ? n : '🔒'}</b><span>${stars}</span></button>`);
   }
-  openModal(`<div class="mtitle">Levels</div><p>Replay a level to earn more stars. Picking one restarts it.</p><div class="levels">${cells.join('')}</div><button data-act="close" class="alt">Close</button>`, (act) => {
+  const chest = total >= next ? `<span>★ ${total} stars: a chest is ready!</span><button data-act="chest">Open</button>` : `<span>★ ${total} stars · next chest at ${next}</span>`;
+  openModal(`<div class="mtitle">Levels</div><div class="chest">${chest}</div><div class="levels">${cells.join('')}</div><button data-act="close" class="alt">Close</button>`, (act) => {
+    if (act === 'chest') {             // every ten stars: gems and a booster
+      const key = pick(Object.keys(state.boosters));
+      state.chests++; state.gems += CHEST_GEMS; state.boosters[key]++;
+      SND.bonus(); renderHud(); renderTools(); save(); toast(`+${CHEST_GEMS} gems and a ${key}`, GIFT); return openLevels();
+    }
     closeModal();
     if (act !== 'close') { state.page = +act.split(':')[1]; startLevel(); }
   });
@@ -985,26 +1153,28 @@ function useBooster(key) {
   if (state.boosters[key] > 0) state.boosters[key]--;
   else if (state.gems >= BOOST_COST) state.gems -= BOOST_COST;
   else { toast('Not enough gems', 'toast-no-gems.webp'); return openShop(); }
-  SND.click();
+  SND.click(); track('booster', { key });
   if (key === 'hint') pair.forEach((b) => fx(els.get(b.id), 'hinted', 2600));
   if (key === 'shuffle') for (const b of bodies) { b.px = b.x - rnd(-16, 16); b.py = b.y + rnd(10, 20); }   // kick everything up and sideways
   if (key === 'magnet') { const [a, b] = pair; a.x = a.px = b.x; a.y = a.py = b.y - 4; merge(a, b); }
   renderTools(); renderHud(); save();
 }
+const tierOf = (n) => ALBUM_TIERS.filter((t) => n >= t).length;   // 0 none, 1 bronze, 2 silver, 3 gold
 function openAlbum() {
   const pages = PACKS.map((p, c) => {
-    const done = p.e.every((_, k) => state.album[c][k] >= ALBUM_GOAL);
-    const status = state.albumClaimed[c] ? '<i>Collected ✓</i>' : done ? `<button data-act="claim${c}">Claim ${ALBUM_REWARD} gems</button>` : `<i>Fill the page: ${ALBUM_REWARD} gems</i>`;
+    const pageTier = Math.min(...p.e.map((_, k) => tierOf(state.album[c][k] || 0))), claimed = state.albumClaimed[c] | 0;
+    const status = claimed >= 3 ? '<i>Gold page ✓</i>' : pageTier > claimed ? `<button data-act="claim${c}">Claim ${TIER_REWARD[claimed]} gems</button>`
+      : `<i>${TIER_NAMES[claimed]} page: ${TIER_REWARD[claimed]} gems</i>`;
     const row = p.e.map((n, k) => {
-      const got = Math.min(state.album[c][k] || 0, ALBUM_GOAL);
-      return `<div class="astk${got ? '' : ' none'}"><span style="background-image:url(st-${n}.webp)"></span><em>${got}/${ALBUM_GOAL}</em></div>`;
+      const got = state.album[c][k] || 0, tier = tierOf(got), goal = ALBUM_TIERS[Math.min(tier, 2)];
+      return `<div class="astk${got ? '' : ' none'}"><span style="background-image:url(st-${n}.webp)">${tier ? `<u style="background:${TIER_COLOR[tier - 1]}"></u>` : ''}</span><em>${tier >= 3 ? 'Gold' : Math.min(got, goal) + '/' + goal}</em></div>`;
     }).join('');
     return `<div class="apage"><div class="ahead"><b>${p.name}</b>${status}</div><div class="arow">${row}</div></div>`;
   }).join('');
-  openModal(`<div class="mtitle">Sticker album</div><p>Match a sticker ${ALBUM_GOAL} times to collect it.</p><div class="album">${pages}</div><button data-act="close" class="alt">Close</button>`, (act) => {
+  openModal(`<div class="mtitle">Sticker album</div><p>Keep matching a sticker to take it to bronze, silver and gold. Bring a whole page up a tier for gems.</p><div class="album">${pages}</div><button data-act="close" class="alt">Close</button>`, (act) => {
     if (act === 'close') return closeModal();
-    const c = +act.slice(5);
-    state.albumClaimed[c] = true; state.gems += ALBUM_REWARD; SND.bonus(); renderHud(); save(); openAlbum();
+    const c = +act.slice(5), tier = state.albumClaimed[c] | 0;
+    state.albumClaimed[c] = tier + 1; state.gems += TIER_REWARD[tier]; SND.bonus(); renderHud(); save(); openAlbum();
   });
 }
 
@@ -1020,12 +1190,17 @@ const PRODUCTS = [
 ];
 // The one place that talks to a payment system. Today it only pretends: it waits a moment and says yes.
 // On the stores, buy() becomes the real purchase call and resolves true only when the store confirms payment.
-const store = { testMode: true, buy: (product) => new Promise((done) => setTimeout(() => done(true), 700)) };
+const store = {
+  testMode: true,
+  buy: (product) => new Promise((done) => setTimeout(() => done(true), 700)),
+  // Apple requires a way to get one-time purchases back on a new phone. Pretend version: report what this save already owns.
+  restore: () => new Promise((done) => setTimeout(() => done(PRODUCTS.filter((p) => p.once && state.purchases[p.id])), 500)),
+};
 function grant(p) {
   if (p.gems) state.gems += p.gems;
   if (p.boosters) for (const k of Object.keys(state.boosters)) state.boosters[k] += p.boosters;
   if (p.noAds) state.noAds = true;
-  state.purchases[p.id] = (state.purchases[p.id] || 0) + 1;
+  state.purchases[p.id] = (state.purchases[p.id] || 0) + 1; track('purchase', { id: p.id, price: p.price });
   renderHud(); renderTools(); save();
 }
 const GEM = '<img class="gem" src="gem.webp" alt="">';
@@ -1037,12 +1212,16 @@ function shopView() {
   return `<div class="mtitle">Shop</div>${store.testMode ? '<div class="testmode">Test mode: purchases are pretend. No money is charged.</div>' : ''}
     <div class="balance">${GEM}<b>${state.gems.toLocaleString()}</b></div>${owned(starter) ? '' : wide(starter, '')}
     <div class="packs">${PRODUCTS.slice(1, 5).map((p, i) => `<div class="pk">${p.tag ? `<em>${p.tag}</em>` : ''}<div class="gems g${i}">${GEM}</div><b>${p.name}</b>${buy(p)}</div>`).join('')}</div>
-    ${wide(noads, 'plain')}<button data-act="close" class="alt">Close</button>`;
+    ${wide(noads, 'plain')}<button data-act="restore" class="linkbtn">Restore purchases</button><button data-act="close" class="alt">Close</button>`;
 }
 function openShop() { openModal(shopView(), shopAct); }
 function shopAct(act) {
   if (act === 'close') return closeModal();
   if (act === 'back') return openShop();
+  if (act === 'restore') return store.restore().then((owned) => {
+    if (owned.some((p) => p.noAds)) state.noAds = true;
+    save(); toast(owned.length ? 'Purchases restored' : 'Nothing to restore', BLANK);
+  });
   const [verb, id] = act.split(':'), p = PRODUCTS.find((x) => x.id === id);
   if (verb === 'buy') {
     return openModal(`<div class="mtitle">Confirm</div>${store.testMode ? '<div class="testmode">Test purchase: no money is charged.</div>' : ''}
@@ -1093,7 +1272,7 @@ function tutorial() {
     };
     handTimer = setInterval(demo, 2500);
   } else if (state.tut === 1) {
-    state.tut = 2; showTip('Nice! Tap a pack to drop a pair of that kind', 5000, BLANK);
+    state.tut = 2; queueTip('Nice! Tap a pack to drop a pair of that kind', 5000);
   }
 }
 
@@ -1125,23 +1304,24 @@ function mergeTarget(a) {
 }
 
 function merge(a, b) {
-  navigator.vibrate?.(15);
+  buzz(15);
   const pr = pile.getBoundingClientRect(), mx = pr.left + (a.x + b.x) / 2, my = pr.top + (a.y + b.y) / 2, c = a.c;
   // a match cracks any ice next to it
   for (const o of bodies) {
     if (o.ice && Math.min(Math.hypot(o.x - a.x, o.y - a.y), Math.hypot(o.x - b.x, o.y - b.y)) < R * 3.2) thaw(o);
   }
   flyToPack(a); flyToPack(b); removeBody(a); removeBody(b);
-  state.counts[c]++; state.album[c][a.k] = (state.album[c][a.k] || 0) + 1; onMatch(c);
+  state.counts[c]++; state.matches++; state.album[c][a.k] = (state.album[c][a.k] || 0) + 1; onMatch(c);
+  if (state.album[c][a.k] === ALBUM_GOAL && once('album')) queueTip('Sticker collected! See it in your album');
   const pts = 100 * Math.min(run.combo, 5);          // quick matches are worth up to five times as much
   state.score += pts; SND.pop(run.combo);
   burst(mx, my, 14); floatText(mx, my - R, '+' + pts);
   if (packDone(c)) bodies.filter((o) => o.c === c).forEach((o) => { flyToPack(o); removeBody(o); });
   if (state.tut === 0) { state.tut = 1; tutorial(); }
   renderHud(c); save();
-  if (state.counts.every((n) => n >= TARGET)) { ending = true; return setTimeout(win, 600); }
+  if (checkGoal()) return;
   // Pile cleared (or nothing left that matches): a fresh wave tumbles in, free.
-  if (!hasMove()) setTimeout(() => { if (!hasMove() && !ending) { refill(); toast('Fresh wave!', 'toast-fresh-wave.webp'); SND.wave(); save(); } }, 500);
+  if (!hasMove()) setTimeout(() => { if (!hasMove() && !ending) { refill(); toast('Fresh wave!', 'toast-fresh-wave.webp'); SND.wave(); save(); checkGoal(); } }, 500);
 }
 
 function flyToPack(b) {
@@ -1158,15 +1338,16 @@ function flyToPack(b) {
 
 function win() {
   if ($('win').classList.contains('open')) return;
-  // Stars come from the score against the level's par. Combos multiply matches up to five times, so strong play lands far above par.
-  const par = PACKS.length * TARGET * 100, ratio = state.score / par, stars = ratio >= 5 ? 3 : ratio >= 3 ? 2 : 1;
+  // Stars come from points per match: a plain match is 100, a full combo 500, and bonuses add more. It works the same for every goal.
+  const perMatch = state.matches ? state.score / state.matches : 0, stars = perMatch >= 500 ? 3 : perMatch >= 300 ? 2 : 1;
   const before = state.stars[state.page] || 0, first = !before;
   // The full reward is for the first clear. A replay pays a small tip, plus a booster for each star it adds.
   const newStars = Math.max(0, stars - Math.max(before, 1)), keys = Object.keys(state.boosters);
   for (let i = 0; i < newStars; i++) state.boosters[pick(keys)]++;
   winGems = first ? WIN_GEMS : REPLAY_GEMS;
   state.gems += winGems; if (first) state.energy = Math.min(MAX_ENERGY, state.energy + WIN_ENERGY);
-  state.stars[state.page] = Math.max(before, stars);
+  state.stars[state.page] = Math.max(before, stars); state.done = true;
+  track('level_win', { stars, score: state.score, matches: state.matches, first });
   if (state.page === state.maxPage) state.maxPage++;
   renderWin(stars, newStars, first);
   renderHud(); renderTools(); save(); $('win').classList.add('open'); confetti(); SND.win();
@@ -1242,24 +1423,41 @@ $('cheats').addEventListener('click', (e) => {
   if (!k) return;
   setMenu(false);
   if (k === 'energy') state.energy = Math.min(MAX_ENERGY, state.energy + 50);
-  if (k === 'fill') { state.counts = PACKS.map(() => TARGET); clearBodies(); return win(); }
+  if (k === 'fill') { ending = true; clearBodies(); return win(); }
   if (k === 'reset') { state = fresh(); closeModal(); return startLevel(); }
-  if (k === 'sound') { state.sound = !state.sound; renderSound(); SND.click(); }
-  if (k === 'music') { state.music = !state.music; renderSound(); if (state.music) startMusic(); else stopMusic(); }
+  const quieter = (v) => v > 0.8 ? 0.6 : v > 0.4 ? 0.3 : v > 0 ? 0 : 1;      // 100% -> 60% -> 30% -> off -> 100%
+  if (k === 'sound') { state.sfxVol = quieter(state.sfxVol); if (ac) sfxOut.gain.value = 0.9 * state.sfxVol; renderSound(); SND.click(); setMenu(true); }
+  if (k === 'music') {
+    state.musVol = quieter(state.musVol); renderSound(); setMenu(true);
+    if (!state.musVol) stopMusic(); else if (musicTimer) musicOut.gain.setTargetAtTime(0.8 * state.musVol, ac.currentTime, 0.2); else startMusic();
+  }
+  if (k === 'help') return openHelp();
   renderHud(); save();
 });
 
 function renderSound() {
-  $('soundRow').textContent = state.sound ? '🔊 Sound: on' : '🔇 Sound: off';
-  $('musicRow').textContent = state.music ? '🎵 Music: on' : '🎵 Music: off';
+  const pct = (v) => v ? Math.round(v * 100) + '%' : 'off';
+  $('soundRow').textContent = (state.sfxVol ? '🔊' : '🔇') + ' Sound: ' + pct(state.sfxVol);
+  $('musicRow').textContent = '🎵 Music: ' + pct(state.musVol);
 }
 
 // ---- Boot ----
+// In the app: bring the save back if the phone cleared web storage, and make Android's back button pause or close what is open.
+if (native?.Preferences && !localStorage.getItem(SAVE_KEY)) {
+  native.Preferences.get({ key: SAVE_KEY }).then((r) => { if (r?.value) { try { localStorage.setItem(SAVE_KEY, r.value); location.reload(); } catch {} } }).catch(() => {});
+}
+native?.App?.addListener('backButton', () => {
+  if ($('ad').classList.contains('open')) return;
+  if ($('cheats').classList.contains('open')) setMenu(false);
+  else if ($('modal').classList.contains('open')) closeModal();
+  else if (!$('win').classList.contains('open')) openPause();
+});
 renderHud();                         // tray first, so the pile is measured at its real height
 measure();
 new ResizeObserver(measure).observe(pile);
 // Reopened on a finished level (closed before tapping Next): go straight back to the completed screen, rewards already paid.
-const finished = state.counts.every((n) => n >= TARGET);
+const finished = !!state.done;
+$('app').classList.toggle('debug', DEBUG); setWorld(state.page);
 renderTools(); renderSound(); pile.classList.toggle('tide', TIDE_S > 0);
 if (finished) { renderWin(state.stars[state.page] || 1, 0, true); $('win').classList.add('open'); }
 else if (state.bodies?.length) { state.bodies.filter((b) => PACKS[b.c]?.e[b.k]).forEach((b) => addBody(b.c, b.k, b.t, b.x, b.y, b.rot, b.ice)); tutorial(); }
