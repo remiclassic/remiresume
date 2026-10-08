@@ -7,11 +7,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tropic Tumble: a playable mini game pitch — Remi Couture</title>
-<meta name="description" content="Tropic Tumble is a drag-to-match mini game designed and built end to end by Remi Couture. Play it on this page in five device sizes, then see how the same approach would work with your studio or app team.">
+<meta name="description" content="Tropic Tumble is a drag-to-match mobile game designed and built end to end by Remi Couture, with levels, boosters, a shop, ads and its own soundtrack. Play it on this page in five device sizes, then see how the same approach would work with your studio or app team.">
 <link rel="canonical" href="https://remiclassic.github.io/remiresume/tropictumble/">
 <meta name="theme-color" content="#3aa7ee">
 <meta property="og:title" content="Tropic Tumble: a playable mini game pitch">
-<meta property="og:description" content="A complete mobile mini game you can play in the browser, and how I would build one with your team.">
+<meta property="og:description" content="A complete mobile mini game you can play in the browser, with levels, boosters, a shop and music, and how I would build one with your team.">
 <meta property="og:url" content="https://remiclassic.github.io/remiresume/tropictumble/">
 <meta property="og:image" content="https://remiclassic.github.io/remiresume/tropictumble/game/loading.webp">
 <meta property="og:type" content="website">
@@ -142,7 +142,7 @@
       <span class="eyebrow">Playable pitch · mobile mini game</span>
       <h1 class="logo" aria-label="Tropic Tumble"><span class="a">Tropic</span><span class="b">Tumble</span></h1>
       <h2>A complete mini game. Play it right here.</h2>
-      <p class="lede">Tropic Tumble is a drag-to-match beach game I designed and built end to end: the rules, the interface, the game feel and the code. Pick a device, play a level, then picture your brand in it.</p>
+      <p class="lede">Tropic Tumble is a drag-to-match beach game I designed and built end to end: the rules, the levels, the economy, the interface, the sound and the code. Pick a device, play a level, then picture your brand in it.</p>
       <div class="cta">
         <a class="btn" href="#play">Play now ›</a>
         <a class="btn blue" href="#contact">Build one with me</a>
@@ -174,7 +174,7 @@
     <div class="grid g3">
       <div class="card"><img src="game/st-pan.webp" alt=""><h3>Fits what it is given</h3><p>Small phones, tall phones and tablets share one layout that measures its space and adapts, including while you are playing.</p></div>
       <div class="card"><img src="game/st-bee.webp" alt=""><h3>Touch first</h3><p>Drag, drop and tap are built on pointer input, so it plays the same with a thumb, a stylus or a mouse, with haptic taps on phones that support them.</p></div>
-      <div class="card"><img src="game/st-coconut.webp" alt=""><h3>Light and instant</h3><p>About 3 MB including all the art, no install and no engine download. A loading screen preloads every image before the first sticker drops.</p></div>
+      <div class="card"><img src="game/st-coconut.webp" alt=""><h3>Light and instant</h3><p>About 3.5 MB including all the art, with no install and no engine download. There are no audio files at all: the music and every sound effect are generated in the browser.</p></div>
     </div>
   </div>
 </section>
@@ -186,8 +186,8 @@
     <p class="sub">A mini game only earns its place in an app when the loop is complete. Everything below is wired and working in the build above.</p>
     <div class="stats">
       <div class="stat"><b>17</b><span>sticker designs across 4 packs</span></div>
-      <div class="stat"><b>5</b><span>bonus types for quick, clean play</span></div>
-      <div class="stat"><b>0</b><span>engines or libraries: one hand-written file</span></div>
+      <div class="stat"><b>21</b><span>levels of rising difficulty, then endless play</span></div>
+      <div class="stat"><b>0</b><span>engines, libraries or audio files: one hand-written file</span></div>
       <div class="stat"><b>5</b><span>device sizes on this page</span></div>
     </div>
     <div class="two">
@@ -195,15 +195,20 @@
         <ul class="ticks">
           <li><strong>A physics pile.</strong> Stickers fall, stack and settle with a custom solver tuned to feel soft and readable.</li>
           <li><strong>Drag to match.</strong> Find the twin, drop one on the other, and both fly to their pack. A wrong drop gets a wobble, not a penalty.</li>
-          <li><strong>Bonuses.</strong> Combo, Super Combo, Streak, Chain Bonus and Match Rush pay out energy or gems for skilled play.</li>
-          <li><strong>Levels and saving.</strong> Progress, pile and currencies persist between visits.</li>
+          <li><strong>Pressure and blockers.</strong> From level 2 a tide keeps dropping new stickers, and the level is lost if the pile rests above the line. Ice locks stickers until you match beside them, and thick ice takes two.</li>
+          <li><strong>Levels that ramp.</strong> Each level adds designs, raises the targets and quickens the tide. Scores earn up to three stars, and any level can be replayed from the level select.</li>
+          <li><strong>Bonuses and boosters.</strong> Combo, Super Combo, Streak, Chain Bonus and Match Rush reward quick, clean play. Hint, Shuffle and Magnet help when you are stuck.</li>
+          <li><strong>Reasons to come back.</strong> A sticker album with page rewards, a daily reward that grows over a seven-day streak, and saving between visits.</li>
         </ul>
       </div>
       <div>
         <ul class="ticks">
-          <li><strong>An economy ready to monetise.</strong> Energy with a refill timer and a gem balance. The refill and shop buttons are the hooks where rewarded ads and purchases plug in.</li>
+          <li><strong>A working economy.</strong> Energy and gems each have clear ways to be earned and spent. The shop sells gem packs, a starter pack and ad removal.</li>
+          <li><strong>Ads where players choose them.</strong> Watch one for energy, a second chance or double gems. A short ad between levels disappears for anyone who buys ad removal.</li>
+          <li><strong>Ready for real payments.</strong> Purchases and ads run in a clearly labelled test mode here. Each sits behind a single function, which is where the store and ad network plug in.</li>
+          <li><strong>Music and sound.</strong> An island loop over ocean waves, and a match sound that climbs a note with every step of a combo.</li>
           <li><strong>Game feel.</strong> Sparkle bursts, confetti, pop-in rewards, a fox that reacts when you tap it, glinting water and sand on the wind.</li>
-          <li><strong>A full interface.</strong> HUD, settings, toasts, level-complete screen and loading screen, all art-driven.</li>
+          <li><strong>A full interface.</strong> HUD, tutorial, shop, album, level select, a banner for every message, and loading and level-complete screens.</li>
           <li><strong>Testing tools.</strong> The gear menu can add energy, finish a level or reset the save. Try it.</li>
         </ul>
       </div>
@@ -220,8 +225,8 @@
       <div class="step"><div><h3>Start from your reference</h3><p>A game you admire, a brief, or just a brand. I break the loop down into rules we can agree on before anything is drawn.</p></div></div>
       <div class="step"><div><h3>Playable on a phone first</h3><p>You get a link the whole team can open on their own phones. Tropic Tumble had a first playable the same day it started, and every decision after that was made by playing it.</p></div></div>
       <div class="step"><div><h3>Your art, dropped in</h3><p>Backgrounds, panels, icons and stickers here were swapped in one piece at a time without touching the game logic. Your artists keep working in their own tools.</p></div></div>
-      <div class="step"><div><h3>Feel, then polish</h3><p>Micro animations, effects and reward moments go in once the loop is fun, and each one is tested on a phone-sized screen before it stays.</p></div></div>
-      <div class="step"><div><h3>Hand-off that fits your pipeline</h3><p>A readable, commented codebase with tuning values in one place. It can ship on the web as is, be wrapped for the app stores, or serve as the spec for a Unity, Godot or Unreal build.</p></div></div>
+      <div class="step"><div><h3>Feel, then polish</h3><p>Micro animations, effects, sound and reward moments go in once the loop is fun, and each one is tested on a phone-sized screen before it stays.</p></div></div>
+      <div class="step"><div><h3>Hand-off that fits your pipeline</h3><p>A readable, commented codebase with the level curve, prices and rewards in one place, and payments and ads each behind one function. It can ship on the web as is, be wrapped for the app stores, or serve as the spec for a Unity, Godot or Unreal build.</p></div></div>
     </div>
   </div>
 </section>
