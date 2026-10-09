@@ -52,7 +52,8 @@
   .hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 40px; align-items: center; }
   .eyebrow { display: inline-block; font: 700 14px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; padding: 8px 14px; border-radius: 999px;
     background: #ffffff33; border: 2px solid #ffffff88; backdrop-filter: blur(4px); }
-  .logo { margin: 18px 0 10px; font-size: clamp(54px, 8vw, 104px); letter-spacing: -.01em; filter: drop-shadow(0 6px 0 #7a3b12) drop-shadow(0 10px 14px #0004); }
+  .logo { margin: 10px 0 6px -3%; }
+  .logo img { display: block; width: min(100%, 470px); height: auto; filter: drop-shadow(0 8px 10px #0003); }   /* the game's own logo */
   .logo span { display: block; -webkit-text-stroke: 10px #8a4a1c; paint-order: stroke fill; }
   .logo .a { color: #ffc93a; } .logo .b { color: #5fd2ff; margin-top: -.12em; }
   .hero h2 { font-size: clamp(24px, 3vw, 34px); text-shadow: 0 2px 0 #0b3a6e88; }
@@ -168,7 +169,7 @@
   <div class="wrap">
     <div class="copy">
       <span class="eyebrow">Playable pitch · mobile merge game</span>
-      <h1 class="logo" aria-label="Tropic Tumble"><span class="a">Tropic</span><span class="b">Tumble</span></h1>
+      <h1 class="logo"><img src="media/logo.webp" alt="Tropic Tumble" width="900" height="442"></h1>
       <h2>A complete mobile game. Play it right here.</h2>
       <p class="lede">Tropic Tumble is a sticker merge game I designed and built end to end: the rules, the levels, the economy, the interface, the sound and the code. Merge jelly stickers into shiny ones, place them in painted island scenes, and open the chest. Pick a device, play a level, then picture your brand in it.</p>
       <div class="cta">
