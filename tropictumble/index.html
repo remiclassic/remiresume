@@ -7,11 +7,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tropic Tumble: a playable mini game pitch — Remi Couture</title>
-<meta name="description" content="Tropic Tumble is a drag-to-match mobile game designed and built end to end by Remi Couture, with levels, boosters, a shop, ads and its own soundtrack. Play it on this page in five device sizes, then see how the same approach would work with your studio or app team.">
+<meta name="description" content="Tropic Tumble is a sticker merge mobile game designed and built end to end by Remi Couture, with 76 stickers, nine scenes to fill, events, a season pass, a shop, ads and its own soundtrack. Play it on this page in five device sizes, then see how the same approach would work with your studio or app team.">
 <link rel="canonical" href="https://remiclassic.github.io/remiresume/tropictumble/">
 <meta name="theme-color" content="#3aa7ee">
 <meta property="og:title" content="Tropic Tumble: a playable mini game pitch">
-<meta property="og:description" content="A complete mobile mini game you can play in the browser, with levels, boosters, a shop and music, and how I would build one with your team.">
+<meta property="og:description" content="A complete mobile merge game you can play in the browser, with sticker scenes, events, a season pass, a shop and music, and how I would build one with your team.">
 <meta property="og:url" content="https://remiclassic.github.io/remiresume/tropictumble/">
 <meta property="og:image" content="https://remiclassic.github.io/remiresume/tropictumble/game/loading.webp">
 <meta property="og:type" content="website">
@@ -87,6 +87,11 @@
   .kicker { font: 700 14px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; color: #e8830c; }
   .title { font-size: clamp(32px, 4.6vw, 52px); margin: 10px 0 14px; color: var(--deep); }
   .sub { font-size: 18px; max-width: 42em; }
+  .trailer { display: block; width: 100%; max-width: 920px; aspect-ratio: 16 / 9; margin: 34px auto 0; border-radius: 24px; border: 3px solid #bfe3fb; box-shadow: 0 6px 0 #bfe3fb; background: #0b3a6e; }
+  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-top: 28px; }
+  .shots figure { margin: 0; text-align: center; }
+  .shots img { display: block; width: 100%; height: auto; border-radius: 18px; border: 3px solid #bfe3fb; box-shadow: 0 6px 0 #bfe3fb; }
+  .shots figcaption { margin-top: 12px; font-weight: 700; font-size: 15px; color: #0b3a6e; }
   .grid { display: grid; gap: 18px; margin-top: 34px; }
   .g3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
   .card { background: #fff; border-radius: 24px; padding: 24px; border: 3px solid #bfe3fb; box-shadow: 0 6px 0 #bfe3fb; }
@@ -162,10 +167,10 @@
   <span class="floaty" style="left:43%;bottom:6%;width:66px;animation-delay:-1.2s;background-image:url(game/st-crab.webp)"></span>
   <div class="wrap">
     <div class="copy">
-      <span class="eyebrow">Playable pitch · mobile mini game</span>
+      <span class="eyebrow">Playable pitch · mobile merge game</span>
       <h1 class="logo" aria-label="Tropic Tumble"><span class="a">Tropic</span><span class="b">Tumble</span></h1>
-      <h2>A complete mini game. Play it right here.</h2>
-      <p class="lede">Tropic Tumble is a drag-to-match beach game I designed and built end to end: the rules, the levels, the economy, the interface, the sound and the code. Pick a device, play a level, then picture your brand in it.</p>
+      <h2>A complete mobile game. Play it right here.</h2>
+      <p class="lede">Tropic Tumble is a sticker merge game I designed and built end to end: the rules, the levels, the economy, the interface, the sound and the code. Merge jelly stickers into shiny ones, place them in painted island scenes, and open the chest. Pick a device, play a level, then picture your brand in it.</p>
       <div class="cta">
         <a class="btn" href="#play">Play now ›</a>
         <a class="btn blue" href="#contact">Build one with me</a>
@@ -197,7 +202,26 @@
     <div class="grid g3">
       <div class="card"><img src="game/st-pan.webp" alt=""><h3>Fits what it is given</h3><p>Small phones, tall phones and tablets share one layout that measures its space and adapts, including while you are playing.</p></div>
       <div class="card"><img src="game/st-bee.webp" alt=""><h3>Touch first</h3><p>Drag, drop and tap are built on pointer input, so it plays the same with a thumb, a stylus or a mouse, with haptic taps on phones that support them.</p></div>
-      <div class="card"><img src="game/st-coconut.webp" alt=""><h3>Light and instant</h3><p>About 6.5 MB including eight painted worlds and a campaign map, with no install and no engine download. There are no audio files at all: the music and every sound effect are generated in the browser.</p></div>
+      <div class="card"><img src="game/st-coconut.webp" alt=""><h3>Light and instant</h3><p>About 9 MB including eight painted worlds, nine sticker scenes and a campaign map, with no engine download. It starts after loading about a quarter of that and fetches the rest while you play. There are no audio files at all: four music tunes and every sound effect are generated in the browser.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="wrap">
+    <p class="kicker">A look inside</p>
+    <h2 class="title">From a pile of jelly to a finished island</h2>
+    <p class="sub">Thirty seconds of the game, then six of its screens. Everything shown is running in the build at the top of this page.</p>
+    <video class="trailer" controls preload="none" playsinline poster="media/trailer-poster.webp" aria-label="Tropic Tumble trailer">
+      <source src="media/trailer.mp4" type="video/mp4">
+    </video>
+    <div class="shots">
+      <figure><img src="media/shot-1-merge.webp" alt="A pile of stickers at three stages being merged" loading="lazy" width="540" height="960"><figcaption>Merge: jelly, painted, shiny</figcaption></figure>
+      <figure><img src="media/shot-2-scene.webp" alt="A beach scene with stickers placed on a picnic mat" loading="lazy" width="540" height="960"><figcaption>Place stickers in a scene</figcaption></figure>
+      <figure><img src="media/shot-4-chest.webp" alt="A treasure chest bursting open under a Level up sign" loading="lazy" width="540" height="960"><figcaption>Level up and open the chest</figcaption></figure>
+      <figure><img src="media/shot-3-home.webp" alt="The Home screen with a scene card and a Play button" loading="lazy" width="540" height="960"><figcaption>Home</figcaption></figure>
+      <figure><img src="media/shot-6-events.webp" alt="The Events screen with two event cards" loading="lazy" width="540" height="960"><figcaption>Timed events</figcaption></figure>
+      <figure><img src="media/shot-7-pass.webp" alt="The Island Pass with free and premium reward tracks" loading="lazy" width="540" height="960"><figcaption>The Island Pass</figcaption></figure>
     </div>
   </div>
 </section>
@@ -208,31 +232,35 @@
     <h2 class="title">Small game, finished systems</h2>
     <p class="sub">A mini game only earns its place in an app when the loop is complete. Everything below is wired and working in the build above.</p>
     <div class="stats">
-      <div class="stat"><b>17</b><span>sticker designs across 4 packs</span></div>
+      <div class="stat"><b>76</b><span>stickers: 60 to collect in 12 sets, plus 16 for events</span></div>
+      <div class="stat"><b>9</b><span>painted scenes to fill, sticker by sticker</span></div>
       <div class="stat"><b>40</b><span>levels on a campaign map across eight islands</span></div>
       <div class="stat"><b>0</b><span>engines, libraries or audio files: one hand-written file</span></div>
-      <div class="stat"><b>5</b><span>device sizes on this page</span></div>
     </div>
     <div class="two">
       <div>
         <ul class="ticks">
           <li><strong>A physics pile.</strong> Stickers fall, stack and settle with a custom solver tuned to feel soft and readable.</li>
-          <li><strong>Drag to match.</strong> Find the twin, drop one on the other, and both fly to their pack. A wrong drop gets a wobble, not a penalty.</li>
+          <li><strong>Merge in three stages.</strong> Drag a sticker onto its twin. Two jelly stickers make a painted one, two painted ones make a shiny one, and two shiny ones are collected. A wrong drop gets a wobble and a line saying why, not a penalty.</li>
+          <li><strong>Sticker scenes.</strong> Every sticker collected has a place in a painted scene. Tap it and it flies there. Finishing a scene pays a reward, levels the player up and opens an animated chest.</li>
+          <li><strong>Twelve sets that take turns.</strong> A level plays with four sets at a time, chosen by what the scene in progress still needs, so there is always a reason for the next level.</li>
           <li><strong>Pressure and blockers.</strong> From level 2 a tide keeps dropping new stickers, and the level is lost if the pile rests above the line. Ice locks stickers until you match beside them, and thick ice takes two.</li>
-          <li><strong>Levels that ramp.</strong> Each level adds designs and quickens the tide, and from level 6 the goal rotates: fill the packs, melt the ice, reach a score or outlast a storm. Scores earn up to three stars, and any level can be replayed.</li>
+          <li><strong>Levels that ramp.</strong> From level 6 the goal rotates: fill the packs, melt the ice, reach a score or outlast a storm. Scores earn up to three stars, and any level can be replayed.</li>
           <li><strong>Bonuses and boosters.</strong> Combo, Super Combo, Streak, Chain Bonus and Match Rush reward quick, clean play. Hint, Shuffle and Magnet help when you are stuck.</li>
-          <li><strong>Reasons to come back.</strong> A sticker album with bronze, silver and gold tiers, a chest for every ten stars, a daily reward that grows over a seven-day streak, and saving between visits.</li>
+          <li><strong>A Home hub.</strong> Scenes, a levels map, a sticker album with bronze, silver and gold tiers, a player profile, and a daily reward that grows over a seven-day streak.</li>
         </ul>
       </div>
       <div>
         <ul class="ticks">
-          <li><strong>A working economy.</strong> Energy and gems each have clear ways to be earned and spent. The shop sells gem packs, a starter pack and ad removal.</li>
-          <li><strong>Ads where players choose them.</strong> Watch one for energy, a second chance or double gems. A short ad between levels disappears for anyone who buys ad removal.</li>
-          <li><strong>Ready for real payments.</strong> Purchases and ads run in a clearly labelled test mode here. Each sits behind a single function, which is where the store and ad network plug in.</li>
-          <li><strong>Music and sound.</strong> An island loop over ocean waves, and a match sound that climbs a note with every step of a combo.</li>
-          <li><strong>Game feel.</strong> Sparkle bursts, confetti, pop-in rewards and a fox that reacts when you tap it.</li>
-          <li><strong>Eight worlds and a campaign map.</strong> A new painted scene every five levels, laid out as a map you can pan around, each with its own life: waterfalls and mist, embers off the lava, fireflies at night, bubbles on the reef.</li>
-          <li><strong>A full interface.</strong> HUD, pause, tutorial tips and a how-to-play screen, shop, album, campaign map, a banner for every message, and loading and level-complete screens.</li>
+          <li><strong>Live-game systems.</strong> Timed events with their own stickers, short stories to unlock, and an Island Pass: a 28-day season with a free and a premium reward at each of 15 tiers.</li>
+          <li><strong>A working economy.</strong> Energy and gems each have clear ways to be earned and spent. The shop sells gem packs, a starter pack, ad removal and the premium pass.</li>
+          <li><strong>Ads where players choose them.</strong> Watch one for energy, a second chance or to double a reward. A short ad between levels disappears for anyone who buys ad removal.</li>
+          <li><strong>Real payments and ads.</strong> On this page they run in a clearly labelled test mode. In the Android build the same functions call Google Play billing and AdMob.</li>
+          <li><strong>A guided tour.</strong> The fox introduces Home, scenes, events and the pass the first time a player reaches each, one lit-up button and one sentence at a time.</li>
+          <li><strong>Music and sound.</strong> Four island tunes that take turns over ocean waves, a match sound that climbs a note with every step of a combo, and their own sounds for chests, rewards and placed stickers.</li>
+          <li><strong>Game feel.</strong> Sparkle bursts, confetti, a party popper, turning light rays, a chest that hops until you tap it, and a fox that reacts when you poke it.</li>
+          <li><strong>Eight worlds and a campaign map.</strong> A new painted backdrop every five levels, laid out as a map you can pan around, each with its own life: waterfalls and mist, embers off the lava, fireflies at night, bubbles on the reef.</li>
+          <li><strong>Built for slow phones.</strong> Only what the first screen needs is loaded before play. A phone that struggles is detected in the first seconds and gets a lighter look automatically.</li>
           <li><strong>Balance checked by bots.</strong> Simulated players run each level at three skill levels, so the difficulty curve is tuned on numbers before people play it.</li>
           <li><strong>Testing tools.</strong> The gear menu can add energy, finish a level or reset the save. Try it.</li>
         </ul>
@@ -251,7 +279,7 @@
       <div class="step"><div><h3>Playable on a phone first</h3><p>You get a link the whole team can open on their own phones. Tropic Tumble had a first playable the same day it started, and every decision after that was made by playing it.</p></div></div>
       <div class="step"><div><h3>Your art, dropped in</h3><p>Backgrounds, panels, icons and stickers here were swapped in one piece at a time without touching the game logic. Your artists keep working in their own tools.</p></div></div>
       <div class="step"><div><h3>Feel, then polish</h3><p>Micro animations, effects, sound and reward moments go in once the loop is fun, and each one is tested on a phone-sized screen before it stays.</p></div></div>
-      <div class="step"><div><h3>Hand-off that fits your pipeline</h3><p>A readable, commented codebase with the level curve, prices and rewards in one place, and payments and ads each behind one function. It can ship on the web as is, be wrapped for the app stores, or serve as the spec for a Unity, Godot or Unreal build. An Android project is already set up around this one.</p></div></div>
+      <div class="step"><div><h3>Hand-off that fits your pipeline</h3><p>A readable, commented codebase with the level curve, prices and rewards in one place, and payments and ads each behind one function. It can ship on the web as is, be wrapped for the app stores (this one is, for Google Play), or serve as the spec for a Unity, Godot or Unreal build. An Android project is already set up around this one.</p></div></div>
     </div>
   </div>
 </section>
@@ -287,7 +315,7 @@
 </main>
 
 <footer><div class="wrap">
-  <span>© 2026 Guillaume (Rémi) Couture. Tropic Tumble is a portfolio prototype.</span>
+  <span>© 2026 Guillaume (Rémi) Couture. Tropic Tumble is published by Strategic Sloth LLC.</span>
   <span><a href="../index.html">Résumé</a> · <a href="../portfolio.html">Portfolio</a> · <a href="game/index.html?debug=1">Open the game full screen ↗</a></span>
 </div></footer>
 
