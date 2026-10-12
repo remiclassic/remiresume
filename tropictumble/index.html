@@ -133,6 +133,9 @@
   .lede { color: var(--ink); text-shadow: none; }
   .logo .a { color: #f39a00; } .logo .b { color: #1f97e6; }   /* deeper fills; the thick brown outline carries the shape on the white card */
   .btn { background: linear-gradient(#249a2a, #1a8424); border-color: #0d6b1a; box-shadow: inset 0 3px 0 #6fdc6f, inset 0 -5px 0 #167a20, 0 5px 10px #0003; text-shadow: 0 2px 0 #0d6b1a; }
+  .btn.store { padding: 9px 22px 9px 16px; gap: 10px; border-color: #000; background: linear-gradient(#3a3f4a, #15171c); box-shadow: inset 0 2px 0 #6b7280, inset 0 -5px 0 #000, 0 5px 10px #0003; text-shadow: none; text-align: left; line-height: 1.05; }
+  .btn.store svg { width: 26px; height: 26px; flex: none; }
+  .btn.store small { display: block; font-size: .58em; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; opacity: .85; }
   .btn.blue { background: linear-gradient(#2379d8, #0f62c0); border-color: #0a4a94; box-shadow: inset 0 3px 0 #6fb4f5, inset 0 -5px 0 #0c519f, 0 5px 10px #0003; text-shadow: 0 2px 0 #0a4a94; }
   .picker button { background: #ffffffeb; border-color: #fff; color: var(--deep); backdrop-filter: none; }
   .picker button:hover { background: #fff; }
@@ -174,6 +177,7 @@
       <p class="lede">Tropic Tumble is a sticker merge game I designed and built end to end: the rules, the levels, the economy, the interface, the sound and the code. Merge jelly stickers into shiny ones, place them in painted island scenes, and open the chest. Pick a device, play a level, then picture your brand in it.</p>
       <div class="cta">
         <a class="btn" href="#play">Play now ›</a>
+        <a class="btn store" href="https://play.google.com/store/apps/details?id=com.strategicsloth.tropictumble" target="_blank" rel="noopener" aria-label="Get Tropic Tumble on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2.6v18.8L14.2 12Z" fill="#35c3ff"/><path d="M4 2.6 14.2 12l3.1-2.9Z" fill="#3ddc84"/><path d="M4 21.4 14.2 12l3.1 2.9Z" fill="#ff4d5e"/><path d="M17.3 9.1 14.2 12l3.1 2.9 3.6-2a1 1 0 0 0 0-1.8Z" fill="#ffd23f"/></svg><span><small>Get it on</small>Google Play</span></a>
         <a class="btn blue" href="#contact">Build one with me</a>
       </div>
     </div>
@@ -280,7 +284,7 @@
       <div class="step"><div><h3>Playable on a phone first</h3><p>You get a link the whole team can open on their own phones. Tropic Tumble had a first playable the same day it started, and every decision after that was made by playing it.</p></div></div>
       <div class="step"><div><h3>Your art, dropped in</h3><p>Backgrounds, panels, icons and stickers here were swapped in one piece at a time without touching the game logic. Your artists keep working in their own tools.</p></div></div>
       <div class="step"><div><h3>Feel, then polish</h3><p>Micro animations, effects, sound and reward moments go in once the loop is fun, and each one is tested on a phone-sized screen before it stays.</p></div></div>
-      <div class="step"><div><h3>Hand-off that fits your pipeline</h3><p>A readable, commented codebase with the level curve, prices and rewards in one place, and payments and ads each behind one function. It can ship on the web as is, be wrapped for the app stores (this one is, for Google Play), or serve as the spec for a Unity, Godot or Unreal build. An Android project is already set up around this one.</p></div></div>
+      <div class="step"><div><h3>Hand-off that fits your pipeline</h3><p>A readable, commented codebase with the level curve, prices and rewards in one place, and payments and ads each behind one function. It can ship on the web as is, be wrapped for the app stores (this one is <a href="https://play.google.com/store/apps/details?id=com.strategicsloth.tropictumble" target="_blank" rel="noopener">live on Google Play</a>), or serve as the spec for a Unity, Godot or Unreal build. An Android project is already set up around this one.</p></div></div>
     </div>
   </div>
 </section>
@@ -308,6 +312,7 @@
     <p class="sub">I’m Remi Couture, a product designer and tool builder with twenty years of shipped credits across games, apps and training products. Tell me what you are making and I will tell you how I would approach it.</p>
     <div class="cta">
       <button class="btn" type="button" data-reveal-email>Show my email</button>
+      <a class="btn store" href="https://play.google.com/store/apps/details?id=com.strategicsloth.tropictumble" target="_blank" rel="noopener" aria-label="Get Tropic Tumble on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2.6v18.8L14.2 12Z" fill="#35c3ff"/><path d="M4 2.6 14.2 12l3.1-2.9Z" fill="#3ddc84"/><path d="M4 21.4 14.2 12l3.1 2.9Z" fill="#ff4d5e"/><path d="M17.3 9.1 14.2 12l3.1 2.9 3.6-2a1 1 0 0 0 0-1.8Z" fill="#ffd23f"/></svg><span><small>Get it on</small>Google Play</span></a>
       <a class="btn blue" href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a class="btn blue" href="../services.html">Work &amp; services</a>
     </div>
