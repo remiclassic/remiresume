@@ -21,6 +21,7 @@ h1 em, h2 em { font-style:normal; color:#c6f27a; }
 .lead { margin-top:40px; font-family:'DM Sans'; font-size:40px; line-height:1.35; color:#d5dbcc; max-width:860px; }
 .shot { margin-top:44px; width:100%; height:520px; border-radius:22px; border:2px solid #3a4638; overflow:hidden; background:#080a08; box-shadow:0 40px 100px -30px #000; }
 .shot img { width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+.shot img[src*="focusrail-editor.png"] { object-fit:contain; object-position:center; background:#202020; }
 .plate { margin-top:44px; height:520px; border-radius:22px; border:2px solid #3a4638; background:linear-gradient(135deg,#141a15,#0b0f0c); display:grid; place-content:center; text-align:center; gap:26px; padding:50px; }
 .plate b { font-size:150px; font-weight:800; letter-spacing:-.06em; color:#c6f27a; line-height:1; }
 .plate span { font-family:'JetBrains Mono',monospace; font-size:26px; letter-spacing:.1em; text-transform:uppercase; color:#9ba494; line-height:1.6; }
@@ -41,7 +42,7 @@ h2 { margin-top:22px; font-size:96px; font-weight:800; letter-spacing:-.055em; l
 const M = '../services-assets/media/', S = '../services-assets/';
 const products = [
   ['Available · free to start', '', 'SliceForge', 'Turn a visual reference into an editable game interface. Build screens, refine component states, export a UI kit.', 'sliceforge.io', S + 'studio-images/sf-compose.webp'],
-  ['Available on Fab', '', 'Focusrail', 'Predictable controller navigation for Unreal Engine UMG. Focus memory, navigation rails and a Focus Doctor that finds broken navigation.', 'Unreal Engine 5 · C++ plugin', M + 'services/unreal-focus-doctor.webp'],
+  ['Available on Fab', '', 'Focusrail', 'Predictable controller navigation for Unreal Engine UMG. Focus memory, navigation rails and a Focus Doctor that finds broken navigation.', 'Unreal Engine 5 · C++ plugin', M + 'services/focusrail-editor.png'],
   ['Built · awaiting launch', 'soon', 'DriveDeck', 'Your drive, organized like a workspace. Turn an external SSD into a desktop for files, projects and music, with managed transfers and safe eject.', 'Windows first · version 1.0 complete', null, ['1.0', 'Organize · Transfer · Take it with you']],
   ['Complete · awaiting launch', 'soon', 'NarriaFlow', 'An infinite-canvas writing app for authors who think visually. Chapters, characters and connected ideas in one workspace.', 'Web app', M + 'work/narriaflow-poster.webp'],
   ['In development', 'dev', 'Real Estate 3D Home', 'Edit the plan in 2D, furnish the rooms, then walk through the same property in 3D. One application.', 'Web application · synthetic demonstration property', M + 'work/real-estate-poster.webp'],

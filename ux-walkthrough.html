@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UX design walkthrough · Remi Couture</title>
+<meta name="description" content="A guided presentation of Remi Couture’s UX thinking, flows, interaction decisions, and greyboxing versus art direction.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="ux-walkthrough.css?v=1">
+<script src="ux-walkthrough-data.js?v=1" defer></script>
+<script src="ux-walkthrough.js?v=1" defer></script>
+</head>
+<body>
+<a class="skip" href="#slide">Skip to presentation</a>
+<header class="deck-toolbar">
+  <a href="portfolio.html" class="deck-brand">remi couture <span>UX walkthrough</span></a>
+  <div class="deck-tools">
+    <label class="route-label">Route <select id="route"><option value="full">Full conversation</option><option value="short">Short conversation</option><option value="education">Greybox lesson</option></select></label>
+    <button id="outline-toggle" aria-expanded="false" aria-controls="outline">Contents</button>
+    <button id="notes-toggle" aria-expanded="false" aria-controls="presenter-notes">Notes</button>
+    <button id="fullscreen">Full screen</button>
+  </div>
+</header>
+<main id="main">
+  <aside id="outline" hidden aria-label="Presentation contents"><h2>Choose a slide</h2><nav id="outline-links"></nav><p>Arrow keys move between slides. N toggles notes. F opens full screen.</p><a href="presentations/remi-ux-walkthrough.pptx" download>Download editable PowerPoint</a><button id="print">Print / Save PDF</button></aside>
+  <article id="slide" class="deck-slide" tabindex="-1" aria-labelledby="slide-title"></article>
+  <aside id="presenter-notes" hidden aria-label="Presenter notes"><h2>Presenter notes</h2><p id="notes-text"></p><div id="suggestions"></div><p class="source" id="source"></p></aside>
+</main>
+<footer class="deck-footer"><span id="section"></span><div class="deck-navigation"><button id="previous" aria-label="Previous slide">←</button><span id="progress" aria-live="polite" aria-atomic="true"></span><button id="next" aria-label="Next slide">→</button></div><span class="deck-help">← → to navigate · N for notes</span></footer>
+<dialog id="image-viewer" aria-label="Expanded evidence image"><button id="close-image" autofocus>Close image</button><img id="expanded-image" alt=""><p id="expanded-caption"></p></dialog>
+<noscript>This presentation needs JavaScript. <a href="portfolio.html">Explore the portfolio</a>.</noscript>
+</body>
+</html>
