@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The thinking behind the interface — educational video (frame-accurate timeline)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Palette and type follow ux-walkthrough.css so the video reads as the same deck. */
+:root { --paper:#f7f6f0; --ink:#252b23; --green:#45633e; --muted:#62685d; --line:#d9ddcf; --sage:#e5eadb; --lime:#c6f27a; --amber:#96560c; --amber-bg:#f6e9d0; --red:#a23b2a; }
+* { box-sizing:border-box; margin:0; padding:0; }
+html,body { background:#000; overflow:hidden; }
+#stage { position:relative; width:1920px; height:1080px; overflow:hidden; background:var(--paper); color:var(--ink); font-family:'DM Sans',Arial,sans-serif; transform-origin:0 0; }
+.scene { position:absolute; inset:0; display:none; overflow:hidden; }
+[data-in] { visibility:hidden; will-change:transform,opacity; }
+.abs { position:absolute; }
+.kicker { font-size:21px; font-weight:700; color:var(--green); letter-spacing:.16em; text-transform:uppercase; }
+h1,h2 { font-weight:500; letter-spacing:-.05em; line-height:1.05; }
+h2 { font-size:64px; }
+.lead { font-size:30px; line-height:1.45; color:var(--muted); }
+.word { display:inline-block; white-space:pre; }
+.say { position:absolute; left:110px; right:110px; font-size:40px; line-height:1.25; font-weight:500; letter-spacing:-.03em; }
+.say em { font-style:normal; color:var(--green); }
+.note { font-size:22px; color:var(--muted); line-height:1.45; }
+
+/* HUD */
+#hud { position:absolute; inset:0; z-index:30; pointer-events:none; }
+#hud .brand { position:absolute; left:110px; top:38px; font-size:30px; font-weight:700; letter-spacing:-.04em; }
+#hud .brand span { font-size:19px; font-weight:400; color:var(--muted); margin-left:20px; letter-spacing:0; }
+#chapter { position:absolute; right:110px; top:46px; font-size:19px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--green); }
+#track { position:absolute; left:110px; right:110px; top:1042px; height:3px; background:var(--line); }
+#bar { position:absolute; left:0; top:0; height:3px; width:0; background:var(--green); }
+#track i { position:absolute; top:-5px; width:3px; height:13px; background:var(--muted); opacity:.55; }
+#stage.inv #hud .brand, #stage.inv #hud .brand span, #stage.inv #chapter { color:var(--paper); }
+#stage.inv #track { background:#ffffff33; } #stage.inv #bar { background:var(--lime); } #stage.inv #track i { background:var(--paper); }
+#fade { position:absolute; inset:0; background:#151d19; z-index:60; opacity:0; pointer-events:none; }
+
+/* lesson cards */
+.card { background:var(--green); color:var(--paper); }
+.card .kicker { position:absolute; left:110px; top:380px; color:var(--lime); font-size:26px; }
+.card h2 { position:absolute; left:110px; top:440px; width:1120px; font-size:96px; }
+.card .num { position:absolute; right:70px; top:250px; font-size:560px; font-weight:700; letter-spacing:-.07em; line-height:1; color:transparent; -webkit-text-stroke:3px #ffffff40; }
+
+/* intro */
+#intro .hook { position:absolute; left:110px; top:320px; width:1500px; font-size:128px; }
+#intro .title { position:absolute; left:110px; top:250px; font-size:150px; white-space:nowrap; }
+#intro .lead { position:absolute; left:110px; top:620px; width:1100px; font-size:36px; }
+.rail { position:absolute; left:110px; right:110px; top:850px; height:90px; }
+.rail .ln { position:absolute; left:0; right:0; top:12px; height:3px; background:var(--green); transform-origin:0 50%; }
+.rail .dot { position:absolute; top:0; width:27px; height:27px; margin-left:-13px; border-radius:50%; background:var(--paper); border:4px solid var(--green); }
+.rail span { position:absolute; top:44px; width:240px; margin-left:-120px; text-align:center; font-size:21px; color:var(--muted); }
+.rail span:first-of-type { text-align:left; margin-left:-13px; } .rail span:last-of-type { text-align:right; margin-left:-227px; }
+
+/* three-column grid shared by text scenes */
+.head { position:absolute; left:110px; top:128px; right:110px; }
+.head h2 { margin-top:16px; }
+.cols { position:absolute; left:110px; right:110px; display:grid; grid-template-columns:repeat(3,1fr); gap:40px; }
+.panel { background:#fffdf7; border:2px solid var(--line); border-radius:12px; padding:32px 34px 34px; }
+.panel h3 { font-size:40px; font-weight:600; letter-spacing:-.04em; line-height:1.1; }
+.panel .meta { margin-top:10px; font-size:19px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--green); }
+.panel dl { margin-top:22px; }
+.panel dt { font-size:17px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-top:18px; padding-top:16px; border-top:1px solid var(--line); }
+.panel dd { font-size:25px; line-height:1.35; margin-top:6px; }
+.panel ul { list-style:none; margin-top:20px; }
+.panel li { font-size:25px; line-height:1.35; padding:15px 0 15px 44px; border-top:1px solid var(--line); position:relative; }
+.panel li::before { content:''; position:absolute; left:2px; top:19px; width:22px; height:22px; border-radius:50%; border:3px solid var(--muted); }
+.panel li.yes::before { border-color:var(--green); background:var(--green); box-shadow:inset 0 0 0 4px #fffdf7; }
+.panel li s { text-decoration:none; color:var(--muted); } .panel li u { text-decoration:none; color:var(--green); font-weight:600; }
+.chips { display:flex; align-items:center; gap:14px; flex-wrap:nowrap; }
+.chip { display:inline-block; padding:11px 22px; border:2px solid #b9c0ad; border-radius:99px; font-size:24px; font-weight:500; background:#fffdf7; white-space:nowrap; }
+.chip.ok { border-color:var(--green); background:var(--sage); color:var(--green); font-weight:600; }
+.chip.bad { border-color:var(--red); color:var(--red); }
+.chip.prop { border-color:var(--amber); background:var(--amber-bg); color:var(--amber); }
+.chips > i { font-style:normal; font-size:26px; color:var(--muted); }
+.badge { display:inline-block; font-size:17px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:8px 14px; border-radius:6px; border:2px solid var(--green); color:var(--green); background:var(--sage); white-space:nowrap; }
+.badge.prop { border-color:var(--amber); color:var(--amber); background:var(--amber-bg); }
+
+/* approach */
+#approach .steps { position:absolute; left:110px; right:110px; top:340px; display:grid; grid-template-columns:repeat(4,1fr); gap:60px; }
+#approach .step b { display:grid; place-items:center; width:64px; height:64px; border-radius:50%; background:var(--green); color:var(--paper); font-size:28px; }
+#approach .step h3 { margin-top:26px; font-size:38px; font-weight:600; letter-spacing:-.04em; line-height:1.1; }
+#approach .step p { margin-top:16px; font-size:26px; line-height:1.4; color:var(--muted); }
+#approach .arr { position:absolute; top:370px; height:3px; width:300px; background:var(--green); }
+#approach .arr::after, .varr::after { content:''; position:absolute; right:-2px; top:-8px; border:10px solid transparent; border-left:16px solid var(--green); border-right:0; }
+#approach svg { position:absolute; left:110px; top:640px; width:1700px; height:140px; overflow:visible; }
+#approach svg path { fill:none; stroke:var(--green); stroke-width:3; stroke-dasharray:1; }
+#approach .loop { position:absolute; left:0; right:0; top:716px; text-align:center; }
+#approach .loop span { background:var(--paper); padding:0 22px; font-size:22px; color:var(--green); font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+
+/* split image scenes */
+.copy { position:absolute; left:110px; top:132px; width:570px; }
+.copy h2 { font-size:52px; margin-top:16px; }
+.copy .lead { font-size:26px; margin-top:22px; }
+.copy ul { list-style:none; margin-top:26px; }
+.copy li { font-size:26px; line-height:1.4; border-top:2px solid var(--line); padding:16px 0 18px; }
+.copy .ask { margin-top:10px; font-size:26px; line-height:1.4; color:var(--green); font-weight:600; border-top:2px solid var(--green); padding-top:16px; }
+.frame { position:absolute; overflow:hidden; border-radius:10px; background:#11150f; box-shadow:0 30px 70px -30px #252b2388, 0 0 0 1px #252b2322; }
+.cam { position:absolute; left:0; top:0; transform-origin:0 0; }
+.cam img { display:block; width:100%; height:100%; position:absolute; inset:0; }
+.hl { position:absolute; border:3px solid var(--lime); border-radius:6px; }
+.hl.spot { box-shadow:0 0 0 4000px rgba(12,16,13,.66); }
+.hl b { position:absolute; left:-3px; bottom:100%; margin-bottom:8px; background:var(--lime); color:#1b2118; font-size:21px; font-weight:600; letter-spacing:-.01em; padding:6px 12px; border-radius:5px; white-space:nowrap; }
+.hl.lb b { bottom:auto; top:100%; margin:8px 0 0; }
+.hl.lr b { left:auto; right:-3px; }
+.light .hl { border-color:var(--green); } .light .hl b { background:var(--green); color:var(--paper); } .light .hl.spot { box-shadow:0 0 0 4000px rgba(247,246,240,.78); }
+.capt { position:absolute; display:flex; gap:16px; align-items:center; }
+.capt .note { font-size:20px; }
+.under { position:absolute; }
+.cmp-top { position:absolute; inset:0; clip-path:inset(0 calc(100% - var(--reveal,0%)) 0 0); }
+.cmp-rule { position:absolute; left:var(--reveal,0%); top:0; bottom:0; width:4px; margin-left:-2px; background:var(--paper); box-shadow:0 0 12px #000; opacity:var(--rule,0); }
+.cmp-rule::after { content:'↔'; position:absolute; top:50%; left:-26px; margin-top:-28px; width:56px; height:56px; border-radius:50%; background:var(--paper); color:var(--ink); display:grid; place-items:center; font-size:26px; }
+.cmp-lab { position:absolute; bottom:18px; font-size:19px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:9px 14px; border-radius:6px; background:#11150fdd; color:var(--paper); }
+.cmp-lab.a { left:18px; opacity:var(--la,0); } .cmp-lab.b { right:18px; opacity:var(--lb,1); }
+
+/* mech repair overlay */
+.ovl { position:absolute; inset:0; background:rgba(14,19,15,.9); color:var(--paper); }
+.ovl .badge { position:absolute; left:40px; top:30px; }
+.ovl .st { position:absolute; top:96px; width:300px; height:156px; border:2px solid #56634f; border-radius:10px; padding:20px 22px; background:#1a211b; }
+.ovl .st small { font-size:16px; font-weight:700; letter-spacing:.14em; color:var(--lime); }
+.ovl .st strong { display:block; margin-top:10px; font-size:31px; font-weight:600; letter-spacing:-.03em; line-height:1.1; }
+.ovl .st span { display:block; margin-top:8px; font-size:19px; color:#b6bfae; }
+.ovl .ar { position:absolute; top:172px; width:38px; height:3px; background:var(--lime); }
+.ovl .ar::after { content:''; position:absolute; right:-2px; top:-7px; border:8.5px solid transparent; border-left:13px solid var(--lime); border-right:0; }
+.ovl .br { position:absolute; left:40px; right:40px; display:flex; align-items:center; gap:18px; font-size:25px; }
+.ovl .br b { flex:none; font-size:18px; letter-spacing:.12em; padding:11px 16px; border-radius:6px; border:2px solid var(--lime); color:var(--lime); }
+.ovl .br.warn b { border-color:#f0b35a; color:#f0b35a; }
+.ovl .q { position:absolute; left:40px; right:40px; top:508px; font-size:30px; font-weight:500; letter-spacing:-.02em; color:var(--lime); border-top:1px solid #56634f; padding-top:22px; }
+
+/* loadout state diagram */
+.sm { position:absolute; left:110px; top:505px; width:570px; height:460px; }
+.sm .nd { position:absolute; left:190px; width:380px; height:72px; border:3px solid var(--green); border-radius:10px; background:#fffdf7; display:flex; align-items:center; justify-content:space-between; padding:0 20px; font-size:27px; font-weight:600; }
+.sm .nd small { font-size:15px; letter-spacing:.12em; padding:6px 10px; border-radius:5px; background:var(--sage); color:var(--green); font-weight:700; }
+.sm .nd.pv { border-color:var(--amber); } .sm .nd.pv small { background:var(--amber-bg); color:var(--amber); }
+.sm .nd.done { background:var(--green); color:var(--paper); } .sm .nd.done small { background:var(--lime); color:#1b2118; }
+.varr { position:absolute; left:380px; width:3px; height:56px; background:var(--green); }
+.varr::after { right:auto; left:-8.5px; top:auto; bottom:-2px; border:10px solid transparent; border-top:16px solid var(--green); border-bottom:0; }
+.sm .lab { position:absolute; left:400px; font-size:22px; font-weight:700; color:var(--green); }
+.sm svg { position:absolute; left:0; top:0; width:570px; height:460px; overflow:visible; }
+.sm svg path { fill:none; stroke:var(--amber); stroke-width:3; stroke-dasharray:1; }
+.sm svg polygon { fill:var(--amber); }
+.sm .cn { position:absolute; left:0; top:74px; width:170px; font-size:22px; line-height:1.25; color:var(--amber); font-weight:600; }
+.sm .lock { position:absolute; left:0; top:404px; width:570px; font-size:22px; color:var(--muted); border-top:2px solid var(--line); padding-top:14px; }
+
+/* validation */
+#validation .plan { position:absolute; left:110px; top:330px; width:850px; }
+#validation .plan .meta { font-size:26px; color:var(--muted); margin-bottom:10px; }
+.task { display:flex; gap:22px; align-items:flex-start; font-size:29px; line-height:1.3; border-top:2px solid var(--line); padding:19px 0; }
+.task i { flex:none; width:34px; height:34px; border:3px solid var(--muted); border-radius:6px; margin-top:2px; }
+#validation .rec { position:absolute; left:1050px; top:330px; width:760px; }
+#validation .rec h3 { font-size:21px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); }
+#validation .rec p { font-size:27px; line-height:1.3; padding:13px 0; border-top:2px solid var(--line); margin-top:0; }
+#validation .rec h3 + p { margin-top:14px; }
+.slot { margin-top:22px; border-bottom:3px dashed #afb6a5; height:74px; background:linear-gradient(90deg,#e5eadb99,transparent); padding:12px 16px; font-size:22px; color:var(--muted); }
+.slot b { color:var(--ink); font-weight:600; margin-right:12px; }
+.stamp { position:absolute; left:1330px; top:172px; font-size:34px; font-weight:700; letter-spacing:.1em; color:var(--amber); border:5px solid var(--amber); border-radius:10px; padding:14px 24px; background:#f7f6f0ee; white-space:nowrap; }
+
+/* greybox comparison */
+#greybox .stagebox { position:absolute; left:220px; top:262px; width:1480px; height:684px; overflow:hidden; border-radius:10px; background:#808a92; box-shadow:0 30px 70px -30px #252b2388; }
+#greybox .stagebox img { position:absolute; inset:0; width:100%; height:100%; }
+#greybox .hl { border-color:#fff; border-style:dashed; } #greybox .hl b { background:#fff; }
+#greybox .say { top:958px; font-size:32px; left:220px; }
+#greybox .src { position:absolute; right:220px; top:218px; }
+
+/* review lenses */
+.lens { height:200px; border-radius:8px; position:relative; overflow:hidden; background:#cfd4d8; margin-bottom:26px; }
+.lens i { position:absolute; background:#9aa4ab; border-radius:4px; }
+.lens.art { background:linear-gradient(135deg,#1c2a33,#3b2440); } .lens.art i { background:linear-gradient(160deg,#58d0a6,#2b6f8d); } .lens.art i.cta { background:#ef5350; }
+.lens.act { background:var(--sage); } .lens.act i { background:#fffdf7; border:3px solid var(--green); } .lens.act i.cta { background:var(--green); }
+.lens.act svg { position:absolute; inset:0; width:100%; height:100%; } .lens.act path { fill:none; stroke:var(--amber); stroke-width:4; stroke-dasharray:1; }
+.panel .ques { margin-top:14px; font-size:27px; line-height:1.35; color:var(--muted); }
+
+/* focus order */
+.fo { display:flex; gap:26px; align-items:center; }
+.fo .btn { position:relative; width:200px; height:74px; border:2px solid #b9c0ad; border-radius:8px; background:#fffdf7; display:grid; place-items:center; font-size:26px; font-weight:500; }
+.fo .btn b { position:absolute; left:-12px; top:-14px; width:34px; height:34px; border-radius:50%; background:var(--green); color:var(--paper); font-size:18px; display:grid; place-items:center; }
+.fo .ring { position:absolute; inset:-9px; border:5px solid var(--green); border-radius:13px; }
+.fo .txt { margin-left:14px; font-size:24px; line-height:1.35; color:var(--muted); width:210px; }
+
+/* outcomes */
+.ba { display:grid; grid-template-columns:1fr auto 1fr; gap:14px; align-items:center; padding:17px 0; border-top:1px solid var(--line); font-size:24px; line-height:1.25; }
+.ba s { text-decoration:none; color:var(--muted); } .ba i { font-style:normal; color:var(--green); font-size:26px; } .ba b { font-weight:600; color:var(--green); }
+
+/* recap + close */
+#recap ol { position:absolute; left:110px; top:292px; right:110px; list-style:none; column-count:2; column-gap:80px; }
+#recap li { break-inside:avoid; display:flex; gap:26px; align-items:baseline; font-size:38px; font-weight:500; letter-spacing:-.03em; line-height:1.15; padding:24px 0; border-top:2px solid var(--line); }
+#recap li b { font-size:22px; color:var(--green); letter-spacing:.1em; flex:none; width:44px; }
+#conversation .qs { position:absolute; left:110px; top:330px; width:1250px; }
+#conversation .qs p { font-size:40px; font-weight:500; letter-spacing:-.03em; line-height:1.2; padding:24px 0; border-top:2px solid var(--line); }
+#conversation .end { position:absolute; left:110px; right:110px; top:760px; display:grid; grid-template-columns:1fr auto; align-items:end; border-top:3px solid var(--green); padding-top:34px; }
+#conversation .end strong { font-size:60px; font-weight:700; letter-spacing:-.045em; }
+#conversation .end span { display:block; margin-top:8px; font-size:24px; color:var(--muted); }
+#conversation .end .links { text-align:right; font-size:30px; line-height:1.6; }
+#conversation .end .links b { color:var(--green); font-weight:600; }
+</style>
+</head>
+<body>
+<div id="stage">
+<div id="hud"><div class="brand">remi couture<span>UX walkthrough</span></div><div id="chapter"></div><div id="track"><div id="bar"></div></div></div>
+<div id="fade"></div>
+</div>
+
+<script>
+// Scene durations are multiples of 3 s (one bar at 80 BPM) so ux-music.mjs can land its cues on them.
+const FPS = 30;
+const I = '../portfolio-imgs/', A = '../ux-walkthrough-assets/', SV = '../services-assets/media/services/';
+const LESSONS = ['Start with the decision, not the screen', 'Design the way back', 'Put context beside the decision', 'Make every state readable', 'Plan the test before you claim the result', 'Say what the room is reviewing', 'Carry the intent into the build'];
+const SHORT = ['Decision', 'Way back', 'Context', 'States', 'Testing', 'Review', 'Build'];
+
+const card = n => `<section class="scene card" data-dur="3" data-ch="">
+  <div class="num" data-in="0" data-fx="right" data-d="1.2">0${n}</div>
+  <p class="kicker" data-in=".15" data-fx="left">Lesson 0${n} / 07</p>
+  <h2 data-in=".3" data-fx="wipe" data-d=".9">${LESSONS[n - 1]}</h2>
+</section>`;
+const ch = n => `Lesson 0${n} · ${LESSONS[n - 1]}`;
+const box = ([x, y, w, h, label, a, b, cls = '']) => `<div class="hl ${cls}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%" data-in="${a}"${b ? ` data-out="${b}"` : ''} data-fx="box" data-d=".5">${label ? `<b>${label}</b>` : ''}</div>`;
+
+// Image on the right, copy on the left. `ar` is the image aspect; `win` crops a taller image to a window.
+function split({ id, dur, n, kicker, title, body, points = [], ask, src, ar = 16 / 9, win, cam, boxes = [], badge, prop, cap = '', under = '', over = '', inner = '', light, extra = '' }) {
+  let W = 1080, H = W / ar; if (H > 640 && !win) { H = 640; W = H * ar; }
+  const FH = win || H, x = 730 + (1080 - W) / 2, top = 190;
+  return `<section class="scene${light ? ' light' : ''}" id="${id}" data-dur="${dur}" data-ch="${ch(n)}">
+  <div class="copy"><p class="kicker" data-in=".2" data-fx="left">${kicker}</p><h2 data-in=".35" data-fx="wipe" data-d=".9">${title}</h2>
+    ${body ? `<p class="lead" data-in=".9" data-fx="up">${body}</p>` : ''}
+    <ul>${points.map(([t, p]) => `<li data-in="${t}" data-fx="up">${p}</li>`).join('')}</ul>
+    ${ask ? `<p class="ask" data-in="${ask[0]}" data-fx="up">${ask[1]}</p>` : ''}</div>${extra}
+  <div class="frame" style="left:${x}px;top:${top}px;width:${W}px;height:${FH}px" data-in=".1" data-fx="up" data-d=".9">
+    <div class="cam" style="width:${W}px;height:${H}px" data-size="${W},${H},${W},${FH}"${cam ? ` data-cam="${cam}"` : ''}><img src="${src}">${inner}${boxes.map(box).join('')}</div>${over}
+  </div>
+  <div class="capt" style="left:${x}px;top:${top + FH + 18}px" data-in="1.1" data-fx="fade"><span class="badge${prop ? ' prop' : ''}">${badge}</span><span class="note">${cap}</span></div>
+  ${under ? `<div class="under" style="left:730px;top:${top + FH + 84}px;width:1080px">${under}</div>` : ''}
+</section>`;
+}
+const seq = (t0, step, items) => `<div class="chips">${items.map(([cls, text], i) => `${i ? `<i data-in="${t0 + i * step - .15}" data-fx="fade">→</i>` : ''}<span class="chip ${cls}" data-in="${t0 + i * step}" data-fx="pop" data-d=".45">${text}</span>`).join('')}</div>`;
+
+const scenes = [
+`<section class="scene" id="intro" data-dur="12" data-ch="Introduction">
+  <p class="kicker abs" style="left:110px;top:250px" data-in=".3" data-out="5.3" data-fx="left">A UX design walkthrough</p>
+  <h1 class="hook" data-split="0.7,0.17" data-out="5.3">Before there is a screen, there is a decision.</h1>
+  <p class="kicker abs" style="left:110px;top:190px" data-in="5.7" data-fx="left">Remi Couture · UX design walkthrough</p>
+  <h1 class="title" data-in="5.9" data-fx="wipe" data-d="1.1">The thinking behind<br>the interface</h1>
+  <p class="lead" data-in="7.2" data-fx="up">Seven lessons on decisions, flows and trade-offs, shown through real project work.</p>
+  <div class="rail"><div class="ln" data-in="8" data-fx="grow" data-d="2.4"></div>${SHORT.map((s, i) => `<div class="dot" style="left:${i / 6 * 100}%" data-in="${8.2 + i * .32}" data-fx="pop" data-d=".4"></div><span style="left:${i / 6 * 100}%" data-in="${8.35 + i * .32}" data-fx="up" data-rise="16">0${i + 1} · ${s}</span>`).join('')}</div>
+</section>`,
+
+card(1),
+`<section class="scene" id="approach" data-dur="18" data-ch="${ch(1)}">
+  <div class="head"><p class="kicker" data-in=".2" data-fx="left">Framing</p><h2 data-in=".35" data-fx="wipe" data-d=".9">A decision before a screen</h2></div>
+  <div class="steps">${[
+    ['Frame the task', 'What is the person trying to accomplish?'],
+    ['Map the journey', 'What must they understand before choosing?'],
+    ['Make the choice readable', 'What happens after the action, on cancel, or when something fails?'],
+    ['Check the response', 'What evidence would change the design?'],
+  ].map(([h, p], i) => `<div class="step"><b data-in="${1.4 + i * 3}" data-fx="pop" data-d=".45">${i + 1}</b><h3 data-in="${1.55 + i * 3}" data-fx="up">${h}</h3><p data-in="${1.9 + i * 3}" data-fx="up">${p}</p></div>`).join('')}</div>
+  ${[0, 1, 2].map(i => `<div class="arr" style="left:${200 + i * 440}px" data-in="${3.6 + i * 3}" data-fx="wipe" data-d=".7"></div>`).join('')}
+  <svg viewBox="0 0 1700 140"><path pathLength="1" d="M1352 0 V60 Q1352 90 1322 90 H62 Q32 90 32 60 V14" data-in="12.6" data-fx="draw" data-d="1.6"/><path pathLength="1" d="M20 30 L32 10 L44 30" data-in="14" data-fx="draw" data-d=".3"/></svg>
+  <p class="loop" data-in="13.6" data-fx="fade"><span>Then round again</span></p>
+  <p class="say" style="top:850px" data-in="14.6" data-fx="up">Ask of every example: <em>can the person predict what their next action will do?</em></p>
+</section>`,
+
+`<section class="scene" id="brief" data-dur="15" data-ch="${ch(1)}">
+  <div class="head"><p class="kicker" data-in=".2" data-fx="left">Framing · the brief and the constraints</p><h2 data-in=".35" data-fx="wipe" data-d=".9">Three projects, and what each one is evidence of</h2></div>
+  <div class="cols" style="top:330px">${[
+    ['Stardust Canvas', 'UX Magicians · 2020–21', 'Mobile product UX', 'Original flowchart and sitemap', 'Connect play, painting and sharing into one loop.'],
+    ['MechWarrior 5', 'Piranha Games · 2016–18', 'UX / UI · PC, Unreal Engine', 'Original briefing and mech bay screens', 'Choose a contract and prepare a lance without losing track of cost.'],
+    ['Vanguard', 'Portfolio study · 2026', 'Critique, concept and React prototype', 'One older concept, three AI-assisted screens', 'Understand a role, compare gear, and deploy on purpose.'],
+  ].map(([h, m, r, e, t], i) => `<div class="panel" data-in="${1.3 + i * 1.7}" data-fx="up" data-d=".7"><h3>${h}</h3><p class="meta">${m}</p><dl><dt>Role</dt><dd>${r}</dd><dt>Evidence</dt><dd>${e}</dd><dt>The task</dt><dd>${t}</dd></dl></div>`).join('')}</div>
+  <p class="note abs" style="left:110px;top:858px;width:1700px;font-size:27px" data-in="7.6" data-fx="up">The original briefs are not available, so each task is read from the artifact itself. Three labels keep that honest:</p>
+  <div class="abs chips" style="left:110px;top:928px"><span class="badge" data-in="9.4" data-fx="pop" data-d=".45">Original artifact</span><span class="badge" style="background:#fffdf7" data-in="10.1" data-fx="pop" data-d=".45">Reconstructed reading</span><span class="badge prop" data-in="10.8" data-fx="pop" data-d=".45">2026 proposal</span></div>
+</section>`,
+
+card(2),
+split({ id: 'stardust-flow', dur: 18, n: 2, light: 1, kicker: 'Connected journeys', title: 'Stardust Canvas: the complete loop', src: I + 'stardust-flowchart.png', ar: 1803 / 1274,
+  body: 'One flow connects discovery and play to earning stars, painting, personalising and sharing.',
+  points: [[4.6, 'Play connects to a creative goal.'], [7.4, 'Win and loss both have a next step.']], ask: [14.2, 'Where could someone lose track of what they have earned?'],
+  cam: '0,.5,.5,1;3,.5,.5,1;4.4,.56,.3,1.7;8.2,.56,.3,1.7;9.4,.62,.56,1.7;11.4,.62,.56,1.7;12.6,.5,.82,1.25;15.2,.5,.82,1.25;16.6,.5,.5,1',
+  boxes: [[12, 21.5, 27, 22, 'Discover', 1.4, 3.4], [41, 21.5, 7, 22, 'Play', 4.5, 8.4], [51.6, 21.5, 7, 22, 'Win', 5.6, 8.4], [61, 21.5, 7, 22, 'Loss', 6.4, 8.4], [39, 45.5, 47, 21.5, 'Earn stars, then paint', 9.6, 11.6], [25.5, 69.5, 42, 22, 'Personalise', 12.8, 15.4], [78, 69.5, 8.5, 22, 'Share', 13.6, 15.4]],
+  badge: 'Original artifact', cap: 'UX Magicians · 2020–21 · flowchart' }),
+
+split({ id: 'stardust-return', dur: 15, n: 2, light: 1, kicker: 'Connected journeys', title: 'The way back belongs in the design', src: I + 's-image121.png', ar: 1803 / 1274,
+  body: 'The sitemap places each activity inside a larger product. A finished activity needs a clear destination afterwards.',
+  points: [[3.2, 'Destinations and the activity loop share one navigation structure.'], [6.6, 'Interruption and cancelled sharing need a deliberate way back.']],
+  cam: '0,.5,.5,1;5.6,.5,.5,1;7,.62,.78,1.45;13,.62,.78,1.45;14.4,.5,.5,1',
+  boxes: [[28.5, 14, 36, 21, 'Destinations', 1.6, 5.4], [37, 37, 10.5, 40, 'Activity loop', 3.2, 5.4, 'lr'], [74.5, 77, 6.5, 19.5, 'Share: and then?', 7.2, 13.2, 'lr']],
+  badge: 'Original artifact', cap: 'UX Magicians · 2020–21 · sitemap',
+  under: `<div class="chips"><span class="badge prop" data-in="8" data-fx="pop" data-d=".45">Proposed test task</span></div><div style="height:16px"></div>` + seq(8.8, .9, [['', 'Finish a painting'], ['bad', 'Cancel sharing'], ['prop', 'Draft kept'], ['ok', 'Find it again']]) }),
+
+card(3),
+split({ id: 'mw5-context', dur: 15, n: 3, kicker: 'Complex decisions', title: 'MechWarrior 5: context beside the decision', src: I + 'mw5-mission.png',
+  body: 'Mission conditions and the available lance share one screen, so the contract can be weighed against the resources.',
+  points: [[2.8, 'What can the player bring into it?'], [7.4, 'What does the mission require?']],
+  cam: '0,.5,.5,1;2.2,.5,.5,1;3.4,.2,.46,1.15;6.6,.2,.46,1.15;7.8,.8,.46,1.15;11,.8,.46,1.15;12.2,.5,.5,1',
+  boxes: [[2.6, 14, 10.2, 74, 'What can I bring?', 2.6, 7, 'spot'], [65, 13.5, 32, 73, 'What does the mission require?', 7.4, 11.4, 'spot'], [2.6, 14, 10.2, 74, '', 12.2], [65, 13.5, 32, 73, '', 12.2], [86, 86.6, 10.6, 6.4, 'Then commit', 12.8, 0, 'lr']],
+  badge: 'Original artifact', cap: 'Piranha Games · 2016–18 · my role: UX / UI',
+  under: seq(11.8, .7, [['', 'Destination'], ['', 'Contract'], ['', 'Preparation'], ['ok', 'Launch']]) }),
+
+split({ id: 'mw5-recovery', dur: 21, n: 3, kicker: 'Complex decisions', title: 'Repair cost and a recoverable commitment', src: I + 'mw5-mechbay.png',
+  points: [[2.4, '<b>Original:</b> component labels, repair status, cost and time, tied to the machine.'], [8.2, '<b>Proposal:</b> review, confirm, and return with the contract selection kept.']],
+  cam: '0,.5,.5,1;1.8,.5,.5,1;3,.72,.5,1.3;6.2,.72,.5,1.3;7.2,.5,.5,1',
+  boxes: [[64.2, 29.5, 33.6, 46, 'Component, status, cost, time', 2.8, 6.6, 'spot'], [19.4, 22.6, 7, 7.6, '', 3.6, 6.6]],
+  badge: 'Original artifact', cap: 'Piranha Games · 2016–18 · mech bay',
+  over: `<div class="ovl" data-in="7.6" data-fx="fade" data-d=".6">
+    <span class="badge prop" data-in="7.9" data-fx="left">2026 concept extension · illustrative values</span>
+    ${[['01 / ASSESS', '12,600 CR', 'Repair estimate · 2 days'], ['02 / REVIEW', 'Nothing spent yet', 'Balance after: 5,400 CR'], ['03 / CONFIRM', 'Repair complete', 'Back to the contract']].map(([a, b, c], i) => `<div class="st" style="left:${40 + i * 350}px" data-in="${8.6 + i * 1.3}" data-fx="up" data-d=".6"><small>${a}</small><strong>${b}</strong><span>${c}</span></div>`).join('')}
+    <div class="ar" style="left:346px" data-in="9.5" data-fx="wipe" data-d=".4"></div><div class="ar" style="left:696px" data-in="10.8" data-fx="wipe" data-d=".4"></div>
+    <div class="br" style="top:300px" data-in="13" data-fx="left"><b>CANCEL</b><span>0 CR spent. The selected mech and contract are still there.</span></div>
+    <div class="br warn" style="top:384px" data-in="15.4" data-fx="left"><b>2,600 CR SHORT</b><span>Explain the shortfall, offer an essential repair, or return without spending.</span></div>
+    <p class="q" data-in="17.6" data-fx="up">Test it: can the player explain the cost before confirming?</p>
+  </div>` }),
+
+card(4),
+split({ id: 'vanguard-start', dur: 12, n: 4, kicker: 'A concept revisited', title: 'Vanguard: the starting point', src: I + 'vanguard/original.png',
+  body: 'The concept sells a strong world. The choice itself is harder to read.',
+  points: [[2.6, 'What does a rating of 9 mean?'], [5.4, 'Which item is equipped?'], [8.2, 'What will Fight do?']],
+  cam: '0,.5,.5,1;2,.5,.5,1;3,.2,.48,1.4;5,.2,.48,1.4;6,.82,.5,1.3;8,.82,.5,1.3;9,.5,.8,1.3;10.8,.5,.8,1.3;11.7,.5,.5,1',
+  boxes: [[3.6, 31, 22.4, 28, 'Four ratings, all 9', 2.7, 5.3, 'spot'], [74, 12.4, 23, 71.6, 'Unnamed equipment', 5.6, 8.1, 'spot'], [39, 87, 22, 10, 'Fight!', 8.4, 11.2, 'spot']],
+  badge: 'Supplied older concept', cap: 'A visual critique, not a user-test finding' }),
+
+split({ id: 'vanguard-role', dur: 15, n: 4, kicker: 'A concept revisited', title: 'The role needs a readable trade-off', src: I + 'vanguard/original.png',
+  body: 'The revision pairs a role description with relative traits and named equipment.',
+  points: [[5, 'Reach, mobility and protection explain the role.'], [8.2, 'Equipped labels make the current state explicit.']], ask: [11.4, 'Open question: heavy plate art may imply high protection. Validate it.'],
+  inner: `<div class="cmp-top"><img src="${I}vanguard/class-selection.png"></div><div class="cmp-rule"></div>`,
+  cam: '0,.5,.5,1;4.2,.5,.5,1;5.2,.2,.52,1.35;10.6,.2,.52,1.35;11.6,.5,.5,1', extra: '',
+  boxes: [[2.6, 38, 33, 25, 'Relative traits: High, Medium, Low', 5, 8, 'spot'], [2.6, 68.6, 32.4, 14, 'The trade-off, in words', 8.2, 10.8, 'spot'], [75.6, 12.6, 22, 72, 'Named and marked Equipped', 11.6, 0, 'lr']],
+  badge: '2026 concept', prop: 1, cap: 'AI-assisted companion screen · traits are illustrative' }),
+
+split({ id: 'vanguard-loadout', dur: 18, n: 4, kicker: 'A concept revisited', title: 'Preview and equip are different actions', src: I + 'vanguard/loadout.png',
+  body: 'Comparing a weapon should leave the loadout intact until the player applies the change.',
+  cam: '0,.5,.5,1;1.6,.5,.5,1;2.6,.22,.5,1.3;6,.22,.5,1.3;7,.5,.5,1;9.6,.5,.5,1;10.6,.82,.6,1.35;15,.82,.6,1.35;16,.5,.5,1',
+  boxes: [[2.8, 21, 10.2, 55, 'Equipped', 2.6, 6.4], [13.3, 21, 10.2, 55, 'Preview', 3.5, 6.4], [23.8, 21, 9.8, 55, 'Locked', 4.4, 6.4], [69.8, 70, 13, 8.4, 'Cancel', 10.6, 12.9, 'spot'], [83, 70, 13.8, 8.4, 'Equip', 13, 15.2, 'spot lr']],
+  badge: '2026 concept', prop: 1, cap: 'AI-assisted companion screen · unlock rules are examples',
+  extra: `<div class="sm">
+    <div class="nd" style="top:0" data-in="6.6" data-fx="up">Halberd<small>EQUIPPED</small></div>
+    <div class="varr" style="top:78px" data-in="7.8" data-fx="wiped" data-d=".5"></div><span class="lab" style="top:90px" data-in="7.9" data-fx="fade">Preview</span>
+    <div class="nd pv" style="top:146px" data-in="8.4" data-fx="up">Poleaxe<small>PREVIEW</small></div>
+    <svg viewBox="0 0 570 460"><path pathLength="1" d="M186 182 H110 Q80 182 80 152 V66 Q80 36 110 36 H168" data-in="10.6" data-fx="draw" data-d="1"/><polygon points="166,26 186,36 166,46" data-in="11.4" data-fx="fade" data-d=".2"/></svg>
+    <p class="cn" data-in="10.8" data-fx="fade" style="top:206px">Cancel keeps the halberd</p>
+    <div class="varr" style="top:224px" data-in="13" data-fx="wiped" data-d=".5"></div><span class="lab" style="top:236px" data-in="13.1" data-fx="fade">Equip</span>
+    <div class="nd done" style="top:292px" data-in="13.6" data-fx="up">Poleaxe<small>EQUIPPED</small></div>
+    <p class="lock" data-in="15.6" data-fx="up">Locked says why: the glaive needs class rank 4.</p>
+  </div>` }),
+
+split({ id: 'vanguard-deploy', dur: 15, n: 4, kicker: 'A concept revisited', title: 'Review, deploy, and recover', src: I + 'vanguard/deployment.png',
+  body: 'The review brings the selection together. Deploy begins joining, and a failed join keeps every choice for the retry.',
+  points: [[5.6, 'A completed path confirms the loadout and the joining state.'], [10.6, 'Cancel and failed joins preserve deliberate choices.']],
+  cam: '0,.5,.5,1;1.8,.5,.5,1;2.8,.2,.55,1.35;8.2,.2,.55,1.35;9.2,.5,.5,1',
+  boxes: [[3.2, 26.6, 28, 45.4, 'Team, class and loadout', 2.8, 5.4, 'spot'], [3.6, 72.8, 27.4, 8, 'Feedback for the earlier action', 5.6, 8.4, 'spot lb'], [39, 89.2, 22, 9.2, 'Joining begins here', 9.2, 0]],
+  badge: '2026 concept', prop: 1, cap: 'Implemented in the React prototype, not a production game',
+  under: seq(10.4, .8, [['', 'Deploy'], ['', 'Joining'], ['bad', 'Join failed'], ['ok', 'Choices kept'], ['ok', 'Retry']]) }),
+
+card(5),
+`<section class="scene" id="validation" data-dur="18" data-ch="${ch(5)}">
+  <div class="head"><p class="kicker" data-in=".2" data-fx="left">Validation</p><h2 data-in=".35" data-fx="wipe" data-d=".9">What I would test next</h2></div>
+  <div class="plan"><p class="meta" data-in="1.2" data-fx="up">Proposed Vanguard session · 5 to 6 players · mixed genre familiarity</p>
+  ${['Explain the class trade-off without prompting.', 'Preview and cancel a swap, then name the equipped weapon.', 'Inspect a locked item and recover from a failed join.', 'Repeat the core tasks by keyboard. Check focus and reading order.'].map((s, i) => `<div class="task" data-in="${2 + i * 1.5}" data-fx="up"><i></i><span>${s}</span></div>`).join('')}</div>
+  <div class="rec"><h3 data-in="8.2" data-fx="left">What gets recorded</h3>
+  ${['Wrong-state interpretations', 'Accidental commitments', 'Completion without prompting', 'Whether selections survive recovery'].map((s, i) => `<p data-in="${8.6 + i * .7}" data-fx="up">${s}</p>`).join('')}
+  <div class="slot" data-in="12" data-fx="fade"><b>Observed findings</b>blank until the sessions happen</div>
+  <div class="slot" data-in="12.5" data-fx="fade"><b>Design changes after testing</b>blank until then</div></div>
+  <div class="stamp" data-in="13.4" data-fx="stamp" data-d=".45">PLANNED · NOT YET RUN</div>
+  <p class="say" style="top:905px;font-size:36px" data-in="14.8" data-fx="up">A sample size is a plan, not evidence. <em>Passing prototype tests is not a usability result.</em></p>
+</section>`,
+
+card(6),
+`<section class="scene" id="greybox" data-dur="21" data-ch="${ch(6)}">
+  <div class="head" style="left:220px"><p class="kicker" data-in=".2" data-fx="left">Educational interlude</p><h2 style="font-size:56px" data-in=".35" data-fx="wipe" data-d=".9">Greyboxing and art direction</h2></div>
+  <div class="stagebox" data-in=".3" data-fx="up" data-d=".9" data-reveal="0,0;3.2,0;6.4,100;9.4,100;11.6,50;17,50;18.2,30;19.6,70;20.6,50">
+    <img src="${A}lobby-greybox.png"><div class="cmp-top"><img src="${A}lobby-art-direction.png"></div>
+    ${[[25.5, 13, 48, 62, 'Party at the centre', 12.2, 16.8], [29, 78.5, 41.5, 13.5, 'Social controls below', 13.4, 16.8, 'lb'], [3, 26, 18, 67, 'Store', 14.6, 16.8], [79, 26, 18, 67, 'Progression', 14.6, 16.8, 'lr']].map(box).join('')}
+    <div class="cmp-rule"></div><span class="cmp-lab a">Visual target · mood</span><span class="cmp-lab b">Greybox · structure</span>
+  </div>
+  <p class="say" data-in="1.6" data-out="6.2" data-fx="up">The greybox exposes the <em>structure</em>.</p>
+  <p class="say" data-in="6.6" data-out="11.6" data-fx="up">The visual target makes the <em>mood</em> easier to imagine.</p>
+  <p class="say" data-in="12" data-out="16.9" data-fx="up">Underneath, the <em>same foundation</em>.</p>
+  <p class="say" data-in="17.2" data-fx="up">Ask the room: what does each one make you notice <em>first</em>?</p>
+  <p class="note src" data-in="2" data-fx="fade">Supplied image pair · a screenshot pair does not prove identical behaviour</p>
+</section>`,
+
+`<section class="scene" id="review" data-dur="18" data-ch="${ch(6)}">
+  <div class="head"><p class="kicker" data-in=".2" data-fx="left">Educational interlude</p><h2 data-in=".35" data-fx="wipe" data-d=".9">The representation changes the review</h2></div>
+  <div class="cols" style="top:320px">
+    <div class="panel" data-in="1.5" data-fx="up" data-d=".7"><div class="lens"><i style="left:6%;top:14%;width:20%;height:72%"></i><i style="left:32%;top:10%;width:36%;height:58%"></i><i class="cta" style="left:38%;top:74%;width:24%;height:14%;background:#6f7a82"></i><i style="left:74%;top:14%;width:20%;height:32%"></i><i style="left:74%;top:54%;width:20%;height:32%"></i></div><h3>Greybox review</h3><p class="ques">Can someone find the next action and read the hierarchy?</p></div>
+    <div class="panel" data-in="5" data-fx="up" data-d=".7"><div class="lens art"><i style="left:6%;top:14%;width:20%;height:72%"></i><i style="left:32%;top:10%;width:36%;height:58%"></i><i class="cta" style="left:38%;top:74%;width:24%;height:14%"></i><i style="left:74%;top:14%;width:20%;height:32%"></i><i style="left:74%;top:54%;width:20%;height:32%"></i></div><h3>Visual-target review</h3><p class="ques">Does the mood support the world, the audience and the brand?</p></div>
+    <div class="panel" data-in="8.5" data-fx="up" data-d=".7"><div class="lens act"><i style="left:8%;top:30%;width:24%;height:40%"></i><i style="left:38%;top:30%;width:24%;height:40%"></i><i class="cta" style="left:68%;top:30%;width:24%;height:40%"></i><svg viewBox="0 0 472 200" preserveAspectRatio="none"><path pathLength="1" d="M378 56 C378 6 94 6 94 56" data-in="9.6" data-fx="draw" data-d="1.2"/><path pathLength="1" d="M82 40 L94 58 L108 42" data-in="10.7" data-fx="draw" data-d=".3"/></svg></div><h3>Interactive review</h3><p class="ques">Can someone predict feedback, cancel safely, and recover?</p></div>
+  </div>
+  <p class="say" style="top:842px" data-in="12.2" data-fx="up">Before showing a design, say <em>which decision</em> the audience is helping you make.</p>
+  <p class="note abs" style="left:110px;top:962px;font-size:27px" data-in="14.6" data-fx="up">A visual target can carry the vision while structural questions are still open. Say what is ready, and what is provisional.</p>
+</section>`,
+
+card(7),
+split({ id: 'working-files', dur: 15, n: 7, light: 1, kicker: 'Iteration and delivery', title: 'The working files make the decisions traceable', src: SV + 'figma/deep/tnt-wire-flow.webp', ar: 2066 / 3000, win: 640,
+  body: 'Wireframe flows expose the relationships between screens.',
+  points: [[3.4, 'A branch makes screen-to-screen decisions visible.'], [7.4, 'A revision needs the feedback or constraint that motivated it.']], ask: [11, 'Bring one alternative you considered, and the constraint that decided it.'],
+  cam: '0,.42,0,1.25;1.4,.42,0,1.25;13.8,.6,1,1.25',
+  badge: 'Original working file', cap: 'TNT card battler · client project · four prototype rounds in the Figma archive' }),
+
+split({ id: 'implementation', dur: 15, n: 7, kicker: 'Iteration and delivery', title: 'The behaviour has to survive implementation', src: SV + 'focusrail-editor.png', ar: 960 / 390,
+  body: 'Focusrail makes controller-navigation problems visible inside the Unreal editor.',
+  points: [[3, 'Focus order and focus recovery belong in the design discussion.'], [8, 'Verify labels, input states and error feedback in the running build.']],
+  cam: '0,.5,.5,1;2,.5,.5,1;3,.37,.47,2.1;6.6,.37,.47,2.1;7.6,.86,.5,1.5;11.2,.86,.5,1.5;12.2,.5,.5,1',
+  boxes: [[25.6, 40.5, 7.4, 13.5, 'Focus order, drawn on the canvas', 3.2, 6.8, 'spot'], [74, 6, 25.6, 90, 'Focus Doctor: problems named in the editor', 7.8, 11.4, 'spot lr lb']],
+  badge: 'My plugin · on Fab', cap: 'Focusrail for Unreal Engine · editor capture',
+  under: `<div style="height:36px"></div><div class="fo">${['Play', 'Options', 'Settings', 'Quit'].map((b, i) => `<div class="btn" data-in="${4 + i * .3}" data-fx="pop" data-d=".4"><b>${i + 1}</b>${b}${[0, 1].map(k => `<span class="ring" data-in="${6 + (k * 4 + i) * .85}" data-out="${6 + (k * 4 + i + 1) * .85 + .25}" data-fx="box" data-d=".25"></span>`).join('')}</div>`).join('')}<p class="txt" data-in="6" data-fx="fade">The order a controller will actually follow.</p></div>` }),
+
+`<section class="scene" id="outcomes" data-dur="18" data-ch="Evidence · outcomes and lessons">
+  <div class="head"><p class="kicker" data-in=".2" data-fx="left">Evidence · an honest ledger</p><h2 data-in=".35" data-fx="wipe" data-d=".9">Outcomes and lessons</h2></div>
+  <div class="cols" style="top:320px">
+    <div class="panel" data-in="1.4" data-fx="up" data-d=".7"><h3>What changed</h3><p class="meta">Vanguard · decisions from critique</p><div style="height:20px"></div>
+      ${[['Ratings of 9 / 9 / 9', 'High, Medium, Low'], ['Unnamed gear', 'Named, marked Equipped'], ['One Fight button', 'Review, then Deploy'], ['Select means equip', 'Preview, then Equip']].map(([a, b], i) => `<div class="ba" data-in="${2.2 + i * .8}" data-fx="up"><s>${a}</s><i>→</i><b>${b}</b></div>`).join('')}</div>
+    <div class="panel" data-in="6" data-fx="up" data-d=".7"><h3>Evidence so far</h3><p class="meta">What exists today</p><ul>
+      <li class="yes" data-in="6.8" data-fx="up">Original artifacts, shown unaltered</li><li class="yes" data-in="7.6" data-fx="up">12 automated checks on prototype states</li><li data-in="8.4" data-fx="up"><s>Usability sessions: not yet run</s></li><li data-in="9.2" data-fx="up"><s>Measured outcomes: none claimed</s></li></ul></div>
+    <div class="panel" data-in="10.4" data-fx="up" data-d=".7"><h3>Lessons</h3><p class="meta">What I would carry forward</p><ul>
+      <li class="yes" data-in="11.2" data-fx="up">Label what is original, reconstructed, or proposed.</li><li class="yes" data-in="12" data-fx="up">A screenshot pair proves layout, not behaviour.</li><li class="yes" data-in="12.8" data-fx="up">Write the test plan before the success story.</li></ul></div>
+  </div>
+  <p class="say" style="top:900px" data-in="14.4" data-fx="up">Evidence first. <em>The success story waits for the data.</em></p>
+</section>`,
+
+`<section class="scene" id="recap" data-dur="12" data-ch="Recap">
+  <div class="head"><p class="kicker" data-in=".2" data-fx="left">Recap</p><h2 data-in=".35" data-fx="wipe" data-d=".9">Seven lessons</h2></div>
+  <ol>${LESSONS.map((l, i) => `<li data-in="${1.2 + i * 1.05}" data-fx="up" data-d=".5"><b>0${i + 1}</b><span>${l}</span></li>`).join('')}</ol>
+</section>`,
+
+`<section class="scene" id="conversation" data-dur="18" data-ch="Discussion">
+  <div class="head"><p class="kicker" data-in=".2" data-fx="left">Discussion</p><h2 data-in=".35" data-fx="wipe" data-d=".9">A conversation about your interface</h2></div>
+  <div class="qs">${['Which flow is hardest for your users to complete?', 'Which decision does your team need to validate next?', 'What could we put in front of people before the full visual production?'].map((q, i) => `<p data-in="${1.8 + i * 2.4}" data-fx="up">${q}</p>`).join('')}</div>
+  <div class="end" data-in="9.6" data-fx="up" data-d=".8"><div><strong>Remi Couture</strong><span>UX / UI design · the task, the decisions, and the moments people lose confidence</span></div><div class="links"><b>remiclassic.github.io/remiresume</b><br>linkedin.com/in/remicouture</div></div>
+</section>`,
+];
+document.getElementById('hud').insertAdjacentHTML('beforebegin', scenes.join('\n'));
+
+const $ = (s, r = document) => [...r.querySelectorAll(s)];
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const eOut = x => 1 - Math.pow(1 - x, 4), eIn = x => x * x * x, eIO = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2, eBack = x => 1 + 2.4 * Math.pow(x - 1, 3) + 1.4 * Math.pow(x - 1, 2);
+const keys = str => str.split(';').map(k => k.split(',').map(Number));
+const at = (ks, t) => {
+  if (t <= ks[0][0]) return ks[0].slice(1);
+  for (let i = 1; i < ks.length; i++) if (t <= ks[i][0]) { const a = ks[i - 1], b = ks[i], p = eIO((t - a[0]) / (b[0] - a[0])); return a.slice(1).map((v, j) => v + (b[j + 1] - v) * p); }
+  return ks[ks.length - 1].slice(1);
+};
+
+// word-by-word reveals
+$('[data-split]').forEach(el => {
+  const [start, step] = el.dataset.split.split(',').map(Number), out = el.dataset.out;
+  el.innerHTML = el.textContent.split(' ').map((w, n) => `<span class="word" data-in="${(start + n * step).toFixed(3)}" data-fx="up" data-d=".5" data-rise="40"${out ? ` data-out="${out}"` : ''}>${w} </span>`).join('');
+});
+
+// resolve the timeline
+let T = 0;
+const sc = $('.scene').map(el => { const s = { el, from: T, to: T += +el.dataset.dur, ch: el.dataset.ch, inv: el.classList.contains('card') }; return s; });
+const DUR = T;
+sc.forEach(s => {
+  s.items = $('[data-in]', s.el).map(el => ({ el, a: +el.dataset.in, b: el.dataset.out ? +el.dataset.out : 1e9, exit: !!el.dataset.out, fx: el.dataset.fx || 'up', d: +(el.dataset.d || .6), rise: +(el.dataset.rise || 46) }));
+  s.cams = $('[data-cam]', s.el).map(el => ({ el, ks: keys(el.dataset.cam), size: el.dataset.size.split(',').map(Number) }));
+  s.reveals = [...$('[data-reveal]', s.el).map(el => ({ el, ks: keys(el.dataset.reveal) })), ...(s.el.id === 'vanguard-role' ? [{ el: s.el.querySelector('.cam'), ks: keys('0,0;1.4,0;4,100') }] : [])];
+});
+const track = document.getElementById('track'), bar = document.getElementById('bar'), chapter = document.getElementById('chapter'), fade = document.getElementById('fade'), stage = document.getElementById('stage');
+sc.filter(s => s.inv).forEach(s => track.insertAdjacentHTML('beforeend', `<i style="left:${s.from / DUR * 100}%"></i>`));
+
+function draw(o, t) {
+  const s = o.el.style;
+  if (t < o.a || t >= o.b) { s.visibility = 'hidden'; return; }
+  s.visibility = 'visible';
+  const raw = clamp((t - o.a) / o.d), p = eOut(raw), q = o.exit ? eIn(clamp((t - (o.b - .3)) / .3)) : 0;
+  let tr = '', op = Math.min(1, p * 1.6) * (1 - q), clip = '';
+  switch (o.fx) {
+    case 'up': tr = `translateY(${(1 - p) * o.rise - q * 20}px)`; break;
+    case 'left': tr = `translateX(${(p - 1) * 70}px)`; break;
+    case 'right': tr = `translateX(${(1 - p) * 160}px)`; break;
+    case 'pop': tr = `scale(${.6 + .4 * eBack(raw)})`; break;
+    case 'box': tr = `scale(${1.1 - .1 * p})`; break;
+    case 'stamp': tr = `rotate(-7deg) scale(${1 + (1 - p) * 1.4})`; break;
+    case 'wipe': clip = `inset(-40px ${(1 - p) * 102}% -40px -40px)`; op = 1 - q; break;
+    case 'wiped': clip = `inset(-40px -40px ${(1 - p) * 102}% -40px)`; op = 1 - q; break;
+    case 'grow': tr = `scaleX(${p})`; op = 1 - q; break;
+    case 'draw': s.strokeDashoffset = 1 - eIO(raw); op = 1 - q; break;
+  }
+  s.opacity = op; s.transform = tr; s.clipPath = clip; s.webkitClipPath = clip;
+}
+
+window.renderAt = async t => {
+  let cur = sc[sc.length - 1];
+  sc.forEach((s, i) => {
+    const on = t >= s.from && t < s.to;
+    s.el.style.display = on ? 'block' : 'none';
+    if (!on) return;
+    cur = s; const lt = t - s.from;
+    s.el.style.opacity = Math.min(i ? clamp(lt / .35) : 1, clamp((s.to - t) / .3));
+    s.items.forEach(o => draw(o, lt));
+    s.cams.forEach(({ el, ks, size: [cw, chh, fw, fh] }) => {
+      const [fx, fy, z] = at(ks, lt);
+      el.style.transform = `translate(${clamp(fw / 2 - fx * cw * z, fw - cw * z, 0)}px,${clamp(fh / 2 - fy * chh * z, fh - chh * z, 0)}px) scale(${z})`;
+    });
+    s.reveals.forEach(({ el, ks }) => {
+      const [v] = at(ks, lt);
+      el.style.setProperty('--reveal', v + '%'); el.style.setProperty('--rule', v > .5 && v < 99.5 ? 1 : 0);
+      el.style.setProperty('--la', clamp((v - 10) / 12)); el.style.setProperty('--lb', clamp((90 - v) / 12));
+    });
+  });
+  chapter.textContent = cur.ch; stage.classList.toggle('inv', cur.inv);
+  bar.style.width = (t / DUR * 100) + '%';
+  fade.style.opacity = t < .5 ? 1 - t / .5 : clamp((t - (DUR - 1.4)) / 1.2);
+};
+window.DUR = DUR; window.FPS = FPS;
+window.CUES = sc.filter(s => s.inv).map(s => s.from);
+
+// preview in a browser: plays in real time, scaled to the window. ?t=120 starts at 2:00; arrow keys seek 3 s; space pauses.
+if (!new URLSearchParams(location.search).has('render')) {
+  const fit = () => { stage.style.transform = `scale(${Math.min(innerWidth / 1920, innerHeight / 1080)})`; };
+  fit(); addEventListener('resize', fit);
+  let t = +new URLSearchParams(location.search).get('t') || 0, last = performance.now(), paused = false;
+  addEventListener('keydown', e => { if (e.key === 'ArrowRight') t += 3; if (e.key === 'ArrowLeft') t = Math.max(0, t - 3); if (e.key === ' ') paused = !paused; });
+  const loop = now => { if (!paused) t = (t + (now - last) / 1000) % DUR; last = now; renderAt(t); requestAnimationFrame(loop); };
+  document.fonts.ready.then(() => requestAnimationFrame(loop));
+}
+</script>
+</body>
+</html>

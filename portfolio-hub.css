@@ -12,6 +12,7 @@
 .hub-feature-copy { align-self:center; }.hub-feature-copy h2 { font-size:clamp(30px,3vw,43px); line-height:1.1; letter-spacing:-.045em; font-weight:500; margin:0 0 20px; }
 .hub-feature-copy>p:not(.eyebrow) { color:var(--muted); font-size:13px; line-height:1.8; }.hub-feature-copy .hub-feature-dates { font-size:10px!important; margin-top:18px; }
 .hub-feature-actions { display:flex; align-items:flex-start; flex-direction:column; gap:16px; margin-top:25px; font-size:12px; }
+.hub-feature-video { display:block; width:100%; aspect-ratio:16/9; align-self:center; min-width:0; background:#131610; border:1px solid var(--line); border-radius:5px; }
 .hub-feature-images { display:grid; grid-template-columns:1fr 1fr; gap:12px; min-width:0; }.hub-feature-images a { background:var(--paper); border:1px solid var(--line); border-radius:5px; overflow:hidden; }.hub-feature-images a:hover { border-color:var(--green); }
 .hub-feature-images .squad-main-preview { grid-column:1/-1; }.hub-feature-images img { width:100%; aspect-ratio:16/9; object-fit:contain; background:#131610; }.hub-feature-images span { display:block; padding:9px 12px; font-size:11px; }.hub-feature-images small { font-size:9px; color:var(--muted); margin-left:9px; }
 .hub-routes { display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:18px; }
