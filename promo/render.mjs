@@ -1,5 +1,5 @@
 // Renders promo.html frame by frame in headless Chrome and encodes it with ffmpeg.
-// Usage: node render.mjs <workdir> [--stills 1.5,8,20] [--audio track.wav] [--out file.mp4]
+// Usage: node render.mjs <workdir> [--stills 1.5,8,20] [--audio track.wav] [--out file.mp4] [--page sloth-promo.html] [--vertical]
 // <workdir> must contain node_modules/playwright-core and frames/<clip>/0001.jpg (created by prepare.sh).
 import { createRequire } from 'node:module';
 import { spawn } from 'node:child_process';
@@ -12,10 +12,10 @@ const work = path.resolve(args[0]);
 const opt = name => { const i = args.indexOf('--' + name); return i > 0 ? args[i + 1] : null; };
 const { chromium } = createRequire(path.join(work, 'x.js'))('playwright-core');
 const here = path.dirname(fileURLToPath(import.meta.url));
-const url = pathToFileURL(path.join(here, 'promo.html')).href + '?render=1&frames=' + encodeURIComponent(pathToFileURL(path.join(work, 'frames')).href);
+const url = pathToFileURL(path.join(here, opt('page') || 'promo.html')).href + '?render=1' + (args.includes('--vertical') ? '&vertical=1' : '') + '&frames=' + encodeURIComponent(pathToFileURL(path.join(work, 'frames')).href);
 
 const browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--allow-file-access-from-files', '--force-color-profile=srgb'] });
-const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+const page = await browser.newPage({ viewport: args.includes('--vertical') ? { width: 1080, height: 1920 } : { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
 page.on('pageerror', e => console.error('PAGE ERROR', e.message));
 await page.goto(url);
 await page.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].filter(i => i.src && !i.dataset.clip).map(i => i.decode().catch(() => {}))); });

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>From first reference to game-ready UI — SliceForge</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+@page { size:1080px 1350px; margin:0; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Manrope',sans-serif; color:#282824; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+.s { position:relative; width:1080px; height:1350px; padding:84px; background:#f4f1ea; overflow:hidden; page-break-after:always; }
+.s.dark { background:#1d241f; color:#f4f1ea; }
+.brand { display:flex; align-items:center; gap:16px; font-size:36px; font-weight:800; letter-spacing:-.04em; }
+.brand i { width:22px; height:22px; background:#2f7346; border-radius:5px; transform:rotate(45deg); display:inline-block; }
+.dark .brand i { background:#8fd4a4; }
+.eye { font-family:'JetBrains Mono',monospace; font-size:24px; letter-spacing:.14em; text-transform:uppercase; color:#2f7346; }
+.dark .eye { color:#8fd4a4; }
+h1 { margin-top:34px; font-size:124px; font-weight:800; letter-spacing:-.06em; line-height:.95; }
+h1 em, h2 em { font-style:normal; color:#2f7346; }
+.dark h1 em { color:#8fd4a4; }
+.lead { margin-top:40px; font-family:'DM Sans'; font-size:40px; line-height:1.35; color:#55584f; max-width:860px; }
+.dark .lead { color:#cfd6c8; }
+.shot { margin-top:44px; width:100%; height:540px; border-radius:22px; border:2px solid #d9d4c6; overflow:hidden; background:#fff; box-shadow:0 40px 90px -40px rgba(40,40,36,.45); }
+.shot img { width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+.step { display:inline-block; margin-top:44px; font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:12px 20px; border-radius:99px; background:#2f7346; color:#fff; }
+h2 { margin-top:22px; font-size:92px; font-weight:800; letter-spacing:-.055em; line-height:1; }
+.body { margin-top:22px; font-family:'DM Sans'; font-size:36px; line-height:1.35; color:#55584f; }
+.foot { position:absolute; left:84px; right:84px; bottom:64px; display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:20px; color:#7c7f74; letter-spacing:.06em; }
+.foot b { color:#2f7346; font-weight:700; }
+.dark .foot b { color:#8fd4a4; }
+.grid { margin-top:50px; display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.grid div { border:2px solid #d9d4c6; border-radius:18px; padding:30px 32px; background:#fbf9f4; }
+.grid strong { display:block; font-size:38px; font-weight:800; letter-spacing:-.03em; }
+.grid span { display:block; margin-top:8px; font-family:'DM Sans'; font-size:26px; line-height:1.35; color:#55584f; }
+.plans { margin-top:50px; display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.plans div { border:2px solid #d9d4c6; border-radius:18px; padding:30px 32px; background:#fbf9f4; }
+.plans div.free { background:#2f7346; border-color:#2f7346; color:#fff; grid-column:1 / -1; }
+.plans b { font-size:30px; font-weight:700; }
+.plans strong { display:block; margin-top:6px; font-size:76px; font-weight:800; letter-spacing:-.05em; line-height:1; }
+.plans strong small { font-size:28px; font-weight:600; letter-spacing:0; }
+.plans span { display:block; margin-top:12px; font-family:'DM Sans'; font-size:26px; line-height:1.35; opacity:.85; }
+.cta { margin-top:54px; font-family:'JetBrains Mono',monospace; font-size:44px; font-weight:700; color:#8fd4a4; }
+</style>
+</head>
+<body>
+<script>
+const S = '../services-assets/';
+const brand = '<div class="brand"><i></i>SliceForge</div>';
+const total = 8, n = i => String(i).padStart(2, '0') + ' / 0' + total;
+const steps = [
+  ['01 · Reference', 'Bring your visual direction.', 'Start with a reference, a mockup or an AI-generated image. Use it to shape the look of your game’s interface.', S + 'studio-images/sf-workspace.webp'],
+  ['02 · Compose', 'Make every piece editable.', 'Arrange screens in Compose. Refine layers, size your frames, and wire button states into a flow you can preview.', S + 'studio-images/sf-compose.webp'],
+  ['03 · Handoff', 'Package it for the build.', 'Export your assets and layout data together. Give engineering the UI kit and coordinates to integrate into your game.', S + 'media/services/editor/sf-export.jpg'],
+];
+let html = `<section class="s">${brand}<p class="eye" style="margin-top:170px">Built for game UI</p><h1>From first reference. <em>To game-ready UI.</em></h1><p class="lead">Turn your visual ideas into editable screens, reusable components and UI kits ready for your next build.</p><div class="foot"><span>${n(1)}</span><b>Swipe →</b></div></section>`;
+steps.forEach(([step, title, body, img], i) => { html += `<section class="s">${brand}<div class="shot"><img src="${img}" alt=""></div><span class="step">${step}</span><h2>${title}</h2><p class="body">${body}</p><div class="foot"><span>${n(i + 2)}</span><b>sliceforge.io</b></div></section>`; });
+html += `<section class="s">${brand}<p class="eye" style="margin-top:70px">Inside the editor</p><h2>Made of pieces. <em>Built for possibilities.</em></h2><div class="grid">
+<div><strong>Editable layers</strong><span>Named layers, frames and components. Every piece has a job.</span></div>
+<div><strong>9-slice frames</strong><span>Resize a frame. The corners stay fixed while the content adapts.</span></div>
+<div><strong>Interactive states</strong><span>Hover, pressed and selected, defined on the component.</span></div>
+<div><strong>Play previews</strong><span>Step through your screen flow before handoff.</span></div>
+<div><strong>UI kit exports</strong><span>Assets plus layout JSON for your engine workflow.</span></div>
+<div><strong>In your browser</strong><span>Create a free account and explore the canvas. Nothing to install.</span></div>
+</div><div class="foot"><span>${n(5)}</span><b>sliceforge.io</b></div></section>`;
+html += `<section class="s">${brand}<p class="eye" style="margin-top:70px">The workbench</p><h2><em>16 free tools</em> for the small tasks.</h2><p class="body">Browser utilities for game UI, images, animation and audio. Free to use, no account required, and your files are processed in your browser.</p><div class="grid">
+<div><strong>6</strong><span>Images &amp; sprites</span></div><div><strong>4</strong><span>UI &amp; animation</span></div><div><strong>3</strong><span>Colours, fonts &amp; vectors</span></div><div><strong>3</strong><span>Export &amp; audio</span></div>
+</div><div class="foot"><span>${n(6)}</span><b>sliceforge.io/tools</b></div></section>`;
+html += `<section class="s">${brand}<p class="eye" style="margin-top:70px">Pricing</p><h2>Start free. <em>Grow with your workflow.</em></h2><div class="plans">
+<div class="free"><b>Free</b><strong>$0</strong><span>Library, Compose editing and file exports. File exports are free.</span></div>
+<div><b>Starter</b><strong>$19<small> /mo</small></strong><span>600 monthly credits · 5 GB cloud storage</span></div>
+<div><b>Pro</b><strong>$59<small> /mo</small></strong><span>2,000 monthly credits · 25 GB cloud storage</span></div>
+</div><p class="body" style="font-size:28px;margin-top:30px">Paid plans add AI generation and expanded cloud saves. Studio is $119/mo with 4,200 credits and 100 GB. Prices as listed on sliceforge.io in October 2026.</p><div class="foot"><span>${n(7)}</span><b>sliceforge.io/pricing</b></div></section>`;
+html += `<section class="s dark" style="page-break-after:auto">${brand}<p class="eye" style="margin-top:220px">Your next interface starts here</p><h1>Make something <em>worth playing.</em></h1><p class="lead">Bring a reference. Give your game its own visual language. Shaped by a designer with two decades in game UI/UX.</p><p class="cta">sliceforge.io</p><div class="foot"><span>${n(8)}</span><b>Built by Strategic Sloth LLC</b></div></section>`;
+document.body.insertAdjacentHTML('beforeend', html);
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Strategic Sloth — studio splash preview</title>
+<style>
+@font-face { font-family: Fredoka; font-weight: 700; src: url(../tropictumble/fredoka-700.woff2) format('woff2'); }
+html,body { height:100%; margin:0; background:#0b0f0c; color:#eef1e6; font:16px system-ui,sans-serif; }
+body { display:grid; place-items:center; }
+button { font:inherit; padding:14px 22px; border-radius:99px; border:2px solid #56634f; background:none; color:inherit; cursor:pointer; }
+</style>
+</head>
+<body>
+<button id="again">Play the splash again</button>
+<script src="sloth-splash.js"></script>
+<script>
+// stand-in for a game: the splash covers the page, then hands over to whatever sits underneath
+const run = () => document.fonts.load('700 20px Fredoka').then(() => StrategicSlothSplash.play({ logo: 'sloth-logo.png', font: 'Fredoka,system-ui,sans-serif' }));
+document.getElementById('again').onclick = run;
+run();
+</script>
+</body>
+</html>

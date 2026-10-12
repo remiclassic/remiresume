@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tropic Tumble promo</title>
+<!-- 1080x1350 (4:5) promo. Every frame is a pure function of time: window.renderAt(t) lays the whole stage out for second t.
+     Open in a browser to preview in real time; tropic-render.mjs steps it frame by frame into an mp4. -->
+<style>
+  @font-face { font-family: Fredoka; font-weight: 700; src: url(../tropictumble/fredoka-700.woff2) format('woff2'); }
+  html, body { margin: 0; background: #0b2a4a; overflow: hidden; }
+  #stage { position: relative; width: 1080px; height: 1350px; overflow: hidden; font-family: Fredoka, system-ui, sans-serif; color: #fff;
+    background: linear-gradient(#2f95e6, #57c4f8 40%, #8fe3f5 56%, #f8dfa8 56.3%, #fbe7bd); }
+  #stage > * { position: absolute; }
+  #bg { inset: -40px; background: url("../../Merge Games/background.webp") center / cover; filter: blur(14px) saturate(1.1); opacity: .75; }
+  .stk { width: 130px; height: 130px; background: center / contain no-repeat; filter: drop-shadow(0 10px 10px #0003); }
+  .txt { left: 0; right: 0; text-align: center; -webkit-text-stroke: 14px #0b3a6e; paint-order: stroke fill; line-height: 1.08; }
+  .chip { left: 50%; white-space: nowrap; padding: 16px 34px; border-radius: 99px; font-size: 44px; background: linear-gradient(#6fd0ff, #2a9bf4); border: 5px solid #fff;
+    box-shadow: 0 10px 24px #0b3a6e55; }
+  .phone { background: #15171c; box-shadow: 0 0 0 3px #3a3f4a inset, 0 40px 80px #0b3a6e77, 0 10px 24px #0006; }
+  .phone img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .label { font-size: 30px; -webkit-text-stroke: 8px #0b3a6e; paint-order: stroke fill; text-align: center; }
+  #hero { inset: 0; background: url("../tropictumble/game/loading.webp") center / cover; transform-origin: 50% 40%; }
+  #heroShade { inset: 55% 0 0 0; background: linear-gradient(transparent, #0b2a4aee 70%); }
+  .item { left: 330px; display: flex; align-items: center; gap: 24px; font-size: 52px; -webkit-text-stroke: 12px #0b3a6e; paint-order: stroke fill; white-space: nowrap; }
+  .item i { flex: none; width: 66px; height: 66px; border-radius: 50%; background: radial-gradient(circle at 35% 25%, #9dff4a, #3fd83a 55%, #1fb648); border: 4px solid #149a3c;
+    display: grid; place-items: center; font: 700 40px/1 Fredoka; font-style: normal; color: #fff; -webkit-text-stroke: 0; }
+  #url { left: 50%; white-space: nowrap; padding: 22px 40px; border-radius: 99px; font-size: 38px; color: #0b3a6e; background: #fff; border: 6px solid #8fd2fb; box-shadow: 0 12px 26px #0b3a6e55; }
+  #cta { left: 50%; white-space: nowrap; padding: 26px 56px; border-radius: 99px; font-size: 56px; border: 6px solid #0e8f22; background: linear-gradient(#8cf54e, #33cf33 60%, #25b82c);
+    box-shadow: inset 0 6px 0 #c4ff9c, inset 0 -10px 0 #1c9f28, 0 14px 26px #0005; -webkit-text-stroke: 10px #0e8f22; paint-order: stroke fill; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg"></div>
+  <div class="stk" id="f1"></div><div class="stk" id="f2"></div><div class="stk" id="f3"></div><div class="stk" id="f4"></div>
+
+  <!-- 1: hook -->
+  <div id="hero"></div><div id="heroShade"></div>
+  <div class="txt" id="h1" style="font-size:92px">I built a mobile<br>mini game.</div>
+  <div class="txt" id="h2" style="font-size:66px;color:#ffe45c">And you can play it right now.</div>
+
+  <!-- 2: gameplay -->
+  <div class="txt" id="kicker" style="font-size:40px;letter-spacing:.06em;-webkit-text-stroke-width:9px">TROPIC TUMBLE</div>
+  <div class="chip" id="cap"></div>
+  <div class="phone" id="phone"><img id="clip" alt=""></div>
+
+  <!-- 3: devices -->
+  <div class="txt" id="devTitle" style="font-size:84px">One build.<br>Every screen.</div>
+  <div class="phone" id="dSe"><img id="clipSe" alt=""></div>
+  <div class="phone" id="dMid"><img id="clipMid" alt=""></div>
+  <div class="phone" id="dPad"><img id="clipPad" alt=""></div>
+  <div class="label" id="lSe">Small phone</div><div class="label" id="lMid">Tall phone</div><div class="label" id="lPad">Tablet</div>
+
+  <!-- 4: what I did -->
+  <div class="txt" id="madeTitle" style="font-size:80px">Designed and built<br>end to end</div>
+  <div class="stk" id="fox" style="width:250px;height:210px"></div>
+  <div class="item" id="i0"><i>✓</i>Game design</div>
+  <div class="item" id="i1"><i>✓</i>Interface &amp; game feel</div>
+  <div class="item" id="i2"><i>✓</i>Physics &amp; code</div>
+  <div class="item" id="i3"><i>✓</i>Music &amp; sound</div>
+  <div class="item" id="i4"><i>✓</i>Plays on any phone</div>
+
+  <!-- 5: call to action -->
+  <div class="txt" id="ask" style="font-size:86px">Need a mini game<br>for your app or studio?</div>
+  <div class="txt" id="who" style="font-size:46px;color:#ffe45c;-webkit-text-stroke-width:10px">Remi Couture · product designer &amp; tool builder</div>
+  <div id="cta">Play it now ›</div>
+  <div id="url">remiclassic.github.io/remiresume/tropictumble</div>
+</div>
+<script>
+const FPS = 30, DUR = 33;
+// Scene boundaries, in seconds.
+const T = { hook: 0, play: 3.4, win: 16.4, dev: 19.6, made: 24.8, ask: 28.8, end: DUR };
+// The soundtrack script reads these to place sound cues: which capture plays when, and from which second of it.
+window.CLIP_PLAN = [{ clip: 'play', at: T.play, from: 0.3, to: 13.3 }, { clip: 'win', at: T.win, from: 0.3, to: 3.5 }];
+const CAPS = [[T.play, 'Drag a sticker onto its twin'], [T.play + 3.6, 'Quick matches build combos'], [T.play + 7.6, 'Boosters, ice and a rising tide'], [T.win, 'Levels, stars and rewards']];
+
+const q = new URLSearchParams(location.search);
+const frames = q.get('frames') || '.work/tt';
+const $ = (id) => document.getElementById(id);
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const ease = (u) => { u = clamp(u); return 1 - Math.pow(1 - u, 3); };
+const back = (u) => { u = clamp(u); const c = 1.9; return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2); };   // overshoot pop
+// 0..1 presence of something that enters at a and leaves at b.
+const span = (t, a, b, d = 0.35) => clamp((t - a) / d) * clamp((b - t) / d);
+const put = (el, o, x, y, s = 1, r = 0) => { el.style.opacity = o; el.style.transform = `translate(${x}px, ${y}px) scale(${s}) rotate(${r}deg)`; };
+const pending = [];
+function frame(img, clip, sec, count) {
+  const n = clamp(Math.floor(sec * FPS) + 1, 1, count), src = `${frames}/${clip}/${String(n).padStart(4, '0')}.jpg`;
+  if (img.dataset.src !== src) { img.dataset.src = src; img.src = src; pending.push(img.decode().catch(() => {})); }
+}
+const COUNT = { play: 408, win: 120, se: 156, ipad: 156 };
+function device(el, w, h, bezel, radius, x, y, o, s = 1) {
+  el.style.width = w + 'px'; el.style.height = h + 'px'; el.style.padding = bezel + 'px'; el.style.boxSizing = 'content-box';
+  el.style.borderRadius = radius + bezel + 'px'; el.firstElementChild.style.borderRadius = radius + 'px';
+  el.style.left = '0'; el.style.top = '0'; el.style.transformOrigin = '50% 50%';
+  put(el, o, x - w / 2 - bezel, y - h / 2 - bezel, s);
+}
+
+window.renderAt = async (t) => {
+  // background stickers drift the whole way through
+  [['f1', 'watermelon', 18, 1205, 0], ['f2', 'donut', 935, 30, 1.7], ['f3', 'shell', 938, 1205, 3.1], ['f4', 'bee', 18, 30, 4.4]].forEach(([id, name, x, y, ph]) => {
+    $(id).style.backgroundImage = `url(../tropictumble/game/st-${name}.webp)`;
+    put($(id), span(t, T.play - 0.2, T.end + 9) * 0.95, x, y + Math.sin(t * 1.3 + ph) * 16, 1, Math.sin(t * 0.9 + ph) * 9);
+  });
+
+  // 1: hook
+  const hk = span(t, -1, T.play, 0.45);
+  $('hero').style.opacity = hk; $('hero').style.transform = `scale(${1.04 + t * 0.022})`;
+  $('heroShade').style.opacity = hk;
+  put($('h1'), span(t, 0.25, T.play - 0.1), 0, 905 + (1 - ease((t - 0.25) / 0.5)) * 50, 0.9 + 0.1 * back((t - 0.25) / 0.5));
+  put($('h2'), span(t, 1.5, T.play - 0.1), 0, 1150 + (1 - ease((t - 1.5) / 0.5)) * 40, 0.9 + 0.1 * back((t - 1.5) / 0.5));
+
+  // 2: gameplay in a phone
+  const pl = span(t, T.play, T.dev, 0.4);
+  put($('kicker'), pl, 0, 44);
+  const cap = [...CAPS].reverse().find(([at]) => t >= at) || CAPS[0], capIdx = CAPS.indexOf(cap), capEnd = CAPS[capIdx + 1]?.[0] ?? T.dev;
+  $('cap').textContent = cap[1];
+  put($('cap'), span(t, cap[0], capEnd, 0.25) * pl, 0, 118, 0.85 + 0.15 * back((t - cap[0]) / 0.35));
+  $('cap').style.marginLeft = -$('cap').offsetWidth / 2 + 'px';
+  const inWin = t >= T.win;
+  frame($('clip'), inWin ? 'win' : 'play', inWin ? 0.3 + (t - T.win) : 0.3 + (t - T.play), COUNT[inWin ? 'win' : 'play']);
+  device($('phone'), 500, 1015, 14, 50, 540, 790 + (1 - ease((t - T.play) / 0.6)) * 700, pl, 1);
+
+  // 3: three devices, each playing its own capture at its own shape
+  const dv = span(t, T.dev, T.made, 0.4), dt = t - T.dev;
+  put($('devTitle'), dv, 0, 70 + (1 - ease(dt / 0.5)) * -40);
+  frame($('clipSe'), 'se', 0.6 + dt % 4.5, COUNT.se);
+  frame($('clipMid'), 'play', 2 + dt, COUNT.play);
+  frame($('clipPad'), 'ipad', 0.6 + dt % 4.5, COUNT.ipad);
+  const rise = (d) => (1 - back((dt - d) / 0.55)) * 600;
+  device($('dSe'), 270, 464, 9, 24, 162, 800 + rise(0.15), dv * clamp((dt - 0.15) / 0.2));
+  device($('dMid'), 300, 609, 9, 32, 474, 730 + rise(0.3), dv * clamp((dt - 0.3) / 0.2));
+  device($('dPad'), 390, 580, 11, 24, 852, 745 + rise(0.45), dv * clamp((dt - 0.45) / 0.2));
+  [['lSe', 162, 1078, 0.6], ['lMid', 474, 1078, 0.75], ['lPad', 852, 1078, 0.9]].forEach(([id, x, y, d]) => {
+    $(id).style.left = '0'; $(id).style.width = '300px'; put($(id), dv * clamp((dt - d) / 0.3), x - 150, y);
+  });
+
+  // 4: what I did
+  const md = span(t, T.made, T.ask, 0.4), mt = t - T.made;
+  put($('madeTitle'), md, 0, 90);
+  $('fox').style.backgroundImage = 'url(../tropictumble/game/fox.webp)';
+  put($('fox'), md, 60, 560 + Math.sin(t * 3) * 10, 0.6 + 0.4 * back(mt / 0.5), Math.sin(t * 2.2) * 4);
+  for (let i = 0; i < 5; i++) {
+    const at = 0.45 + i * 0.36;
+    put($('i' + i), md * clamp((mt - at) / 0.15), (1 - ease((mt - at) / 0.35)) * 90, 400 + i * 150, 0.9 + 0.1 * back((mt - at) / 0.35));
+  }
+
+  // 5: call to action
+  const ak = span(t, T.ask, T.end + 9, 0.4), at2 = t - T.ask;
+  put($('ask'), ak, 0, 250 + (1 - ease(at2 / 0.5)) * 50, 0.9 + 0.1 * back(at2 / 0.5));
+  put($('who'), ak * clamp((at2 - 0.7) / 0.3), 0, 560);
+  put($('cta'), ak * clamp((at2 - 1.1) / 0.2), 0, 720, (0.8 + 0.2 * back((at2 - 1.1) / 0.4)) * (1 + Math.sin(t * 5) * 0.025));
+  $('cta').style.marginLeft = -$('cta').offsetWidth / 2 + 'px';
+  put($('url'), ak * clamp((at2 - 1.6) / 0.3), 0, 930 + (1 - ease((at2 - 1.6) / 0.4)) * 30);
+  $('url').style.marginLeft = -$('url').offsetWidth / 2 + 'px';
+
+  await Promise.all(pending.splice(0));
+};
+window.DUR = DUR; window.FPS = FPS;
+// Preview in real time when opened directly.
+if (!q.has('render')) { const t0 = performance.now(); const loop = () => { renderAt(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(loop); }; document.fonts.ready.then(loop); }
+</script>
+</body>
+</html>

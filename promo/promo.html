@@ -110,6 +110,58 @@ h1,h2 { font-weight:600; letter-spacing:-.055em; line-height:.98; }
 #vig { position:absolute; inset:0; z-index:40; pointer-events:none; background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.42)); }
 #bar { position:absolute; left:0; bottom:0; height:6px; background:var(--lime); z-index:45; }
 #fade { position:absolute; inset:0; background:#000; z-index:60; opacity:0; }
+
+/* ---- 9:16 layout (1080 x 1920). Key content stays between y 300 and 1560, clear of the Reels interface. ---- */
+#stage.vert { width:1080px; height:1920px; }
+.vert .pad { left:70px; right:70px; }
+.vert .eyebrow { font-size:22px; line-height:1.6; }
+.vert .glow { width:1700px; height:1700px; }
+.vert #s1 .pad { top:560px; }
+.vert #s1 h1 { font-size:118px; white-space:normal; line-height:1; }
+.vert #s1 h1 .lime { display:block; }
+.vert #s2 .eyebrow { left:70px; top:330px; }
+.vert #s2 .nums { left:70px; right:70px; top:440px; grid-template-columns:1fr 1fr; }
+.vert #s2 .nums div { padding:54px 40px 60px; }
+.vert #s2 .nums div:nth-child(odd) { border-left:0; padding-left:0; }
+.vert #s2 .nums div:nth-child(n+3) { border-top:2px solid var(--line); }
+.vert #s2 strong { font-size:150px; }
+.vert #s2 .foot { left:70px; right:70px; top:1400px; font-size:56px; line-height:1.15; }
+.vert #s2 .foot span { display:block; }
+.vert #s3 .eyebrow { left:70px; right:70px; top:330px; }
+.vert #s3 .row { font-size:140px; }
+.vert #s3 .row:not(.outline) { top:480px !important; }
+.vert #s3 .row.outline { top:710px !important; }
+.vert #s3 .thumbs { top:1000px; }
+.vert #s3 .thumbs img { width:300px; height:300px; }
+.vert #s3 .note { left:70px; right:70px; bottom:auto; top:1400px; line-height:1.6; }
+.vert .proj .n { left:70px; top:330px; }
+.vert .proj .copy { left:70px; top:400px; width:940px; }
+.vert .proj .copy h2 { font-size:92px; margin:26px 0 28px; }
+.vert .persp { left:90px; top:960px; width:1100px; height:760px; }
+.vert .shot { width:960px; }
+.vert .shot.back { left:130px; top:-50px; }
+.vert .shot.front { top:90px; }
+.vert #s5 .title { left:70px !important; right:70px; top:330px !important; font-size:104px !important; line-height:1; }
+.vert #s5 .title .lime { display:block; }
+.vert .cap { left:70px; right:70px; bottom:420px; }
+.vert .cap h2 { font-size:100px !important; }
+.vert .cap p { font-size:36px; line-height:1.35; }
+.vert #s5 > div > .frame[style] { left:70px !important; top:900px !important; width:1180px !important; height:737px !important; }
+.vert #s5 .cap[style] { left:70px !important; right:70px !important; top:330px !important; bottom:auto !important; }
+.vert .tiles { left:70px; right:70px; top:800px; grid-template-columns:1fr 1fr; gap:26px; }
+.vert .tiles .frame:first-child { grid-column:1 / -1; }
+.vert #s6 .rows { left:70px; right:70px; top:340px; }
+.vert #s6 .r { grid-template-columns:70px 1fr; padding:28px 0 30px; }
+.vert #s6 .r h2 { font-size:70px; }
+.vert #s6 .r em { grid-column:2; margin-top:12px; }
+.vert #s6 .chips { left:70px; right:70px; top:1200px; flex-wrap:wrap; }
+.vert #s7 .q { left:80px; right:80px; top:400px; }
+.vert #s7 blockquote { font-size:78px; }
+.vert #s7 .count { left:80px; right:80px; bottom:380px; line-height:1.6; }
+.vert #s8 .ask { left:70px; right:70px; top:400px; font-size:68px; line-height:1.1; }
+.vert #s8 .big { left:62px !important; right:300px; top:590px !important; font-size:200px !important; white-space:normal; line-height:.94; }
+.vert #s8 .card { left:70px; right:70px; top:1090px; grid-template-columns:1fr; gap:40px; }
+.vert #s8 .links { text-align:left; }
 </style>
 </head>
 <body>
@@ -311,10 +363,12 @@ window.renderAt = async t => {
   await Promise.all(pending);
 };
 window.DUR = DUR; window.FPS = FPS;
+const VERT = new URLSearchParams(location.search).has('vertical'), W = VERT ? 1080 : 1920, H = VERT ? 1920 : 1080;
+if (VERT) document.getElementById('stage').classList.add('vert');
 
 // preview in a browser: plays in real time, scaled to the window
 if (!new URLSearchParams(location.search).has('render')) {
-  const fit = () => { document.getElementById('stage').style.transform = `scale(${Math.min(innerWidth / 1920, innerHeight / 1080)})`; };
+  const fit = () => { document.getElementById('stage').style.transform = `scale(${Math.min(innerWidth / W, innerHeight / H)})`; };
   fit(); addEventListener('resize', fit);
   const t0 = performance.now() - (+new URLSearchParams(location.search).get('t') || 0) * 1000;
   const loop = () => { renderAt(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(loop); };

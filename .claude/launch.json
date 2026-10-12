@@ -1,0 +1,8 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "resume-static", "runtimeExecutable": "python", "runtimeArgs": ["-m", "http.server", "4410"], "port": 4410 },
+    { "name": "sticker-merge", "runtimeExecutable": "node", "runtimeArgs": ["C:\\Users\\Remi Couture\\Documents\\Merge Games\\server.mjs"], "port": 5173, "autoPort": true },
+    { "name": "runefjord", "runtimeExecutable": "node", "runtimeArgs": ["C:\\Users\\Remi Couture\\Documents\\Runefjord\\server.mjs"], "port": 5183 }
+  ]
+}

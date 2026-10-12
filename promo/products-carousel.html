@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>What we build for ourselves — Strategic Sloth</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+@page { size:1080px 1350px; margin:0; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Manrope',sans-serif; color:#eef1e6; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+.s { position:relative; width:1080px; height:1350px; padding:84px; background:#0b0f0c; overflow:hidden; page-break-after:always; }
+.s:before { content:''; position:absolute; inset:0; background-image:linear-gradient(#283027 1px,transparent 1px),linear-gradient(90deg,#283027 1px,transparent 1px); background-size:90px 90px; opacity:.45; }
+.s:after { content:''; position:absolute; left:-360px; top:-360px; width:1200px; height:1200px; border-radius:50%; background:radial-gradient(circle,rgba(198,242,122,.18),transparent 62%); }
+.s > * { position:relative; z-index:1; }
+.brand { display:flex; align-items:center; gap:18px; font-size:34px; font-weight:800; letter-spacing:-.04em; }
+.brand img { width:62px; height:62px; background:#f6f5ef; border-radius:22%; }
+.brand span { color:#c6f27a; }
+.eye { font-family:'JetBrains Mono',monospace; font-size:24px; letter-spacing:.14em; text-transform:uppercase; color:#c6f27a; }
+h1 { margin-top:34px; font-size:124px; font-weight:800; letter-spacing:-.06em; line-height:.95; }
+h1 em, h2 em { font-style:normal; color:#c6f27a; }
+.lead { margin-top:40px; font-family:'DM Sans'; font-size:40px; line-height:1.35; color:#d5dbcc; max-width:860px; }
+.shot { margin-top:44px; width:100%; height:520px; border-radius:22px; border:2px solid #3a4638; overflow:hidden; background:#080a08; box-shadow:0 40px 100px -30px #000; }
+.shot img { width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+.plate { margin-top:44px; height:520px; border-radius:22px; border:2px solid #3a4638; background:linear-gradient(135deg,#141a15,#0b0f0c); display:grid; place-content:center; text-align:center; gap:26px; padding:50px; }
+.plate b { font-size:150px; font-weight:800; letter-spacing:-.06em; color:#c6f27a; line-height:1; }
+.plate span { font-family:'JetBrains Mono',monospace; font-size:26px; letter-spacing:.1em; text-transform:uppercase; color:#9ba494; line-height:1.6; }
+.status { display:inline-block; margin-top:46px; font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:12px 20px; border-radius:99px; background:#c6f27a; color:#0c1408; }
+.status.soon { background:transparent; color:#c6f27a; border:2px solid #c6f27a; }
+.status.dev { background:transparent; color:#eef1e6; border:2px solid #56634f; }
+h2 { margin-top:22px; font-size:96px; font-weight:800; letter-spacing:-.055em; line-height:1; }
+.body { margin-top:22px; font-family:'DM Sans'; font-size:36px; line-height:1.35; color:#d5dbcc; }
+.foot { position:absolute; left:84px; right:84px; bottom:64px; display:flex; justify-content:space-between; align-items:flex-end; font-family:'JetBrains Mono',monospace; font-size:20px; color:#9ba494; letter-spacing:.06em; }
+.foot b { color:#c6f27a; font-weight:500; }
+.list { margin-top:50px; display:grid; grid-template-columns:1fr 1fr; gap:14px 40px; font-size:34px; font-weight:700; letter-spacing:-.03em; }
+.list i { font-style:normal; color:#c6f27a; margin-right:14px; }
+.cta { margin-top:54px; font-family:'JetBrains Mono',monospace; font-size:40px; color:#c6f27a; }
+</style>
+</head>
+<body>
+<script>
+const M = '../services-assets/media/', S = '../services-assets/';
+const products = [
+  ['Available · free to start', '', 'SliceForge', 'Turn a visual reference into an editable game interface. Build screens, refine component states, export a UI kit.', 'sliceforge.io', S + 'studio-images/sf-compose.webp'],
+  ['Available on Fab', '', 'Focusrail', 'Predictable controller navigation for Unreal Engine UMG. Focus memory, navigation rails and a Focus Doctor that finds broken navigation.', 'Unreal Engine 5 · C++ plugin', M + 'services/unreal-focus-doctor.webp'],
+  ['Built · awaiting launch', 'soon', 'DriveDeck', 'Your drive, organized like a workspace. Turn an external SSD into a desktop for files, projects and music, with managed transfers and safe eject.', 'Windows first · version 1.0 complete', null, ['1.0', 'Organize · Transfer · Take it with you']],
+  ['Complete · awaiting launch', 'soon', 'NarriaFlow', 'An infinite-canvas writing app for authors who think visually. Chapters, characters and connected ideas in one workspace.', 'Web app', M + 'work/narriaflow-poster.webp'],
+  ['In development', 'dev', 'Real Estate 3D Home', 'Edit the plan in 2D, furnish the rooms, then walk through the same property in 3D. One application.', 'Web application · synthetic demonstration property', M + 'work/real-estate-poster.webp'],
+  ['In development', 'dev', 'SliceForge World Editor', 'Paint a tile grid and watch the 3D world regenerate beside it. Map authoring for game teams.', 'Web · WebGL authoring tool', M + 'work/world-editor-poster.webp'],
+  ['In development · coming to Steam', 'dev', 'Norman Ascension', 'Our own online medieval dynasty RPG, running in a browser-based WebGL engine we wrote.', 'normanascension.com', M + 'norman-ascension/hero-poster.jpg'],
+  ['Coming to Fab', 'soon', 'Storefront Builder', 'Our next Unreal Engine plugin, following Focusrail.', 'Unreal Engine', null, ['UE5', 'Plugin · on the way']],
+  ['Available · free, no account', '', '16 free game dev tools', 'Browser utilities for sprites, UI, colours, exports and audio. Files are processed in your browser.', 'strategicsloth.com/free-tools', null, ['16', 'Sprites · UI · Colours · Export · Audio']],
+  ['Ten complete sets', '', 'Game UI collections', 'Ten full UI directions, from tactical shooter to cosy farm: menus, HUD, inventory and settings in each.', 'Concept collections', S + 'images/game-ui/neon-breach/07-fps.webp'],
+];
+const brand = '<div class="brand"><img src="sloth-logo.png" alt="">strategic sloth <span>✳</span></div>';
+const total = products.length + 2, n = i => String(i).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+let html = `<section class="s">${brand}<p class="eye" style="margin-top:150px">Our own products · built in-house</p><h1>We ship <em>our own stuff</em> too.</h1><p class="lead">Ten things we designed and built ourselves, with the honest status of each. The same team builds yours.</p><div class="list">${products.map(p => `<div><i>✳</i>${p[2]}</div>`).join('')}</div><div class="foot"><span>${n(1)}</span><b>Swipe →</b></div></section>`;
+products.forEach(([status, cls, name, body, meta, img, plate], i) => {
+  html += `<section class="s">${brand}${img ? `<div class="shot"><img src="${img}" alt=""></div>` : `<div class="plate"><b>${plate[0]}</b><span>${plate[1]}</span></div>`}<span class="status ${cls}">${status}</span><h2>${name}</h2><p class="body">${body}</p><div class="foot"><span>${n(i + 2)}</span><b>${meta}</b></div></section>`;
+});
+html += `<section class="s" style="page-break-after:auto">${brand}<p class="eye" style="margin-top:200px">Games · apps · sites · courses</p><h1>Want yours <em>built like this?</em></h1><p class="lead">We design the interface and build it where it runs: in your engine, in your repository. Send a screenshot, a recording or a build.</p><p class="cta">strategicsloth.com/services</p><div class="foot"><span>${n(total)}</span><b>UI/UX design &amp; development</b></div></section>`;
+document.body.insertAdjacentHTML('beforeend', html);
+</script>
+</body>
+</html>

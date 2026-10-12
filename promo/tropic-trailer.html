@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tropic Tumble store trailer</title>
+<!-- 1920x1080 store trailer. Every frame is a pure function of time: window.renderAt(t) lays the stage out for second t.
+     Open in a browser to preview; render with: node tropic-render.mjs --page tropic-trailer.html --dir tt2 --size 1920x1080 --out ../output/tropic-tumble-trailer.mp4 -->
+<style>
+  @font-face { font-family: Fredoka; font-weight: 700; src: url(../tropictumble/fredoka-700.woff2) format('woff2'); }
+  html, body { margin: 0; background: #0b2a4a; overflow: hidden; }
+  #stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: Fredoka, system-ui, sans-serif; color: #fff; background: #2f95e6; }
+  #stage > * { position: absolute; }
+  .bg { inset: -60px; background: center 15% / cover no-repeat; filter: blur(18px) saturate(1.15) brightness(.92); }
+  #shade { inset: 0; background: linear-gradient(90deg, #0b2a4acc, #0b2a4a55 46%, transparent 70%); }
+  .phone { left: 0; top: 0; box-sizing: content-box; background: #15171c; box-shadow: 0 0 0 4px #3a3f4a inset, 0 50px 90px #05162c99, 0 12px 28px #0007; }
+  .phone img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .cap { left: 120px; width: 900px; font-size: 104px; line-height: 1.04; -webkit-text-stroke: 16px #0b3a6e; paint-order: stroke fill; }
+  .sub { left: 124px; width: 860px; font-size: 50px; line-height: 1.2; color: #ffe45c; -webkit-text-stroke: 11px #0b3a6e; paint-order: stroke fill; }
+  .stk { left: 0; top: 0; width: 150px; height: 150px; background: center / contain no-repeat; filter: drop-shadow(0 12px 12px #0004); }
+  #logo, #logo2 { left: 0; top: 0; width: 1000px; height: 468px; background: url("../../Merge Games/art-src/map-logo.webp") 50% 21.5% / 104% auto no-repeat; filter: drop-shadow(0 18px 24px #05162c88); }
+  #fox { left: 0; top: 0; width: 330px; height: 262px; background: url("../../Merge Games/fox.webp") center / contain no-repeat; filter: drop-shadow(0 14px 14px #0005); }
+  #hero { inset: 0; background: url("../../Merge Games/art-src/key-art.webp") center / cover no-repeat; transform-origin: 50% 45%; }
+  #tag { left: 0; right: 0; text-align: center; font-size: 62px; -webkit-text-stroke: 13px #0b3a6e; paint-order: stroke fill; }
+  #free { left: 50%; white-space: nowrap; padding: 18px 52px; border-radius: 99px; font-size: 50px; border: 7px solid #0e8f22; background: linear-gradient(#8cf54e, #33cf33 60%, #25b82c);
+    box-shadow: inset 0 7px 0 #c4ff9c, inset 0 -11px 0 #1c9f28, 0 16px 30px #0006; -webkit-text-stroke: 11px #0e8f22; paint-order: stroke fill; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="bg" id="bgA"></div><div class="bg" id="bgB"></div><div class="bg" id="bgC"></div><div class="bg" id="bgD"></div>
+  <div id="shade"></div>
+
+
+
+  <div class="cap" id="c1"></div><div class="sub" id="u1"></div>
+  <div class="phone" id="p1"><img id="i1" alt=""></div>
+  <div class="phone" id="p2"><img id="i2" alt=""></div>
+
+  <div id="hero"></div>
+  <div id="free">Free to play</div>
+</div>
+<script>
+const FPS = 30, DUR = 30;
+const T = { logo: 0, play: 2.6, map: 11.6, worlds: 16.2, win: 21.4, end: 25.2 };
+// For the soundtrack: which capture plays when, and from which second of it.
+window.CLIP_PLAN = [{ clip: 'play', at: T.play, from: 0.2, to: 9.2 }, { clip: 'night', at: T.worlds, from: 0.4, to: 5.6 }, { clip: 'win', at: T.win, from: 0.3, to: 4.1 }];
+const COUNT = { play: 282, map: 150, night: 180, lava: 150, win: 126 };
+const SCENES = [
+  { at: T.play, end: T.play + 4.4, cap: 'Drag a sticker<br>onto its twin', sub: 'Match them and watch them fly' },
+  { at: T.play + 4.4, end: T.map, cap: 'Chain combos', sub: 'Quick matches score big' },
+  { at: T.map, end: T.worlds, cap: 'Explore<br>eight islands', sub: 'Forty levels on a map you can roam' },
+  { at: T.worlds, end: T.win, cap: 'Melt the ice.<br>Beat the tide.', sub: 'New goals as you go' },
+  { at: T.win, end: T.end, cap: 'Earn stars', sub: 'Open chests and fill your sticker album' },
+];
+
+const q = new URLSearchParams(location.search);
+const frames = q.get('frames') || '.work/tt2';
+const $ = (id) => document.getElementById(id);
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const ease = (u) => { u = clamp(u); return 1 - Math.pow(1 - u, 3); };
+const back = (u) => { u = clamp(u); const c = 1.9; return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2); };
+const span = (t, a, b, d = 0.4) => clamp((t - a) / d) * clamp((b - t) / d);
+const put = (el, o, x, y, s = 1, r = 0) => { el.style.opacity = o; el.style.transform = `translate(${x}px, ${y}px) scale(${s}) rotate(${r}deg)`; };
+const pending = [];
+function frame(img, clip, sec) {
+  const n = clamp(Math.floor(sec * FPS) + 1, 1, COUNT[clip]), src = `${frames}/${clip}/${String(n).padStart(4, '0')}.jpg`;
+  if (img.dataset.src !== src) { img.dataset.src = src; img.src = src; pending.push(img.decode().catch(() => {})); }
+}
+// A phone: screen w x h, centred on (x, y).
+function device(el, w, h, x, y, o, s = 1, tilt = 0) {
+  const bezel = 16, radius = 54;
+  el.style.width = w + 'px'; el.style.height = h + 'px'; el.style.padding = bezel + 'px';
+  el.style.borderRadius = radius + bezel + 'px'; el.firstElementChild.style.borderRadius = radius + 'px';
+  put(el, o, x - w / 2 - bezel, y - h / 2 - bezel, s, tilt);
+}
+const G = '../../Merge Games/';
+$('bgA').style.backgroundImage = `url("${G}world-1.webp")`; $('bgB').style.backgroundImage = `url("${G}map.webp")`;
+$('bgC').style.backgroundImage = `url("${G}world-7.webp")`; $('bgD').style.backgroundImage = `url("${G}world-3.webp")`;
+
+window.renderAt = async (t) => {
+  // backgrounds cross-fade with the scenes
+  $('bgA').style.opacity = 1;
+  $('bgB').style.opacity = span(t, T.map, T.worlds, 0.5);
+  $('bgC').style.opacity = span(t, T.worlds, T.win, 0.5);
+  $('bgD').style.opacity = clamp((t - T.end) / 0.5);
+  const mid = span(t, T.play, T.end, 0.5);
+  $('shade').style.opacity = mid;
+
+  // title card and end card: the key art, full frame, with a slow push in
+  const lg = span(t, -1, T.play, 0.45), en = clamp((t - T.end) / 0.5), et = t - T.end;
+  $('hero').style.opacity = Math.max(lg, en);
+  $('hero').style.transform = `scale(${lg > 0 ? 1.02 + t * 0.014 : 1.02 + Math.max(0, et) * 0.01})`;
+
+  // captions
+  const sc = SCENES.find((x) => t >= x.at && t < x.end) || SCENES[0];
+  $('c1').innerHTML = sc.cap; $('u1').textContent = sc.sub;
+  const co = span(t, sc.at, sc.end, 0.3) * mid, ct = t - sc.at;
+  put($('c1'), co, (1 - ease(ct / 0.5)) * -80, 330, 1);
+  put($('u1'), co * clamp((ct - 0.35) / 0.3), (1 - ease((ct - 0.35) / 0.5)) * -60, 330 + $('c1').offsetHeight + 34);
+
+  // main phone: gameplay, then the map, then the level-complete screen
+  const inPlay = t < T.map, inMap = t >= T.map && t < T.worlds, inWin = t >= T.win;
+  if (inPlay) frame($('i1'), 'play', 0.2 + (t - T.play));
+  else if (inMap) frame($('i1'), 'map', 0.1 + (t - T.map));
+  else if (inWin) frame($('i1'), 'win', 0.3 + (t - T.win));
+  const one = span(t, T.play, T.worlds, 0.4) + span(t, T.win, T.end, 0.4);
+  const rise = inPlay ? (1 - ease((t - T.play) / 0.7)) * 900 : inWin ? (1 - ease((t - T.win) / 0.6)) * 900 : 0;
+  device($('p1'), 468, 950, 1400, 540 + rise, one, 1, Math.sin(t * 0.9) * 0.8);
+
+  // two phones for the "worlds" scene
+  const two = span(t, T.worlds, T.win, 0.4), wt = t - T.worlds;
+  if (two > 0) { frame($('i2'), 'lava', 0.4 + wt * 0.9); frame($('i1'), 'night', 0.4 + wt); }
+  if (two > 0) device($('p1'), 400, 812, 1215, 560 + (1 - back(wt / 0.6)) * 700, two, 1, -3);
+  device($('p2'), 400, 812, 1650, 520 + (1 - back((wt - 0.15) / 0.6)) * 700, two * clamp((wt - 0.15) / 0.2), 1, 3);
+
+  // end card button
+  put($('free'), en * clamp((et - 0.9) / 0.25), 0, 968, (0.8 + 0.2 * back((et - 0.9) / 0.4)) * (1 + Math.sin(t * 5) * 0.02));
+  $('free').style.marginLeft = -$('free').offsetWidth / 2 + 'px';
+
+  await Promise.all(pending.splice(0));
+};
+window.DUR = DUR; window.FPS = FPS;
+if (!q.has('render')) { const t0 = performance.now(); const loop = () => { renderAt(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(loop); }; document.fonts.ready.then(loop); }
+</script>
+</body>
+</html>
