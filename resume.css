@@ -324,6 +324,38 @@ img {
 .focus-card {
   background:#ece9f0;
 }
+.tropic-card {
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:25px;
+  align-items:center;
+  background:#e6eff0;
+}
+.tropic-card .project-meta {
+  margin-bottom:22px;
+}
+.tropic-art img {
+  display:block;
+  width:100%;
+  max-width:300px;
+  max-height:170px;
+  object-fit:contain;
+  margin:0 auto;
+}
+@media(max-width:700px) {
+  .tropic-card {
+    grid-template-columns:1fr;
+  }
+}
+@media print {
+  .tropic-art {
+    display:none;
+  }
+  .tropic-card {
+    display:block;
+  }
+}
 .project-meta {
   display:flex;
   justify-content:space-between;

@@ -43,6 +43,8 @@
 
 .norman-feature-media{display:grid;gap:14px;min-width:0;align-self:center}.norman-feature .hub-feature-images img{object-fit:cover}
 .norman-feature .hub-feature-copy>p+p:not(.hub-feature-dates){margin-top:14px}
+.tropic-feature{margin-top:22px}.tropic-feature .hub-feature-images{grid-template-columns:repeat(4,1fr)}.tropic-feature .hub-feature-images img{aspect-ratio:9/16}.tropic-feature .hub-feature-images span{padding:8px 6px;text-align:center}
+@media(max-width:560px){.tropic-feature .hub-feature-images{grid-template-columns:1fr 1fr}}
 
 /* Organised hub: index, browse routes first, then grouped sections */
 html{scroll-behavior:smooth}
