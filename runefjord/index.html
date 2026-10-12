@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="../favicon.ico?v=sloth1" sizes="any">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg?v=sloth1">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png?v=sloth1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Runefjord: one game, reskinned into a second — Remi Couture</title>
+<meta name="description" content="Runefjord is Tropic Tumble rebuilt as a Viking sticker merge game: the same rules and code, with new art, music, words and store identity. Play it on this page in five device sizes, and see what a reskin of a finished game involves.">
+<link rel="canonical" href="https://remiclassic.github.io/remiresume/runefjord/">
+<meta name="theme-color" content="#14263d">
+<meta property="og:title" content="Runefjord: one game, reskinned into a second">
+<meta property="og:description" content="A finished mobile merge game given a second life as a Viking game: same code, new world. Playable in the browser.">
+<meta property="og:url" content="https://remiclassic.github.io/remiresume/runefjord/">
+<meta property="og:image" content="https://remiclassic.github.io/remiresume/runefjord/media/og.jpg">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="../contact-reveal.css?v=1">
+<script src="../contact-reveal.js?v=1" defer></script>
+<style>
+  @font-face { font-family: Cinzel; font-weight: 700; src: url(cinzel-700.woff2) format('woff2'); font-display: swap; }
+  :root { --ink: #1f2a36; --sky: #2f6fb0; --deep: #14263d; --sand: #f3ead8; --sun: #e0a83c; --leaf: #2f8f4a; --pink: #b3402a;
+    --display: Cinzel, 'Trajan Pro', Georgia, serif; --body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--body); color: var(--ink); background: var(--sand); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: var(--display); line-height: 1.08; margin: 0; }
+  p { margin: 0; }
+  a { color: inherit; }
+  .wrap { width: min(1160px, 100% - 40px); margin-inline: auto; }
+  .skip { position: absolute; left: -999px; } .skip:focus { left: 12px; top: 12px; z-index: 99; background: #fff; padding: 8px 12px; border-radius: 8px; }
+
+  /* Top bar */
+  .top { position: absolute; inset: 0 0 auto; z-index: 5; padding: 16px 0; }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .top a { color: #fff; text-decoration: none; font-weight: 700; text-shadow: 0 1px 3px #0005; }
+  .top nav { display: flex; gap: 18px; font-size: 15px; }
+  .top nav a:hover, .top .brand:hover { text-decoration: underline; }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; border-radius: 999px; border: 3px solid #0e8f22; cursor: pointer;
+    font: 700 19px/1 var(--display); color: #fff; text-decoration: none; background: linear-gradient(#8cf54e, #33cf33 60%, #25b82c);
+    box-shadow: inset 0 3px 0 #c4ff9c, inset 0 -5px 0 #1c9f28, 0 5px 10px #0003; text-shadow: 0 2px 0 #0e8f22; transition: transform .12s; }
+  .btn:hover { transform: translateY(-2px) scale(1.03); } .btn:active { transform: scale(.96); }
+  .btn.blue { border-color: #0b62c4; background: linear-gradient(#6fd0ff, #2a9bf4 60%, #1c84e0); box-shadow: inset 0 3px 0 #c9efff, inset 0 -5px 0 #1470c9, 0 5px 10px #0003; text-shadow: 0 2px 0 #0b62c4; }
+  a.btn[href^="mailto"] { font-size: 17px; }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; padding: 96px 0 64px; color: #fff;
+    background: linear-gradient(#1b3554, #2f5f8f 55%, #6f8fa8); }
+  .hero::before { content: ''; position: absolute; inset: 0; background: url(game/art/paintings/hub-bg.webp) center 18% / cover no-repeat; opacity: .55; }
+  .hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 40px; align-items: center; }
+  .eyebrow { display: inline-block; font: 700 14px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; padding: 8px 14px; border-radius: 999px;
+    background: #ffffff33; border: 2px solid #ffffff88; backdrop-filter: blur(4px); }
+  .logo { margin: 14px 0 10px; }
+  .logo img { display: block; width: min(100%, 400px); margin-inline: auto; height: auto; filter: drop-shadow(0 8px 10px #0003); }   /* the game's own logo */
+  .logo span { display: block; -webkit-text-stroke: 10px #8a4a1c; paint-order: stroke fill; }
+  .logo .a { color: #ffc93a; } .logo .b { color: #5fd2ff; margin-top: -.12em; }
+  .hero h2 { font-size: clamp(24px, 3vw, 34px); text-shadow: 0 2px 0 #14263d88; }
+  .lede { margin-top: 14px; font-size: 18px; max-width: 34em; font-weight: 500; text-shadow: 0 1px 2px #14263daa; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+  .floaty { position: absolute; width: 74px; aspect-ratio: 1; background: center / contain no-repeat; filter: drop-shadow(0 6px 6px #0003); animation: bob 5s ease-in-out infinite; pointer-events: none; }
+  @keyframes bob { 50% { transform: translateY(-14px) rotate(8deg); } }
+
+  /* Device stage */
+  .demo { display: flex; flex-direction: column; align-items: center; gap: 14px; min-width: 0; }
+  .stage { position: relative; width: 100%; height: clamp(500px, 76vh, 780px); }
+  .device { position: absolute; left: 50%; top: 50%; background: #15171c; box-shadow: 0 0 0 2px #3a3f4a inset, 0 30px 60px #14263d66, 0 8px 18px #0005;
+    transition: width .35s, height .35s, border-radius .35s, padding .35s; }
+  .screen { position: relative; overflow: hidden; background: #1b120c; width: 100%; height: 100%; }
+  .status { position: absolute; inset: 0 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 22px; color: #fff;
+    font: 700 14px/1 var(--body); background: #2f95e6; }
+  .status i { display: inline-block; width: 24px; height: 11px; border: 2px solid #fff; border-radius: 4px; position: relative; }
+  .status i::before { content: ''; position: absolute; inset: 1px 5px 1px 1px; background: #fff; border-radius: 1px; }
+  .cut { position: absolute; left: 50%; transform: translateX(-50%); background: #000; z-index: 2; }
+  .device iframe { position: absolute; left: 0; border: 0; transform-origin: 0 0; background: #1b120c; }
+  .home { position: absolute; left: 50%; bottom: 14px; width: 46px; height: 46px; margin-left: -23px; border-radius: 50%; border: 3px solid #3a3f4a; }
+  .picker { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .picker button { font: 700 15px/1 var(--display); padding: 10px 16px; border-radius: 999px; border: 2px solid #ffffffaa; background: #ffffff2e; color: #fff; cursor: pointer;
+    backdrop-filter: blur(4px); transition: transform .1s, background .15s; }
+  .picker button:hover { background: #ffffff55; } .picker button:active { transform: scale(.94); }
+  .picker button[aria-pressed="true"] { background: #fff; color: var(--deep); border-color: #fff; }
+  .readout { font: 600 14px/1.3 var(--body); color: var(--deep); background: #ffffffd9; padding: 8px 14px; border-radius: 999px; text-align: center; }
+  .readout button, .readout a { font: inherit; color: #0b62c4; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+
+  /* Sections */
+  section { padding: 76px 0; }
+  .kicker { font: 700 14px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; color: #8a5a1c; }
+  .title { font-size: clamp(32px, 4.6vw, 52px); margin: 10px 0 14px; color: var(--deep); }
+  .sub { font-size: 18px; max-width: 42em; }
+  .trailer { display: block; width: 100%; max-width: 920px; aspect-ratio: 16 / 9; margin: 34px auto 0; border-radius: 24px; border: 3px solid #d9c9a3; box-shadow: 0 6px 0 #d9c9a3; background: #14263d; }
+  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-top: 28px; }
+  .shots figure { margin: 0; text-align: center; }
+  .shots img { display: block; width: 100%; height: auto; border-radius: 18px; border: 3px solid #d9c9a3; box-shadow: 0 6px 0 #d9c9a3; }
+  .shots figcaption { margin-top: 12px; font-weight: 700; font-size: 15px; color: #14263d; }
+  .grid { display: grid; gap: 18px; margin-top: 34px; }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .card { background: #fff; border-radius: 24px; padding: 24px; border: 3px solid #d9c9a3; box-shadow: 0 6px 0 #d9c9a3; }
+  .card h3 { font-size: 22px; color: var(--deep); margin-bottom: 8px; }
+  .card img { width: 62px; height: 62px; object-fit: contain; margin-bottom: 10px; filter: drop-shadow(0 4px 4px #0002); }
+  .blue { background: linear-gradient(#2f95e6, #1d79d6); color: #fff; }
+  .blue .title, .blue .kicker { color: #fff; } .blue .kicker { opacity: .85; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-top: 34px; }
+  .stat { background: #ffffff22; border: 2px solid #ffffff66; border-radius: 20px; padding: 18px; text-align: center; }
+  .stat b { display: block; font: 700 42px/1 var(--display); color: #f2c869; text-shadow: 0 3px 0 #14263d66; }
+  .stat span { font-weight: 600; font-size: 15px; }
+  .steps { counter-reset: s; display: grid; gap: 14px; margin-top: 34px; }
+  .step { counter-increment: s; display: grid; grid-template-columns: 64px 1fr; gap: 18px; align-items: start; background: #fff; border-radius: 24px; padding: 22px;
+    border: 3px solid #e6cf9c; box-shadow: 0 6px 0 #e6cf9c; }
+  .step::before { content: counter(s); display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; font: 700 30px/1 var(--display); color: #fff;
+    background: linear-gradient(#ffd84a, #ff9d1a); border: 3px solid #8a5a1c; text-shadow: 0 2px 0 #8a5a1c; }
+  .step h3 { font-size: 22px; color: var(--deep); margin-bottom: 6px; }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 34px; }
+  ul.ticks { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 10px; }
+  ul.ticks li { padding-left: 34px; position: relative; }
+  ul.ticks li::before { content: '✓'; position: absolute; left: 0; top: 1px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+    font: 700 14px/1 var(--display); color: #fff; background: var(--leaf); }
+  .final { text-align: center; background: linear-gradient(#4fc0f7, #2f95e6); color: #fff; position: relative; overflow: hidden; }
+  .final .title { color: #fff; } .final .sub { margin-inline: auto; } .final .cta { justify-content: center; }
+  .final img { width: 150px; margin-bottom: 8px; filter: drop-shadow(0 8px 8px #0003); animation: bob 4s ease-in-out infinite; }
+  footer { background: var(--deep); color: #cfe6fa; padding: 26px 0; font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: space-between; }
+  footer a { color: #fff; }
+  :focus-visible { outline: 3px solid #f2c869; outline-offset: 3px; }
+
+  /* Readability pass: no white text over light or mid-tone backgrounds. Body copy is dark on light; white is kept for dark navy and deep-colour buttons. */
+  .top { background: #ffffffeb; box-shadow: 0 2px 10px #14263d22; padding: 12px 0; }
+  .top a { color: var(--deep); text-shadow: none; }
+  .hero { color: var(--ink); padding-top: 104px; }
+  .hero .copy { background: #ffffffee; border-radius: 28px; padding: 30px 30px 32px; box-shadow: 0 16px 40px #14263d33; }
+  .eyebrow { background: #efe3c6; border-color: #c9a86a; color: var(--deep); backdrop-filter: none; }
+  .hero h2 { color: var(--deep); text-shadow: none; }
+  .lede { color: var(--ink); text-shadow: none; }
+  .logo .a { color: #f39a00; } .logo .b { color: #1f97e6; }   /* deeper fills; the thick brown outline carries the shape on the white card */
+  .btn { background: linear-gradient(#c98a2b, #a86a1c); border-color: #5a3410; box-shadow: inset 0 3px 0 #f2c869, inset 0 -5px 0 #8a5216, 0 5px 10px #0003; text-shadow: 0 2px 0 #5a3410; border-radius: 12px; font-size: 17px; }
+  .btn.store { padding: 9px 22px 9px 16px; gap: 10px; border-color: #000; background: linear-gradient(#3a3f4a, #15171c); box-shadow: inset 0 2px 0 #6b7280, inset 0 -5px 0 #000, 0 5px 10px #0003; text-shadow: none; text-align: left; line-height: 1.05; }
+  .btn.store svg { width: 26px; height: 26px; flex: none; }
+  .btn.store small { display: block; font-size: .58em; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; opacity: .85; }
+  .btn.blue { background: linear-gradient(#2379d8, #0f62c0); border-color: #0a4a94; box-shadow: inset 0 3px 0 #6fb4f5, inset 0 -5px 0 #0c519f, 0 5px 10px #0003; text-shadow: 0 2px 0 #0a4a94; }
+  .picker button { background: #ffffffeb; border-color: #fff; color: var(--deep); backdrop-filter: none; }
+  .picker button:hover { background: #fff; }
+  .picker button[aria-pressed="true"] { background: var(--deep); border-color: var(--deep); color: #fff; }
+  .status { background: #14263d; }
+  .kicker { color: #8a4a12; }
+  section.blue { background: linear-gradient(#1d3a5c, #14263d); }
+  section.blue .kicker { color: #f2c869; opacity: 1; }
+  .stat { background: #ffffff14; border-color: #ffffff40; }
+  .step::before { color: #2a1608; text-shadow: none; background: linear-gradient(#f2c869, #c98a2b); border-color: #5a3410; }
+  ul.ticks li::before { background: #1e8f28; }
+  .final { background: linear-gradient(#1d3a5c, #14263d); }
+
+  @media (max-width: 900px) {
+    .hero { padding-top: 84px; } .hero .wrap { grid-template-columns: 1fr; } .hero .copy { text-align: center; } .lede { margin-inline: auto; } .cta { justify-content: center; }
+    .floaty { display: none; } .top nav a:not(.keep) { display: none; } section { padding: 56px 0; }
+    .step { grid-template-columns: 48px 1fr; gap: 14px; } .step::before { width: 48px; height: 48px; font-size: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#play">Skip to the game</a>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../index.html" aria-label="Remi Couture résumé">remi couture ✳</a>
+  <nav aria-label="Site"><a href="../portfolio.html">Portfolio</a><a href="../services.html">Work &amp; services</a><a class="keep" href="#contact">Let’s talk ↗</a></nav>
+</div></header>
+
+<main>
+<section class="hero" id="top">
+  <span class="floaty" style="left:40%;top:9%;width:64px;animation-delay:-2s;background-image:url(game/art/stickers/st-runestone.webp)"></span>
+  <span class="floaty" style="left:1.5%;bottom:9%;width:70px;animation-delay:-3.4s;background-image:url(game/art/stickers/st-shield.webp)"></span>
+  <span class="floaty" style="left:43%;bottom:6%;width:72px;animation-delay:-1.2s;background-image:url(game/art/stickers/st-longship.webp)"></span>
+  <div class="wrap">
+    <div class="copy">
+      <span class="eyebrow">Playable case study · reskinning a finished game</span>
+      <h1 class="logo"><img src="media/logo.webp" alt="Runefjord" width="900" height="576"></h1>
+      <h2>One finished game. A second world on top of it.</h2>
+      <p class="lede">Runefjord is <a href="../tropictumble/">Tropic Tumble</a>, my sticker merge game, rebuilt as a Viking game. The rules, levels, economy and code are the same. The stickers, paintings, menus, music, words and store identity are new. Pick a device and play it, then compare it with the original.</p>
+      <div class="cta">
+        <a class="btn" href="#play">Play now ›</a>
+        <a class="btn blue" href="../tropictumble/">Play the original ↗</a>
+        <a class="btn blue" href="#contact">Reskin yours with me</a>
+      </div>
+    </div>
+
+    <div class="demo" id="play">
+      <div class="stage" id="stage">
+        <div class="device" id="device">
+          <div class="screen" id="screen">
+            <div class="status" id="status"><span>9:41</span><i aria-hidden="true"></i></div>
+            <div class="cut" id="cut"></div>
+            <iframe id="game" src="game/index.html?debug=1" title="Runefjord, playable game" allow="vibrate" loading="eager"></iframe>
+          </div>
+          <div class="home" id="home" hidden></div>
+        </div>
+      </div>
+      <div class="picker" id="picker" role="group" aria-label="Choose a device"></div>
+      <p class="readout" id="readout" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker">Why reskin</p>
+    <h2 class="title">The expensive part is already built</h2>
+    <p class="sub">A finished game is mostly decisions: how a level ramps, what a reward is worth, when an ad is welcome. A reskin keeps every one of them and changes what the player sees and hears. Runefjord went from a copy of Tropic Tumble to a signed Android build on a Google Play test track in four days.</p>
+    <div class="grid g3">
+      <div class="card"><img src="game/art/stickers/st-hammer.webp" alt=""><h3>Same engine</h3><p>The physics pile, three-stage merging, level curve, goals, boosters, events, stories, season pass, shop and save system were carried over unchanged, with their balance already tested.</p></div>
+      <div class="card"><img src="game/art/stickers/st-wolf.webp" alt=""><h3>New world</h3><p>76 new stickers in 14 sets, nine scene paintings, eight level backdrops, a campaign map, a wolf in place of the fox, painted menus and banners, and a Norse soundtrack.</p></div>
+      <div class="card"><img src="game/art/stickers/st-longship.webp" alt=""><h3>Its own product</h3><p>A separate app with its own name, icon, store listing, save data, ad units, in-app products and age rating, so the two games can be run and measured independently.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="inside" style="background:#fff">
+  <div class="wrap">
+    <p class="kicker">A look inside</p>
+    <h2 class="title">From a pile of jelly to a finished fjord</h2>
+    <p class="sub">Eight screens from the build at the top of this page. Every one has a twin in Tropic Tumble with the same layout and different art.</p>
+    <div class="shots">
+      <figure><img src="media/shot-1-merge.webp" alt="A pile of Viking stickers at three stages being merged in front of a frozen waterfall" loading="lazy" width="540" height="960"><figcaption>Merge: jelly, painted, shiny</figcaption></figure>
+      <figure><img src="media/shot-2-scene.webp" alt="A scene by a waterfall with stickers placed on the ground" loading="lazy" width="540" height="960"><figcaption>Place stickers in a scene</figcaption></figure>
+      <figure><img src="media/shot-4-chest.webp" alt="A treasure chest full of gold under a Level up sign" loading="lazy" width="540" height="960"><figcaption>Level up and open the chest</figcaption></figure>
+      <figure><img src="media/shot-3-home.webp" alt="The Home screen with the Runefjord logo, a scene card and a Play button" loading="lazy" width="540" height="960"><figcaption>Home</figcaption></figure>
+      <figure><img src="media/shot-5-complete.webp" alt="The Level complete card with three stars and rewards" loading="lazy" width="540" height="960"><figcaption>Level complete</figcaption></figure>
+      <figure><img src="media/shot-6-events.webp" alt="The Events screen with the Rune Dig and two event cards" loading="lazy" width="540" height="960"><figcaption>Events and the Rune Dig</figcaption></figure>
+      <figure><img src="media/shot-7-pass.webp" alt="The Saga Pass with free and premium reward tracks" loading="lazy" width="540" height="960"><figcaption>The Saga Pass</figcaption></figure>
+      <figure><img src="media/shot-8-album.webp" alt="The sticker album with bronze, silver and gold progress" loading="lazy" width="540" height="960"><figcaption>Sticker album</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="blue">
+  <div class="wrap">
+    <p class="kicker">What changed, what stayed</p>
+    <h2 class="title">Same game underneath</h2>
+    <p class="sub">The split below is the whole job. Everything under Kept was reused as it was. Everything under New was made for Runefjord.</p>
+    <div class="stats">
+      <div class="stat"><b>76</b><span>new stickers: 60 to collect in 12 sets, plus 16 for events</span></div>
+      <div class="stat"><b>9</b><span>new scene paintings to fill, sticker by sticker</span></div>
+      <div class="stat"><b>40</b><span>levels carried over with their difficulty curve intact</span></div>
+      <div class="stat"><b>4</b><span>days from a copy to a signed build on a test track</span></div>
+    </div>
+    <div class="two">
+      <div>
+        <h3 style="font-size:24px;margin-bottom:4px">Kept</h3>
+        <ul class="ticks">
+          <li><strong>The rules.</strong> A physics pile, merging in three stages, a tide of new stickers, ice blockers, and four kinds of level goal.</li>
+          <li><strong>The balance.</strong> Level curve, energy and gem economy, reward sizes and prices, already tuned with simulated players.</li>
+          <li><strong>The systems.</strong> Scenes, album, daily reward, events, stories, a 28-day season pass, the shop, rewarded ads and the guided tour.</li>
+          <li><strong>The plumbing.</strong> Saving, device scaling, the slow-phone mode, the Android and iPhone projects, Google Play billing and AdMob.</li>
+          <li><strong>The layout.</strong> Each new picture was made at the size and shape of the one it replaced, so almost no screen had to be rearranged.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-size:24px;margin-bottom:4px">New</h3>
+        <ul class="ticks">
+          <li><strong>The art.</strong> Stickers, pack cards, scene and level paintings, the map, the logo, and painted frames for the settings, pause, shop and reward screens.</li>
+          <li><strong>The words.</strong> Set names, worlds, scenes, three short stories, the Saga Pass, and lettering in a carved Roman face in place of a rounded one.</li>
+          <li><strong>The sound.</strong> Four Norse tunes on lyre, flute and bowed strings over a drone and a frame drum, generated in the browser like the originals.</li>
+          <li><strong>One new feature.</strong> The Rune Dig: a daily field of stones to break with hammers earned by playing.</li>
+          <li><strong>The product.</strong> App name and id, icon, splash, store listing and screenshots, its own ad units and in-app products, and its own age rating.</li>
+          <li><strong>Testing tools.</strong> As in the original, the gear menu here can add energy, finish a level or reset the save. Try it.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker">Working with your team</p>
+    <h2 class="title">How a reskin runs</h2>
+    <p class="sub">This is the order Runefjord followed. It is built so your artists can deliver in any order and the game is playable the whole time.</p>
+    <div class="steps">
+      <div class="step"><div><h3>Copy, rename, isolate</h3><p>The game is forked into its own project with a new app id and its own save slot, and the original game's live ad and payment keys are switched off, so the copy cannot touch the first game's players or revenue.</p></div></div>
+      <div class="step"><div><h3>Rename the content first</h3><p>Sets, stickers, worlds and scenes get their new names in the data while the old pictures stand in under them. The game runs from the first hour, and the art list writes itself.</p></div></div>
+      <div class="step"><div><h3>Art lands one picture at a time</h3><p>Every picture has a fixed size and file name. Drop a new one in and the game uses it. A sheet lists what is still a stand-in, so nothing is forgotten.</p></div></div>
+      <div class="step"><div><h3>Re-fit the few things that moved</h3><p>A carved frame with wolf heads needs different margins from a bamboo one. Those are small layout edits, each checked on a phone-sized screen.</p></div></div>
+      <div class="step"><div><h3>Ship it as its own app</h3><p>A new store listing with screenshots taken from the game, its own ad units, in-app products and privacy declarations. Runefjord is on a Google Play test track now; <a href="../tropictumble/">Tropic Tumble</a> is live.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="wrap">
+    <p class="kicker">What I can do for you</p>
+    <h2 class="title">More games from the one you have</h2>
+    <div class="grid g3">
+      <div class="card"><img src="game/art/stickers/st-crown.webp" alt=""><h3>Reskins of your game</h3><p>A second or third theme on a game that already works, for a new audience, season or licence.</p></div>
+      <div class="card"><img src="game/art/stickers/st-banner.webp" alt=""><h3>Branded versions</h3><p>Your characters, products and colours on a proven loop, as its own app or inside yours.</p></div>
+      <div class="card"><img src="game/art/stickers/st-compass.webp" alt=""><h3>Theme tests</h3><p>Two or three looks of the same game, built far enough to compare with real players before committing an art budget.</p></div>
+      <div class="card"><img src="game/art/stickers/st-chest.webp" alt=""><h3>Mini games for apps</h3><p>A daily game inside a shopping, loyalty or media app that gives people a reason to come back.</p></div>
+      <div class="card"><img src="game/art/stickers/st-scroll.webp" alt=""><h3>UI, UX and motion</h3><p>Interface design, animation and implementation for a game your team is already making.</p></div>
+      <div class="card"><img src="game/art/stickers/st-raven.webp" alt=""><h3>Extra hands for your team</h3><p>I work alongside your designers and engineers in Unreal Engine, Unity, Godot, PlayCanvas or on the web.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="contact">
+  <div class="wrap">
+    <img src="game/art/icons/fox.webp" alt="">
+    <p class="kicker" style="color:#f2c869">Let’s talk</p>
+    <h2 class="title">Have a game that deserves a second world?</h2>
+    <p class="sub">I’m Remi Couture, a product designer and tool builder with twenty years of shipped credits across games, apps and training products. Tell me what you are making and I will tell you how I would approach it.</p>
+    <div class="cta">
+      <button class="btn" type="button" data-reveal-email>Show my email</button>
+      <a class="btn blue" href="../tropictumble/">See Tropic Tumble ↗</a>
+      <a class="btn blue" href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn blue" href="../services.html">Work &amp; services</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 Guillaume (Rémi) Couture. Runefjord is a Strategic Sloth LLC game.</span>
+  <span><a href="../index.html">Résumé</a> · <a href="../portfolio.html">Portfolio</a> · <a href="game/index.html?debug=1">Open the game full screen ↗</a></span>
+</div></footer>
+
+<script>
+(() => {
+  // Each device: screen size in CSS points, corner radius, bezel, status bar height, and what interrupts the screen.
+  // "zoom" renders the game at a smaller logical size and scales it up, the way a tablet shows a phone-first game larger.
+  const DEVICES = [
+    { id: 'iphone', name: 'iPhone 15 Pro', w: 393, h: 852, r: 56, bz: 12, bar: 54, cut: 'island' },
+    { id: 'pixel',  name: 'Pixel 8',       w: 412, h: 915, r: 44, bz: 10, bar: 36, cut: 'punch' },
+    { id: 'galaxy', name: 'Galaxy S24',    w: 360, h: 780, r: 36, bz: 9,  bar: 34, cut: 'punch' },
+    { id: 'se',     name: 'iPhone SE',     w: 375, h: 667, r: 0,  bz: 14, bar: 22, cut: 'classic' },
+    { id: 'ipad',   name: 'iPad mini',     w: 744, h: 1133, r: 30, bz: 24, bar: 26, cut: 'none', zoom: 1.5 },
+  ];
+  const $ = (id) => document.getElementById(id);
+  const stage = $('stage'), device = $('device'), screen = $('screen'), game = $('game'), cut = $('cut'), status = $('status'), home = $('home');
+  let current = DEVICES[0];
+
+  function frameSize(d) {
+    const chin = d.cut === 'classic' ? 74 : 0;   // the classic phone has a forehead and a home-button chin
+    return { w: d.w + d.bz * 2, h: d.h + d.bz * 2 + chin * 2, chin };
+  }
+  function fit() {
+    const f = frameSize(current), scale = Math.min(stage.clientWidth / f.w, stage.clientHeight / f.h, 1);
+    device.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    $('readout').innerHTML = `${current.name}: ${current.w} × ${current.h} pt, shown at ${Math.round(scale * 100)}% to fit your screen. `
+      + '<button type="button" id="restart">Restart</button> · <a href="game/index.html?debug=1">Full screen ↗</a>';
+    $('restart').onclick = () => { game.src = game.src; };
+  }
+  function show(d) {
+    current = d;
+    const f = frameSize(d), zoom = d.zoom || 1;
+    device.style.width = f.w + 'px'; device.style.height = f.h + 'px';
+    device.style.padding = `${d.bz + f.chin}px ${d.bz}px`;
+    device.style.borderRadius = (d.cut === 'classic' ? 48 : d.r + d.bz) + 'px';
+    screen.style.borderRadius = d.r + 'px';
+    status.style.height = d.bar + 'px';
+    status.style.alignItems = d.cut === 'island' ? 'flex-end' : 'center';
+    status.style.paddingBottom = d.cut === 'island' ? '8px' : '0';
+    // the game gets everything under the status bar, at its logical size
+    game.style.top = d.bar + 'px';
+    game.style.width = d.w / zoom + 'px'; game.style.height = (d.h - d.bar) / zoom + 'px';
+    game.style.transform = `scale(${zoom})`;
+    const cuts = { island: 'top:12px;width:112px;height:32px;border-radius:20px', punch: 'top:11px;width:14px;height:14px;border-radius:50%', classic: 'display:none', none: 'display:none' };
+    cut.style.cssText = cuts[d.cut];
+    home.hidden = d.cut !== 'classic';
+    document.querySelectorAll('#picker button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === d.id)));
+    fit();
+  }
+  $('picker').innerHTML = DEVICES.map((d) => `<button type="button" data-id="${d.id}" aria-pressed="false">${d.name}</button>`).join('');
+  $('picker').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (b) show(DEVICES.find((d) => d.id === b.dataset.id));
+  });
+  new ResizeObserver(fit).observe(stage);
+  show(current);
+})();
+</script>
+</body>
+</html>
