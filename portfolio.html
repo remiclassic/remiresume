@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="resume.css?v=20260922-career">
-<link rel="stylesheet" href="portfolio-hub.css?v=20261016-deck">
+<link rel="stylesheet" href="portfolio-hub.css?v=20261016-hero">
 <script>
 // Preserve previously shared direct links to the guided showcase.
 function openPortfolioDeepLink() {
@@ -31,22 +31,20 @@ window.addEventListener('hashchange',openPortfolioDeepLink);
 <body>
 <a class="skip-link" href="#main">Skip to portfolio</a>
 <nav class="site-nav" aria-label="Primary navigation"><a class="wordmark" href="index.html">remi couture<span aria-hidden="true">✳</span></a><div class="nav-links"><a href="#ux">UX</a><a href="#ui">UI</a><a href="#build">Motion + build</a><a href="index.html">Resume</a><button type="button" data-reveal-email aria-label="Reveal email address">Reveal email ↗</button></div></nav>
-<main class="hub" id="main">
-<header class="hub-intro"><div><p class="eyebrow">THE PORTFOLIO · UX/UI DESIGNER · GAMES + PRODUCTS</p><h1>Sorted by what<br><span>you’re hiring for.</span></h1></div><p>I’m a UX/UI designer. I work out how it should work, design how it looks, and when the team needs it, animate it and build it in engine. Go straight to the part you need.</p></header>
-
-<nav class="hub-disciplines" aria-label="Choose a discipline">
-  <a href="#ux"><span class="hub-discipline-num">01 · UX DESIGN</span><strong>How it works.</strong><p>Player and user flows, information architecture, wireframes, UX audits, and the reasoning behind each decision.</p><small>For roles like UX Designer · Product Designer · UX Lead</small><span class="hub-discipline-cta">See the UX work <span aria-hidden="true">↓</span></span></a>
-  <a href="#ui"><span class="hub-discipline-num">02 · UI DESIGN</span><strong>How it looks.</strong><p>Game and product screens, menus and HUDs, visual hierarchy, component libraries and UI kits.</p><small>For roles like UI Designer · Game UI Artist · Visual Designer</small><span class="hub-discipline-cta">See the UI work <span aria-hidden="true">↓</span></span></a>
-  <a href="#build"><span class="hub-discipline-num">03 · MOTION + IMPLEMENTATION</span><strong>How it moves and ships.</strong><p>UI animation and motion graphics, Unreal UMG and CommonUI, Unity, and front ends in React and TypeScript.</p><small>For roles like Technical UI Designer · UI Engineer · Motion Designer</small><span class="hub-discipline-cta">See the motion + build work <span aria-hidden="true">↓</span></span></a>
-</nav>
-<p class="hub-also">Also here: <a href="presentations/remi-couture-ux-work-short.pdf" target="_blank" rel="noopener">UX portfolio PDF (short) ↗</a><a href="presentations/remi-couture-ux-work.pdf" target="_blank" rel="noopener">UX portfolio PDF (full) ↗</a><a href="#own-game">my own games, where all three come together ↓</a><a href="#browse">browse everything ↓</a></p>
-
-<section class="hub-proof" aria-label="Career in numbers">
-  <div><strong>20 years</strong><span>in game UI, UX and product design</span></div>
-  <div><strong>40+</strong><span>shipped games and apps</span></div>
-  <div><strong>12 studios</strong><span>worked inside, from indie to co-dev</span></div>
-  <div><strong>5 runtimes</strong><span>Unreal, Unity, Godot, PlayCanvas and web</span></div>
+<section class="pf-hero" aria-labelledby="pf-hero-title">
+  <video autoplay muted loop playsinline preload="metadata" poster="portfolio-media/hero/portfolio-loop.jpg" aria-hidden="true" data-hero-video><source src="portfolio-media/hero/portfolio-loop.mp4" type="video/mp4"></video>
+  <div class="pf-hero-inner">
+    <p class="pf-eyebrow"><span></span>THE PORTFOLIO · REMI COUTURE</p>
+    <h1 id="pf-hero-title">UX/UI Designer <em>for games &amp; products.</em></h1>
+    <p class="pf-lede">Twenty years of game interfaces, from MechWarrior 5 and Dauntless to my own shipped games. I work out how it should work, design how it looks, and build it in engine.</p>
+    <div class="pf-hero-actions"><a class="pf-btn pf-ux" href="#ux">UX design <span aria-hidden="true">↓</span></a><a class="pf-btn pf-ui" href="#ui">UI design <span aria-hidden="true">↓</span></a><a class="pf-btn pf-build" href="#build">Motion + build <span aria-hidden="true">↓</span></a><a class="pf-link" href="presentations/remi-couture-ux-work-short.pdf" target="_blank" rel="noopener">UX deck (PDF) ↗</a></div>
+    <div class="pf-hero-meta"><div><strong>20 years</strong>in game UI, UX and product design</div><div><strong>40+</strong>shipped games and apps</div><div><strong>12 studios</strong>worked inside, from indie to co-dev</div><div><strong>5 runtimes</strong>Unreal, Unity, Godot, PlayCanvas and web</div></div>
+  </div>
+  <button class="pf-hero-toggle" type="button" data-hero-toggle aria-pressed="false">Pause video</button>
 </section>
+<main class="hub" id="main">
+<p class="hub-also pf-also">Also here: <a href="presentations/remi-couture-ux-work-short.pdf" target="_blank" rel="noopener">UX portfolio PDF (short) ↗</a><a href="presentations/remi-couture-ux-work.pdf" target="_blank" rel="noopener">UX portfolio PDF (full) ↗</a><a href="#own-game">my own games, where all three come together ↓</a><a href="#browse">browse everything ↓</a></p>
+
 
 <nav class="disc-tabs" aria-label="Portfolio disciplines"><a href="#ux" data-tab="ux"><b>01</b> UX design<small>How it works</small></a><a href="#ui" data-tab="ui"><b>02</b> UI design<small>How it looks</small></a><a href="#build" data-tab="build"><b>03</b> Motion + build<small>How it moves and ships</small></a></nav>
 <!-- 01 UX -->
@@ -402,6 +400,16 @@ window.addEventListener('hashchange',openPortfolioDeepLink);
 </section>
 <footer class="hub-footer"><span>Original work and newer concept extensions are dated in the guided showcase.</span><a href="services.html">Work &amp; services ↗</a><button type="button" data-reveal-email aria-label="Reveal email address">Reveal email ↗</button></footer>
 </main>
+<script>
+// Hero video: pause control, and stay still for people who prefer reduced motion.
+(() => {
+  const v = document.querySelector('[data-hero-video]'), b = document.querySelector('[data-hero-toggle]');
+  if (!v || !b) return;
+  const set = paused => { paused ? v.pause() : v.play().catch(() => {}); b.textContent = paused ? 'Play video' : 'Pause video'; b.setAttribute('aria-pressed', String(paused)); };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) set(true);
+  b.addEventListener('click', () => set(!v.paused));
+})();
+</script>
 <script>
 // Highlight the discipline tab for the section in view.
 (() => {

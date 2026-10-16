@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="resume.css?v=20261016-deck">
+  <link rel="stylesheet" href="resume.css?v=20261016-reel">
   <link rel="stylesheet" href="contact-reveal.css?v=1">
   <script src="contact-reveal.js?v=1" defer></script>
 <script src="analytics.js?v=20260924-dismiss" defer></script>
@@ -56,6 +56,15 @@
       <div><strong>Design → build</strong><span>strategy through implementation</span></div>
     </div>
     <div class="brand-strip"><p>EXPERIENCE ACROSS TEAMS &amp; CLIENTS</p><div><span>Disney</span><span>Sony</span><span>Riot Games</span><span>AppLovin</span><span>Tencent</span><span>Twitch</span></div></div>
+    <section class="reel-band" aria-label="The work in motion">
+      <video autoplay muted loop playsinline preload="metadata" poster="portfolio-media/hero/portfolio-loop.jpg" aria-hidden="true" data-hero-video><source src="portfolio-media/hero/portfolio-loop.mp4" type="video/mp4"></video>
+      <div class="reel-band-inner">
+        <p>THE WORK, IN MOTION</p>
+        <h2>MechWarrior 5 to my own games.<br><span>Designed, animated, built.</span></h2>
+        <div class="reel-band-actions"><a class="reel-btn" href="portfolio.html">See the portfolio <span aria-hidden="true">↗</span></a><a class="reel-link" href="presentations/remi-couture-ux-work-short.pdf" target="_blank" rel="noopener">UX deck (PDF) ↗</a></div>
+      </div>
+      <button class="reel-toggle" type="button" data-hero-toggle aria-pressed="false">Pause video</button>
+    </section>
     <section class="section what-i-do" id="what-i-do" aria-labelledby="what-title">
       <div class="section-heading"><p class="eyebrow">01 / WHAT I DO</p><h2 id="what-title">UX and UI first.<br><span>Motion and build when it helps.</span></h2><p>Hiring for one of these? Each card opens that part of the portfolio, with a 35-second timelapse of how I work.</p></div>
       <div class="discipline-grid">
@@ -376,5 +385,15 @@
       }, { passive: true });
     })();
   </script>
+<script>
+// Reel band: pause control, still for reduced motion.
+(() => {
+  const v = document.querySelector('[data-hero-video]'), b = document.querySelector('[data-hero-toggle]');
+  if (!v || !b) return;
+  const set = paused => { paused ? v.pause() : v.play().catch(() => {}); b.textContent = paused ? 'Play video' : 'Pause video'; b.setAttribute('aria-pressed', String(paused)); };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) set(true);
+  b.addEventListener('click', () => set(!v.paused));
+})();
+</script>
 </body>
 </html>
