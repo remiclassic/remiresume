@@ -1094,3 +1094,67 @@ img {
     break-inside:avoid;
   }
 }
+
+/* What I do: UX, UI, motion + implementation */
+.discipline-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+  margin-top:30px;
+}
+.discipline-card {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:25px;
+  background:var(--sage);
+  transition:transform .2s,border-color .2s;
+}
+.discipline-card:hover {
+  transform:translateY(-4px);
+  border-color:var(--green);
+}
+.discipline-num {
+  font-size:9px;
+  letter-spacing:1px;
+  color:var(--green);
+}
+.discipline-card h3 {
+  font-size:27px;
+  font-weight:500;
+  letter-spacing:-1px;
+  line-height:1.15;
+  margin:6px 0 0;
+}
+.discipline-card p {
+  font-size:13px;
+  color:var(--muted);
+}
+.discipline-roles {
+  margin-top:auto;
+  padding-top:12px;
+  border-top:1px solid var(--line);
+  font-size:11px;
+}
+.discipline-card .project-link {
+  margin-top:6px;
+  color:var(--green);
+}
+@media(max-width:900px) {
+  .discipline-grid {
+    grid-template-columns:1fr;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  .discipline-card { transition:none; }
+  .discipline-card:hover { transform:none; }
+}
+@media print {
+  .discipline-grid { display:block; margin-top:6pt; }
+  .discipline-card { display:block; border:0; padding:0 0 5pt; background:none; }
+  .discipline-card h3 { font-size:10pt; letter-spacing:0; margin:0; display:inline; }
+  .discipline-card p { display:inline; margin-left:4pt; color:#222; }
+  .discipline-num,.discipline-roles,.discipline-card .project-link { display:none; }
+}

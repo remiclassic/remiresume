@@ -93,3 +93,22 @@ html{scroll-behavior:smooth}
 @media(max-width:600px){.hub-index{grid-template-columns:1fr 1fr}.hub-index a:first-child{grid-column:auto}.hub-proof{grid-template-columns:1fr 1fr}.hub-proof div:nth-child(3){border-left:0}.hub-proof div:nth-child(n+3){border-top:1px solid var(--line)}}
 .hub-promo{margin-bottom:18px}
 .hub-promo .hub-feature-actions button{color:inherit;font-size:12px}
+
+/* Discipline-first hub: UX, UI, motion + implementation */
+.hub-disciplines{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.hub-disciplines a{display:flex;flex-direction:column;gap:10px;padding:24px;border:1px solid var(--line);border-radius:8px;background:var(--sage);transition:border-color .2s,transform .2s}
+.hub-disciplines a:hover{border-color:var(--green);transform:translateY(-3px);color:var(--ink)}
+.hub-discipline-num{font-size:10px;letter-spacing:.12em;color:var(--green)}
+.hub-disciplines strong{font-size:clamp(24px,2.4vw,32px);font-weight:500;letter-spacing:-.045em;line-height:1.1}
+.hub-disciplines p{font-size:13px;line-height:1.7;color:var(--muted)}
+.hub-disciplines small{font-size:11px;line-height:1.5;color:var(--ink);border-top:1px solid var(--line);padding-top:10px;margin-top:auto}
+.hub-discipline-cta{font-size:12px;font-weight:600;color:var(--green)}
+.hub-also{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:12px;color:var(--muted);margin-bottom:38px}
+.hub-also a{color:var(--green)}.hub-also a:hover{text-decoration:underline}
+.hub-group-head span{white-space:nowrap}
+.hub-sublist{margin-top:26px}
+.hub-sublist h3{font-size:15px;font-weight:500;letter-spacing:-.02em;margin:0}
+.hub-sublist .topic-grid{margin-top:12px}
+@media(max-width:900px){.hub-disciplines{grid-template-columns:1fr}.hub-disciplines a{padding:20px}}
+@media(max-width:600px){.site-nav .nav-links a[href^="#"]{display:none}}
+@media(prefers-reduced-motion:reduce){.hub-disciplines a{transition:none}.hub-disciplines a:hover{transform:none}}
