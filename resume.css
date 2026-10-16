@@ -1158,3 +1158,111 @@ img {
   .discipline-card p { display:inline; margin-left:4pt; color:#222; }
   .discipline-num,.discipline-roles,.discipline-card .project-link { display:none; }
 }
+
+/* Landing: discipline colours shared with the portfolio (UX purple, UI red, motion + build blue) */
+.d-ux { --acc:#6b4fd8; --acc-bg:#ece8fb; }
+.d-ui { --acc:#c2413a; --acc-bg:#f8e6e3; }
+.d-build { --acc:#1f6f8b; --acc-bg:#e1eff3; }
+.hero-disc {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:16px;
+}
+.hero-disc a {
+  padding:6px 13px;
+  border-radius:99px;
+  border:1px solid var(--acc);
+  background:var(--acc-bg);
+  color:var(--acc);
+  font-size:12px;
+  font-weight:600;
+}
+.hero-disc a:hover {
+  background:var(--acc);
+  color:#fff;
+}
+.discipline-card.d-ux,.discipline-card.d-ui,.discipline-card.d-build {
+  background:var(--acc-bg);
+  border-color:color-mix(in srgb,var(--acc) 25%,transparent);
+  border-top:5px solid var(--acc);
+}
+.discipline-card.d-ux:hover,.discipline-card.d-ui:hover,.discipline-card.d-build:hover {
+  border-color:var(--acc);
+}
+.discipline-card .discipline-num,.discipline-card .project-link {
+  color:var(--acc,var(--green));
+}
+.discipline-thumb {
+  position:relative;
+  display:block;
+  margin:-6px -6px 10px;
+  border-radius:6px;
+  overflow:hidden;
+  background:#0c120f;
+  aspect-ratio:16/9;
+}
+.discipline-thumb img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.92;
+  transition:transform .3s,opacity .3s;
+}
+.discipline-card:hover .discipline-thumb img {
+  transform:scale(1.04);
+  opacity:1;
+}
+.discipline-thumb i {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:54px;
+  height:54px;
+  margin:-27px 0 0 -27px;
+  border-radius:50%;
+  background:#fffffff0;
+  color:var(--acc);
+  font-style:normal;
+  font-size:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-left:4px;
+  box-shadow:0 6px 18px #0004;
+}
+.discipline-thumb em {
+  position:absolute;
+  left:10px;
+  bottom:8px;
+  font-style:normal;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.04em;
+  color:#fff;
+  text-shadow:0 1px 4px #000c;
+}
+.skills__group.d-ux,.skills__group.d-ui,.skills__group.d-build {
+  border-top:3px solid var(--acc);
+  padding-top:12px;
+}
+.skills__group.d-ux .skills__label,.skills__group.d-ui .skills__label,.skills__group.d-build .skills__label {
+  color:var(--acc);
+}
+@media(prefers-reduced-motion:reduce) {
+  .discipline-thumb img { transition:none; }
+  .discipline-card:hover .discipline-thumb img { transform:none; }
+}
+@media print {
+  .discipline-thumb { display:none; }
+  .hero-disc { display:block; margin:4pt 0; }
+  .hero-disc a { border:0; background:none; padding:0; color:#222; font-size:10pt; }
+  .hero-disc a+a::before { content:' · '; }
+  .skills__group { border-top:0 !important; padding-top:0 !important; }
+  .discipline-card { border-top:0 !important; }
+  .hero .hero-statement { display:block; font-size:14pt; line-height:1.2; letter-spacing:0; margin:3pt 0 2pt; }
+  .hero .hero-statement br { display:none; }
+  .hero .hero-statement span { color:#222; }
+  .hero .hero-statement span::before { content:' '; }
+}

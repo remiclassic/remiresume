@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="resume.css?v=20261016-disciplines">
+  <link rel="stylesheet" href="resume.css?v=20261016-landing">
   <link rel="stylesheet" href="contact-reveal.css?v=1">
   <script src="contact-reveal.js?v=1" defer></script>
 <script src="analytics.js?v=20260924-dismiss" defer></script>
@@ -34,12 +34,12 @@
   <div class="page">
     <header class="hero">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="status-dot"></span> UX/UI DESIGNER · GAMES &amp; PRODUCTS</p>
+        <p class="eyebrow"><span class="status-dot"></span> COMPLEX SYSTEMS. HUMAN EXPERIENCES.</p>
         <h1>Remi Couture<span class="name-detail">Guillaume (Rémi) Couture</span></h1>
-        <p class="hero-statement">Complex systems.<br><span>Human experiences.</span></p>
-        <p class="hero-role">UX/UI Designer · Games &amp; Products · Motion &amp; engine implementation</p>
+        <p class="hero-statement">UX/UI Designer<br><span>for games &amp; products.</span></p>
+        <p class="hero-role hero-disc"><a class="d-ux" href="portfolio.html#ux">UX design</a><a class="d-ui" href="portfolio.html#ui">UI design</a><a class="d-build" href="portfolio.html#build">Motion + build</a></p>
         <p class="hero-summary">I work out how a game or product should work, design how it looks, and when the team needs it, animate it and build it in Unreal, Unity or code. Twenty years, from first sketch to shipped.</p>
-        <div class="hero-actions"><a class="button button-primary" href="portfolio.html">Explore my work <span aria-hidden="true">↗</span></a><button class="button" type="button" onclick="window.print()">Print / Save PDF <span aria-hidden="true">↓</span></button></div>
+        <div class="hero-actions"><a class="button button-primary" href="portfolio.html">See all my work <span aria-hidden="true">↗</span></a><button class="button" type="button" onclick="window.print()">Print / Save PDF <span aria-hidden="true">↓</span></button></div>
         <p class="hero-location">Based in Greater Montreal · Working with teams worldwide<br><a href="https://www.linkedin.com/in/remicouture/"><strong>linkedin.com/in/remicouture ↗</strong></a></p>
       </div>
       <div class="portrait-panel">
@@ -57,47 +57,41 @@
     </div>
     <div class="brand-strip"><p>EXPERIENCE ACROSS TEAMS &amp; CLIENTS</p><div><span>Disney</span><span>Sony</span><span>Riot Games</span><span>AppLovin</span><span>Tencent</span><span>Twitch</span></div></div>
     <section class="section what-i-do" id="what-i-do" aria-labelledby="what-title">
-      <div class="section-heading"><p class="eyebrow">01 / WHAT I DO</p><h2 id="what-title">UX and UI first.<br><span>Motion and build when it helps.</span></h2><p>Hiring for one of these? Each card opens the matching part of the portfolio.</p></div>
+      <div class="section-heading"><p class="eyebrow">01 / WHAT I DO</p><h2 id="what-title">UX and UI first.<br><span>Motion and build when it helps.</span></h2><p>Hiring for one of these? Each card opens that part of the portfolio, with a 35-second timelapse of how I work.</p></div>
       <div class="discipline-grid">
-        <a class="discipline-card" href="portfolio.html#ux"><span class="discipline-num">UX DESIGN</span><h3>How it works.</h3><p>Player and user flows, information architecture, wireframes, prototypes and UX audits.</p><span class="discipline-roles">UX Designer · Product Designer · UX Lead</span><span class="project-link">See the UX work ↗</span></a>
-        <a class="discipline-card" href="portfolio.html#ui"><span class="discipline-num">UI DESIGN</span><h3>How it looks.</h3><p>Game and product screens, menus and HUDs, design systems and UI kits.</p><span class="discipline-roles">UI Designer · Game UI Artist · Visual Designer</span><span class="project-link">See the UI work ↗</span></a>
-        <a class="discipline-card" href="portfolio.html#build"><span class="discipline-num">MOTION + IMPLEMENTATION</span><h3>How it moves and ships.</h3><p>UI animation, Unreal UMG and CommonUI, Unity, and front ends in React and TypeScript.</p><span class="discipline-roles">Technical UI Designer · UI Engineer · Motion Designer</span><span class="project-link">See the motion + build work ↗</span></a>
+        <a class="discipline-card d-ux" href="portfolio.html#ux"><span class="discipline-thumb"><img src="portfolio-media/disciplines/ux-trailer-poster.jpg" alt="" loading="lazy"><i aria-hidden="true">▶</i><em>Watch the 35-second timelapse</em></span><span class="discipline-num">UX DESIGN</span><h3>How it works.</h3><p>Player and user flows, information architecture, wireframes, prototypes and UX audits.</p><span class="discipline-roles">UX Designer · Product Designer · UX Lead</span><span class="project-link">See the UX work ↗</span></a>
+        <a class="discipline-card d-ui" href="portfolio.html#ui"><span class="discipline-thumb"><img src="portfolio-media/disciplines/ui-trailer-poster.jpg" alt="" loading="lazy"><i aria-hidden="true">▶</i><em>Watch the 35-second timelapse</em></span><span class="discipline-num">UI DESIGN</span><h3>How it looks.</h3><p>Game and product screens, menus and HUDs, design systems and UI kits.</p><span class="discipline-roles">UI Designer · Game UI Artist · Visual Designer</span><span class="project-link">See the UI work ↗</span></a>
+        <a class="discipline-card d-build" href="portfolio.html#build"><span class="discipline-thumb"><img src="portfolio-media/disciplines/build-trailer-poster.jpg" alt="" loading="lazy"><i aria-hidden="true">▶</i><em>Watch the 35-second timelapse</em></span><span class="discipline-num">MOTION + IMPLEMENTATION</span><h3>How it moves and ships.</h3><p>UI animation, Unreal UMG and CommonUI, Unity, and front ends in React and TypeScript.</p><span class="discipline-roles">Technical UI Designer · UI Engineer · Motion Designer</span><span class="project-link">See the motion + build work ↗</span></a>
       </div>
     </section>
     <main class="content" id="main">
 
       <!-- SKILLS -->
       <section class="section" id="skills">
-        <p class="eyebrow">02 / THE TOOLKIT</p><h2 class="section__title">Strategy meets execution.</h2>
+        <p class="eyebrow">02 / THE TOOLKIT</p><h2 class="section__title">The toolkit,<br><span>sorted the same way.</span></h2>
         <div class="skills__grid">
-          <div class="skills__group">
-            <div class="skills__label">UX &amp; Design</div>
+          <div class="skills__group d-ux">
+            <div class="skills__label">UX design</div>
             <div class="skills__tags">
-              <span>UX Strategy</span><span>Wireframing</span><span>Prototyping</span><span>Design Systems</span><span>User Flows</span><span>Information Architecture</span><span>Accessibility</span>
+              <span>UX Strategy</span><span>User Flows</span><span>Information Architecture</span><span>Wireframing</span><span>Prototyping</span><span>Accessibility</span><span>Figma</span><span>Framer</span>
             </div>
           </div>
-          <div class="skills__group">
-            <div class="skills__label">Design &amp; Asset Creation Tools</div>
+          <div class="skills__group d-ui">
+            <div class="skills__label">UI design</div>
             <div class="skills__tags">
-              <span>Figma</span><span>Photoshop</span><span>Illustrator</span><span>Rive</span><span>Framer</span><span>Blender</span><span>SliceForge</span>
+              <span>Design Systems</span><span>Figma</span><span>Photoshop</span><span>Illustrator</span><span>Blender</span><span>SliceForge</span>
             </div>
           </div>
-          <div class="skills__group">
-            <div class="skills__label">Game Engines &amp; UI Frameworks</div>
+          <div class="skills__group d-build">
+            <div class="skills__label">Motion + implementation</div>
             <div class="skills__tags">
-              <span>Unreal Engine 4 &amp; 5</span><span>UMG</span><span>CommonUI</span><span>Unity</span><span>Godot</span><span>Custom Engines / WebGL</span>
+              <span>Rive</span><span>Unreal Engine 4 &amp; 5</span><span>UMG</span><span>CommonUI</span><span>Unity</span><span>Godot</span><span>Custom Engines / WebGL</span><span>React</span><span>TypeScript</span><span>JavaScript</span><span>Next.js</span><span>Phaser</span><span>Three.js</span><span>Visual Studio</span>
             </div>
           </div>
-          <div class="skills__group">
-            <div class="skills__label">AI-Assisted Workflows</div>
+          <div class="skills__group ">
+            <div class="skills__label">AI-assisted workflows</div>
             <div class="skills__tags">
               <span>Cursor</span><span>Claude</span><span>Codex</span><span>ChatGPT</span><span>Midjourney</span><span>Runway ML</span><span>AI-Assisted Design</span>
-            </div>
-          </div>
-          <div class="skills__group">
-            <div class="skills__label">Development &amp; IDEs</div>
-            <div class="skills__tags">
-              <span>Visual Studio</span><span>React</span><span>JavaScript</span><span>TypeScript</span><span>Next.js</span><span>Phaser</span><span>Three.js</span>
             </div>
           </div>
         </div>
