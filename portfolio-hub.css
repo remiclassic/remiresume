@@ -112,3 +112,32 @@ html{scroll-behavior:smooth}
 @media(max-width:900px){.hub-disciplines{grid-template-columns:1fr}.hub-disciplines a{padding:20px}}
 @media(max-width:600px){.site-nav .nav-links a[href^="#"]{display:none}}
 @media(prefers-reduced-motion:reduce){.hub-disciplines a{transition:none}.hub-disciplines a:hover{transform:none}}
+
+/* Discipline sections: sticky tabs, a banner per discipline with its trailer, and a next link */
+.disc-ux{--acc:#6b4fd8;--acc-bg:#ece8fb}.disc-ui{--acc:#c2413a;--acc-bg:#f8e6e3}.disc-build{--acc:#1f6f8b;--acc-bg:#e1eff3}
+.disc-tabs{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px 0;margin:0 0 30px;background:var(--paper);border-bottom:1px solid var(--line)}
+.disc-tabs a{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;padding:10px 16px;border-radius:6px;border:1px solid var(--line);font-size:15px;font-weight:600;letter-spacing:-.02em;transition:background .2s,border-color .2s,color .2s}
+.disc-tabs a b{font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--muted)}
+.disc-tabs a small{font-size:12px;font-weight:400;color:var(--muted)}
+.disc-tabs a[data-tab=ux]{--acc:#6b4fd8;--acc-bg:#ece8fb}.disc-tabs a[data-tab=ui]{--acc:#c2413a;--acc-bg:#f8e6e3}.disc-tabs a[data-tab=build]{--acc:#1f6f8b;--acc-bg:#e1eff3}
+.disc-tabs a:hover,.disc-tabs a.on{border-color:var(--acc);background:var(--acc-bg);color:var(--acc)}
+.disc-tabs a.on b,.disc-tabs a.on small{color:var(--acc)}
+section.disc{scroll-margin-top:76px}
+.disc-hero{display:grid;grid-template-columns:.9fr 1.2fr;gap:40px;align-items:center;padding:34px;margin-bottom:22px;border-radius:10px;background:var(--acc-bg);border:1px solid color-mix(in srgb,var(--acc) 25%,transparent);border-left:8px solid var(--acc)}
+.disc-num{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--acc)}
+.disc-hero h2{font-size:clamp(40px,5vw,68px);font-weight:500;letter-spacing:-.055em;line-height:1;margin:10px 0 6px}
+.disc-tagline{font-size:clamp(20px,2vw,26px);letter-spacing:-.03em;color:var(--acc);font-weight:500}
+.disc-define{margin-top:16px;font-size:14px;line-height:1.75;color:var(--ink);max-width:48ch}
+.disc-gets{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0}
+.disc-gets li{padding:6px 12px;border-radius:99px;background:var(--paper);border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);font-size:12px}
+.disc-roles{margin-top:18px;font-size:13px;color:var(--ink)}
+.disc-roles strong{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:3px}
+.disc-trailer{margin:0;min-width:0}
+.disc-trailer video{display:block;width:100%;aspect-ratio:16/9;background:#0c120f;border-radius:8px;box-shadow:0 14px 34px #0002}
+.disc-trailer figcaption{font-size:11px;color:var(--muted);margin-top:10px}
+.disc .hub-feature{border-left:3px solid var(--acc)}
+.disc .hub-feature .eyebrow{color:var(--acc)}
+.disc-next{display:flex;justify-content:space-between;align-items:center;margin-top:26px;padding:16px 20px;border-radius:8px;border:1px dashed var(--line);font-size:13px;color:var(--muted)}
+.disc-next:hover{border-color:var(--ink);color:var(--ink)}
+@media(max-width:900px){.disc-hero{grid-template-columns:1fr;padding:24px;gap:24px}}
+@media(max-width:600px){.disc-tabs{gap:6px}.disc-tabs a{padding:8px 10px;font-size:13px}.disc-tabs a small{display:none}.disc-hero{padding:18px;border-left-width:5px}}

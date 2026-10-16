@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>UX design — screen-share timelapse trailer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="screenshare.css">
+<style>
+.sticky { position:absolute; width:200px; height:160px; padding:20px 20px; font-size:24px; font-weight:600; line-height:1.2; letter-spacing:-.02em; color:#2b2b22; background:#ffe77a; box-shadow:0 10px 18px #0002, 0 1px 0 #0001; border-radius:3px; }
+.sticky.pink { background:#ffb3c4; } .sticky.green { background:#b9eaa5; } .sticky.blue { background:#a9d6ff; }
+.sticky small { position:absolute; left:20px; bottom:14px; font-size:14px; font-weight:500; color:#0008; }
+.vote { position:absolute; width:26px; height:26px; border-radius:50%; background:#7b5cff; border:3px solid #fff; box-shadow:0 2px 6px #0003; }
+.boardtitle { position:absolute; left:60px; top:44px; font-size:34px; font-weight:600; letter-spacing:-.03em; color:#252b23; white-space:nowrap; }
+.boardtitle span { color:#7b5cff; }
+.node { position:absolute; width:170px; height:66px; border-radius:12px; background:#fff; border:2.5px solid #252b23; display:flex; align-items:center; justify-content:center; text-align:center; font-size:20px; font-weight:600; letter-spacing:-.02em; color:#252b23; box-shadow:0 6px 14px #0001; }
+.node.start { background:#252b23; color:#fff; border-radius:40px; }
+.node.end { background:var(--green); color:#fff; border-color:var(--green); border-radius:40px; }
+.node.alt { border-style:dashed; }
+.diamond { position:absolute; width:96px; height:96px; transform-origin:50% 50%; }
+.diamond b { position:absolute; inset:0; background:#fff7d6; border:2.5px solid #b88a00; transform:rotate(45deg); border-radius:8px; }
+.diamond span { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; font-size:16px; font-weight:700; line-height:1.1; color:#6b4f00; }
+.elabel { position:absolute; white-space:nowrap; font-size:16px; font-weight:700; color:#6b6e66; background:#e9e9e4; padding:0 6px; }
+.elabel.red { color:#c0392b; }
+svg.wires { position:absolute; left:0; top:0; overflow:visible; }
+svg.wires path { fill:none; stroke:#252b23; stroke-width:3; stroke-dasharray:1; stroke-linecap:round; stroke-linejoin:round; }
+svg.wires path.red { stroke:#c0392b; }
+svg.wires polygon { fill:#252b23; transform-box:fill-box; transform-origin:center; }
+svg.wires polygon.red { fill:#c0392b; }
+.frame { position:absolute; background:#c9ccd1; box-shadow:0 10px 30px #0002; overflow:hidden; }
+.wf { position:absolute; left:0; top:0; width:1280px; height:591px; transform:scale(.86); transform-origin:0 0; }
+.wf .r { position:absolute; background:#9aa3ad; border:2px solid #7d8794; border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; letter-spacing:.04em; color:#33404d; transform-origin:0 0; }
+.wf .r.dk { background:#5d6c7c; border-color:#4a5866; color:#e6ebf0; }
+.wf .r.lt { background:#c3cbd4; }
+.wf .r.c { border-radius:50%; }
+.wf .r.t { background:none; border:0; font-size:15px; color:#3c4855; }
+.pin { position:absolute; width:46px; height:46px; margin:-23px 0 0 -23px; border-radius:50%; background:#7b5cff; color:#fff; font-size:22px; font-weight:700; display:flex; align-items:center; justify-content:center; border:3px solid #fff; box-shadow:0 4px 12px #0004; }
+.note { position:absolute; width:300px; padding:14px 16px; border-radius:10px; background:#fff; box-shadow:0 10px 26px #0003; font-size:19px; font-weight:600; line-height:1.25; color:#252b23; }
+.note small { display:block; font-size:13px; font-weight:700; letter-spacing:.1em; color:#7b5cff; margin-bottom:4px; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+<section class="scene card" data-dur="2.6">
+  <div class="num">UX</div>
+  <div class="kicker">01 · UX design</div>
+  <h1>How it works.</h1>
+  <p style="top:570px">Watch a lobby go from questions to a tested flow.</p>
+</section>
+
+<!-- 01 discovery board -->
+<section class="scene" data-dur="6" data-ch="UX design · Discovery board" data-toast="Step 01|Frame the problem"
+  data-cursor="0,700,600">
+  <div class="win">
+    <div class="tb"><i></i><i></i><i></i><b>FigJam</b><span>Party lobby / Discovery</span><div class="tools"><u>Select</u><u class="on">Sticky</u><u>Shape</u><u>Connector</u><u>Text</u></div></div>
+    <div class="panel left"><h6>Pages</h6><div class="row sel">Discovery</div><div class="row">User flows</div><div class="row">Wireframes</div><div class="row">Test notes</div>
+      <h6 style="margin-top:22px">Sections</h6><div class="row frm" data-in=".3">Player needs</div><div class="row frm" data-in="4.7">Priorities</div></div>
+    <div class="canvas"><div class="board">
+      <div class="boardtitle" data-in=".25" data-fx="type" data-d="1">Party lobby · <span>what does the player need before a match?</span></div>
+      <div class="sticky" style="left:60px;top:150px" data-in="1.4" data-fx="drop" data-c>Who’s in my party?<small>Player interview</small></div>
+      <div class="sticky" style="left:290px;top:175px" data-in="1.85" data-fx="drop" data-c>Am I ready? Are they?<small>Player interview</small></div>
+      <div class="sticky pink" style="left:520px;top:150px" data-in="2.3" data-fx="drop" data-c>“I can’t find Play.”<small>Playtest pain point</small></div>
+      <div class="sticky pink" style="left:750px;top:180px" data-in="2.75" data-fx="drop" data-c>Too many currencies up top<small>Audit</small></div>
+      <div class="sticky green" style="left:980px;top:150px" data-in="3.2" data-fx="drop" data-c>Show the next mission<small>Retention goal</small></div>
+      <div class="sticky blue" style="left:170px;top:400px" data-in="3.6" data-fx="drop" data-c>Invite a friend in one click<small>Social goal</small></div>
+      <div class="sticky green" style="left:420px;top:420px" data-in="4.0" data-fx="drop" data-c>Season progress at a glance<small>Business goal</small></div>
+      <svg class="wires" width="1300" height="900"><path d="M40 360 C 30 110, 760 100, 770 300 C 780 420, 610 400, 470 360 C 300 330, 60 520, 40 360 Z" pathLength="1" style="stroke:#7b5cff;stroke-width:4" data-in="4.5" data-fx="draw" data-d=".6"/></svg>
+      <div class="vote" style="left:450px;top:186px" data-in="4.95" data-fx="pop" data-c></div>
+      <div class="vote" style="left:684px;top:162px" data-in="5.1" data-fx="pop" data-c></div>
+      <div class="vote" style="left:716px;top:162px" data-in="5.2" data-fx="pop"></div>
+      <div class="boardtitle" style="left:720px;top:470px;font-size:30px;color:#7b5cff" data-in="5.25" data-fx="type" data-d=".6">Priority 1: Ready → Play</div>
+    </div></div>
+    <div class="panel right"><h6>Comments</h6>
+      <div class="cm" data-in="2.4"><b>Playtest #3</b>4 of 6 players hunted for Play.</div>
+      <div class="cm" data-in="3.0"><b>Live data</b>Party invites drop 30% after a menu step.</div>
+      <div class="cm" data-in="5.3"><b>Decision</b>Ready and Play are the two primary actions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 user flow -->
+<section class="scene" data-dur="6.5" data-ch="UX design · User flow" data-toast="Step 02|Map the flow" data-cursor="0,700,500">
+  <div class="win">
+    <div class="tb"><i></i><i></i><i></i><b>FigJam</b><span>Party lobby / User flows</span><div class="tools"><u>Select</u><u>Sticky</u><u class="on">Shape</u><u>Connector</u><u>Text</u></div></div>
+    <div class="panel left"><h6>Pages</h6><div class="row">Discovery</div><div class="row sel">User flows</div><div class="row">Wireframes</div><div class="row">Test notes</div>
+      <h6 style="margin-top:22px">Flows</h6><div class="row frm" data-in=".3">Happy path</div><div class="row frm" data-in="2.9">Invite path</div><div class="row frm" data-in="4.2">Recovery</div></div>
+    <div class="canvas"><div class="board" id="flow">
+      <div class="boardtitle" data-in=".15" data-fx="type" data-d=".7">Flow · <span>launch to match</span></div>
+      <svg class="wires" width="1300" height="900" id="flowwires"></svg>
+      <div class="node start" style="left:40px;top:200px" data-in=".4" data-fx="pop" data-c>Launch</div>
+      <div class="node" style="left:260px;top:200px" data-in=".85" data-fx="pop" data-c>Lobby</div>
+      <div class="diamond" style="left:482px;top:185px" data-in="1.3" data-fx="pop" data-c><b></b><span>Party<br>full?</span></div>
+      <div class="node" style="left:660px;top:200px" data-in="1.75" data-fx="pop" data-c>Ready up</div>
+      <div class="node" style="left:880px;top:200px" data-in="2.2" data-fx="pop" data-c>Pick a mode</div>
+      <div class="node" style="left:1090px;top:200px" data-in="2.65" data-fx="pop" data-c>Matchmaking</div>
+      <div class="node alt" style="left:445px;top:370px" data-in="3.1" data-fx="pop" data-c>Invite friends</div>
+      <div class="node end" style="left:1090px;top:370px" data-in="3.55" data-fx="pop" data-c>Match found</div>
+      <div class="elabel" style="left:600px;top:206px" data-in="2.0">Yes</div>
+      <div class="elabel" style="left:540px;top:310px" data-in="3.0">No</div>
+      <div class="elabel red" style="left:640px;top:128px" data-in="4.6" data-fx="type" data-d=".6">Timeout → back to lobby, party kept</div>
+      <div class="sticky" style="left:820px;top:520px;width:300px;height:140px" data-in="5.2" data-fx="drop" data-c>Every state has a way back.<small>Design principle</small></div>
+    </div></div>
+    <div class="panel right"><h6>Flow details</h6>
+      <div class="prop">Steps<span data-in="3.6">6 screens</span></div>
+      <div class="prop">Decisions<span data-in="1.4">1</span></div>
+      <div class="prop">Dead ends<span data-in="4.7" style="color:#7ee0a0">0</span></div>
+      <div class="cm" data-in="4.8" style="margin-top:14px"><b>Note</b>Losing the party on timeout was the #1 complaint. Keep it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 wireframe -->
+<section class="scene" data-dur="7" data-ch="UX design · Wireframes" data-toast="Step 03|Wireframe it" data-cursor="0,900,500">
+  <div class="win">
+    <div class="tb"><i></i><i></i><i></i><b>Figma</b><span>Party lobby / Wireframes</span><div class="tools"><u>Move</u><u>Frame</u><u class="on">Rectangle</u><u>Text</u><u>Comment</u></div></div>
+    <div class="panel left"><h6>Layers</h6><div class="row frm sel" data-in=".2">Lobby — wireframe v3</div><div id="wflayers"></div></div>
+    <div class="canvas"><div class="board">
+      <div class="frame-label" style="left:100px;top:170px" data-in=".2">Lobby — wireframe v3 · 1280 × 591</div>
+      <div class="frame" style="left:100px;top:170px;width:1101px;height:508px" data-in=".2" data-fx="pop" data-c=".02,.02">
+        <div class="wf" id="wf1"></div>
+        <img src="../ux-walkthrough-assets/lobby-greybox.png" style="position:absolute;inset:0;width:100%;height:100%" data-in="5.6" data-d=".7" alt="">
+      </div>
+      <div class="selbox" style="left:96px;top:166px;width:1109px;height:516px" data-in="6.3"></div>
+    </div></div>
+    <div class="panel right"><h6>Design</h6>
+      <div class="prop">Frame<span>Desktop</span></div><div class="prop">W<span>1280</span></div><div class="prop">H<span>591</span></div>
+      <div class="prop">Grid<span>12 col · 24</span></div>
+      <h6 style="margin-top:18px">Status</h6><div class="prop">Shapes<span id="wfcount" data-anim="wfcount">0</span></div>
+      <div class="cm" data-in="6.3" style="margin-top:12px"><b>Ready for review</b>Greybox art placed. Hierarchy before style.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 annotate -->
+<section class="scene" data-dur="5.2" data-ch="UX design · Annotations" data-toast="Step 04|Explain every decision" data-cursor="0,700,400">
+  <div class="win">
+    <div class="tb"><i></i><i></i><i></i><b>Figma</b><span>Party lobby / Wireframes</span><div class="tools"><u>Move</u><u>Frame</u><u>Rectangle</u><u>Text</u><u class="on">Comment</u></div></div>
+    <div class="panel left"><h6>Layers</h6><div class="row frm sel">Lobby — wireframe v3</div><div class="row frm" data-in=".5">Annotations</div><div class="row in1" data-in=".6">1 · Ready</div><div class="row in1" data-in="1.5">2 · Party</div><div class="row in1" data-in="2.4">3 · Play</div><div class="row in1" data-in="3.3">4 · Missions</div></div>
+    <div class="canvas"><div class="board">
+      <div class="frame-label" style="left:100px;top:170px">Lobby — wireframe v3 · 1280 × 591</div>
+      <div class="frame" style="left:100px;top:170px;width:1101px;height:508px"><img src="../ux-walkthrough-assets/lobby-greybox.png" style="width:100%;height:100%" alt=""></div>
+      <div class="pin" style="left:650px;top:488px" data-in=".6" data-fx="pop" data-c>1</div>
+      <div class="note" style="left:470px;top:700px" data-in=".85" data-fx="up"><small>01 · HIERARCHY</small>One primary action on the card: Ready.</div>
+      <div class="pin" style="left:616px;top:572px" data-in="1.5" data-fx="pop" data-c>2</div>
+      <div class="note" style="left:90px;top:700px" data-in="1.75" data-fx="up"><small>02 · STATUS</small>Party readiness without opening a menu.</div>
+      <div class="pin" style="left:1070px;top:621px" data-in="2.4" data-fx="pop" data-c>3</div>
+      <div class="note" style="left:850px;top:700px" data-in="2.65" data-fx="up"><small>03 · FLOW</small>Play sits where the eye lands last.</div>
+      <div class="pin" style="left:1070px;top:430px" data-in="3.3" data-fx="pop" data-c>4</div>
+      <div class="note" style="left:860px;top:40px" data-in="3.55" data-fx="up"><small>04 · MOTIVATION</small>Missions show progress, not lists.</div>
+    </div></div>
+    <div class="panel right"><h6>Comments · 4</h6>
+      <div class="cm" data-in=".9"><b><i>1</i>Remi</b>Ready is the card’s only button.</div>
+      <div class="cm" data-in="1.8"><b><i>2</i>Remi</b>Avatars show a ready dot.</div>
+      <div class="cm" data-in="2.7"><b><i>3</i>Remi</b>Bottom right, after missions.</div>
+      <div class="cm" data-in="3.6"><b><i>4</i>Remi</b>Bars beat “2 / 10” text alone.</div>
+      <div class="cm" data-in="4.3"><b>Producer</b>Approved for UI pass. ✓</div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 the real files -->
+<section class="scene" data-dur="5.6" data-ch="UX design · From my real files" data-toast="Step 05|The real working files">
+  <div class="win">
+    <div class="tb"><i></i><i></i><i></i><b>Figma</b><span>UX archive / Flows, maps and sitemaps</span><div class="tools"><u class="on">Move</u><u>Frame</u><u>Comment</u></div></div>
+    <div class="panel left"><h6>Pages</h6><div class="row frm">Stardust Canvas · flowchart</div><div class="row frm">NZM shooter · flow map</div><div class="row frm">Game Genius · sitemap</div><div class="row frm">TNT card battler · flow</div><div class="row frm">Kryss · power-up flow</div></div>
+    <div class="canvas dark"><div class="board" data-zoom="0,1.25,-80,-40; 1.6,1.25,-80,-40; 3.0,.62,40,40; 4.1,.62,40,40; 5.6,.48,90,90">
+      <div class="frame-label" style="left:40px;top:40px">Stardust Canvas · flowchart</div><img class="shot" src="../portfolio-imgs/stardust-flowchart.png" style="left:40px;top:40px;width:900px;height:636px" alt="">
+      <div class="frame-label" style="left:990px;top:40px">NZM mobile shooter · flow map</div><img class="shot" src="../services-assets/media/services/figma/deep/nzm-flow-map.webp" style="left:990px;top:40px;width:712px;height:636px" alt="">
+      <div class="frame-label" style="left:40px;top:740px">TNT card battler · flow map</div><img class="shot" src="../services-assets/media/services/figma/deep/tnt-flowmap.webp" style="left:40px;top:740px;width:1662px;height:254px" alt="">
+      <div class="frame-label" style="left:1750px;top:40px">Game Genius · sitemap</div><img class="shot" src="../services-assets/media/services/figma/deep/gg-sitemap.webp" style="left:1750px;top:40px;width:640px;height:653px" alt="">
+      <div class="frame-label" style="left:1750px;top:740px">Kryss · power-up flow</div><img class="shot" src="../services-assets/media/services/figma/deep/kryss-powerup-flow.webp" style="left:1750px;top:740px;width:640px;height:725px" alt="">
+    </div></div>
+    <div class="panel right"><h6>About these files</h6><div class="cm">Exported from the working files, not redrawn for the portfolio.</div><div class="prop">Projects<span>5</span></div><div class="prop">Years<span>2020–2025</span></div></div>
+  </div>
+</section>
+
+<section class="scene card" data-dur="4.6">
+  <div class="num">UX</div>
+  <div class="kicker">UX design</div>
+  <h1>How it works.</h1>
+  <div class="chips"><span>User flows</span><span>Information architecture</span><span>Wireframes</span><span>UX audits</span></div>
+  <div class="url">remiclassic.github.io/remiresume/portfolio.html#ux</div>
+  <div class="fine">A recreation of my process, sped up. The flowcharts in step 05 are my real files.</div>
+</section>
+
+</div>
+<script>
+window.TRAILER = { start: '09:10', minutes: 290 }; window.ANIM = {};
+// flow wires: [points, start time, red?]
+const W = [
+  [[[210,233],[258,233]], .7], [[[430,233],[482,233]], 1.15], [[[578,233],[658,233]], 1.6], [[[830,233],[878,233]], 2.05],
+  [[[1050,233],[1088,233]], 2.5], [[[530,281],[530,368]], 2.95], [[[445,403],[345,403],[345,268]], 3.4], [[[1175,266],[1175,368]], 3.85],
+  [[[1175,198],[1175,140],[345,140],[345,198]], 4.3, 1]
+];
+document.getElementById('flowwires').innerHTML = W.map(([p, t, red]) => {
+  const d = 'M' + p.map(q => q.join(' ')).join(' L'), [x1, y1] = p[p.length - 1], [x0, y0] = p[p.length - 2], a = Math.atan2(y1 - y0, x1 - x0) * 180 / Math.PI;
+  return `<path class="${red ? 'red' : ''}" d="${d}" pathLength="1" data-in="${t}" data-fx="draw" data-d="${red ? .55 : .3}"/>` +
+    `<polygon class="${red ? 'red' : ''}" points="0,-8 14,0 0,8" transform="translate(${x1 - 12} ${y1}) rotate(${a})" data-in="${t + (red ? .5 : .27)}"/>`;
+}).join('');
+// wireframe shapes, in the greybox's own 1280 × 591 pixels: [x, y, w, h, class, label, layer name]
+const R = [
+  [28,14,46,38,'dk','','Logo'], [540,18,200,26,'t','12 OF 37 FRIENDS ONLINE','Friends online'], [1030,16,220,30,'t','◯ 999,999   ◯ 999,999','Currencies'],
+  [49,142,203,244,'','','Featured offer'], [77,321,147,37,'lt','GET NOW','Offer button'], [49,491,203,68,'dk','STORE','Store'],
+  [343,90,62,343,'lt','','Agent slot 1'], [403,72,103,378,'','','Agent slot 2'], [506,53,262,416,'dk','+','Agent · you'], [768,72,95,378,'','','Agent slot 4'], [863,90,65,343,'lt','','Agent slot 5'],
+  [538,395,203,46,'lt','READY','Ready button'],
+  ...[0,1,2,3,4,5,6,7].map(i => [394 + i * 63, 488, 52, 52, 'c dk', i === 7 ? '+' : '', i === 7 ? 'Invite' : 'Party ' + (i + 1)]),
+  [1027,142,203,55,'dk','BATTLE PASS','Battle pass'], [1027,207,203,55,'dk','GET 10 KILLS','Mission 1'], [1027,272,203,55,'dk','COLLECTION','Mission 2'], [1027,387,203,55,'dk','COLLECTION','Mission 3'],
+  [1027,491,203,68,'dk','PLAY','Play'], [370,558,555,32,'dk','','Chat bar']
+];
+const step = 4.9 / R.length;
+document.getElementById('wf1').innerHTML = R.map(([x, y, w, h, c, l], i) => `<div class="r ${c}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px" data-in="${(.6 + i * step).toFixed(2)}" data-fx="pop" data-d=".25"${i % 2 ? ' data-c' : ''}>${l}</div>`).join('');
+document.getElementById('wflayers').innerHTML = R.slice().reverse().slice(0, 30).map(([, , , , c, , n], j) => { const i = R.length - 1 - j; return `<div class="row in1 ${c === 't' ? 'txt' : ''}" data-in="${(.6 + i * step).toFixed(2)}">${n}</div>`; }).reverse().join('');
+ANIM.wfcount = (el, t) => { el.textContent = Math.max(0, Math.min(R.length, Math.floor((t - .6) / step) + 1)); };
+</script>
+<script src="screenshare.js"></script>
+</body>
+</html>

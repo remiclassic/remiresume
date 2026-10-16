@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="resume.css?v=20260922-career">
-<link rel="stylesheet" href="portfolio-hub.css?v=20261016-disciplines">
+<link rel="stylesheet" href="portfolio-hub.css?v=20261016-trailers">
 <script>
 // Preserve previously shared direct links to the guided showcase.
 function openPortfolioDeepLink() {
@@ -48,9 +48,26 @@ window.addEventListener('hashchange',openPortfolioDeepLink);
   <div><strong>5 runtimes</strong><span>Unreal, Unity, Godot, PlayCanvas and web</span></div>
 </section>
 
+<nav class="disc-tabs" aria-label="Portfolio disciplines"><a href="#ux" data-tab="ux"><b>01</b> UX design<small>How it works</small></a><a href="#ui" data-tab="ui"><b>02</b> UI design<small>How it looks</small></a><a href="#build" data-tab="build"><b>03</b> Motion + build<small>How it moves and ships</small></a></nav>
 <!-- 01 UX -->
-<section class="hub-group" id="ux" aria-labelledby="ux-title">
-<header class="hub-group-head"><span>01 · UX</span><h2 id="ux-title">UX design</h2><p>Hire me for this when you need someone to work out how it should work, before anyone draws a final screen.</p></header>
+<section class="hub-group disc disc-ux" id="ux" aria-labelledby="ux-title">
+<header class="disc-hero disc-ux">
+  <div class="disc-hero-copy">
+    <p class="disc-num">01 · UX</p>
+    <h2 id="ux-title">UX design</h2>
+    <p class="disc-tagline">How it works.</p>
+    <p class="disc-define">Before anyone draws a final screen, I work out what the player or user needs, the path they take, and what happens when something goes wrong.</p>
+    <ul class="disc-gets"><li>User research &amp; problem framing</li><li>User flows &amp; journey maps</li><li>Information architecture &amp; sitemaps</li><li>Wireframes &amp; prototypes</li><li>UX audits &amp; annotated decisions</li></ul>
+    <p class="disc-roles"><strong>Hire me for this as</strong>UX Designer · Product Designer · UX Lead</p>
+  </div>
+  <figure class="disc-trailer">
+    <video controls playsinline preload="none" poster="portfolio-media/disciplines/ux-trailer-poster.jpg" aria-label="UX design: a sped-up screen-share of the process">
+      <source src="portfolio-media/disciplines/ux-trailer.mp4" type="video/mp4">
+      <a href="portfolio-media/disciplines/ux-trailer.mp4">Watch the UX design trailer</a>
+    </video>
+    <figcaption>Watch it happen · 35-second screen-share timelapse · Sound on</figcaption>
+  </figure>
+</header>
 <section class="hub-feature" aria-labelledby="walkthrough-title">
   <div class="hub-feature-copy"><p class="eyebrow">UX · VIDEO · THE THINKING BEHIND THE WORK</p><h2 id="walkthrough-title">Walk through the decisions.</h2><p>Seven lessons on decisions, flows and trade-offs, shown through original flows, complex game systems, and interactive concepts. Five and a half minutes, with sound.</p><div class="hub-feature-actions"><a href="ux-walkthrough.html">Prefer slides? Open the presentation ↗</a></div></div>
   <video class="hub-feature-video" controls playsinline preload="none" poster="ux-walkthrough-assets/ux-walkthrough-video-poster.jpg" aria-label="The thinking behind the interface: a UX design walkthrough in seven lessons">
@@ -114,11 +131,28 @@ window.addEventListener('hashchange',openPortfolioDeepLink);
   <a href="portfolio-showcase.html#vanguard/flow"><strong>Vanguard preparation <span aria-hidden="true">↗</span></strong><p>Role, loadout and deployment, each with a state and a way back.</p></a>
   <a href="portfolio-showcase.html#hockey/flow"><strong>Sports line-ups <span aria-hidden="true">↗</span></strong><p>Comparing players and fixing an incomplete lineup under pressure.</p></a>
 </div></div>
+<a class="disc-next" href="#ui">Next: UI design · how it looks <span aria-hidden="true">↓</span></a>
 </section>
 
 <!-- 02 UI -->
-<section class="hub-group" id="ui" aria-labelledby="ui-title">
-<header class="hub-group-head"><span>02 · UI</span><h2 id="ui-title">UI design</h2><p>Hire me for this when you need screens that read at a glance, stay consistent, and look like they belong to the game or brand.</p></header>
+<section class="hub-group disc disc-ui" id="ui" aria-labelledby="ui-title">
+<header class="disc-hero disc-ui">
+  <div class="disc-hero-copy">
+    <p class="disc-num">02 · UI</p>
+    <h2 id="ui-title">UI design</h2>
+    <p class="disc-tagline">How it looks.</p>
+    <p class="disc-define">I turn the wireframe into a finished screen: a visual language, a component library, and screens that read at a glance and look like they belong to the game or brand.</p>
+    <ul class="disc-gets"><li>Visual language: colour, type, iconography</li><li>Component libraries &amp; variants</li><li>Game menus, HUDs &amp; front ends</li><li>Product &amp; mobile screens</li><li>UI kits &amp; specs for engineering</li></ul>
+    <p class="disc-roles"><strong>Hire me for this as</strong>UI Designer · Game UI Artist · Visual Designer</p>
+  </div>
+  <figure class="disc-trailer">
+    <video controls playsinline preload="none" poster="portfolio-media/disciplines/ui-trailer-poster.jpg" aria-label="UI design: a sped-up screen-share of the process">
+      <source src="portfolio-media/disciplines/ui-trailer.mp4" type="video/mp4">
+      <a href="portfolio-media/disciplines/ui-trailer.mp4">Watch the UI design trailer</a>
+    </video>
+    <figcaption>Watch it happen · 35-second screen-share timelapse · Sound on</figcaption>
+  </figure>
+</header>
 <section class="hub-feature" aria-labelledby="credits-feature-title">
   <div class="hub-feature-copy">
     <p class="eyebrow">UI · STUDIO WORK · 2006–2025 · PC, CONSOLE, MOBILE, VR</p>
@@ -183,11 +217,28 @@ window.addEventListener('hashchange',openPortfolioDeepLink);
   <a href="portfolio-showcase.html#mobile/1"><strong>Mobile UI &amp; iteration <span aria-hidden="true">↗</span></strong><p>Alternative visual directions, a screen family and a component board.</p></a>
   <a href="portfolio-showcase.html#cards/1"><strong>Fantasy card systems <span aria-hidden="true">↗</span></strong><p>Collection, deck builder and detail view at Gogii Games.</p></a>
 </div></div>
+<a class="disc-next" href="#build">Next: Motion + implementation · how it moves and ships <span aria-hidden="true">↓</span></a>
 </section>
 
 <!-- 03 MOTION + IMPLEMENTATION -->
-<section class="hub-group" id="build" aria-labelledby="build-title">
-<header class="hub-group-head"><span>03 · MOTION + BUILD</span><h2 id="build-title">Motion + implementation</h2><p>Hire me for this when you need the design animated, wired into Unreal or Unity, or built as working code, not handed off as a picture.</p></header>
+<section class="hub-group disc disc-build" id="build" aria-labelledby="build-title">
+<header class="disc-hero disc-build">
+  <div class="disc-hero-copy">
+    <p class="disc-num">03 · MOTION + BUILD</p>
+    <h2 id="build-title">Motion + implementation</h2>
+    <p class="disc-tagline">How it moves and ships.</p>
+    <p class="disc-define">I don’t stop at the picture. I animate the interface, wire it into Unreal or Unity, and build working front ends in code, so what ships matches what was designed.</p>
+    <ul class="disc-gets"><li>UI animation &amp; motion graphics</li><li>Unreal UMG, CommonUI &amp; controller focus</li><li>Unity UI</li><li>React &amp; TypeScript front ends</li><li>Tools &amp; plugins (Focusrail, SliceForge)</li></ul>
+    <p class="disc-roles"><strong>Hire me for this as</strong>Technical UI Designer · UI Engineer · Motion Designer</p>
+  </div>
+  <figure class="disc-trailer">
+    <video controls playsinline preload="none" poster="portfolio-media/disciplines/build-trailer-poster.jpg" aria-label="Motion + implementation: a sped-up screen-share of the process">
+      <source src="portfolio-media/disciplines/build-trailer.mp4" type="video/mp4">
+      <a href="portfolio-media/disciplines/build-trailer.mp4">Watch the Motion + implementation trailer</a>
+    </video>
+    <figcaption>Watch it happen · 35-second screen-share timelapse · Sound on</figcaption>
+  </figure>
+</header>
 <section class="hub-feature" aria-labelledby="products-own-title">
   <div class="hub-feature-copy">
     <p class="eyebrow">IMPLEMENTATION · DESIGN + CODE · STRATEGIC SLOTH</p>
@@ -350,5 +401,13 @@ window.addEventListener('hashchange',openPortfolioDeepLink);
 </section>
 <footer class="hub-footer"><span>Original work and newer concept extensions are dated in the guided showcase.</span><a href="services.html">Work &amp; services ↗</a><button type="button" data-reveal-email aria-label="Reveal email address">Reveal email ↗</button></footer>
 </main>
+<script>
+// Highlight the discipline tab for the section in view.
+(() => {
+  const tabs = document.querySelectorAll('.disc-tabs a'), secs = [...document.querySelectorAll('section.disc')];
+  const update = () => { const mid = innerHeight * .4, v = secs.find(s => { const r = s.getBoundingClientRect(); return r.top < mid && r.bottom > mid; }); tabs.forEach(a => a.classList.toggle('on', !!v && a.dataset.tab === v.id)); };
+  addEventListener('scroll', update, { passive: true }); update();
+})();
+</script>
 </body>
 </html>

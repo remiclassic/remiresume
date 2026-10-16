@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Motion + implementation — screen-share timelapse trailer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="screenshare.css">
+<style>
+.mono { font-family:'JetBrains Mono',Consolas,monospace; }
+.btn { position:absolute; width:380px; height:120px; clip-path:polygon(0 0,100% 0,100% 72%,93% 100%,0 100%); background:#ff4655; color:#fff; font-family:Oswald,'DM Sans',sans-serif; font-weight:600; font-size:56px; letter-spacing:.04em; padding:8px 32px; line-height:1.05; overflow:hidden; transform-origin:50% 50%; }
+.btn small { display:block; font-size:21px; font-weight:500; letter-spacing:.1em; opacity:.9; }
+.btn i { position:absolute; right:34px; top:30px; font-style:normal; font-size:50px; font-family:'DM Sans'; }
+.btn .sheen { position:absolute; top:-20%; bottom:-20%; width:70px; background:linear-gradient(90deg,transparent,#ffffffaa,transparent); transform:skewX(-20deg); }
+.artboard { position:absolute; border:1px solid #ffffff22; background:radial-gradient(600px 300px at 50% 50%, #1d2a36, #0f1923); }
+.tl { position:absolute; left:0; right:0; bottom:0; height:330px; background:#1b1c1f; border-top:1px solid #ffffff14; color:#c9cbd0; font-size:15px; }
+.tl .ruler { position:absolute; left:200px; right:50px; top:14px; height:24px; border-bottom:1px solid #ffffff1a; }
+.tl .ruler span { position:absolute; top:0; font-size:12px; color:#7d8087; transform:translateX(-50%); }
+.tl .trk { position:absolute; left:0; right:0; height:50px; border-bottom:1px solid #ffffff0d; }
+.tl .trk b { position:absolute; left:24px; top:14px; font-weight:500; color:#c9cbd0; }
+.kf { position:absolute; width:22px; height:22px; margin:-11px 0 0 -11px; background:#f2c94c; clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%); }
+.kline { position:absolute; height:2px; background:#f2c94c66; transform-origin:0 50%; }
+.playhead { position:absolute; top:10px; bottom:0; width:2px; background:#ff4655; }
+.playhead::before { content:''; position:absolute; left:-7px; top:0; width:16px; height:14px; background:#ff4655; clip-path:polygon(0 0,100% 0,50% 100%); }
+.curve { position:absolute; left:900px; top:40px; width:360px; height:250px; background:#1b1c1f; border:1px solid #ffffff14; border-radius:6px; background-image:linear-gradient(#ffffff0a 1px,transparent 1px),linear-gradient(90deg,#ffffff0a 1px,transparent 1px); background-size:36px 36px; }
+.curve h6 { position:absolute; left:14px; top:10px; font-size:12px; letter-spacing:.12em; color:#8b8e95; }
+.curve svg { position:absolute; inset:0; overflow:visible; }
+.curve path { fill:none; stroke:#7ee0a0; stroke-width:3.5; stroke-dasharray:1; }
+.handle { position:absolute; width:12px; height:12px; margin:-6px 0 0 -6px; border-radius:50%; background:#fff; }
+/* engine */
+.ue .canvas { background:#262626; background-image:none; }
+.vtb { position:absolute; left:0; right:0; top:0; height:42px; background:#1a1a1a; border-bottom:1px solid #000; display:flex; align-items:center; gap:8px; padding:0 14px; color:#c8c8c8; font-size:14px; }
+.vtb u { text-decoration:none; padding:5px 12px; background:#333; border-radius:3px; }
+.vtb .pressed { position:absolute; text-decoration:none; padding:5px 12px; background:#2f8f46; color:#fff; border-radius:3px; }
+.menu { position:absolute; width:330px; height:62px; display:flex; align-items:center; padding:0 22px; background:#0f1923dd; border:2px solid #ece8e133; color:#ece8e1; font-family:Oswald,'DM Sans',sans-serif; font-size:28px; letter-spacing:.06em; }
+.focus { position:absolute; width:342px; height:74px; border:4px solid #f2c94c; box-shadow:0 0 26px #f2c94c88, inset 0 0 18px #f2c94c44; }
+.railn { position:absolute; width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%; background:#9747ff; color:#fff; font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; border:2px solid #fff; }
+.rails path { fill:none; stroke:#9747ff; stroke-width:4; stroke-dasharray:1; }
+.pad { position:absolute; padding:10px 16px; border-radius:10px; background:#000a; color:#fff; font-size:18px; }
+.pad b { display:inline-block; width:34px; height:34px; line-height:34px; text-align:center; border-radius:6px; background:#ffffff22; margin-left:8px; font-size:20px; }
+/* code */
+.code .canvas { background:#1e1e1e; background-image:none; }
+.editor { position:absolute; left:0; top:0; width:760px; bottom:170px; padding:22px 0 0 0; font-size:19px; line-height:1.62; color:#d4d4d4; }
+.editor .ln { display:block; white-space:pre; padding-left:70px; position:relative; height:31px; }
+.editor .ln::before { content:attr(data-n); position:absolute; left:0; width:48px; text-align:right; color:#6e7681; }
+.k { color:#c586c0; } .f { color:#dcdcaa; } .s { color:#ce9178; } .t { color:#4ec9b0; } .v { color:#9cdcfe; } .n { color:#b5cea8; } .tg { color:#569cd6; } .cmt { color:#6a9955; }
+.tabs { position:absolute; left:0; right:0; top:0; height:0; }
+.preview { position:absolute; left:780px; top:20px; right:20px; bottom:190px; border-radius:8px; background:#0f1923; border:1px solid #ffffff14; }
+.preview h6 { position:absolute; left:16px; top:12px; font-size:12px; letter-spacing:.12em; color:#8b8e95; font-family:'DM Sans'; }
+.hp { position:absolute; left:40px; right:40px; top:250px; height:44px; background:#0a1118; border:2px solid #33404d; transform:skewX(-12deg); overflow:hidden; }
+.hp i { position:absolute; left:0; top:0; bottom:0; }
+.hp .trail { background:#f2c94c; } .hp .fill { background:linear-gradient(#ff6b74,#d93a48); }
+.hpl { position:absolute; left:44px; right:44px; top:308px; display:flex; justify-content:space-between; color:#ece8e1; font-family:Oswald,'DM Sans'; font-size:24px; letter-spacing:.06em; }
+.dmg { position:absolute; right:60px; top:180px; font-family:Oswald,'DM Sans'; font-weight:700; font-size:54px; color:#ff4655; text-shadow:0 3px 0 #0008; }
+.term { position:absolute; left:0; right:0; bottom:0; height:170px; background:#181818; border-top:1px solid #ffffff14; padding:14px 22px; font-size:16px; line-height:1.6; color:#c9cbd0; }
+.term .ok { color:#7ee0a0; } .term .dim { color:#6e7681; }
+/* ship */
+.ship .canvas { background:#121314; background-image:none; }
+.shell { position:absolute; left:30px; top:30px; width:560px; bottom:30px; border-radius:8px; background:#0b0c0d; border:1px solid #ffffff14; padding:22px 24px; font-size:17px; line-height:1.7; color:#c9cbd0; }
+.shell div { white-space:pre; }
+.shell .p { color:#7ee0a0; } .shell .ok { color:#7ee0a0; } .shell .dim { color:#6e7681; }
+.prod { position:absolute; border-radius:8px; overflow:hidden; box-shadow:0 12px 34px #000a; background:#000; }
+.prod img { width:100%; height:100%; object-fit:cover; display:block; }
+.prod span { position:absolute; left:0; right:0; bottom:0; padding:22px 12px 9px; background:linear-gradient(transparent,#000c); color:#fff; font-size:15px; font-weight:600; }
+.badge { position:absolute; padding:6px 12px; border-radius:6px; background:#7ee0a0; color:#0b0c0d; font-size:14px; font-weight:700; letter-spacing:.06em; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+<section class="scene card" data-dur="2.6">
+  <div class="num" style="font-size:470px;top:250px">&lt;/&gt;</div>
+  <div class="kicker">03 · Motion + implementation</div>
+  <h1>How it moves<br>and ships.</h1>
+  <p style="top:720px">The same Play button, animated, wired into an engine and shipped.</p>
+</section>
+
+<!-- 01 animate -->
+<section class="scene" data-dur="7" data-ch="Motion · Keyframes" data-toast="Step 01|Animate it" data-cursor="0,800,500; 4.5,1000,680">
+  <div class="win">
+    <div class="tb"><i></i><i></i><i></i><b>Rive</b><span>Party lobby / Play button · hover</span><div class="tools"><u>Design</u><u class="on">Animate</u><u>State machine</u></div></div>
+    <div class="panel left"><h6>Hierarchy</h6><div class="row frm sel">Btn_Play</div><div class="row in1">Shape · clipped</div><div class="row in1 txt">Label</div><div class="row in1">Chevron</div><div class="row in1">Sheen</div>
+      <h6 style="margin-top:20px">Animations</h6><div class="row">Idle</div><div class="row sel">Hover</div><div class="row">Press</div></div>
+    <div class="canvas dark"><div class="board">
+      <div class="artboard" style="left:40px;top:40px;width:820px;height:500px"></div>
+      <div class="frame-label" style="left:40px;top:40px">Artboard · 820 × 500</div>
+      <div class="btn" style="left:260px;top:230px" data-anim="preview">PLAY<small>GAME MODE</small><i>›</i><div class="sheen"></div></div>
+      <div class="curve" data-in=".3" data-fx="pop"><h6>EASE · BACK OUT</h6>
+        <svg width="360" height="250"><path d="M30 220 C 130 220, 150 30, 250 40 S 320 52, 330 50" pathLength="1" data-in="3.2" data-fx="draw" data-d=".7"/></svg>
+        <div class="handle" style="left:130px;top:220px" data-in="3.3" data-fx="pop" data-c></div><div class="handle" style="left:150px;top:30px" data-in="3.6" data-fx="pop" data-c></div>
+      </div>
+      <div class="tl">
+        <div class="ruler"><span style="left:0%">0</span><span style="left:20%">120</span><span style="left:40%">240</span><span style="left:60%">360</span><span style="left:80%">480</span><span style="left:100%">600 ms</span></div>
+        <div class="trk" style="top:50px"><b>Scale</b></div><div class="trk" style="top:100px"><b>Glow</b></div><div class="trk" style="top:150px"><b>Chevron · X</b></div><div class="trk" style="top:200px"><b>Sheen · X</b></div><div class="trk" style="top:250px"><b>Label · Y</b></div>
+        <div id="kfs"></div>
+        <div class="playhead" data-anim="playhead"></div>
+      </div>
+    </div></div>
+    <div class="panel right"><h6>Keyframe</h6>
+      <div class="prop">Property<span data-anim="kfprop">—</span></div><div class="prop">Value<span data-anim="kfval">—</span></div>
+      <div class="prop">Interp<span data-in="3.3">Back out</span></div>
+      <h6 style="margin-top:18px">Playback</h6><div class="prop">Duration<span>600 ms</span></div><div class="prop">Loop<span data-in="4.4">Ping-pong</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 engine -->
+<section class="scene ue" data-dur="7.2" data-ch="Implementation · Unreal Engine" data-toast="Step 02|Wire it into the engine" data-cursor="0,700,500">
+  <div class="win">
+    <div class="tb"><i></i><i></i><i></i><b>Unreal Editor</b><span>WBP_MainMenu · UMG Designer</span><div class="tools"><u>Compile</u><u>Save</u><u>Focusrail</u></div></div>
+    <div class="panel left"><h6>Hierarchy</h6><div class="row frm sel">[WBP_MainMenu]</div><div class="row in1" data-in=".3">CanvasPanel</div><div class="row in2" data-in=".5">VerticalBox_Menu</div>
+      <div class="row in2" data-in=".8">Btn_Play</div><div class="row in2" data-in="1.2">Btn_Options</div><div class="row in2" data-in="1.6">Btn_Settings</div><div class="row in2" data-in="2.0">Btn_Quit</div>
+      <h6 style="margin-top:20px" data-in="2.5">Focusrail</h6><div class="row in1" data-in="2.6">Rail_MainMenu · 4 nodes</div></div>
+    <div class="canvas"><div class="board">
+      <div class="vtb" style="width:1300px">Designer <u>Fill screen</u><u>1920 × 1080</u><u style="margin-left:auto">▶ Simulate</u><span class="pressed" style="right:14px;top:7px" data-in="4.3" data-c>▶ Simulate</span></div>
+      <div class="artboard" style="left:60px;top:80px;width:1180px;height:664px;overflow:hidden;background:#000"><img src="../portfolio-imgs/vanguard/assets/castle-map.png" style="width:100%;height:100%;object-fit:cover;opacity:.55" alt=""></div>
+      <div class="frame-label" style="left:60px;top:80px">Viewport · 1920 × 1080 (scaled)</div>
+      <div class="menu" style="left:140px;top:300px" data-in=".8" data-fx="up" data-c>PLAY</div>
+      <div class="menu" style="left:140px;top:380px" data-in="1.2" data-fx="up" data-c>OPTIONS</div>
+      <div class="menu" style="left:140px;top:460px" data-in="1.6" data-fx="up" data-c>SETTINGS</div>
+      <div class="menu" style="left:140px;top:540px" data-in="2.0" data-fx="up" data-c>QUIT</div>
+      <svg class="rails" width="1300" height="900" style="position:absolute;left:0;top:0;overflow:visible">
+        <path d="M500 331 C 560 331, 560 411, 500 411" pathLength="1" data-in="2.8" data-fx="draw" data-d=".35"/>
+        <path d="M500 411 C 560 411, 560 491, 500 491" pathLength="1" data-in="3.15" data-fx="draw" data-d=".35"/>
+        <path d="M500 491 C 560 491, 560 571, 500 571" pathLength="1" data-in="3.5" data-fx="draw" data-d=".35"/>
+      </svg>
+      <div class="railn" style="left:500px;top:331px" data-in="2.7" data-fx="pop" data-c>01</div>
+      <div class="railn" style="left:500px;top:411px" data-in="3.05" data-fx="pop" data-c>02</div>
+      <div class="railn" style="left:500px;top:491px" data-in="3.4" data-fx="pop" data-c>03</div>
+      <div class="railn" style="left:500px;top:571px" data-in="3.75" data-fx="pop" data-c>04</div>
+      <div class="focus" data-anim="focus"></div>
+      <div class="pad" style="left:900px;top:640px" data-in="4.5" data-anim="pad">Controller <b>↓</b></div>
+    </div></div>
+    <div class="panel right"><h6>Details · Btn_Play</h6>
+      <div class="prop">Is Focusable<span data-in="1.0">✓ true</span></div>
+      <div class="prop">Nav · Up<span data-in="3.0">Btn_Quit (wrap)</span></div>
+      <div class="prop">Nav · Down<span data-in="2.9">Btn_Options</span></div>
+      <div class="prop">Initial focus<span data-in="3.9">Btn_Play</span></div>
+      <h6 style="margin-top:18px" data-in="3.9">Focus Doctor</h6>
+      <div class="cm" data-in="4.0"><b style="color:#7ee0a0">✓ 0 issues</b>Every button reachable by controller and keyboard.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 code -->
+<section class="scene code" data-dur="6.8" data-ch="Implementation · React + TypeScript" data-toast="Step 03|Build it in code" data-cursor="0,900,700; 5.0,1500,420">
+  <div class="win">
+    <div class="tb"><i></i><i></i><i></i><b>VS Code</b><span>lobby-hud / src / HealthBar.tsx</span><div class="tools"><u>Explorer</u><u class="on">Editor</u><u>Terminal</u></div></div>
+    <div class="panel left"><h6>Explorer</h6><div class="row frm">lobby-hud</div><div class="row in1">src</div><div class="row in2 sel">HealthBar.tsx</div><div class="row in2">useTrail.ts</div><div class="row in2">hud.css</div><div class="row in1">package.json</div></div>
+    <div class="canvas"><div class="board">
+      <div class="editor mono" id="code"></div>
+      <div class="preview"><h6>LIVE PREVIEW · localhost:5173</h6>
+        <div data-in="3.7" data-fx="fade">
+          <div class="hp"><i class="trail" data-anim="hptrail"></i><i class="fill" data-anim="hpfill"></i></div>
+          <div class="hpl"><span>VAETHRA</span><span data-anim="hptext">100 / 100</span></div>
+        </div>
+        <div class="dmg" data-in="4.9" data-out="6.2" data-fx="pop">−41</div>
+        <div class="pad" style="left:40px;top:420px" data-in="4.85" data-c>Test: take 41 damage</div>
+      </div>
+      <div class="term mono">
+        <div data-in=".2" data-fx="type" data-d=".5"><span class="dim">$</span> npm run dev</div>
+        <div class="ok" data-in=".8">  VITE ready in 312 ms  ➜  http://localhost:5173/</div>
+        <div class="dim" data-in="3.7">  hmr update /src/HealthBar.tsx</div>
+        <div class="ok" data-in="5.6">  ✓ 6 tests passed · HealthBar.test.tsx</div>
+      </div>
+    </div></div>
+    <div class="panel right"><h6>Outline</h6><div class="row" data-in=".4">HealthBar</div><div class="row in1" data-in=".9">pct</div><div class="row in1" data-in="1.3">trail</div><div class="row in1" data-in="2.0">return</div>
+      <h6 style="margin-top:18px">Problems</h6><div class="prop">Errors<span style="color:#7ee0a0">0</span></div><div class="prop">Warnings<span style="color:#7ee0a0">0</span></div></div>
+  </div>
+</section>
+
+<!-- 04 ship -->
+<section class="scene ship" data-dur="6.6" data-ch="Implementation · Shipped" data-toast="Step 04|Ship it">
+  <div class="win">
+    <div class="tb"><i></i><i></i><i></i><b>Terminal</b><span>release</span><div class="tools"><u class="on">Release</u></div></div>
+    <div class="panel left"><h6>Shipped</h6><div class="row frm" data-in="1.2">Focusrail · on Fab</div><div class="row frm" data-in="2.0">SliceForge · live</div><div class="row frm" data-in="2.8">Tropic Tumble · Google Play</div><div class="row frm" data-in="3.6">Runefjord · in testing</div></div>
+    <div class="canvas"><div class="board">
+      <div class="shell mono">
+        <div data-in=".2" data-fx="type" data-d=".45"><span class="p">➜</span> focusrail  ue5 package --plugin</div>
+        <div class="ok" data-in=".8">  ✓ Focusrail packaged · listed on Fab</div>
+        <div data-in="1.05" data-fx="type" data-d=".4"><span class="p">➜</span> sliceforge  npm run build</div>
+        <div class="ok" data-in="1.6">  ✓ built · deployed to sliceforge.io</div>
+        <div data-in="1.85" data-fx="type" data-d=".45"><span class="p">➜</span> tropic-tumble  ./gradlew bundleRelease</div>
+        <div class="ok" data-in="2.45">  ✓ BUILD SUCCESSFUL · live on Google Play</div>
+        <div data-in="2.7" data-fx="type" data-d=".4"><span class="p">➜</span> runefjord  ./gradlew bundleRelease</div>
+        <div class="ok" data-in="3.25">  ✓ signed build · Play test track</div>
+        <div class="dim" data-in="3.6" style="margin-top:14px">  4 products designed and built by me.</div>
+      </div>
+      <div class="prod" style="left:620px;top:30px;width:640px;height:260px" data-in=".9" data-fx="wipe" data-d=".5" data-c><img src="../services-assets/media/services/focusrail-editor.png" style="object-position:30% 40%" alt=""><span>Focusrail · Unreal Engine 5 plugin (C++)</span></div>
+      <div class="prod" style="left:620px;top:310px;width:400px;height:267px" data-in="1.7" data-fx="wipe" data-d=".5" data-c><img src="../services-assets/studio-images/sf-compose.webp" alt=""><span>SliceForge · React + TypeScript</span></div>
+      <div class="prod" style="left:1040px;top:310px;width:220px;height:391px" data-in="2.5" data-fx="wiped" data-d=".5" data-c><img src="../tropictumble/media/shot-1-merge.webp" alt=""><span>Tropic Tumble</span></div>
+      <div class="prod" style="left:820px;top:597px;width:200px;height:254px" data-in="3.3" data-fx="wiped" data-d=".5" data-c><img src="../runefjord/media/shot-3-home.webp" style="object-position:50% 20%" alt=""><span>Runefjord</span></div>
+      <div class="prod" style="left:620px;top:597px;width:180px;height:254px" data-in="3.0" data-fx="wiped" data-d=".5" data-c><img src="../tropictumble/media/shot-7-pass.webp" style="object-position:50% 25%" alt=""><span>Season pass UI</span></div>
+      <div class="badge" style="left:1150px;top:720px" data-in="2.6" data-fx="pop">LIVE</div>
+    </div></div>
+    <div class="panel right"><h6>Runtimes</h6><div class="row" data-in=".9">Unreal Engine 5 · C++ · UMG</div><div class="row" data-in="1.7">React · TypeScript</div><div class="row" data-in="2.5">Android · WebView</div><div class="row" data-in="3.8">Unity · Godot · PlayCanvas</div>
+      <div class="cm" data-in="4.2" style="margin-top:14px"><b>One health bar, five runtimes</b>The same component built in each, on my site.</div></div>
+  </div>
+</section>
+
+<section class="scene card" data-dur="4.6">
+  <div class="num" style="font-size:470px;top:250px">&lt;/&gt;</div>
+  <div class="kicker">Motion + implementation</div>
+  <h1>How it moves<br>and ships.</h1>
+  <div class="chips" style="top:720px"><span>UI animation</span><span>Unreal UMG &amp; CommonUI</span><span>Unity</span><span>React &amp; TypeScript</span></div>
+  <div class="url" style="top:840px">remiclassic.github.io/remiresume/portfolio.html#build</div>
+  <div class="fine" style="top:910px">A recreation of my process, sped up. The products in step 04 are real and shipped.</div>
+</section>
+
+</div>
+<script>
+window.TRAILER = { start: '10:40', minutes: 340 }; window.ANIM = {};
+// --- 01 keyframes: [track row, ms, time it is placed, property, value]
+const X = ms => 200 + ms / 600 * 1050, ROW = r => 75 + r * 50;
+const KF = [[0,0,.6,'Scale','1.00'],[0,120,.95,'Scale','1.08'],[0,300,1.25,'Scale','1.00'],[1,0,1.55,'Glow','0%'],[1,150,1.8,'Glow','100%'],
+  [2,0,2.05,'Chevron X','0'],[2,200,2.3,'Chevron X','+14'],[2,400,2.55,'Chevron X','0'],[3,100,2.8,'Sheen X','−20%'],[3,500,3.0,'Sheen X','120%'],[4,0,3.9,'Label Y','0'],[4,180,4.1,'Label Y','−3']];
+const byRow = {}; KF.forEach(k => (byRow[k[0]] = byRow[k[0]] || []).push(k));
+document.getElementById('kfs').innerHTML = Object.values(byRow).map(ks => ks.slice(1).map((k, i) => `<div class="kline" style="left:${X(ks[i][1])}px;top:${ROW(k[0]) - 1}px;width:${X(k[1]) - X(ks[i][1])}px" data-in="${k[2]}" data-fx="grow" data-d=".2"></div>`).join('')).join('') +
+  KF.map(k => `<div class="kf" style="left:${X(k[1])}px;top:${ROW(k[0])}px" data-in="${k[2]}" data-fx="pop" data-d=".2" data-c></div>`).join('');
+const lerpKeys = (ks, ms) => { if (ms <= ks[0][0]) return ks[0][1]; for (let i = 1; i < ks.length; i++) if (ms < ks[i][0]) { const p = (ms - ks[i - 1][0]) / (ks[i][0] - ks[i - 1][0]); return ks[i - 1][1] + (ks[i][1] - ks[i - 1][1]) * eOut(p); } return ks[ks.length - 1][1]; };
+const msAt = t => t < 4.4 ? 0 : (((t - 4.4) / .75) % 2 < 1 ? ((t - 4.4) / .75) % 1 : 1 - ((t - 4.4) / .75) % 1) * 600;
+ANIM.playhead = (el, t) => { el.style.left = X(msAt(t)) + 'px'; };
+ANIM.preview = (el, t) => {
+  const ms = msAt(t), sc = lerpKeys([[0,1],[120,1.08],[300,1]], ms), gl = lerpKeys([[0,0],[150,1]], ms), ch = lerpKeys([[0,0],[200,14],[400,0]], ms), sh = lerpKeys([[100,-20],[500,120]], ms);
+  el.style.transform = `scale(${sc})`; el.style.filter = `drop-shadow(0 0 ${gl * 30}px #ff4655cc)`;
+  el.querySelector('i').style.transform = `translateX(${ch}px)`; el.querySelector('.sheen').style.left = sh + '%';
+};
+ANIM.kfprop = (el, t) => { const k = KF.filter(k => k[2] <= t).pop(); el.textContent = k ? k[3] : '—'; };
+ANIM.kfval = (el, t) => { const k = KF.filter(k => k[2] <= t).pop(); el.textContent = k ? k[4] + ' @ ' + k[1] + 'ms' : '—'; };
+// --- 02 controller focus walks the rail after Simulate
+const FY = [300, 380, 460, 540], FT = [4.4, 5.0, 5.5, 6.0, 6.5];
+ANIM.focus = (el, t) => { if (t < 4.4) { el.style.opacity = 0; return; } el.style.opacity = 1; let i = FT.filter(x => x <= t).length - 1; const seq = [0, 1, 2, 3, 0]; const a = seq[Math.max(0, i - 1)], b = seq[i], p = eOut(clamp((t - FT[i]) / .18)); el.style.left = '134px'; el.style.top = (FY[a] + (FY[b] - FY[a]) * (i ? p : 1) - 6) + 'px'; };
+ANIM.pad = (el, t) => { const i = FT.filter(x => x <= t).length - 1; el.querySelector('b').textContent = i === 4 ? '↓ wrap' : '↓'; el.querySelector('b').style.background = FT.some(x => t >= x && t < x + .15) ? '#f2c94c' : '#ffffff22'; };
+// --- 03 code typing: each line types in turn
+const L = [
+  ['<span class="k">export function</span> <span class="f">HealthBar</span>({ <span class="v">hp</span>, <span class="v">max</span> }: <span class="t">Props</span>) {', .3],
+  ['  <span class="k">const</span> <span class="v">pct</span> = <span class="t">Math</span>.<span class="f">max</span>(<span class="n">0</span>, <span class="v">hp</span> / <span class="v">max</span>);', .8],
+  ['  <span class="cmt">// the yellow trail lags so damage reads at a glance</span>', 1.15],
+  ['  <span class="k">const</span> <span class="v">trail</span> = <span class="f">useTrail</span>(<span class="v">pct</span>, { <span class="v">delay</span>: <span class="n">250</span>, <span class="v">ms</span>: <span class="n">400</span> });', 1.45],
+  ['  <span class="k">return</span> (', 1.95],
+  ['    &lt;<span class="tg">div</span> <span class="v">className</span>=<span class="s">"hp"</span> <span class="v">data-low</span>={<span class="v">pct</span> &lt; <span class="n">.25</span>}&gt;', 2.15],
+  ['      &lt;<span class="tg">i</span> <span class="v">className</span>=<span class="s">"trail"</span> <span class="v">style</span>={{ <span class="v">width</span>: <span class="f">pc</span>(<span class="v">trail</span>) }} /&gt;', 2.55],
+  ['      &lt;<span class="tg">i</span> <span class="v">className</span>=<span class="s">"fill"</span> <span class="v">style</span>={{ <span class="v">width</span>: <span class="f">pc</span>(<span class="v">pct</span>) }} /&gt;', 2.95],
+  ['      &lt;<span class="tg">b</span>&gt;{<span class="v">hp</span>} / {<span class="v">max</span>}&lt;/<span class="tg">b</span>&gt;', 3.3],
+  ['    &lt;/<span class="tg">div</span>&gt;', 3.5], ['  );', 3.6], ['}', 3.65]
+];
+document.getElementById('code').innerHTML = L.map(([h, t], i) => { const next = (L[i + 1] || [0, t + .2])[1]; return `<span class="ln" data-n="${i + 1}" data-in="${t}"><span data-in="${t}" data-fx="type" data-d="${Math.max(.08, (next - t) * .9).toFixed(2)}">${h}</span></span>`; }).join('');
+const hpAt = t => t < 4.9 ? 100 : 59;
+ANIM.hpfill = (el, t) => { el.style.width = hpAt(t) + '%'; };
+ANIM.hptrail = (el, t) => { const p = eIO(clamp((t - 5.15) / .55)); el.style.width = (t < 4.9 ? 100 : 100 - 41 * p) + '%'; };
+ANIM.hptext = (el, t) => { el.textContent = hpAt(t) + ' / 100'; };
+</script>
+<script src="screenshare.js"></script>
+</body>
+</html>
