@@ -1,0 +1,56 @@
+/* Primary nav hover: one highlight that glides between links, a text roll,
+   a turning ✳ on the wordmark and an ink sweep on the contact button. */
+.nav-hover-track { position:relative; isolation:isolate; --nh-ink:var(--green,#45633e); --nh-bg:var(--sage,#e5eadb); }
+.services-site .nav-hover-track { --nh-ink:var(--accent,#45633e); --nh-bg:color-mix(in srgb,var(--accent,#45633e) 13%,transparent); }
+.nav-glide {
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:-1;
+  border-radius:999px;
+  background:var(--nh-bg);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--nh-ink) 22%,transparent);
+  pointer-events:none;
+  opacity:0;
+  transition:transform 420ms cubic-bezier(.22,1,.36,1), width 420ms cubic-bezier(.22,1,.36,1), height 420ms cubic-bezier(.22,1,.36,1), opacity 200ms ease;
+}
+.nav-glide.is-on { opacity:1; }
+.nav-glide.no-anim { transition:opacity 200ms ease; }
+
+.nav-roll { position:relative; display:inline-block; overflow:hidden; vertical-align:top; }
+.nav-roll > span { display:block; transition:transform 360ms cubic-bezier(.22,1,.36,1); }
+.nav-roll > span + span { position:absolute; inset:0; transform:translateY(105%); color:var(--nh-ink,#45633e); }
+
+:is(.site-nav .wordmark,.site-header .brand) > span[aria-hidden],
+.site-header .brand .brand-dot { display:inline-block; transition:transform 600ms cubic-bezier(.34,1.56,.64,1), color 200ms ease; }
+
+.site-nav .wordmark > span[aria-hidden] { padding-left:0; margin-left:8px; }
+.nav-sweep { position:relative; overflow:hidden; isolation:isolate; transition:color 260ms ease, border-color 260ms ease; }
+.nav-sweep::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:var(--ink,#252b23);
+  transform:scaleX(0);
+  transform-origin:right;
+  transition:transform 420ms cubic-bezier(.22,1,.36,1);
+}
+
+@media (hover:hover) {
+  .nav-hover-link { padding-inline:12px; margin-inline:-12px; padding-block:6px; margin-block:-6px; border-radius:999px; }
+  .nav-hover-link:hover .nav-roll > span:first-child { transform:translateY(-105%); }
+  .nav-hover-link:hover .nav-roll > span + span { transform:translateY(0); }
+  :is(.site-nav .wordmark,.site-header .brand):hover > span[aria-hidden],
+  .site-header .brand:hover .brand-dot { transform:rotate(180deg) scale(1.15); }
+  .nav-sweep:hover { color:var(--paper,#f7f6f0) !important; border-color:var(--ink,#252b23); text-decoration:none; }
+  .nav-sweep:hover::before { transform:scaleX(1); transform-origin:left; }
+}
+.nav-hover-track > button.nav-sweep { padding:6px 14px; margin-block:-6px; border-radius:999px; cursor:pointer; }
+.nav-hover-link:focus-visible { outline:2px solid var(--green,#45633e); outline-offset:2px; }
+
+@media (prefers-reduced-motion:reduce) {
+  .nav-glide,.nav-roll > span,.nav-sweep,.nav-sweep::before,
+  :is(.site-nav .wordmark,.site-header .brand) > span[aria-hidden],.site-header .brand .brand-dot { transition:none; }
+}
+@media print { .nav-glide { display:none; } }
