@@ -211,6 +211,19 @@ img {
   border-radius:6px;
   transform:rotate(-3deg);
   box-shadow:0 12px 20px #252b2314;
+  display:block;
+}
+.portrait-swap {
+  position:relative;
+}
+.portrait-swap .portrait-alt {
+  position:absolute;
+  inset:0;
+  opacity:0;
+  transition:opacity .35s ease;
+}
+.portrait-swap:hover .portrait-alt {
+  opacity:1;
 }
 .portrait-star {
   position:absolute;
