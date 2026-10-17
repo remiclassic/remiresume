@@ -1383,3 +1383,7 @@ img {
 @media print {
   .reel-band { display:none; }
 }
+
+/* Paper fold (paper-fold.js) */
+body { overflow-x:clip; }
+@media print { [data-fold] { transform:none !important; filter:none !important; will-change:auto; } }
