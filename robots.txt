@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /remiresume/
+
+# Note: This is a GitHub Pages project site served under /remiresume/.
+# Some crawlers may not honor robots.txt files outside the domain root.
+# Use the sitemap below for URL discovery.
+Sitemap: https://remiclassic.github.io/remiresume/sitemap.xml
+
