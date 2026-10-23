@@ -38,7 +38,7 @@ Profiles and hub:
 - GitHub: https://github.com/remiclassic
 
 Press:
-- CBC Radio One, Daybreak South (Kelowna, B.C.), October 2026: "Former Kelowna game designer is back with a new free game for kids" — https://www.cbc.ca/listen/live-radio/1-110-daybreak-south/clip/16244668-former-kelowna-game-designer-back-free-game-kids
+- CBC Radio One, Daybreak South (Kelowna, B.C.), October 2026: "Former Kelowna game designer is back with a new free game for kids": https://www.cbc.ca/listen/live-radio/1-110-daybreak-south/clip/16244668/former-kelowna-game-designer-back-free-game-kids
 - Global News, "End of the road for Kelowna's Club Penguin" (Kelly Hayes, September 28, 2018): https://globalnews.ca/news/4496492/end-of-the-road-for-kelownas-club-penguin/ . The article's lead image is Club Penguin character art (credited to Disney) that Rémi created while on the Club Penguin art team. The article itself does not name him.
 
 Search intents this page should satisfy:
