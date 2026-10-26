@@ -1,5 +1,7 @@
 .whatsapp-chat{position:fixed;right:16px;bottom:16px;z-index:9000;display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 18px 0 14px;border-radius:999px;background:#1f8f4e;color:#fff;font:600 15px/1 system-ui,-apple-system,'Segoe UI',sans-serif;text-decoration:none;box-shadow:0 8px 24px #0003}
 .whatsapp-chat:hover{background:#18763f}
 .whatsapp-chat:focus-visible{outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 6px #1f8f4e}
-@media (max-width:600px){.whatsapp-chat{right:12px;bottom:12px;width:52px;height:52px;padding:0;justify-content:center}.whatsapp-chat span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
+/* The home page's back-to-top button shared this corner; stack it just above the WhatsApp button. */
+.back-to-top{bottom:80px}
+@media (max-width:600px){.whatsapp-chat{right:12px;bottom:12px;width:52px;height:52px;padding:0;justify-content:center}.whatsapp-chat span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.back-to-top{right:18px;bottom:76px}}
 @media print{.whatsapp-chat{display:none}}
