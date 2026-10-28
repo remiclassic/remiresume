@@ -91,10 +91,13 @@ section.feature{padding:84px 0 10px}
 .feature-lede{font-size:18px;color:var(--muted);max-width:68ch;margin:0 0 28px}
 .mf-shots{display:grid;grid-template-columns:1fr;gap:18px}
 .mf-shots figure{margin:0;background:var(--dark);border-radius:18px;overflow:hidden;border:1px solid #2c3429}
-.mf-shots img{width:100%;height:auto}
-.mf-shots a{display:block}
+.mf-shots img,.mf-shots video{width:100%;height:auto;max-width:100%;display:block}
+.mf-shots video{background:#0b0e0a}
+.mf-shots figure > a{display:block}
 .mf-shots figcaption{color:#c3c9bb;font-size:14.5px;padding:12px 16px}
 .mf-shots figcaption b{color:#fff}
+.mf-shots figcaption a{color:var(--accent);font-weight:600;text-decoration:none;display:inline}
+.mf-shots figcaption a:hover{text-decoration:underline}
 .mf-points{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px}
 .mf-points div{border-top:2px solid var(--green);padding-top:12px}
 .mf-points b{display:block;font-size:16px;margin-bottom:4px}
@@ -217,6 +220,12 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:14px}
     <h2 id="mf-title">MarketForge: a storefront, designed and built inside Unreal.</h2>
     <p class="feature-lede">The plugin I'm building now is the closest thing in my portfolio to Shop and Locker work: an in-engine storefront and offer editor for Unreal. It has a live storefront preview, a catalog tree, and a product and offer panel. Validation, and the entitlement and fulfilment settings, sit right next to the art.</p>
     <div class="mf-shots">
+      <figure class="mf-main">
+        <video controls muted playsinline preload="metadata" poster="assets/media/storefront-builder-poster.jpg" width="1300" height="720" aria-label="Storefront Builder (MarketForge) for Unreal Engine: in-engine shop built with CommonUI and UMG">
+          <source src="assets/media/storefront-builder.mp4" type="video/mp4">
+        </video>
+        <figcaption>Storefront Builder (MarketForge) for Unreal Engine: in-engine shop built with CommonUI and UMG. <a href="https://www.linkedin.com/feed/update/urn:li:activity:7512909596081078273/" target="_blank" rel="noopener">LinkedIn post ↗</a></figcaption>
+      </figure>
       <figure class="mf-main">
         <a href="services-assets/media/services/marketforge/marketforge-starfall.webp" target="_blank" rel="noopener"><img src="services-assets/media/services/marketforge/marketforge-starfall.webp" alt="MarketForge in the Unreal editor: a bright stylised storefront with a featured hero banner, item cards with rarity and ownership tags, and a product and offer panel" loading="lazy" width="1586" height="992"></a>
         <figcaption><b>Theme A · stylised battle-royale shop.</b> Hero carousel, tabbed categories, featured, bundle and trending tiles, NEW / OWNED / LIMITED badges, and a currency wallet.</figcaption>
