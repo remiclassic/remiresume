@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brookhaven UX Review · Remi Couture</title>
+<meta name="description" content="A documented UX review of Brookhaven RP by Remi Couture: playtest evidence, eight findings, an interactive UI concept, a research plan, measurement and experiments.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.ico?v=sloth1" sizes="any">
+<link rel="icon" type="image/svg+xml" href="favicon.svg?v=sloth1">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=sloth1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="contact-reveal.css?v=1">
+<script src="contact-reveal.js?v=1" defer></script>
+<script src="analytics.js?v=20260924-dismiss" defer></script>
+<style>
+:root{
+  --paper:#f7f6f0;--ink:#252b23;--muted:#5d6358;--green:#45633e;--sage:#e5eadb;--line:#d9ddcf;
+  --card:#ffffff;--dark:#1d231c;--dark-ink:#eef1e8;--accent:#c8d9b4;
+  --obs:#2f6b4f;--obs-bg:#ddefe4;--hyp:#8a5a12;--hyp-bg:#f6ead2;--pro:#2d4f7c;--pro-bg:#dfe8f5;--unr:#6b4a7a;--unr-bg:#ece2f1;
+  --font:'DM Sans',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 var(--font);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block;height:auto}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.skip-link{position:absolute;left:-999px}.skip-link:focus{left:16px;top:16px;background:var(--ink);color:var(--paper);padding:8px 12px;border-radius:8px;z-index:9}
+
+.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0}
+.wordmark{font-weight:700;text-decoration:none;letter-spacing:-.01em}
+.wordmark span{color:var(--green);margin-left:4px}
+.nav-links{display:flex;gap:18px;flex-wrap:wrap;font-size:15px}
+.nav-links a,.nav-links button{text-decoration:none;color:var(--muted);background:none;border:0;font:inherit;cursor:pointer;padding:0}
+.nav-links a:hover,.nav-links button:hover{color:var(--ink)}
+
+.hero{padding:48px 0 56px}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin:0 0 16px}
+h1{font-size:clamp(36px,5.6vw,62px);line-height:1.05;letter-spacing:-.035em;margin:0 0 22px;font-weight:700;max-width:19ch}
+h1 em{font-style:normal;color:var(--green)}
+.lede{font-size:clamp(18px,2vw,21px);color:var(--muted);max-width:64ch;margin:0 0 28px}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid var(--ink);background:none;color:inherit;font-family:inherit;cursor:pointer}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.btn:hover{transform:translateY(-1px)}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:44px}
+.fact{background:var(--paper);padding:20px}
+.fact b{display:block;font-size:26px;letter-spacing:-.02em;line-height:1.1}
+.fact span{font-size:14px;color:var(--muted)}
+
+section.block{padding:76px 0 8px}
+h2{font-size:clamp(28px,3.8vw,42px);line-height:1.1;letter-spacing:-.03em;margin:0 0 18px;max-width:24ch}
+h3{font-size:20px;line-height:1.3;margin:28px 0 8px;letter-spacing:-.01em}
+.num{font-size:14px;font-weight:700;color:var(--green);letter-spacing:.08em;margin:0 0 10px}
+.intro{font-size:18px;color:var(--muted);max-width:68ch;margin:0 0 26px}
+p{margin:0 0 14px}
+.prose{max-width:72ch}
+
+.dark{background:var(--dark);color:var(--dark-ink);padding:64px 0;border-radius:28px;margin:0 12px}
+.dark h2{color:#fff}.dark .eyebrow{color:var(--accent)}
+.dark .intro{color:#c3c9bb}
+.leads{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+.lead{border:1px solid #3a4337;border-radius:18px;padding:24px}
+.lead b{display:block;color:#fff;font-size:19px;margin-bottom:8px}
+.lead p{color:#c3c9bb;font-size:15.5px;margin:0}
+.question{margin-top:18px;border:1px dashed #56634f;border-radius:18px;padding:22px 26px;color:#dfe4d7}
+.question b{color:#fff}
+
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 10px;margin-right:6px;vertical-align:middle;white-space:nowrap}
+.t-obs{color:var(--obs);background:var(--obs-bg)}.t-hyp{color:var(--hyp);background:var(--hyp-bg)}
+.t-pro{color:var(--pro);background:var(--pro-bg)}.t-unr{color:var(--unr);background:var(--unr-bg)}
+.labels{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
+.labels div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.labels p{font-size:15px;color:var(--muted);margin:8px 0 0}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+.card h3{margin-top:0}
+.card ul{margin:0;padding-left:18px;font-size:15.5px}
+.card li{margin:6px 0}
+.sage{background:var(--sage);border-color:transparent}
+
+figure{margin:0}
+.shot{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.shot a{display:block}
+.shot img{width:100%;aspect-ratio:802/631;object-fit:cover;background:#e9ebe2}
+.shot figcaption{font-size:13.5px;color:var(--muted);padding:10px 12px;line-height:1.45}
+.shot figcaption b{color:var(--ink)}
+
+.finding{display:grid;grid-template-columns:1fr 1.05fr;gap:36px;padding:44px 0;border-top:1px solid var(--line);align-items:start}
+.finding:first-of-type{border-top:0}
+.finding .media{display:grid;gap:12px}
+.finding .media.two{grid-template-columns:1fr 1fr}
+.finding h3{font-size:24px;margin:6px 0 14px;letter-spacing:-.02em}
+.finding .fno{font-size:13px;font-weight:700;color:var(--green);letter-spacing:.1em;text-transform:uppercase}
+.finding dl{margin:0}
+.finding dt{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:16px 0 4px}
+.finding dd{margin:0;font-size:16px}
+.meter{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:14px}
+.meter span{border:1px solid var(--line);border-radius:999px;padding:4px 12px;background:var(--card)}
+.meter b{font-weight:600}
+
+.tablewrap{overflow-x:auto;margin:22px 0;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:640px}
+th{background:var(--sage);color:var(--green);text-align:left;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;padding:12px 16px}
+td{padding:12px 16px;border-top:1px solid var(--line);vertical-align:top}
+td:first-child{font-weight:600}
+code{font-size:14px;background:var(--sage);padding:1px 6px;border-radius:6px}
+
+.concept{margin-top:26px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#f7f6f0}
+.concept iframe{display:block;width:100%;height:930px;border:0}
+.concept-note{font-size:14px;color:var(--muted);margin-top:10px}
+
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}
+.gallery .shot figcaption{font-size:12.5px}
+
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;position:relative}
+.step b{display:block;font-size:17px;margin-bottom:6px}
+.step p{font-size:15px;color:var(--muted);margin:0}
+.step .when{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:8px}
+
+.refs{font-size:15px}
+.refs li{margin:8px 0}
+.refs a{color:var(--green);overflow-wrap:anywhere}
+
+.close{margin:80px 12px 24px;background:var(--sage);border-radius:28px;padding:60px 0}
+.close h2{max-width:26ch}
+footer{padding:28px 0 48px;color:var(--muted);font-size:14px}
+
+@media (max-width:900px){
+  .leads,.steps{grid-template-columns:1fr}
+  .labels,.facts{grid-template-columns:1fr 1fr}
+  .cols,.finding{grid-template-columns:1fr;gap:22px}
+  .gallery{grid-template-columns:1fr 1fr 1fr}
+  .concept iframe{height:1000px}
+}
+@media (max-width:600px){
+  .wrap{padding:0 16px}
+  .labels,.gallery{grid-template-columns:1fr 1fr}
+  .finding .media.two{grid-template-columns:1fr}
+  .dark,.close{margin:0;border-radius:0}
+  .nav-links{gap:12px;font-size:14px}
+  .concept iframe{height:1080px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn:hover{transform:none}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to the review</a>
+<div class="wrap">
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="wordmark" href="index.html">remi couture<span aria-hidden="true">✳</span></a>
+    <div class="nav-links">
+      <a href="#findings">Findings</a>
+      <a href="#concept">Concept</a>
+      <a href="#research">Research</a>
+      <a href="#measure">Measurement</a>
+      <a href="#plan">Plan</a>
+      <button type="button" data-reveal-email aria-label="Reveal email address">Reveal email ↗</button>
+    </div>
+  </nav>
+
+  <header class="hero" id="main">
+    <p class="eyebrow">UX review · Brookhaven RP · 4 November 2026</p>
+    <h1>Help players turn a roleplay idea into action, <em>and keep the freedom that makes Brookhaven work.</em></h1>
+    <p class="lede">This is a documented UX review of Brookhaven. It's built from a recorded desktop playtest and desk research. Every claim is labelled as something I observed, a hypothesis, a proposal, or an open question. The goal is to show how I'd work on a live game this size: specific evidence first, then a cheap way to learn more, then a small change we can measure.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#findings">Read the findings</a>
+      <a class="btn" href="#concept">Try the UI concept</a>
+      <a class="btn" href="#plan">See the first-month plan</a>
+    </div>
+    <div class="facts" role="list">
+      <div class="fact" role="listitem"><b>31 min</b><span>of recorded play across six passes</span></div>
+      <div class="fact" role="listitem"><b>17</b><span>captured UI states, names redacted</span></div>
+      <div class="fact" role="listitem"><b>8</b><span>findings, each with a next step</span></div>
+      <div class="fact" role="listitem"><b>2 + 1</b><span>experiments and a reliability fix, specced</span></div>
+    </div>
+  </header>
+</div>
+
+<section class="dark" aria-labelledby="summary-title">
+  <div class="wrap">
+    <p class="eyebrow">Summary</p>
+    <h2 id="summary-title">Three points to start with, and one open question.</h2>
+    <p class="intro">The evidence supports looking into specific clarity and layout problems. It does not show that Brookhaven needs a full interface redesign or a mandatory tutorial, and I wouldn't lead with either.</p>
+    <div class="leads">
+      <div class="lead"><b>Keep play visible</b><p>A house-party invitation sits on top of the house browser and covers part of its left arrow. Check the overlap across layouts, then set rules for how notifications and active tasks share the screen.</p></div>
+      <div class="lead"><b>Make actions predictable</b><p>Saving a house and editing your RP name both use thumbs icons with no action words. Test whether clear verbs like Save, Cancel and Apply make players more confident.</p></div>
+      <div class="lead"><b>Let players see their choices</b><p>Near a doorway, the avatar preview was badly blocked. In the open yard it was fine. Reproduce the condition before naming a technical cause.</p></div>
+    </div>
+    <div class="question"><b>The open question about the world:</b> Brookhaven uses both world cues and menus. The doorbell shows an <i>E Ring</i> prompt and empty plots have a sign you can use. Can players reliably tell usable objects from decoration before trial and error? I didn't test furniture and fixtures well enough to answer that, so it's a research priority, not a finding.</div>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <section class="block" id="context" aria-labelledby="context-title">
+    <p class="num">01 · CONTEXT</p>
+    <h2 id="context-title">What the game is, and where it's investing.</h2>
+    <div class="cols">
+      <div class="prose">
+        <p>Brookhaven is a free town sandbox with no win condition. The product is the roleplay that players create together. So the UX goal isn't <i>help me beat it</i>. It's <b>help me get into a story with someone quickly, and make it look the way I imagined.</b></p>
+        <p>The game is huge: around 80 billion visits, a peak of about 1.29 million players at once in December 2025, and weekly Friday updates. At that size a small change in first-session success touches millions of players, and a careless change does too.</p>
+        <p>Its competitors are going after the same need from different directions. Berry Avenue leans on careers and outfits. LifeTogether has a phone-style hub and an in-game social feed.</p>
+      </div>
+      <div class="card sage">
+        <h3>The 2025–26 changelog, read as strategy</h3>
+        <ul>
+          <li><b>Social:</b> Family, Emote Sync, a Party system with invites and teleport to the host's house, server-wide music and announcements, expanded quick chat.</li>
+          <li><b>Expression:</b> underglow, vehicle wraps, outfit givers, an Avatar Editor with UGC bodies and Avatar Codes, prop texture, colour and scale editing.</li>
+          <li><b>Private servers:</b> themes, a new panel, prop saving.</li>
+        </ul>
+        <p style="margin:14px 0 0;font-size:15px">The team is investing in <b>who you play with</b> and <b>how you look</b>. My proposals build on those bets rather than working against them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="method" aria-labelledby="method-title">
+    <p class="num">02 · METHOD AND SCOPE</p>
+    <h2 id="method-title">What I did, and what this review can and can't support.</h2>
+    <div class="cols">
+      <div class="prose">
+        <p>I directed an agent-assisted walkthrough on a Windows desktop, in a public server, using an existing Roblox account, and reviewed every pass. The six recordings cover arrival, plot browsing, creating a house, spawning a vehicle, the avatar editor, tools, animations, jobs, Family, house saving and the Roblox Help screen. They total about 31 minutes, including menu inspection and recovering from failed inputs, so they don't measure how long tasks take a player.</p>
+        <p>I then compared the playtest against my desk research: changelogs, competitor coverage, parent and safety guides, and the Roblox Creator documentation.</p>
+      </div>
+      <div class="card">
+        <h3>Outside the scope</h3>
+        <ul>
+          <li>No mobile or gamepad testing, no participant study, no accessibility compliance audit.</li>
+          <li>No access to code or internal analytics. No purchases. The house save was cancelled.</li>
+          <li>The account wasn't fresh, so the first-time experience is described but isn't a verified new-player cohort.</li>
+          <li>Movement and some inputs were unreliable under automation. I didn't count those as Brookhaven bugs.</li>
+          <li>Other players' names and avatars are covered in every screenshot. The raw recordings stay private.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="labels">
+      <div><span class="tag t-obs">Observed</span><p>Visible in a saved screenshot, a video frame, or a confirmed change of state.</p></div>
+      <div><span class="tag t-hyp">Hypothesis</span><p>A possible effect on players that needs research or telemetry to confirm.</p></div>
+      <div><span class="tag t-pro">Proposed</span><p>A candidate design, metric or experiment. Nothing was changed in the game.</p></div>
+      <div><span class="tag t-unr">Unresolved</span><p>A test without a reliable result. Not counted as a bug.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="arrival" aria-labelledby="arrival-title">
+    <p class="num">03 · THE FIRST MINUTES</p>
+    <h2 id="arrival-title">Arrival introduces the tools. Starting a story is the next step.</h2>
+    <div class="cols">
+      <div class="media" style="display:grid;gap:12px">
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S13.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S13.webp" alt="Brookhaven welcome screen with a large Play button and an Updates panel advertising the Avatar Editor and a Vehicle update" loading="lazy" width="802" height="632"></a><figcaption><b>S13 · Welcome.</b> Big Play button, a live town behind it, and an Updates panel that covers this week's Avatar Editor and vehicle changes.</figcaption></figure>
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S14.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S14.webp" alt="HUD after spawning with temporary arrow labels for Quick Chat, Avatar Editor, Tools, Animations, Vehicle and House" loading="lazy" width="802" height="632"></a><figcaption><b>S14 · First HUD.</b> Temporary labels point to Avatar Editor, Tools, Animations, Vehicle and House, then disappear, leaving the icons.</figcaption></figure>
+      </div>
+      <div class="prose">
+        <p><span class="tag t-obs">Observed</span> The entry sequence works as an introduction: clear Play button, a "what's new" panel, and labels on the main controls. My desk-research guess that weekly updates are hard to discover mostly didn't hold. The welcome screen covers it.</p>
+        <p><span class="tag t-hyp">Hypothesis</span> A new player can see that <i>many things are possible</i> without knowing which action starts <i>their</i> story. The labels name tools ("Vehicle", "House"), but players think in goals ("I want to be a doctor", "I want a family").</p>
+        <p><span class="tag t-pro">Proposed</span> Test light, optional prompts based on what the player wants to do, such as <i>Get a home</i>, <i>Choose a role</i> and <i>Explore town</i>. They should be dismissable straight away, with the normal controls always there. The aim is to help a player act on something they already want, not to push everyone through the same quest.</p>
+        <p><span class="tag t-unr">Boundary</span> This session doesn't show that the current entry flow hurts retention. Measure task completion and comprehension before proposing a bigger onboarding investment.</p>
+        <figure class="shot" style="margin-top:18px"><a href="brookhaven-ux-assets/shots/S15.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S15.webp" alt="Player at a house entrance with an E Ring prompt on the doorbell" loading="lazy" width="802" height="632"></a><figcaption><b>S15 · A world cue.</b> The doorbell shows an <i>E Ring</i> prompt. Not everything is in menus. The plot sign and storefronts also point to actions and places.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="findings" aria-labelledby="findings-title">
+    <p class="num">04 · FINDINGS</p>
+    <h2 id="findings-title">Eight findings: six to investigate, two strengths to keep.</h2>
+    <p class="intro">For each one: what I saw, why it matters to a player, the next step to learn more, and a candidate change with a way to check it worked. Confidence means how strong the evidence is, not how big the problem is.</p>
+
+    <article class="finding" id="f1">
+      <div class="media two">
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S01.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S01.webp" alt="Avatar editor open near a doorway; the preview area shows an obstructed close-up instead of the character" loading="lazy" width="802" height="631"></a><figcaption><b>S01 · Near the doorway.</b> The preview is blocked while the catalog stays usable.</figcaption></figure>
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S02.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S02.webp" alt="Avatar editor reopened in the yard with the character clearly visible" loading="lazy" width="802" height="631"></a><figcaption><b>S02 · In the yard.</b> Same editor, character fully readable.</figcaption></figure>
+      </div>
+      <div>
+        <p class="fno">Finding 1 · Customization</p>
+        <h3>The avatar preview can be blocked near a doorway</h3>
+        <dl>
+          <dt><span class="tag t-obs">Observed</span></dt><dd>Opened near a doorway, the editor showed an extreme close-up that filled the preview. After moving into the yard and reopening it, the character was clear again.</dd>
+          <dt>Why it matters</dt><dd>Customizing depends on seeing the result of a choice. If you can't read the preview, you can select items without knowing what they'll look like. We didn't measure whether players abandon or mis-select because of it.</dd>
+          <dt>Next step</dt><dd>Reproduce it across avatar sizes, positions near doors and walls, camera distances, house types and devices. Find out whether the preview uses the world camera, collides with nearby walls, or keeps a stale camera state. These are possible causes, not conclusions.</dd>
+          <dt><span class="tag t-pro">Candidate fix</span></dt><dd>Compare a dedicated, reliably framed preview scene with a smaller fix that detects the obstruction and reframes. Done when: face, body and the selected change are readable at every tested position, and returning to play is predictable with no disorienting camera jump.</dd>
+        </dl>
+        <div class="meter"><span><b>Confidence:</b> high for the two states</span><span><b>Reach:</b> unknown</span><span><b>Treat as:</b> reliability fix</span></div>
+      </div>
+    </article>
+
+    <article class="finding" id="f2">
+      <div class="media">
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S03.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S03.webp" alt="House browser with a party invitation card covering part of the left navigation arrow" loading="lazy" width="802" height="631"></a><figcaption><b>S03 · Invite over navigation.</b> The house-party card covers part of the browser's left arrow. The inviting player's name is redacted.</figcaption></figure>
+      </div>
+      <div>
+        <p class="fno">Finding 2 · Layout</p>
+        <h3>Notifications overlap active navigation</h3>
+        <dl>
+          <dt><span class="tag t-obs">Observed</span></dt><dd>The invitation stays on screen over the house browser, covering part of its left arrow. The same card stays visible across the job picker, vehicle catalog, profile editor and house saves (S04 to S11). This proves the overlap on this desktop layout. It doesn't prove clicks are blocked or that it happens on every device.</dd>
+          <dt>Why it matters</dt><dd>Invitations are valuable in a social roleplay game. The goal is to protect the task the player is doing while keeping the invite easy to find, not to hide social play.</dd>
+          <dt><span class="tag t-pro">Candidate fix</span></dt><dd>Set placement and priority rules for notifications when a panel is open. Compare a compact card, reserved space, and holding the invite until the player finishes a critical selection. Always keep a way to get back to the invite. Test touch and controller focus as well as the mouse.</dd>
+          <dt>Done when</dt><dd>No actionable notification overlaps critical browser controls on any supported layout, navigation works with every input method, and players still notice and accept invitations at an acceptable rate. Check against the engineering hitboxes, not the screenshot.</dd>
+        </dl>
+        <div class="meter"><span><b>Confidence:</b> high for the overlap</span><span><b>Reach:</b> likely broad, unverified</span><span><b>Treat as:</b> experiment B</span></div>
+      </div>
+    </article>
+
+    <article class="finding" id="f3">
+      <div class="media two">
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S04.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S04.webp" alt="Confirmation dialog: Are you sure? Save house and props? with a green thumbs up and red thumbs down" loading="lazy" width="802" height="631"></a><figcaption><b>S04 · Save confirmation.</b> "Save house and props?" answered with thumbs.</figcaption></figure>
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S06.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S06.webp" alt="RP Name and Info Bio fields with small hand icons and a colour picker" loading="lazy" width="802" height="631"></a><figcaption><b>S06 · Roleplay profile.</b> RP Name and Bio have small icon buttons with no labels.</figcaption></figure>
+      </div>
+      <div>
+        <p class="fno">Finding 3 · Action language</p>
+        <h3>The same icons mean different actions</h3>
+        <dl>
+          <dt><span class="tag t-obs">Observed</span></dt><dd>House Saves uses clear slot labels, then asks "Save house and props?" with thumbs up and down. RP Name and Bio have small icons beside the fields. Doorbell notifications use thumbs too (S10). Party invites, by contrast, say <i>Decline</i> and <i>Teleport</i>. So one family of icons stands for several different actions.</dd>
+          <dt><span class="tag t-hyp">Hypothesis</span></dt><dd>The surrounding text may make this clear to experienced players. Test it rather than assume it's confusing.</dd>
+          <dt><span class="tag t-pro">Candidate fix</span></dt><dd>Use explicit verbs: <i>Save</i> and <i>Cancel</i> on the confirmation, <i>Apply name</i> and <i>Apply bio</i> on the profile. First confirm with engineering when edits actually apply (straight away, on the icon, or on close). Never label something <i>Save</i> if it does something else. Keep the clear words that already work: <i>Save to slot</i>, <i>Empty</i>, <i>Decline</i>, <i>Teleport</i>.</dd>
+          <dt>How to check</dt><dd>Ask players to predict each result before they act, then explain whether their change stuck. Compare correct predictions, accidental commits, reversals and confidence. Pair the text with a distinct symbol so the meaning doesn't rely on colour.</dd>
+        </dl>
+        <div class="meter"><span><b>Confidence:</b> high for the pattern</span><span><b>Impact:</b> to be tested</span><span><b>Treat as:</b> experiment A</span></div>
+      </div>
+    </article>
+
+    <article class="finding" id="f4">
+      <div class="media two">
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S07.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S07.webp" alt="Right-side toolbar expanded into a second column with an ID card, briefcase and other icons" loading="lazy" width="802" height="631"></a><figcaption><b>S07 · Second toolbar.</b> A small chevron opens a column with identity, jobs and more.</figcaption></figure>
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S17.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S17.webp" alt="Job picker grid with labelled roles such as Police, Hospital, Teacher, Bank and S.W.A.T." loading="lazy" width="802" height="631"></a><figcaption><b>S17 · Job picker.</b> Once found, roles are clearly labelled.</figcaption></figure>
+      </div>
+      <div>
+        <p class="fno">Finding 4 · Discoverability</p>
+        <h3>Some controls are hidden past the first toolbar</h3>
+        <dl>
+          <dt><span class="tag t-obs">Observed</span></dt><dd>The main vertical toolbar holds avatar, tools, animations, vehicle and house. A small chevron opens a second column with an identity card and a briefcase that leads to the labelled job picker. The first-run labels cover the main column only and don't stay.</dd>
+          <dt><span class="tag t-hyp">Hypothesis</span></dt><dd>A player thinking "I want to be a doctor" has to link that goal to a briefcase icon, and may first need to find the extra column. Collapsing the column keeps the world view clear and suits experienced players' habits, so there's a trade-off.</dd>
+          <dt><span class="tag t-pro">Options to compare</span></dt><dd>A labelled or more obvious expand control with clear open and closed states. Optional labels for newer players that work on touch and gamepad, not hover-only. A goal-based <i>Choose a role</i> entry point alongside the existing quick toolbar.</dd>
+          <dt>How to check</dt><dd>Start outside the picker and measure whether players find the path unaided, what they try first, which wrong panels they open, and how long until they've picked a role. Run a returning-player task too, so the change doesn't add steps for experienced players.</dd>
+        </dl>
+        <div class="meter"><span><b>Confidence:</b> high for structure</span><span><b>Impact:</b> hypothesis</span></div>
+      </div>
+    </article>
+
+    <article class="finding" id="f5">
+      <div class="media">
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S09.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S09.webp" alt="Vehicle catalog with category icons down the side and a grid of car thumbnails, some with small badges" loading="lazy" width="802" height="631"></a><figcaption><b>S09 · Vehicle catalog.</b> Picking a category changes the grid. Small badges sit on some thumbnails without a legend.</figcaption></figure>
+      </div>
+      <div>
+        <p class="fno">Finding 5 · Catalogs</p>
+        <h3>It's hard to tell what an item is and whether you can have it</h3>
+        <dl>
+          <dt><span class="tag t-obs">What works</span></dt><dd>Scrolling, category filters with clear active states, and switching to Tools that replaces the catalog instead of stacking a second one. Keep these.</dd>
+          <dt><span class="tag t-hyp">What needs research</span></dt><dd>Items are mostly thumbnails with small badges. This session couldn't find a legend for the badges, the access rules or prices. Similar items can be hard to tell apart without a name. Hover, selected category, owned, available and equipped should each look different.</dd>
+          <dt><span class="tag t-pro">Options</span></dt><dd>A short name and availability line, an optional detail preview, and a clear message about access before the player commits. Search only if real search needs justify keeping names and synonyms up to date in every language.</dd>
+          <dt>How to check</dt><dd>Did players pick the item they meant, predict whether they could have it, and recover from a wrong pick? Faster browsing isn't a win if confidence or variety drops. This is also where my desk-research question on clearly separating free and Premium items belongs. A Premium offer appeared, but I couldn't confirm what triggered it.</dd>
+        </dl>
+        <div class="meter"><span><b>Confidence:</b> moderate</span><span><b>Links to:</b> trust in monetization</span></div>
+      </div>
+    </article>
+
+    <article class="finding" id="f6">
+      <div class="media two">
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S05.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S05.webp" alt="House Saves panel with empty slots labelled Save to slot and an Add slot button priced at 40 Robux" loading="lazy" width="802" height="631"></a><figcaption><b>S05 · House Saves.</b> Clear labels: <i>Empty</i>, <i>Save to slot</i>, a priced <i>Add slot</i>.</figcaption></figure>
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S15.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S15.webp" alt="House controls row of similar house-shaped icons with different badges above the player" loading="lazy" width="802" height="632"></a><figcaption><b>S15 · House controls.</b> Several similar house icons with different badges.</figcaption></figure>
+      </div>
+      <div>
+        <p class="fno">Finding 6 · Homes</p>
+        <h3>Owning and saving a home mixes several mental models</h3>
+        <dl>
+          <dt><span class="tag t-obs">Observed</span></dt><dd>The house browser separates <i>Owned</i> and <i>Vacant</i> and offers <i>Go</i>. After creating a home, a <i>Controls House #4</i> button appeared. The journey crosses a physical plot, a browser, travel, choosing a house, ownership controls, customizing, and saving house and props. They're related but separate states.</dd>
+          <dt>Compared with my desk research</dt><dd>Guides disagreed on how you claim a house and warned that saves are manual. The playtest confirms saving is a deliberate step into slots, not an autosave. That's a valid design, and worth checking against what players expect to persist.</dd>
+          <dt>Next step</dt><dd>Ask players to explain <i>where I am</i>, <i>what I own</i>, <i>what I've selected</i> and <i>what will persist</i>. Check the transitions between those states, including cancelling and returning to play. A focused audit of the home journey is more useful than treating each screen as its own task.</dd>
+          <dt><span class="tag t-pro">Done when</span></dt><dd>Ownership and persistence are clearly confirmed, Back and Close behave predictably, and browsing a house is clearly different from committing a change. Check server-side state and loading feedback with engineering.</dd>
+        </dl>
+        <div class="meter"><span><b>Confidence:</b> moderate</span><span><b>Impact:</b> protects player trust</span></div>
+      </div>
+    </article>
+
+    <article class="finding" id="f7">
+      <div class="media two">
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S10.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S10.webp" alt="Player holding a clipboard with a blue-outlined hotbar slot at the bottom of the screen" loading="lazy" width="802" height="631"></a><figcaption><b>S10 · Prop equipped.</b> Blue hotbar outline, the prop in hand. The doorbell sender is redacted.</figcaption></figure>
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S16.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S16.webp" alt="Animations menu with labelled buttons such as Wave, Laugh, Clapping, Cry and Boxing" loading="lazy" width="802" height="632"></a><figcaption><b>S16 · Animations.</b> Readable action names. Wave triggered a response.</figcaption></figure>
+      </div>
+      <div>
+        <p class="fno">Finding 7 · Strength to keep</p>
+        <h3>Prop state and expression give a strong base</h3>
+        <dl>
+          <dt><span class="tag t-obs">Verified sequence</span></dt><dd>Picking the clipboard in Tools added a checkmark and a numbered hotbar slot. Equipping it added a blue outline and put it in the character's hands. Closing the catalog kept it equipped. Picking it again removed it. Animations use clear names, and the avatar editor has a live preview, saved outfits and community outfits with popularity counts.</dd>
+          <dt>Why keep it</dt><dd>Selection, ownership and what the character is holding are tied together by several visible signals. Players can check the state without reopening the catalog, and undoing it is clear. This is a much better base to refine than a blanket verdict that icon-based UI doesn't work.</dd>
+          <dt>Next refinement</dt><dd>Check whether players understand the difference between <i>select</i>, <i>equip</i>, <i>use</i> and <i>remove</i>, and track successful use rather than counting a catalog click as done. Keep the existing feedback, and make sure it works on touch and gamepad.</dd>
+        </dl>
+        <div class="meter"><span><b>Confidence:</b> high</span><span><b>Treat as:</b> pattern to keep</span></div>
+      </div>
+    </article>
+
+    <article class="finding" id="f8">
+      <div class="media two">
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S11.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S11.webp" alt="Job button at the top left of the HUD after choosing a role, with the invitation still visible" loading="lazy" width="802" height="631"></a><figcaption><b>S11 · Role active.</b> A Job button appears, with Take Break and Quit inside.</figcaption></figure>
+        <figure class="shot"><a href="brookhaven-ux-assets/shots/S08.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S08.webp" alt="Settings panel made of unlabeled icons" loading="lazy" width="802" height="631"></a><figcaption><b>S08 · Settings.</b> Icon-only options, a second place where labels would help.</figcaption></figure>
+      </div>
+      <div>
+        <p class="fno">Finding 8 · Social roleplay</p>
+        <h3>Picking a role isn't the same as playing one</h3>
+        <dl>
+          <dt><span class="tag t-obs">Observed</span></dt><dd>Choosing Hospital showed selection feedback, put a role icon over the character, and added a Job button with <i>Take Break</i> and <i>Quit</i>. Family opens <i>My Family</i> with <i>Create a Family</i>.</dd>
+          <dt><span class="tag t-unr">Unresolved</span></dt><dd>What <i>Take Break</i> and <i>Quit</i> do. Joining, inviting and actually roleplaying as a group weren't tested, and neither was finding strangers to play with. My desk research flagged that as the core social problem.</dd>
+          <dt>Research implication</dt><dd>Ask a new player to act out a story idea, then watch whether the matching clothes, prop, place, action and people are easy to find. Don't treat a menu selection or a sent invite as proof that real roleplay happened.</dd>
+          <dt><span class="tag t-pro">Direction to test</span></dt><dd>Lightweight, preset-only roleplay status ("Looking for family", "On duty", "Just driving") and a "join a scene near me" list. Both build on the Party system already shipped. Check them against reports and chat-safety guardrails.</dd>
+        </dl>
+        <div class="meter"><span><b>Confidence:</b> moderate</span><span><b>Opportunity:</b> high</span></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="block" id="concept" aria-labelledby="concept-title">
+    <p class="num">05 · INTERACTIVE CONCEPT</p>
+    <h2 id="concept-title">A UI cleanup concept you can click through.</h2>
+    <p class="intro">This is a working mockup of the direction: a labelled dock organised by player goal (Avatar, Home, Roleplay, Vehicles, People), one task panel at a time, invitations that queue while a panel is open, explicit <i>Save</i> and <i>Cancel</i>, a named world prompt, and a touch layout. It's a starting point for prototype research, not a validated redesign.</p>
+    <div class="concept">
+      <iframe src="brookhaven-ux-assets/concept.html" title="Interactive Brookhaven UI cleanup concept" loading="lazy"></iframe>
+    </div>
+    <p class="concept-note">Try <b>Choose a role</b>, then Props and Equip. Try <b>Save a home</b>, then Save to slot. Switch on <b>Touch layout</b> to see the mobile version. <a href="brookhaven-ux-assets/concept.html" target="_blank" rel="noopener">Open full screen ↗</a>. The background is a crop of S10. Nothing here changes the game, sends messages or makes purchases.</p>
+  </section>
+
+  <section class="block" id="compare" aria-labelledby="compare-title">
+    <p class="num">06 · COMPARING NOTES</p>
+    <h2 id="compare-title">Desk research against the playtest.</h2>
+    <p class="intro">Before playing, I wrote seven hypotheses from public sources. Here's what the session did to each. Two were weakened, which is the point of testing them.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Desk-research hypothesis</th><th>Playtest result</th><th>Where it goes now</th></tr></thead>
+        <tbody>
+          <tr><td>First five minutes lack direction</td><td><span class="tag t-hyp">Partly</span> A welcome screen and temporary labels exist. The gap is connecting goals to tools.</td><td>Optional goal prompts, behind a task-success test</td></tr>
+          <tr><td>The HUD has become crowded</td><td><span class="tag t-obs">Observed</span> Two toolbar columns, a chevron, a top cluster of up to 12 house icons (S15), and a left rail of event, Free and shop buttons.</td><td>Finding 4 and the concept dock</td></tr>
+          <tr><td>House claiming and saving are unclear</td><td><span class="tag t-obs">Observed</span> Saving goes into manual slots with a thumbs confirmation. Extra slots cost 40 Robux.</td><td>Findings 3 and 6</td></tr>
+          <tr><td>Finding roleplay partners is luck</td><td><span class="tag t-unr">Not tested</span> Invites and Family exist. Engaging with strangers wasn't covered.</td><td>Research plan, finding 8</td></tr>
+          <tr><td>Roleplay and chaos players clash</td><td><span class="tag t-unr">Not tested</span> No griefing seen in this short session.</td><td>Safety study with the team's approved process</td></tr>
+          <tr><td>Free and paid aren't separated</td><td><span class="tag t-hyp">Partly</span> Badges have no legend. A Premium offer appeared with an unconfirmed trigger.</td><td>Finding 5</td></tr>
+          <tr><td>Weekly updates are hard to discover</td><td><span class="tag t-obs">Weakened</span> The welcome screen has an Updates panel.</td><td>Dropped from the priority list</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block" id="priority" aria-labelledby="priority-title">
+    <p class="num">07 · ORDER OF WORK</p>
+    <h2 id="priority-title">Start with confidence and reversibility, then update with real data.</h2>
+    <p class="intro">This is a framework for deciding, not a ranked backlog. I don't know the reach, effort or what the team already has in flight, and I won't make up percentages to produce a precise-looking score.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Work item</th><th>Why look at it now</th><th>Decision gate</th></tr></thead>
+        <tbody>
+          <tr><td>Invitation overlap</td><td>A visible layout conflict at a known control</td><td>Reproduce across layouts and confirm the real input impact</td></tr>
+          <tr><td>Avatar preview framing</td><td>Seeing your choice was visibly blocked in one context</td><td>Reproduce, then estimate how many situations and devices it affects</td></tr>
+          <tr><td>Explicit action verbs</td><td>The same icon pattern repeats across save and edit flows</td><td>A comprehension test shows real errors or uncertainty</td></tr>
+          <tr><td>Finding roles and catalog items</td><td>Likely friction between what players want and where to start</td><td>Unaided tasks and funnel data show a real barrier</td></tr>
+          <tr><td>World interaction cues</td><td>The central open question, with little coverage so far</td><td>Audit the objects and watch real players first</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cols" style="margin-top:8px">
+      <div class="card">
+        <h3>Trade-offs I'd raise with the team</h3>
+        <ul>
+          <li>Permanent labels help recognition but take up world space. Compare optional and context-based versions.</li>
+          <li>Holding back an invite protects the current task but can slow down social connection. Keep a way back to it and measure both.</li>
+          <li>Stable avatar framing makes choices easier to judge but removes world context. Test the least disruptive option that's reliable.</li>
+          <li>More world prompts help discovery but can spoil exploration and clutter the scene. Use them selectively.</li>
+        </ul>
+      </div>
+      <div class="card sage">
+        <h3>How I'd avoid a superficial scoring exercise</h3>
+        <p style="font-size:15.5px">Ask which player goal is blocked, how often it happens, who it affects, how strong the evidence is, and what it costs to learn more or change it. A small issue that reaches many players can outrank a dramatic edge case. A severe blocker can justify investigating before reach is known. Agree on the launch decision and the rollback condition before building anything.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="research" aria-labelledby="research-title">
+    <p class="num">08 · PLAYER RESEARCH PLAN</p>
+    <h2 id="research-title">A focused round that answers the open questions.</h2>
+    <div class="steps">
+      <div class="step"><span class="when">Stage 1</span><b>Establish player goals</b><p>Review onboarding and retention segments, past research, support themes and community feedback with the team. Which conventions are meant to be learned from other players? What does healthy play look like?</p></div>
+      <div class="step"><span class="when">Stage 2</span><b>Run 6 to 8 sessions</b><p>Mix new and experienced players across input types, with a verified new account for the first-time sample. This round is exploratory: it finds the mechanisms, it doesn't estimate how common they are.</p></div>
+      <div class="step"><span class="when">Stage 3</span><b>Turn it into decisions</b><p>Code each session by task, first route, interpretation, confusion, help needed, result and recovery. Write each change as a statement that could be proven wrong, and say what evidence would keep the current design.</p></div>
+    </div>
+    <h3>Tasks, worded so they don't give away the answer</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Task</th><th>Prompt</th><th>What it tells us</th></tr></thead>
+        <tbody>
+          <tr><td>Open exploration</td><td>"What would you like to do here? Show me how you'd start."</td><td>The player's chosen goal, with no hints</td></tr>
+          <tr><td>Role</td><td>"You want to act out working at a hospital. Show me how you'd get ready."</td><td>Whether they find the toolbar and briefcase without being told</td></tr>
+          <tr><td>World object</td><td>A real supported action on a fixture checked in advance</td><td>Noticing, predicting, doing and exiting, scored separately</td></tr>
+          <tr><td>Persistence</td><td>"Set up a house the way you'd want to find it later."</td><td>What players think will be saved</td></tr>
+          <tr><td>Recovery</td><td>Make a deliberate wrong choice, then get back</td><td>Whether undoing is easy to find</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>World interaction study</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Object sample</th><th>What to observe</th><th>Evidence of success</th></tr></thead>
+        <tbody>
+          <tr><td>Door and doorbell</td><td>Approach distance, line of sight, whether the prompt is understood</td><td>The intended action happens and the player can explain it</td></tr>
+          <tr><td>Chair or bed</td><td>Visual cues, cursor or proximity cue, finding the exit</td><td>Gets in and out of the intended state</td></tr>
+          <tr><td>Appliance or fixture</td><td>Telling decoration from a usable object</td><td>Predicts the result before trying</td></tr>
+          <tr><td>Shop or public service</td><td>Linking a roleplay goal to a world action</td><td>Completes it without a menu hint</td></tr>
+          <tr><td>Plot sign or vehicle</td><td>Understanding ownership, availability and the next step</td><td>Explains the state and recovers from a wrong choice</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="prose" style="font-size:15.5px;color:var(--muted)">Many players are children, so recruitment, consent and safeguarding go through the team's approved process. Collect only what the research question needs, and never guess a participant's needs from their avatar.</p>
+  </section>
+
+  <section class="block" id="measure" aria-labelledby="measure-title">
+    <p class="num">09 · MEASUREMENT</p>
+    <h2 id="measure-title">Measure completion, not clicks.</h2>
+    <p class="intro">These instruments are proposals; I haven't seen Brookhaven's analytics. Roblox funnels separate one-time onboarding from recurring flows. Any events should go into the existing schema, not a competing one.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Outcome</th><th>Proposed definition</th><th>Caveat</th></tr></thead>
+        <tbody>
+          <tr><td>Unaided task success</td><td>Intended task completed without a moderator hint ÷ attempts</td><td>Define where tasks and attempts start and end before testing</td></tr>
+          <tr><td>First-action comprehension</td><td>Correct prediction before acting ÷ predictions collected</td><td>A research measure. Click logs can't capture it</td></tr>
+          <tr><td>Time to first meaningful activity</td><td>From spawning with control to a predefined goal being reached</td><td>Accept several valid goals; don't force one path</td></tr>
+          <tr><td>Catalog to successful use</td><td>Successful use ÷ eligible catalog sessions</td><td>Selecting and equipping are only intermediate states</td></tr>
+          <tr><td>Recovery success</td><td>Back to the intended state after a wrong choice ÷ attempts</td><td>Separate deliberate exploration from mistakes</td></tr>
+          <tr><td>Return behaviour</td><td>D1 or D7 return for a comparable new-player cohort</td><td>A later outcome; allow for acquisition and release effects</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cols">
+      <div class="card">
+        <h3>Proposed event names</h3>
+        <p style="font-size:15.5px"><code>ui_panel_opened</code> with panel and entry point · <code>catalog_item_selected</code> with category and access state · <code>prop_equipped</code> / <code>prop_removed</code> · <code>world_prompt_shown</code> / <code>world_action_completed</code> with object class and action · <code>house_save_confirmed</code> / <code>house_save_cancelled</code> · <code>notification_shown</code> with type and active panel.</p>
+      </div>
+      <div class="card sage">
+        <h3>Data hygiene</h3>
+        <ul>
+          <li>Stable IDs and an attempt ID for repeatable tasks. Input type, layout bucket, version, and new vs returning.</li>
+          <li>Never send RP Name, Bio, chat text or unnecessary personal data.</li>
+          <li>Check event order, duplicates, missing completions and the right denominators before reading a funnel.</li>
+          <li>A prompt being shown isn't the same as a prompt being noticed.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experiments" aria-labelledby="exp-title">
+    <p class="num">10 · EXPERIMENTS AND SAFE DELIVERY</p>
+    <h2 id="exp-title">Small, measurable, and easy to roll back.</h2>
+    <div class="steps">
+      <div class="step"><span class="when">Experiment A</span><b>Action verbs</b><p><b>Hypothesis:</b> Save and Cancel labels improve prediction and reduce accidental confirmations compared with thumbs. Prototype first, then go live if needed. Keep order, size and layout fixed so only the wording changes. <b>Guardrails:</b> task completion, access to Cancel, speed for returning players, fit in other languages.</p></div>
+      <div class="step"><span class="when">Experiment B</span><b>Invitation placement</b><p><b>Hypothesis:</b> moving notifications out of the browser's navigation improves navigation success without hurting invite recognition. Reproduce the overlap with QA first. <b>Guardrails:</b> invites noticed, retrieved and answered, and later social activity. Don't push invite clicks at the expense of deliberate play.</p></div>
+      <div class="step"><span class="when">Reliability fix</span><b>Preview framing</b><p>Once reproduced, a blocked avatar preview is a defect, not an A/B test of a known broken state. Use a test matrix that gives the same result every time, a canary or staged release, camera and performance checks, and monitoring of selection and exit paths.</p></div>
+    </div>
+    <p class="prose" style="margin-top:22px;font-size:15.5px;color:var(--muted)"><b style="color:var(--ink)">Experiment hygiene:</b> agree on the unit of randomization and allow for spillover, because players share servers and teach each other. Work out sample size with the analyst from baseline rates and the smallest effect worth acting on. Set stopping, rollout and rollback rules before launch. This walkthrough doesn't justify any sample size or predicted uplift.</p>
+  </section>
+
+  <section class="block" id="access" aria-labelledby="access-title">
+    <p class="num">11 · ACCESSIBILITY AND INPUT</p>
+    <h2 id="access-title">Questions to test, not verdicts.</h2>
+    <p class="intro">Small labels, translucent panels, icon-only meaning and overlapping controls all raise questions. I didn't measure contrast, touch-target sizes or controller focus paths, so I'm not calling anything inaccessible.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Dimension</th><th>Review requirement</th><th>Evidence to collect</th></tr></thead>
+        <tbody>
+          <tr><td>Input</td><td>Keyboard and mouse, touch, gamepad</td><td>Same action, a cue players understand, an exit they can reach</td></tr>
+          <tr><td>Layout</td><td>Small and large screens, every supported orientation</td><td>No critical overlaps or clipped content</td></tr>
+          <tr><td>Vision</td><td>Text size, contrast, colour meaning</td><td>Actions understood without relying on colour</td></tr>
+          <tr><td>Camera and motion</td><td>Nearby walls and objects, zoom, reduced-motion settings</td><td>A usable preview and a stable return to play</td></tr>
+          <tr><td>Language</td><td>Longer translated labels, unfamiliar terms</td><td>Layout stays readable and players still predict actions correctly</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cols">
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S12.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S12.webp" alt="Roblox platform Help screen listing avatar controls, accessories and miscellaneous shortcuts" loading="lazy" width="802" height="631"></a><figcaption><b>S12 · Roblox platform Help.</b> A different owner from Brookhaven's own menus.</figcaption></figure>
+      <div class="prose">
+        <h3 style="margin-top:0">Who owns what matters</h3>
+        <p>Players experience the Roblox platform menus and Brookhaven's own controls as one interface, but the team can only change one of them. Each proposal here names the system that owns it and an intervention the team can realistically make.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="plan" aria-labelledby="plan-title">
+    <p class="num">12 · HOW I'D START</p>
+    <h2 id="plan-title">A first month, and the questions I'd bring.</h2>
+    <div class="steps">
+      <div class="step"><span class="when">Week 1</span><b>Understand the evidence that already exists</b><p>Meet product, design, engineering, analytics, research, QA and community. Review player goals, the roadmap, past studies, the event schema, support themes and release history. Replay these observations together and mark what's already known or in progress.</p></div>
+      <div class="step"><span class="when">Weeks 2–3</span><b>Reduce the biggest uncertainty</b><p>Run the new and experienced player round, complete the world-object audit, and reproduce the camera and layout issues across the supported devices. Prototype one small wording or notification change. Confirm baselines and data quality.</p></div>
+      <div class="step"><span class="when">Week 4</span><b>Decide with the team</b><p>Bring the evidence, the counter-evidence, the trade-offs and a proposed order. Ship one narrowly scoped, verified fix or run the smallest useful experiment, with a monitoring plan and a review date.</p></div>
+    </div>
+    <div class="card" style="margin-top:22px">
+      <h3>Questions for the team</h3>
+      <ul>
+        <li>What counts as a successful first Brookhaven session, and does it change with player intent or acquisition source?</li>
+        <li>Which conventions are meant to be learned from other players, and where do you want explicit guidance?</li>
+        <li>What does current research show about new players compared with experienced roleplayers?</li>
+        <li>Which devices and inputs matter most for UX work right now?</li>
+        <li>How do you balance live updates, reliability fixes, monetization and longer-term UX?</li>
+        <li>How do you measure social play beyond invite clicks or session length?</li>
+        <li>Which of these observations are already known, intentional, or being changed?</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" id="evidence" aria-labelledby="evidence-title">
+    <p class="num">13 · EVIDENCE REGISTER</p>
+    <h2 id="evidence-title">Every captured state, for checking crops against context.</h2>
+    <p class="intro">Each image opens full size. Grey blocks cover other players' names and avatars. The six recordings (V01 to V06, about 31 minutes) contain other players' activity and account names, so they aren't published here. I can walk through them on a call.</p>
+    <div class="gallery">
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S01.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S01.webp" alt="S01 avatar preview blocked near doorway" loading="lazy" width="802" height="631"></a><figcaption><b>S01</b> Preview blocked near the doorway</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S02.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S02.webp" alt="S02 avatar preview clear in yard" loading="lazy" width="802" height="631"></a><figcaption><b>S02</b> Clear preview in the yard</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S03.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S03.webp" alt="S03 invite overlapping house browser" loading="lazy" width="802" height="631"></a><figcaption><b>S03</b> Invite overlapping navigation</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S04.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S04.webp" alt="S04 house save confirmation" loading="lazy" width="802" height="631"></a><figcaption><b>S04</b> Save confirmation with thumbs</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S05.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S05.webp" alt="S05 house saves slots" loading="lazy" width="802" height="631"></a><figcaption><b>S05</b> House Saves slots</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S06.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S06.webp" alt="S06 RP name and bio" loading="lazy" width="802" height="631"></a><figcaption><b>S06</b> RP Name and Bio</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S07.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S07.webp" alt="S07 secondary toolbar" loading="lazy" width="802" height="631"></a><figcaption><b>S07</b> Expanded second toolbar</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S08.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S08.webp" alt="S08 settings icons" loading="lazy" width="802" height="631"></a><figcaption><b>S08</b> Settings icons</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S09.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S09.webp" alt="S09 vehicle catalog" loading="lazy" width="802" height="631"></a><figcaption><b>S09</b> Vehicle catalog</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S10.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S10.webp" alt="S10 equipped clipboard" loading="lazy" width="802" height="631"></a><figcaption><b>S10</b> Prop equipped, hotbar feedback</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S11.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S11.webp" alt="S11 job state" loading="lazy" width="802" height="631"></a><figcaption><b>S11</b> Job state and persistent invite</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S12.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S12.webp" alt="S12 Roblox help" loading="lazy" width="802" height="631"></a><figcaption><b>S12</b> Roblox platform Help</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S13.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S13.webp" alt="S13 welcome screen" loading="lazy" width="802" height="632"></a><figcaption><b>S13</b> Welcome screen (V03 00:25)</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S14.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S14.webp" alt="S14 initial HUD labels" loading="lazy" width="802" height="632"></a><figcaption><b>S14</b> First-run labels (V03 00:30)</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S15.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S15.webp" alt="S15 E Ring prompt" loading="lazy" width="802" height="632"></a><figcaption><b>S15</b> E Ring prompt (V05 02:45)</figcaption></figure>
+      <figure class="shot"><a href="brookhaven-ux-assets/shots/S16.webp" target="_blank" rel="noopener"><img src="brookhaven-ux-assets/shots/S16.webp" alt="S16 animations" loading="lazy" width="802" height="632"></a><figcaption><b>S16</b> Labelled animations (V05 03:45)</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="block" id="refs" aria-labelledby="refs-title">
+    <p class="num">14 · REFERENCES</p>
+    <h2 id="refs-title">Sources, consulted 4 November 2026.</h2>
+    <div class="cols">
+      <div>
+        <h3 style="margin-top:0">Roblox Creator Hub</h3>
+        <ul class="refs">
+          <li><a href="https://create.roblox.com/docs/ui/proximity-prompts" target="_blank" rel="noopener">Proximity prompts</a>: cues for object, action and input across devices</li>
+          <li><a href="https://create.roblox.com/docs/input" target="_blank" rel="noopener">Input</a>: covering every input method and adapting to the primary one</li>
+          <li><a href="https://create.roblox.com/docs/production/publishing/accessibility" target="_blank" rel="noopener">Accessibility guidelines</a>: readability, contrast, backup cues, player preferences</li>
+          <li><a href="https://create.roblox.com/docs/production/analytics/funnel-events" target="_blank" rel="noopener">Funnel events</a>: onboarding vs recurring funnels</li>
+          <li><a href="https://create.roblox.com/docs/production/analytics/retention" target="_blank" rel="noopener">Retention</a>: cohort-based return analysis</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-top:0">Context</h3>
+        <ul class="refs">
+          <li><a href="https://www.roblox.com/games/4924922222/Brookhaven-RP" target="_blank" rel="noopener">Brookhaven RP on Roblox</a></li>
+          <li><a href="https://brookhaven.fandom.com/wiki/Changelog" target="_blank" rel="noopener">Brookhaven changelog (fan wiki)</a></li>
+          <li><a href="https://games.gg/brookhaven-rp/guides/brookhaven-rp-update-history-every-major-recent-change/" target="_blank" rel="noopener">Update history 2025–26 (games.gg)</a></li>
+          <li><a href="https://rowatcher.com/news/brookhaven-rp-12-million-concurrent-players-record" target="_blank" rel="noopener">Concurrent player record (RoWatcher)</a></li>
+          <li><a href="https://rowatcher.com/news/brookhaven-vs-berry-avenue-vs-lifetogether-the-2026-roleplay-showdown" target="_blank" rel="noopener">Roleplay competitor comparison (RoWatcher)</a></li>
+          <li><a href="https://www.commonsensemedia.org/website-reviews/brookhaven-rp/" target="_blank" rel="noopener">Common Sense Media parents' guide</a></li>
+        </ul>
+        <p style="font-size:14px;color:var(--muted)">Player numbers come from public trackers, not from Roblox or Voldex, and are approximate.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<section class="close" aria-labelledby="close-title">
+  <div class="wrap">
+    <p class="eyebrow">Thanks for reading</p>
+    <h2 id="close-title">Specific evidence, an honest boundary, and a small next step we can measure.</h2>
+    <p class="lede">I'd like to go through these observations with the team and find out which ones you already know about.</p>
+    <div class="actions">
+      <button type="button" class="btn btn-primary" data-reveal-email aria-label="Reveal email address">Reveal email ↗</button>
+      <a class="btn" href="https://www.linkedin.com/in/remicouture/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn" href="portfolio.html">Full portfolio ↗</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><footer>Guillaume (Rémi) Couture · UX and UI designer for games · Montreal, Eastern Time. Brookhaven, Roblox and all game imagery belong to their owners. This review was made independently for a job conversation and is not affiliated with or endorsed by Voldex or Roblox Corporation.</footer></div>
+</body>
+</html>
